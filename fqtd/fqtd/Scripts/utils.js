@@ -199,6 +199,11 @@ var FQTD = (function () {
             $("#map").html("<p style='text-align:center'>Thông tin tìm kiếm hiện chưa cập nhật. Vui lòng tìm lại sau.</p>");
             FQTD.displayMap();
         },
+        yesRecord: function () {
+            $("#map").html("<div id='googleMap'></div><div class='btn_more'><a class='button' id='btn_xemthemMap'>Xem thêm</a></div>");
+            $("#list").html("<div id='subList'></div><div class='btn_more'><div id='pagination' class='pagination'></div></div>");
+            FQTD.displayMap();
+        },
         pageselectCallback: function (page_index, jq) {
             // Get number of elements per pagionation page from form
             var items_per_page = 5
@@ -247,7 +252,6 @@ var FQTD = (function () {
                 }
             }
             urlResult += "&vn0_en1=0";
-            console.log(urlResult)
             var result = $.getJSON(urlResult, null, function (items) {
                 //alert(items);
                 for (var i = 0; i < items.length; i++) {
@@ -259,11 +263,10 @@ var FQTD = (function () {
                                      + '<li id="bus" onclick=\"FQTD.calcRoute(' + items[i].Latitude + ',' + items[i].Longitude + ',\'bus\',' + $("#form").val() + ')\"></li>'
                                      + '<li id="walk" onclick=\"FQTD.calcRoute(' + items[i].Latitude + ',' + items[i].Longitude + ',\'walk\',' + $("#form").val() + ')\"></li></ul>'
                                      + '<div id="linkview"><a href="/detail/' + isEmpty(items[i].ItemID) + '" target="_blank">Xem chi tiết</a></div><div id="space"></div>';
-                        locations.push([items[i].Latitude, items[i].Longitude, contentmarker, isEmpty(items[i].ItemName), isEmpty(items[i].FullAddress), isEmpty(items[i].Phone), isEmpty(items[i].Logo), isEmpty(items[i].ItemID), 0, isEmpty(items[i].MarkerIcon)]);
+                        locations.push([items[i].Latitude, items[i].Longitude, contentmarker, isEmpty(items[i].ItemName), isEmpty(items[i].FullAddress), isEmpty(items[i].Phone), isEmpty(items[i].Logo), isEmpty(items[i].ItemID), 0, isEmpty(items[i].MarkerIcon)]);                        
                     }
                 }
-            });
-
+            });           
             result.complete(function () {
                 FQTD.BindData()
                 //set back link               
@@ -271,8 +274,8 @@ var FQTD = (function () {
             });
         },
         BindData: function () {
-
             if (locations.length > 0) {
+                FQTD.yesRecord()
                 if ($("#form").val() == "1") {
                     var address = decrypt($("#address").val());
                     var geocoder = new google.maps.Geocoder();
@@ -286,7 +289,7 @@ var FQTD = (function () {
                                 FQTD.SortArray()
 
                                 //bind marker to map
-                                FQTD.SetupMap(myplace, locations, 12, 0);
+                                FQTD.SetupMap(myplace, locations, 12, $("#form").val());
 
                             } else {
                                 alert("Geocode không hoạt động vì lí do sau : " + status);
@@ -299,7 +302,7 @@ var FQTD = (function () {
                 else {
                     if (navigator.geolocation) {
                         // Get current position
-                        navigator.geolocation.getCurrentPosition(function (position, status) {
+                        navigator.geolocation.getCurrentPosition(function (position, status) {                            
                             var geocoder = new google.maps.Geocoder();
                             myplace = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
@@ -307,7 +310,7 @@ var FQTD = (function () {
                             FQTD.SortArray()
 
                             //bind marker to map
-                            FQTD.SetupMap(myplace, locations, 12, 1);
+                            FQTD.SetupMap(myplace, locations, 12, $("#form").val());
                         });
                     }
                     else {
@@ -319,26 +322,28 @@ var FQTD = (function () {
                         FQTD.SortArray()
 
                         //bind marker to map
-                        FQTD.SetupMap(myplace, locations, 6, 1);
+                        FQTD.SetupMap(myplace, locations, 6, $("#form").val());
                     };
+                    
                     //set list display first
                     FQTD.displayMap()
+                    
                 }
-                FQTD.Pagination()
+                FQTD.Pagination()                
                 FQTD.MoveFooter()
             }
             else {
                 FQTD.noRecord()
             }
         },
-        SetupMap: function (myplace, listMarker, zoom, type) {
-            if (type == 1) {
+        SetupMap: function (myplace, listMarker, zoom, type) {            
+            if (type == 0) {
                 //set if 1st place will not display in map view
                 var compareDistance = return_Distance(myplace, new google.maps.LatLng(listMarker[0][0], listMarker[0][1]));
                 if (compareDistance > 17639) {
                     myplace = new google.maps.LatLng(listMarker[0][0], listMarker[0][1]);
                 }
-
+               
                 //set map
                 var mapProp = {
                     center: myplace,
@@ -346,7 +351,7 @@ var FQTD = (function () {
                     disableDefaultUI: true,
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 };
-                map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+                map = new google.maps.Map(document.getElementById("googleMap"), mapProp);                
             }
             else {
                 //get range value
@@ -371,7 +376,7 @@ var FQTD = (function () {
                 myCity.setMap(map);
 
                 map.fitBounds(myCity.getBounds());
-                FQTD.markOutLocation(myplace.lat(), myplace.lng(), map, "<p class='currentplace'>Bạn đang ở đây.</p>", '/images/home.png');
+                FQTD.markOutLocation(myplace.lat(), myplace.lng(), map, "<p class='currentplace'>Bạn đang ở đây.</p>", '/images/home.png');                
             }
 
             //set direction
@@ -536,7 +541,7 @@ var FQTD = (function () {
                 var checkbox = $(this).find("input:checkbox:first");
                 arr.push(checkbox[0].id)
             })
-
+            
             FQTD.GetJSON(arr)
         },
         ResetData: function () {
@@ -628,24 +633,33 @@ var FQTD = (function () {
             FQTD.BindSelectCategory()
             FQTD.BindSelectBrand()
 
-            function GetBrandByCategory() {
-                var siteurl = "/admin/brand/BrandsByCategory";
-                var categoryVal = $('#category').val();
-                var data = '?id=' + categoryVal;
-                $("#brand").empty();
-                //alert(siteurl+' '+data);               
-                $.getJSON(siteurl + data, null, function (brands) {
-                    $("#brand").append('<option value="-1">Tất cả</option>');
-                    for (i in brands) {
-                        brand = brands[i];
-                        $("#brand").append('<option value="' + brand.BrandID + '">' + brand.BrandName + '</option>');;
+            //set autocomplete
+            $("#category").combobox({
+                select: function (event, ui) {                    
+                    var id = ui.item.value;
+                    if (id > 0) {
+                        //Fill brand selectbox
+                        var siteurl = "/admin/brand/BrandsByCategory";
+                        var data = '?id=' + id;
+                        $("#brand").empty();
+                        //alert(siteurl+' '+data);               
+                        var result = $.getJSON(siteurl + data, null, function (brands) {
+                            $("#brand").append('<option value="-1" selected>Tất cả</option>');
+                            for (i in brands) {
+                                brand = brands[i];
+                                $("#brand").append('<option value="' + brand.BrandID + '">' + brand.BrandName + '</option>');;
+                            }
+                        });
+                        result.complete(function () {
+                            //set autocomplete           
+                            $("#brand").attr("data-required", "false")
+                            $("#brand").combobox();
+                        });
                     }
-                });
-            }
-
-            //Cascade select box Category
-            $('#category').change(GetBrandByCategory);
-
+                }
+            });
+            $("#brand").combobox();
+            
             FQTD.SetupWatermarkValidationHomepage()
             FQTD.BindTooltip()
             FQTD.GetCurrentPositionAddress()
@@ -694,7 +708,6 @@ var FQTD = (function () {
                 if (object != null) {
                     //bind data to item detail
                     if (object.ItemDetail[0] != null) {
-                        console.log(object.BrandLogo)
                         $("#brandlogo").attr('src', object.BrandLogo)
                         $("#brandname").html(object.ItemDetail[0].BrandName)
                         $("#branddescription").html(object.ItemDetail[0].Description)

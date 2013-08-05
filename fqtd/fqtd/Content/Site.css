@@ -8,7 +8,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: Tahoma;
+    font-family: Tahoma,Verdana,Arial,sans-serif;
     font-size: 10pt;
     color: #606060;
     background: #ffffff;
@@ -219,7 +219,7 @@ body {
 }
 
 #range {
-    width: 140px;
+    width: 125px;
     height: 34px;
     border: #bababa 1px solid;
     color: #606060;
@@ -479,18 +479,14 @@ input {
     height: 100%;
 }
 
-#gioithieuchung {
-    margin-top: 60px;
+#gioithieuchung h1 {
+    color: #d01b12;
 }
 
-    #gioithieuchung h1 {
-        color: #d01b12;
-    }
-
-    #gioithieuchung p {
-        color: #606060;
-        margin-top: 20px;
-    }
+#gioithieuchung p {
+    color: #606060;
+    margin-top: 20px;
+}
 
 #tendiadiem {
     margin-top: 25px;
@@ -745,7 +741,7 @@ input {
 
 #content_subdetail {
     width: 960px;
-    margin: 0 auto;
+    margin: 22px auto;
 }
 
 .whiteline {
@@ -890,6 +886,11 @@ input {
 #titleproperty {
     margin-bottom: 11px;
 }
+
+    #titleproperty p {
+        font-family: utm_bebasregular;
+        font-size: 18px;
+    }
 
 #hrfClose, #hrfOpen {
     height: 49px;
@@ -1210,6 +1211,39 @@ body:after {
             filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
             opacity: 1;
         }
+
+/*auto complete select box*/
+.custom-combobox {
+    position: relative;
+    display: inline-block;
+}
+
+.custom-combobox-toggle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-left: -1px;
+    padding: 0;
+    /* support: IE7 */
+    *height: 1.7em;
+    *top: 0.1em;
+}
+
+.custom-combobox-input {
+    margin: 0;
+    width: 152px;
+}
+
+.ui-icon {
+    width: 16px !important;
+    height: 26px !important;
+    background-position: -64px -10px !important;
+}
+
+.ui-widget {
+    font-family: Tahoma, Verdana, Arial, sans-serif !important;
+    font-size: 10pt !important;
+}
 
 /*font face*/
 @font-face {
