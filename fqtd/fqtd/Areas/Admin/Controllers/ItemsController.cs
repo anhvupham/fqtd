@@ -24,7 +24,7 @@ namespace fqtd.Areas.Admin.Controllers
 
         //
         // GET: /Admin/Items/
-
+        [Authorize]
         public ActionResult Index(string keyword = "", int? CategoryID = null, int? BrandID = null, int page = 1)
         {
             var result = from a in db.BrandItems where (a.ItemName.Contains(keyword) || a.ItemName_EN.Contains(keyword)) select a;
@@ -41,15 +41,19 @@ namespace fqtd.Areas.Admin.Controllers
             ViewBag.CurrentBrandID = BrandID;
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
             ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName");
-            
 
+
+            TempData["CategoryID"] = CategoryID;
+            TempData["BrandID"] = BrandID;
+            TempData["CurrentKeyword"] = keyword;
+            TempData["CurrentPage"] = page;
             return View(result.ToPagedList(currentPage, maxRecords));
         }
 
 
         //
         // GET: /Admin/Items/Details/5
-
+        [Authorize]
         public ActionResult Details(int id = 0)
         {
             BrandItems branditems = db.BrandItems.Find(id);
@@ -62,7 +66,7 @@ namespace fqtd.Areas.Admin.Controllers
 
         //
         // GET: /Admin/Items/Create
-
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName");
@@ -71,7 +75,7 @@ namespace fqtd.Areas.Admin.Controllers
 
         //
         // POST: /Admin/Items/Create
-
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(BrandItems branditems, HttpPostedFileBase icon)
@@ -98,7 +102,7 @@ namespace fqtd.Areas.Admin.Controllers
                     db.Entry(branditems).State = EntityState.Modified;
                     db.SaveChanges();
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] });
             }
 
             ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName", branditems.BrandID);
@@ -107,7 +111,7 @@ namespace fqtd.Areas.Admin.Controllers
 
         //
         // GET: /Admin/Items/Edit/5
-
+        [Authorize]
         public ActionResult Edit(int id = 0)
         {
             BrandItems branditems = db.BrandItems.Find(id);
@@ -121,7 +125,7 @@ namespace fqtd.Areas.Admin.Controllers
 
         //
         // POST: /Admin/Items/Edit/5
-
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(BrandItems branditems, HttpPostedFileBase icon)
@@ -153,7 +157,7 @@ namespace fqtd.Areas.Admin.Controllers
                     db.Entry(branditems).State = EntityState.Modified;
                     db.SaveChanges();
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] });
             }
             ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName", branditems.BrandID);
             return View(branditems);
@@ -161,7 +165,7 @@ namespace fqtd.Areas.Admin.Controllers
 
         //
         // GET: /Admin/Items/Delete/5
-
+        [Authorize]
         public ActionResult Delete(int id = 0)
         {
             BrandItems branditems = db.BrandItems.Find(id);
@@ -172,7 +176,7 @@ namespace fqtd.Areas.Admin.Controllers
             return View(branditems);
         }
 
-
+        [Authorize]
         public ViewResult ImageList(int id)
         {
             BrandItems item = db.BrandItems.Find(id);
@@ -196,7 +200,7 @@ namespace fqtd.Areas.Admin.Controllers
             return View(item);
         }
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public ActionResult AddImages(int id, HttpPostedFileBase file)
         {
             var item = db.BrandItems.Find(id);
@@ -219,7 +223,7 @@ namespace fqtd.Areas.Admin.Controllers
 
         //
         // POST: /Admin/Items/Delete/5
-
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -227,9 +231,9 @@ namespace fqtd.Areas.Admin.Controllers
             BrandItems branditems = db.BrandItems.Find(id);
             db.BrandItems.Remove(branditems);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] });
         }
-
+        [Authorize]
         public ActionResult KeywordBuilder(int itemid = 0)
         {
             var xxx = from i in db.BrandItems
@@ -243,6 +247,8 @@ namespace fqtd.Areas.Admin.Controllers
                           i.tbl_Brands.BrandName_EN,
                           i.tbl_Brands.tbl_Categories.CategoryName,
                           i.tbl_Brands.tbl_Categories.CategoryName_EN,
+                          BrandKeyword=i.tbl_Brands.Keyword_Unsign,
+                          CategoryKeyword=i.tbl_Brands.tbl_Categories.Keyword_Unsign,
                           i.FullAddress,
                           i.Street,
                           i.District,
@@ -257,6 +263,22 @@ namespace fqtd.Areas.Admin.Controllers
                 keyword_us = "";
                 var list = db.SP_GetKeyword1(item.Street, item.District, item.City);
                 var temp = list.ToList();
+                keyword += ";" + item.FullAddress;
+                keyword += ";" + item.ItemName_EN;
+                keyword += ";" + item.BrandName;
+                keyword += ";" + (item.BrandName_EN==null?"":item.BrandName_EN);
+                keyword += ";" + item.CategoryName;
+                keyword += ";" + item.CategoryName_EN;
+
+                keyword_us += ";" + StripDiacritics(item.FullAddress);
+                keyword_us += ";" + StripDiacritics(item.ItemName_EN);
+                keyword_us += ";" + StripDiacritics(item.BrandName);
+                keyword_us += ";" + StripDiacritics(item.BrandName_EN);
+                keyword_us += ";" + StripDiacritics(item.CategoryName);
+                keyword_us += ";" + StripDiacritics(item.CategoryName_EN);
+                keyword_us += ";" + StripDiacritics(item.CategoryKeyword);
+                keyword_us += ";" + StripDiacritics(item.BrandKeyword);
+
                 if (temp.Where(a => a.type == 1).ToList().Count == 0)
                 {
                     keyword = keyword + ";" + item.BrandName + " " + item.Street;
@@ -338,23 +360,36 @@ namespace fqtd.Areas.Admin.Controllers
 
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
             ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName");
-            return RedirectToAction("index", "items");
+            return RedirectToAction("index", "items", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] });
         }
 
         public static string StripDiacritics(string accented)
         {
+            if (accented == null) return "";
             Regex regex = new Regex("\\p{IsCombiningDiacriticalMarks}+");
 
             string strFormD = accented.Normalize(NormalizationForm.FormD);
             return regex.Replace(strFormD, String.Empty).Replace('\u0111', 'd').Replace('\u0110', 'D');
         }
-
+        [Authorize]
         public ActionResult ItemProperties(int id = 0)
         {
             var result = db.SP_Item_Properties(id);
+            if (result == null || result.Where(a => a.PropertyValue).Count() == 0)
+            {
+                ViewBag.ItemP_HasValue = false;
+                var item = db.BrandItems.Find(id);
+                if (item != null)
+                {
+                    var brandProperties = db.SP_Brand_Properties(item.BrandID);
+                    ViewBag.BrandProperties = brandProperties;
+                }
+            }
+            else ViewBag.ItemP_HasValue = true;
             TempData["ItemID"] = id;
-            return View(result);
+            return View(db.SP_Item_Properties(id));
         }
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ItemProperties(string[] MyCheckList)
@@ -387,7 +422,7 @@ namespace fqtd.Areas.Admin.Controllers
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
             ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName");
-            return RedirectToAction("index", "items");
+            return RedirectToAction("index", "items", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] });
         }
         protected override void Dispose(bool disposing)
         {

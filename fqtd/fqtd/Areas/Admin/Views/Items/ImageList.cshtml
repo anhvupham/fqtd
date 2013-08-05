@@ -16,7 +16,7 @@
         }
     </fieldset>
     <div>
-        @Html.ActionLink("Trở về danh sách", "Index")
+        @Html.ActionLink("Trở về danh sách", "Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] })
     </div>
 
     <table width="100%" style="">

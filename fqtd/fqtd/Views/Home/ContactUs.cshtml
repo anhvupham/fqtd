@@ -7,60 +7,66 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+    @Html.ValidationSummary(true)    
 
     <div id="content_subdetail">
         <div id="noidungchinh">
             <h1>Liên hệ</h1>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            <p>Thông tin đang câp nhật.</p>
 
             <div id="lienhe_form">
-                <div class="contactrow">
-                    <div class="contactleft"><strong>@Html.LabelFor(model => model.CustomerName)</strong></div>
-                    <div class="contactright">@Html.EditorFor(model => model.CustomerName)
-                        @Html.ValidationMessageFor(model => model.CustomerName)
+                <form id="form1">
+                    <div class="contactrow">
+                        <div class="contactleft"><strong>Họ tên</strong></div>
+                        <div class="contactright">@Html.EditorFor(model => model.CustomerName)
+                            @Html.ValidationMessageFor(model => model.CustomerName)
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="contactrow">
-                    <div class="contactleft"><strong>@Html.LabelFor(model => model.Phone)</strong></div>
-                    <div class="contactright">@Html.EditorFor(model => model.Phone)
-                        @Html.ValidationMessageFor(model => model.Phone)
+                    <div class="contactrow">
+                        <div class="contactleft"><strong>Điện thoại</strong></div>
+                        <div class="contactright">@Html.EditorFor(model => model.Phone)
+                            @Html.ValidationMessageFor(model => model.Phone)
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="contactrow">
-                    <div class="contactleft"><strong>@Html.LabelFor(model => model.Email)</strong></div>
-                    <div class="contactright">@Html.EditorFor(model => model.Email)
-                        @Html.ValidationMessageFor(model => model.Email)
+                    <div class="contactrow">
+                        <div class="contactleft"><strong>Email</strong></div>
+                        <div class="contactright">@Html.EditorFor(model => model.Email)
+                            @Html.ValidationMessageFor(model => model.Email)
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="contactrow">
-                    <div class="contactleft"><strong>@Html.LabelFor(model => model.ContactTitle)</strong></div>
-                    <div class="contactright">@Html.EditorFor(model => model.ContactTitle)
-                        @Html.ValidationMessageFor(model => model.ContactTitle)
+                    <div class="contactrow">
+                        <div class="contactleft"><strong>Tiêu đề</strong></div>
+                        <div class="contactright">@Html.EditorFor(model => model.ContactTitle)
+                            @Html.ValidationMessageFor(model => model.ContactTitle)
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="contactrow">
-                    <div class="contactleft"><strong>@Html.LabelFor(model => model.ContactContent)</strong></div>
-                    <div class="contactright">@Html.TextAreaFor(model => model.ContactContent)
-                        @Html.ValidationMessageFor(model => model.ContactContent)
+                    <div class="contactrow">
+                        <div class="contactleft"><strong>Nội dung</strong></div>
+                        <div class="contactright">@Html.TextAreaFor(model => model.ContactContent)
+                            @Html.ValidationMessageFor(model => model.ContactContent)
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="contactrow">
-                    <div class="contactleft">&nbsp;</div>
-                    <div class="contactright">
-                        <input type="submit" id="btn_guidi" value="Gửi đi" />
+                    <div class="contactrow">
+                        <div class="contactleft">&nbsp;</div>
+                        <div class="contactright">
+                            <input type="submit" id="btn_guidi" value="Gửi đi" />
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
 }
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+     <script>
+        jQuery(document).ready(function ($) {
+            FQTD.initContactUs();
+        });
+    </script>
 }

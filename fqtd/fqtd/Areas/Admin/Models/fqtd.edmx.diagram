@@ -17,11 +17,14 @@
         <AssociationConnector Association="fqtdModel.FK_tbl_Brands_tbl_Categories" ManuallyRouted="false" />
         <AssociationConnector Association="fqtdModel.FK_tbl_Item_Properties_tbl_Properties" ManuallyRouted="false" />
         <AssociationConnector Association="fqtdModel.tbl_Category_Properties" />
-        <EntityTypeShape EntityType="fqtdModel.tbl_SystemContent" Width="1.5" PointX="7.2174173813394349" PointY="15.639934219252288" />
+        <EntityTypeShape EntityType="fqtdModel.tbl_SystemContent" Width="1.5" PointX="0.875" PointY="16.625" />
         <EntityTypeShape EntityType="fqtdModel.BrandCategories" Width="1.75" PointX="0.75" PointY="13.875" />
         <AssociationConnector Association="fqtdModel.FK_tbl_Brand_Categories_tbl_Brands" />
         <AssociationConnector Association="fqtdModel.FK_tbl_Brand_Categories_tbl_Categories" />
-        <EntityTypeShape EntityType="fqtdModel.ContactUS" Width="1.5" PointX="5.25" PointY="14.625" />
+        <EntityTypeShape EntityType="fqtdModel.tbl_Brand_Properties" Width="1.5" PointX="3.625" PointY="17.125" />
+        <AssociationConnector Association="fqtdModel.FK_tbl_Brand_Properties_tbl_Properties" />
+        <EntityTypeShape EntityType="fqtdModel.ContactUS" Width="1.5" PointX="6.75" PointY="14.125" />
+        <EntityTypeShape EntityType="fqtdModel.SearchHistory" Width="1.5" PointX="6.75" PointY="17.375" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

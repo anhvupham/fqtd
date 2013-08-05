@@ -18,7 +18,7 @@ namespace fqtd.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            return View(db.tbl_ContactUS.ToList());
+            return View(db.ContactUS.ToList());
         }
 
         //
@@ -26,7 +26,7 @@ namespace fqtd.Areas.Admin.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            ContactUS contactus = db.tbl_ContactUS.Find(id);
+            ContactUS contactus = db.ContactUS.Find(id);
             if (contactus == null)
             {
                 return HttpNotFound();
@@ -41,7 +41,7 @@ namespace fqtd.Areas.Admin.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            ContactUS contactus = db.tbl_ContactUS.Find(id);
+            ContactUS contactus = db.ContactUS.Find(id);
             if (contactus == null)
             {
                 return HttpNotFound();
@@ -70,7 +70,7 @@ namespace fqtd.Areas.Admin.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            ContactUS contactus = db.tbl_ContactUS.Find(id);
+            ContactUS contactus = db.ContactUS.Find(id);
             if (contactus == null)
             {
                 return HttpNotFound();
@@ -85,8 +85,8 @@ namespace fqtd.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ContactUS contactus = db.tbl_ContactUS.Find(id);
-            db.tbl_ContactUS.Remove(contactus);
+            ContactUS contactus = db.ContactUS.Find(id);
+            db.ContactUS.Remove(contactus);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

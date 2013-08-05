@@ -20,6 +20,7 @@
         @Html.HiddenFor(model => model.IsActive)
         @Html.HiddenFor(model => model.MarkerIcon)
         @Html.HiddenFor(model => model.Logo)
+        @Html.HiddenFor(model => model.CategoryID)
 
         <div class="editor-label">
             @Html.LabelFor(model => model.BrandName)
@@ -45,13 +46,13 @@
             @Html.ValidationMessageFor(model => model.BrandTypeID)
         </div>
 
-        <div class="editor-label">
+        @*<div class="editor-label">
             @Html.LabelFor(model => model.CategoryID, "tbl_Categories")
         </div>
         <div class="editor-field">
             @Html.DropDownList("CategoryID", String.Empty)
             @Html.ValidationMessageFor(model => model.CategoryID)
-        </div>
+        </div>*@
         <div class="editor-label">
             @Html.LabelFor(model => model.MarkerIcon)
         </div>

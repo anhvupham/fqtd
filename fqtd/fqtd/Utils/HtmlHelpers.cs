@@ -4,6 +4,7 @@ using System.Web.Routing;
 using System.Collections.Specialized;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using System.IO;
 
 namespace System.Web.Mvc
 {
@@ -71,6 +72,22 @@ namespace System.Web.Mvc
 
             return new HtmlString(sb.ToString());
         }
+        public static void WriteErrorLogs(string log)
+        {
+            string path = VirtualPathUtility.ToAbsolute(ConfigurationManager.AppSettings["LogPath"]);
+            if (!Directory.Exists(Path.GetDirectoryName(path)))
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
+            if (!File.Exists(path))
+                File.Create(path);
+            var outputLines = new List<string>();
+            outputLines.Add(string.Format("{0}: {1}", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), log));            
+            System.IO.File.AppendAllLines(path, outputLines);
+        }
+
+        private static object FileInfo(string path)
+        {
+            throw new NotImplementedException();
+        }
 
         /*
          * <script type="text/javascript">
@@ -131,14 +148,14 @@ namespace System.Web.Mvc
         }
         public static List<string> GetImgListFormHTML(string html)
         {
-            
+
             List<string> list = new List<string>();
-            int index = 0;int index_end = 0;
+            int index = 0; int index_end = 0;
             index = html.ToLower().IndexOf("src=");
-            while(index>0)
+            while (index > 0)
             {
-                html = html.Substring(index+5);
-                index_end=html.ToLower().IndexOf('"');
+                html = html.Substring(index + 5);
+                index_end = html.ToLower().IndexOf('"');
                 string s = html.Substring(0, index_end);
                 list.Add(s);
                 html = html.Substring(index_end);
@@ -156,7 +173,7 @@ namespace System.Web.Mvc
             {
                 html = html.Substring(index);
                 index_end = html.ToLower().IndexOf('>');
-                string s = html.Substring(0, index_end+1);
+                string s = html.Substring(0, index_end + 1);
                 list.Add(s);
                 html = html.Substring(index_end);
                 index = html.ToLower().IndexOf("<img");

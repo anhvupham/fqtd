@@ -40,7 +40,6 @@
         </div>
         <div class="editor-field">
             <input type="file" name="icon" />
-            @Html.ValidationMessageFor(model => model.MarkerIcon)
         </div>
 
         <div class="editor-label">
@@ -48,6 +47,7 @@
         </div>
         <div class="editor-field">
             @Html.TextAreaFor(model => model.Keyword, new { @id = "Keyword" })
+            @Html.ValidationMessageFor(model => model.Keyword)
         </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.Description)
@@ -71,9 +71,6 @@
             </script>
             @Html.ValidationMessageFor(model => model.Description_EN)
         </div>
-
-
-
         <p>
             <input type="submit" value="Save" />
         </p>

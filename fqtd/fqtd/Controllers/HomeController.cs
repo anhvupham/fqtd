@@ -13,7 +13,7 @@ namespace fqtd.Controllers
         private fqtdEntities db = new fqtdEntities();
         public ActionResult Index()
         {
-            ViewBag.URL = Request.Url.OriginalString;
+            ViewBag.URL = ConfigurationManager.AppSettings["fbURL"];
             ViewBag.keywords = ConfigurationManager.AppSettings["metakeywords"];
             ViewBag.description = ConfigurationManager.AppSettings["metakeydescription"];
             return View("Index");
@@ -65,7 +65,7 @@ namespace fqtd.Controllers
             if (ModelState.IsValid)
             {
                 contactus.ContactDate = DateTime.Now;
-                db.tbl_ContactUS.Add(contactus);
+                db.ContactUS.Add(contactus);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

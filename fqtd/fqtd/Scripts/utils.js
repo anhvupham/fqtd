@@ -46,6 +46,17 @@ var FQTD = (function () {
         return a[8] - b[8];
     }
 
+    function encrypt(value) {
+        return $.rc4EncryptStr(value, "timdau")
+    }
+
+    function decrypt(value) {
+        if (value == "0" || value == 0)
+            return value;
+        else
+            return $.rc4DecryptStr(value, "timdau")
+    }
+
     return {
         BindPropertyData: function () {
             //Bind data to checkbox
@@ -61,14 +72,14 @@ var FQTD = (function () {
                 }
             });
         },
-        markOutLocation: function (lat, long, map, contentPopup, isHome) {
+        markOutLocation: function (lat, long, map, contentPopup, markerIcon) {
             var place = new google.maps.LatLng(lat, long);
             var marker = new google.maps.Marker({
                 position: place,
                 title: 'Click to zoom',
-                icon: (isHome === true ? '/images/home.png' : '/images/MarkerIcon/Brand/schools_maps.png')
+                icon: markerIcon
             });
-            
+
             google.maps.event.addListener(marker, 'click', function () {
                 if (infobox) infobox.close();
                 infobox = new InfoBox({
@@ -196,7 +207,7 @@ var FQTD = (function () {
 
             // Iterate through a selection of the content and build an HTML string
             for (var i = page_index * items_per_page; i < max_elem; i++) {
-                newcontent += '<div id="object"><table style="width: 100%;"><tr><td valign="top" style="width:116px;"><a href="/detail/' + isEmpty(locations[i][7]) + '" target="_blank"><img id="photo" width="150" height="150" src="' + isEmpty(checkImage(locations[i][6])) + '" /></a></td><td valign="top"><h2>' + isEmpty(locations[i][3]) + '</h2>'
+                newcontent += '<div id="object"><table style="width: 100%;"><tr><td valign="top" style="width:116px;"><a href="/detail/' + isEmpty(locations[i][7]) + '" target="_blank"><img id="photo" width="150" src="' + isEmpty(checkImage(locations[i][6])) + '" /></a></td><td valign="top"><h2>' + (isEmpty(locations[i][3])) + '</h2>'
                     + '<p>Địa chỉ : ' + isEmpty(locations[i][4]) + '<br/>Điện thoại : ' + isEmpty(locations[i][5]) + '</p><p><a href="/detail/' + isEmpty(locations[i][7]) + '" target="_blank"><strong>Xem chi tiết</strong></a>'
                     + ' | <a href="javascript:void(0);" onclick="FQTD.DisplayDirection(' + isEmpty(checkImage(locations[i][0])) + ',' + isEmpty(checkImage(locations[i][1])) + ')" class="lienket"><strong>Đường đi</strong></a></p></td></tr></table></div>';
             }
@@ -219,11 +230,11 @@ var FQTD = (function () {
             $("#pagination").pagination(locations.length, opt);
         },
         GetJSON: function (arr) {
-            //Get data result
+            //Get data result            
             var urlResult = "/result/search?";
             urlResult += "mode=" + $("#form").val();
-            urlResult += "&keyword=" + $("#search").val();
-            urlResult += "&currentLocation=" + $("#address").val();
+            urlResult += "&keyword=" + decrypt($("#search").val());
+            urlResult += "&currentLocation=" + decrypt($("#address").val());
             urlResult += "&categoryid=" + $("#category").val();
             urlResult += "&brandid=" + $("#brand").val();
             urlResult += "&radious=" + $("#range").val();
@@ -236,7 +247,7 @@ var FQTD = (function () {
                 }
             }
             urlResult += "&vn0_en1=0";
-
+            console.log(urlResult)
             var result = $.getJSON(urlResult, null, function (items) {
                 //alert(items);
                 for (var i = 0; i < items.length; i++) {
@@ -248,20 +259,22 @@ var FQTD = (function () {
                                      + '<li id="bus" onclick=\"FQTD.calcRoute(' + items[i].Latitude + ',' + items[i].Longitude + ',\'bus\',' + $("#form").val() + ')\"></li>'
                                      + '<li id="walk" onclick=\"FQTD.calcRoute(' + items[i].Latitude + ',' + items[i].Longitude + ',\'walk\',' + $("#form").val() + ')\"></li></ul>'
                                      + '<div id="linkview"><a href="/detail/' + isEmpty(items[i].ItemID) + '" target="_blank">Xem chi tiết</a></div><div id="space"></div>';
-                        locations.push([items[i].Latitude, items[i].Longitude, contentmarker, isEmpty(items[i].ItemName), isEmpty(items[i].FullAddress), isEmpty(items[i].Phone), isEmpty(items[i].Logo), isEmpty(items[i].ItemID), 0]);
+                        locations.push([items[i].Latitude, items[i].Longitude, contentmarker, isEmpty(items[i].ItemName), isEmpty(items[i].FullAddress), isEmpty(items[i].Phone), isEmpty(items[i].Logo), isEmpty(items[i].ItemID), 0, isEmpty(items[i].MarkerIcon)]);
                     }
                 }
             });
 
             result.complete(function () {
-                FQTD.BindData()                
+                FQTD.BindData()
+                //set back link               
+                $("#backlink").attr("href", "/#" + $("#form").val())
             });
         },
         BindData: function () {
-            
+
             if (locations.length > 0) {
                 if ($("#form").val() == "1") {
-                    var address = $("#address").val();
+                    var address = decrypt($("#address").val());
                     var geocoder = new google.maps.Geocoder();
                     if (geocoder) {
                         geocoder.geocode({ 'address': address }, function (results, status, content) {
@@ -306,7 +319,7 @@ var FQTD = (function () {
                         FQTD.SortArray()
 
                         //bind marker to map
-                        FQTD.SetupMap(myplace, locations, 6 , 1);
+                        FQTD.SetupMap(myplace, locations, 6, 1);
                     };
                     //set list display first
                     FQTD.displayMap()
@@ -346,7 +359,7 @@ var FQTD = (function () {
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 };
                 map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-                
+
                 //set my city
                 var myCity = new google.maps.Circle({
                     center: myplace,
@@ -356,9 +369,9 @@ var FQTD = (function () {
                     fillOpacity: 0.1
                 });
                 myCity.setMap(map);
-                
+
                 map.fitBounds(myCity.getBounds());
-                FQTD.markOutLocation(myplace.lat(), myplace.lng(), map, "<p class='currentplace'>Bạn đang ở đây.</p>", true);
+                FQTD.markOutLocation(myplace.lat(), myplace.lng(), map, "<p class='currentplace'>Bạn đang ở đây.</p>", '/images/home.png');
             }
 
             //set direction
@@ -368,7 +381,7 @@ var FQTD = (function () {
             //add marker to map
             for (i = 0; i <= 4; i++) {
                 if (listMarker[i]) {
-                    FQTD.markOutLocation(listMarker[i][0], listMarker[i][1], map, listMarker[i][2], false);
+                    FQTD.markOutLocation(listMarker[i][0], listMarker[i][1], map, listMarker[i][2], listMarker[i][9]);
                     limit++;
                 }
             }
@@ -380,7 +393,6 @@ var FQTD = (function () {
             //Bind data to select box Category
             var urlCategory = "/admin/categories/Categories";
             $.getJSON(urlCategory + "?vn0_en1=0", null, function (categories) {
-                $("#category").append('<option value="-1">Tất cả</option>');
                 for (i in categories) {
                     $("#category").append('<option value="' + categories[i].CategoryID + '">' + categories[i].CategoryName + '</option>');
                 }
@@ -396,7 +408,7 @@ var FQTD = (function () {
                 }
             });
         },
-        SetupWatermarkValidation: function () {
+        SetupWatermarkValidationHomepage: function () {
             //watermark and validation
             $("#address").watermark("Nhập địa chỉ hiện tại của bạn");
             $("#search").watermark("Nhập tên hoặc địa chỉ quán bạn muốn tìm");
@@ -469,7 +481,7 @@ var FQTD = (function () {
             var bound = (listMarker.length - localLimit) >= 5 ? 5 : (listMarker.length - localLimit);
             bound = (parseInt(localLimit) + parseInt(bound));
             for (i = localLimit; i <= (bound - 1) ; i++) {
-                FQTD.markOutLocation(listMarker[i][0], listMarker[i][1], map, listMarker[i][2], false);
+                FQTD.markOutLocation(listMarker[i][0], listMarker[i][1], map, listMarker[i][2], listMarker[i][9]);
                 localLimit++;
             }
             limit = localLimit;
@@ -485,7 +497,7 @@ var FQTD = (function () {
                 locations[i][8] = compareDistance;
             }
             //sort by distance ascending
-            locations.sort(sortbyDistance)            
+            locations.sort(sortbyDistance)
         },
         BindKeywordAutocomplete: function () {
             //get all keyword
@@ -507,7 +519,7 @@ var FQTD = (function () {
             var s = $("#cactienich");
             var pos = s.position();
             $(window).scroll(function () {
-                var windowpos = $(window).scrollTop();                
+                var windowpos = $(window).scrollTop();
                 if (windowpos >= pos.top) {
                     s.removeClass("nostick");
                     s.addClass("stick");
@@ -521,7 +533,7 @@ var FQTD = (function () {
             var arr = [];
 
             $(".checked").each(function () {
-                var checkbox = $(this).find("input:checkbox:first");                
+                var checkbox = $(this).find("input:checkbox:first");
                 arr.push(checkbox[0].id)
             })
 
@@ -534,6 +546,42 @@ var FQTD = (function () {
             locations = new Array();
             limit = 0;
             infobox = null;
+        },
+        SetupWatermarkValidationContactus: function () {
+            //watermark
+            //$("#CustomerName").watermark("Nhập họ tên của bạn");
+            $("#Phone").watermark("Nhập số điện thoại của bạn");
+            $("#Email").watermark("Nhập email của bạn");
+            $("#ContactTitle").watermark("Nhập tiêu đề liên lạc");
+            $("#ContactContent").watermark("Nhập nội dung liên lạc");
+            //validate
+            $('#CustomerName').closest('form').validate({
+                onChange: true,
+                sendFormPost: false,
+                eachValidField: function () {
+
+                    $(this).closest('div').removeClass('error').addClass('success');
+                },
+                eachInvalidField: function () {
+
+                    $(this).closest('div').removeClass('success').addClass('error');
+                }
+            });
+        },
+        SubmitForm: function () {
+            //direct to result page
+            var address = $('#address').val() != "" ? encrypt($('#address').val()) : "0"
+            var type = window.location.hash == "#1" ? "1" : "0"
+            var range = $('#range').val() != "" ? $('#range').val() : "0"
+            var category = $('#category').val() != "" ? $('#category').val() : "0"
+            var brand = $('#brand').val() != "" ? $('#brand').val() : "0"
+            var search = $('#search').val() != "" ? encrypt($('#search').val()) : "0"
+
+            if (type == "0" && search == "0") return false;
+
+            if (type == "1" && (address == "0" || (category == "0" || brand == "0") || range == "0")) return false;
+           
+            window.location.href = "result/index/" + type + "/" + category + "/" + brand + "/" + range + "/" + address + "/" + search
         },
         initResult: function () {
             $("#tabList").bind('click', function () {
@@ -598,16 +646,44 @@ var FQTD = (function () {
             //Cascade select box Category
             $('#category').change(GetBrandByCategory);
 
-            FQTD.SetupWatermarkValidation()
+            FQTD.SetupWatermarkValidationHomepage()
             FQTD.BindTooltip()
             FQTD.GetCurrentPositionAddress()
 
             //bind places autocomplete
-            $("#address").geocomplete();
+            $("#address").geocomplete({
+                country: 'vn'
+            });
 
             //bind auto complete to keyword
             FQTD.BindKeywordAutocomplete()
 
+            //check if step2
+            if (window.location.hash == "#1") {
+                $('.next').click();
+            }
+
+            //button keyword click
+            $('#btn_home1').click(function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $('#form1').submit()
+            });
+
+            $("#form1").submit(function () {
+                FQTD.SubmitForm()
+            });
+
+            //button range click
+            $('#btn_home2').click(function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $('#form2').submit()
+            });
+
+            $("#form2").submit(function () {
+                FQTD.SubmitForm()
+            });
         },
         initDetail: function () {
             var id = $(location).attr('pathname').split('/')[2]
@@ -618,9 +694,11 @@ var FQTD = (function () {
                 if (object != null) {
                     //bind data to item detail
                     if (object.ItemDetail[0] != null) {
+                        console.log(object.BrandLogo)
+                        $("#brandlogo").attr('src', object.BrandLogo)
                         $("#brandname").html(object.ItemDetail[0].BrandName)
                         $("#branddescription").html(object.ItemDetail[0].Description)
-                        $("#tendiadiem").html("<h2>" + object.ItemDetail[0].ItemName + "</h2>")
+                        $("#tendiadiem").html("<h1>" + object.ItemDetail[0].ItemName + "</h1>")
                         $("#txtaddress").html(object.ItemDetail[0].FullAddress)
                         $("#txtphone").html(object.ItemDetail[0].Phone)
                         $("#txtwebsite").html(object.ItemDetail[0].Website)
@@ -628,6 +706,10 @@ var FQTD = (function () {
                         if (isEmpty(object.ItemDetail[0].Latitude) != "" && isEmpty(object.ItemDetail[0].Longitude) != "") {
                             $("#staticmap").attr('src', 'http://maps.googleapis.com/maps/api/staticmap?center=' + isEmpty(object.ItemDetail[0].Latitude) + ',' + isEmpty(object.ItemDetail[0].Longitude) + '&zoom=15&size=682x300&maptype=roadmap&markers=color:blue%7Clabel:A%7C' + isEmpty(object.ItemDetail[0].Latitude) + ',' + isEmpty(object.ItemDetail[0].Longitude) + '&sensor=false')
                         }
+                        //facebook tags
+                        $('meta[name=og\\:title]').attr('content', object.ItemDetail[0].ItemName);
+                        //page title
+                        document.title = object.ItemDetail[0].ItemName;
                     }
                     //bind data to same brand list
                     var relatelist = "";
@@ -644,7 +726,8 @@ var FQTD = (function () {
                     if (object.PropertyList.length > 0) {
                         for (var i = 0; i < object.PropertyList.length; i++) {
                             if (object.PropertyList[i]) {
-                                propertylist += "<tr><td class='row1'><img src='/images/bullet_green.png' /></td><td>" + object.PropertyList[i].PropertyName + "</td></tr>"
+                                var hidden = object.PropertyList[i].PropertyValue == false ? " class='hidden'" : ""
+                                propertylist += "<tr " + hidden + "><td class='row1'><img src='/images/bullet_green.png' /></td><td>" + object.PropertyList[i].PropertyName + "</td></tr>"
                             }
                         }
                     }
@@ -659,11 +742,27 @@ var FQTD = (function () {
                         }
                     }
                     $("#tblSameCategory").html(samecategoryList)
+                    //bind to image gallery
+                    var imagegallery = "";
+                    if (object.ItemImages.length > 0) {
+                        for (var i = 0; i < object.ItemImages.length; i += 2) {
+                            if (object.ItemImages[i]) {
+                                imagegallery += "<tr>"
+                                if (object.ItemImages[i]) imagegallery += "<td class='row1'><a href='" + object.ItemImages[i] + "' data-lightbox='imagegallery'><img src='" + object.ItemImages[i] + "'></a></td>"
+                                if (object.ItemImages[i + 1]) imagegallery += "<td class='row1'><a href='" + object.ItemImages[i + 1] + "' data-lightbox='imagegallery'><img src='" + object.ItemImages[i + 1] + "'></a></td>"
+                                imagegallery += "</tr>"
+                            }
+                        }
+                    }
+                    $("#tblimagegallery").html(imagegallery)
 
                     FQTD.HideLoading()
                     FQTD.MoveFooter()
                 }
             });
+        },
+        initContactUs: function () {
+            FQTD.SetupWatermarkValidationContactus()
         }
     };
 })();

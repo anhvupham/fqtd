@@ -187,17 +187,42 @@
     <Compile Include="Areas\Admin\Controllers\ContactUsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ItemsController.cs" />
     <Compile Include="Areas\Admin\Controllers\PropertiesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SearchHistoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\SystemContentController.cs" />
     <Compile Include="Areas\Admin\Models\BrandCategories.cs">
       <DependentUpon>fqtd.tt</DependentUpon>
     </Compile>
+    <Compile Include="Areas\Admin\Models\BrandItems.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\Brands.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\BrandType.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\Categories.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
     <Compile Include="Areas\Admin\Models\ContactUS.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\ItemProperties.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\Properties.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\SearchHistory.cs">
       <DependentUpon>fqtd.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\Admin\Models\SP_Brand_Categories_Result.cs">
       <DependentUpon>fqtd.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\Admin\Models\SP_Brand_Categories_Result1.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\SP_Brand_Properties_Result.cs">
       <DependentUpon>fqtd.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\Admin\Models\SP_Category_Properties_Result.cs">
@@ -213,6 +238,9 @@
       <DependentUpon>fqtd.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\Admin\Models\SystemContent.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\tbl_Brand_Properties.cs">
       <DependentUpon>fqtd.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\Admin\Models\tbl_SystemContent.cs">
@@ -231,18 +259,6 @@
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\BrandController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
-    <Compile Include="Areas\Admin\Models\BrandItems.cs">
-      <DependentUpon>fqtd.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\Admin\Models\Brands.cs">
-      <DependentUpon>fqtd.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\Admin\Models\BrandType.cs">
-      <DependentUpon>fqtd.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\Admin\Models\Categories.cs">
-      <DependentUpon>fqtd.tt</DependentUpon>
-    </Compile>
     <Compile Include="Areas\Admin\Models\fqtd.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -257,12 +273,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>fqtd.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\Admin\Models\ItemProperties.cs">
-      <DependentUpon>fqtd.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\Admin\Models\Properties.cs">
-      <DependentUpon>fqtd.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -553,6 +563,8 @@
     <Content Include="ckeditor\skins\moono\images\mini.png" />
     <Content Include="ckeditor\styles.js" />
     <Content Include="Content\admin.css" />
+    <Content Include="Content\font\architep-webfont.svg" />
+    <Content Include="Content\font\utm_bebas-webfont.svg" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -670,9 +682,21 @@
     <Content Include="Areas\Admin\Views\Brand\BrandCategories.cshtml" />
     <Content Include="Areas\Admin\Views\ContactUs\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ContactUs\Details.cshtml" />
+    <Content Include="Images\close.png" />
+    <Content Include="Images\next.png" />
+    <Content Include="Images\prev.png" />
     <Content Include="Views\Home\ContactUs.cshtml" />
     <Content Include="Areas\Admin\Views\ContactUs\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\ContactUs\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Brand\BrandProperties.cshtml" />
+    <Content Include="Content\font\utm_bebas-webfont.eot" />
+    <Content Include="Content\font\utm_bebas-webfont.ttf" />
+    <Content Include="Content\font\utm_bebas-webfont.woff" />
+    <Content Include="Content\font\architep-webfont.eot" />
+    <Content Include="Content\font\architep-webfont.ttf" />
+    <Content Include="Content\font\architep-webfont.woff" />
+    <Content Include="Areas\Admin\Views\SearchHistory\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SearchHistory\_Paging.cshtml" />
     <None Include="Properties\PublishProfiles\fqtd_test.pubxml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Images\bg_bottom.jpg" />

@@ -13,10 +13,10 @@
 <br />
 @using (Ajax.BeginForm("Index", new
 {
-    page = ViewBag.CurrentPage,
+    page = 1,
     Keyword = ViewBag.CurrentKeyword,
-    category = ViewBag.CurrentCategory,
-    brand = ViewBag.CurrentBrand
+    category = ViewBag.CurrentCategoryID,
+    brand = ViewBag.CurrentBrandID
         
     }, new AjaxOptions { UpdateTargetId = "main" }))
     {
@@ -30,7 +30,7 @@
                 </td>
                 <td>@Html.DropDownList("CategoryID", "-- All --")
                 </td>
-                <td style="text-align: right">Từ khóa:
+                <td style="text-align: right">Brands:
                 </td>
                 <td>@Html.DropDownList("BrandID", "-- All --")
                 </td>
@@ -111,6 +111,7 @@
             @Html.ActionLink("Details", "Details", new { id = item.ItemID }) |
             @Html.ActionLink("Images", "ImageList", new { id = item.ItemID }) |
             @Html.ActionLink("Properties", "ItemProperties", new { id = item.ItemID }) |
+            @Html.ActionLink("BuildKeyword", "KeywordBuilder", new { itemid = item.ItemID }) |
             @Html.ActionLink("Delete", "Delete", new { id = item.ItemID })
         </td>
     </tr>

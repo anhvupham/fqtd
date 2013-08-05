@@ -1,8 +1,12 @@
 ﻿@model fqtd.Areas.Admin.Models.tbl_SystemContent
 
 @{
-    ViewBag.Title = "Policy";
+    ViewBag.Title = "Điều khoản sử dụng";
     Layout = "~/Views/Shared/MasterSub.cshtml";   
 }
-
-@Html.Raw(Model.SystemContent)
+<div id="content_home">
+    <div id="noidungchinh">
+        <h1>Ch&iacute;nh s&aacute;ch bảo mật</h1>
+        @Html.Raw(Model.SystemContent)
+    </div>
+</div>

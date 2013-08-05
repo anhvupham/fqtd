@@ -8,6 +8,7 @@
         <EntityContainer Name="fqtdModelStoreContainer">
           <EntitySet Name="tbl_Brand_Categories" EntityType="fqtdModel.Store.tbl_Brand_Categories" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tbl_Brand_Items" EntityType="fqtdModel.Store.tbl_Brand_Items" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbl_Brand_Properties" EntityType="fqtdModel.Store.tbl_Brand_Properties" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tbl_Brands" EntityType="fqtdModel.Store.tbl_Brands" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tbl_BrandType" EntityType="fqtdModel.Store.tbl_BrandType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tbl_Categories" EntityType="fqtdModel.Store.tbl_Categories" store:Type="Tables" Schema="dbo" />
@@ -21,41 +22,10 @@
           <EntitySet Name="tbl_Properties" EntityType="fqtdModel.Store.tbl_Properties" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tbl_SystemContent" EntityType="fqtdModel.Store.tbl_SystemContent" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tbl_ContactUS" EntityType="fqtdModel.Store.tbl_ContactUS" store:Type="Tables" Schema="timdau_fqtd" />
-          <AssociationSet Name="FK_tbl_Brand_Categories_tbl_Brands" Association="fqtdModel.Store.FK_tbl_Brand_Categories_tbl_Brands">
-            <End Role="tbl_Brands" EntitySet="tbl_Brands" />
-            <End Role="tbl_Brand_Categories" EntitySet="tbl_Brand_Categories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_Brand_Categories_tbl_Categories" Association="fqtdModel.Store.FK_tbl_Brand_Categories_tbl_Categories">
-            <End Role="tbl_Categories" EntitySet="tbl_Categories" />
-            <End Role="tbl_Brand_Categories" EntitySet="tbl_Brand_Categories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_Brand_Items_tbl_Brands" Association="fqtdModel.Store.FK_tbl_Brand_Items_tbl_Brands">
-            <End Role="tbl_Brands" EntitySet="tbl_Brands" />
-            <End Role="tbl_Brand_Items" EntitySet="tbl_Brand_Items" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_Brands_tbl_BrandType" Association="fqtdModel.Store.FK_tbl_Brands_tbl_BrandType">
-            <End Role="tbl_BrandType" EntitySet="tbl_BrandType" />
-            <End Role="tbl_Brands" EntitySet="tbl_Brands" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_Brands_tbl_Categories" Association="fqtdModel.Store.FK_tbl_Brands_tbl_Categories">
-            <End Role="tbl_Categories" EntitySet="tbl_Categories" />
-            <End Role="tbl_Brands" EntitySet="tbl_Brands" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_Category_Properties_tbl_Categories" Association="fqtdModel.Store.FK_tbl_Category_Properties_tbl_Categories">
-            <End Role="tbl_Categories" EntitySet="tbl_Categories" />
-            <End Role="tbl_Category_Properties" EntitySet="tbl_Category_Properties" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_Category_Properties_tbl_Properties" Association="fqtdModel.Store.FK_tbl_Category_Properties_tbl_Properties">
+          <EntitySet Name="tbl_SearchHistory" EntityType="fqtdModel.Store.tbl_SearchHistory" store:Type="Tables" Schema="timdau_fqtd" />
+          <AssociationSet Name="FK_tbl_Brand_Properties_tbl_Properties" Association="fqtdModel.Store.FK_tbl_Brand_Properties_tbl_Properties">
             <End Role="tbl_Properties" EntitySet="tbl_Properties" />
-            <End Role="tbl_Category_Properties" EntitySet="tbl_Category_Properties" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_Item_Properties_tbl_Brand_Items" Association="fqtdModel.Store.FK_tbl_Item_Properties_tbl_Brand_Items">
-            <End Role="tbl_Brand_Items" EntitySet="tbl_Brand_Items" />
-            <End Role="tbl_Item_Properties" EntitySet="tbl_Item_Properties" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_Item_Properties_tbl_Properties" Association="fqtdModel.Store.FK_tbl_Item_Properties_tbl_Properties">
-            <End Role="tbl_Properties" EntitySet="tbl_Properties" />
-            <End Role="tbl_Item_Properties" EntitySet="tbl_Item_Properties" />
+            <End Role="tbl_Brand_Properties" EntitySet="tbl_Brand_Properties" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="tbl_Brand_Categories">
@@ -102,6 +72,15 @@
           <Property Name="ModifyUser" Type="nvarchar" MaxLength="256" />
           <Property Name="DeleteDate" Type="datetime" />
           <Property Name="DeleteUser" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="tbl_Brand_Properties">
+          <Key>
+            <PropertyRef Name="BrandID" />
+            <PropertyRef Name="PropertyID" />
+          </Key>
+          <Property Name="BrandID" Type="int" Nullable="false" />
+          <Property Name="PropertyID" Type="int" Nullable="false" />
+          <Property Name="PropertyValue" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="tbl_Brands">
           <Key>
@@ -213,116 +192,37 @@
           </Key>
           <Property Name="ContactID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="CustomerName" Type="nvarchar" MaxLength="250" />
-          <Property Name="Address" Type="nvarchar" MaxLength="550" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
           <Property Name="Email" Type="nvarchar" MaxLength="350" />
           <Property Name="ContactTitle" Type="nvarchar" MaxLength="550" />
           <Property Name="ContactContent" Type="nvarchar" MaxLength="1500" />
           <Property Name="ContactDate" Type="datetime" />
         </EntityType>
-        <Association Name="FK_tbl_Brand_Categories_tbl_Brands">
-          <End Role="tbl_Brands" Type="fqtdModel.Store.tbl_Brands" Multiplicity="1" />
-          <End Role="tbl_Brand_Categories" Type="fqtdModel.Store.tbl_Brand_Categories" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Brands">
-              <PropertyRef Name="BrandID" />
-            </Principal>
-            <Dependent Role="tbl_Brand_Categories">
-              <PropertyRef Name="BrandID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Brand_Categories_tbl_Categories">
-          <End Role="tbl_Categories" Type="fqtdModel.Store.tbl_Categories" Multiplicity="1" />
-          <End Role="tbl_Brand_Categories" Type="fqtdModel.Store.tbl_Brand_Categories" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Categories">
-              <PropertyRef Name="CategoryID" />
-            </Principal>
-            <Dependent Role="tbl_Brand_Categories">
-              <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Brand_Items_tbl_Brands">
-          <End Role="tbl_Brands" Type="fqtdModel.Store.tbl_Brands" Multiplicity="1" />
-          <End Role="tbl_Brand_Items" Type="fqtdModel.Store.tbl_Brand_Items" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Brands">
-              <PropertyRef Name="BrandID" />
-            </Principal>
-            <Dependent Role="tbl_Brand_Items">
-              <PropertyRef Name="BrandID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Brands_tbl_BrandType">
-          <End Role="tbl_BrandType" Type="fqtdModel.Store.tbl_BrandType" Multiplicity="0..1" />
-          <End Role="tbl_Brands" Type="fqtdModel.Store.tbl_Brands" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_BrandType">
-              <PropertyRef Name="BrandTypeID" />
-            </Principal>
-            <Dependent Role="tbl_Brands">
-              <PropertyRef Name="BrandTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Brands_tbl_Categories">
-          <End Role="tbl_Categories" Type="fqtdModel.Store.tbl_Categories" Multiplicity="0..1" />
-          <End Role="tbl_Brands" Type="fqtdModel.Store.tbl_Brands" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Categories">
-              <PropertyRef Name="CategoryID" />
-            </Principal>
-            <Dependent Role="tbl_Brands">
-              <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Category_Properties_tbl_Categories">
-          <End Role="tbl_Categories" Type="fqtdModel.Store.tbl_Categories" Multiplicity="1" />
-          <End Role="tbl_Category_Properties" Type="fqtdModel.Store.tbl_Category_Properties" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Categories">
-              <PropertyRef Name="CategoryID" />
-            </Principal>
-            <Dependent Role="tbl_Category_Properties">
-              <PropertyRef Name="CatetoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Category_Properties_tbl_Properties">
+        <EntityType Name="tbl_SearchHistory">
+          <Key>
+            <PropertyRef Name="SearchID" />
+          </Key>
+          <Property Name="SearchID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Keyword" Type="nvarchar" MaxLength="250" />
+          <Property Name="CurrentLocation" Type="nvarchar" MaxLength="1500" />
+          <Property Name="Radious" Type="int" />
+          <Property Name="Properties" Type="nvarchar" MaxLength="250" />
+          <Property Name="Mode" Type="int" />
+          <Property Name="CategoryID" Type="int" />
+          <Property Name="BrandID" Type="int" />
+          <Property Name="VN0_En1" Type="int" />
+          <Property Name="SearchDate" Type="date" />
+          <Property Name="SearchTime" Type="datetime" />
+          <Property Name="ResultCount" Type="int" />
+        </EntityType>
+        <Association Name="FK_tbl_Brand_Properties_tbl_Properties">
           <End Role="tbl_Properties" Type="fqtdModel.Store.tbl_Properties" Multiplicity="1" />
-          <End Role="tbl_Category_Properties" Type="fqtdModel.Store.tbl_Category_Properties" Multiplicity="*" />
+          <End Role="tbl_Brand_Properties" Type="fqtdModel.Store.tbl_Brand_Properties" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbl_Properties">
               <PropertyRef Name="PropertyID" />
             </Principal>
-            <Dependent Role="tbl_Category_Properties">
-              <PropertyRef Name="PropertyID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Item_Properties_tbl_Brand_Items">
-          <End Role="tbl_Brand_Items" Type="fqtdModel.Store.tbl_Brand_Items" Multiplicity="1" />
-          <End Role="tbl_Item_Properties" Type="fqtdModel.Store.tbl_Item_Properties" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Brand_Items">
-              <PropertyRef Name="ItemID" />
-            </Principal>
-            <Dependent Role="tbl_Item_Properties">
-              <PropertyRef Name="ItemID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Item_Properties_tbl_Properties">
-          <End Role="tbl_Properties" Type="fqtdModel.Store.tbl_Properties" Multiplicity="1" />
-          <End Role="tbl_Item_Properties" Type="fqtdModel.Store.tbl_Item_Properties" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Properties">
-              <PropertyRef Name="PropertyID" />
-            </Principal>
-            <Dependent Role="tbl_Item_Properties">
+            <Dependent Role="tbl_Brand_Properties">
               <PropertyRef Name="PropertyID" />
             </Dependent>
           </ReferentialConstraint>
@@ -349,6 +249,9 @@
         <Function Name="SP_RemoveBrandCategories" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="BrandID" Type="int" Mode="In" />
         </Function>
+        <Function Name="SP_RemoveBrandProperties" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BrandID" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_RemoveItemProperties" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ItemID" Type="int" Mode="In" />
         </Function>
@@ -362,6 +265,9 @@
           <Parameter Name="c_path" Type="nvarchar" Mode="In" />
           <Parameter Name="b_path" Type="nvarchar" Mode="In" />
           <Parameter Name="i_path" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Brand_Properties" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="timdau_fqtd">
+          <Parameter Name="BrandID" Type="int" Mode="In" />
         </Function>
         <Function Name="SP_Category_Properties" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="timdau_fqtd">
           <Parameter Name="CategoryID" Type="int" Mode="In" />
@@ -461,7 +367,19 @@
           <FunctionImport Name="SP_Brand_Categories" ReturnType="Collection(fqtdModel.SP_Brand_Categories_Result1)">
           <Parameter Name="BrandID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="tbl_ContactUS" EntityType="fqtdModel.ContactUS" />
+          <FunctionImport Name="SP_Brand_Properties" ReturnType="Collection(fqtdModel.SP_Brand_Properties_Result)">
+          <Parameter Name="BrandID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="tbl_Brand_Properties" EntityType="fqtdModel.tbl_Brand_Properties" />
+          <AssociationSet Name="FK_tbl_Brand_Properties_tbl_Properties" Association="fqtdModel.FK_tbl_Brand_Properties_tbl_Properties">
+            <End Role="Properties" EntitySet="Properties" />
+            <End Role="tbl_Brand_Properties" EntitySet="tbl_Brand_Properties" />
+          </AssociationSet>
+          <FunctionImport Name="SP_RemoveBrandProperties">
+          <Parameter Name="BrandID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="ContactUS" EntityType="fqtdModel.ContactUS" />
+          <EntitySet Name="SearchHistory" EntityType="fqtdModel.SearchHistory" />
         </EntityContainer>
         <EntityType Name="BrandItems">
           <Key>
@@ -598,6 +516,7 @@
           <Property Name="DeleteUser" Type="String" MaxLength="256" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="tbl_Item_Properties" Relationship="fqtdModel.FK_tbl_Item_Properties_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_Item_Properties" />
           <NavigationProperty Name="tbl_Categories" Relationship="fqtdModel.tbl_Category_Properties" FromRole="Properties" ToRole="Categories" />
+          <NavigationProperty Name="tbl_Brand_Properties" Relationship="fqtdModel.FK_tbl_Brand_Properties_tbl_Properties" FromRole="Properties" ToRole="tbl_Brand_Properties" />
         </EntityType>
         <Association Name="FK_tbl_Brand_Items_tbl_Brands">
           <End Role="tbl_Brands" Type="fqtdModel.Brands" Multiplicity="1" />
@@ -752,17 +671,63 @@
           <Property Type="String" Name="CategoryName_EN" Nullable="true" MaxLength="250" />
           <Property Type="Boolean" Name="Checked" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="SP_Brand_Properties_Result">
+          <Property Type="Int32" Name="BrandID" Nullable="true" />
+          <Property Type="Int32" Name="PropertyID" Nullable="false" />
+          <Property Type="String" Name="PropertyName" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="PropertyName_EN" Nullable="true" MaxLength="250" />
+          <Property Type="Boolean" Name="PropertyValue" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="tbl_Brand_Properties">
+          <Key>
+            <PropertyRef Name="BrandID" />
+            <PropertyRef Name="PropertyID" />
+          </Key>
+          <Property Type="Int32" Name="BrandID" Nullable="false" />
+          <Property Type="Int32" Name="PropertyID" Nullable="false" />
+          <Property Type="Boolean" Name="PropertyValue" Nullable="false" />
+          <NavigationProperty Name="tbl_Properties" Relationship="fqtdModel.FK_tbl_Brand_Properties_tbl_Properties" FromRole="tbl_Brand_Properties" ToRole="Properties" />
+        </EntityType>
+        <Association Name="FK_tbl_Brand_Properties_tbl_Properties">
+          <End Type="fqtdModel.Properties" Role="Properties" Multiplicity="1" />
+          <End Type="fqtdModel.tbl_Brand_Properties" Role="tbl_Brand_Properties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Properties">
+              <PropertyRef Name="PropertyID" />
+            </Principal>
+            <Dependent Role="tbl_Brand_Properties">
+              <PropertyRef Name="PropertyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="ContactUS">
           <Key>
             <PropertyRef Name="ContactID" />
           </Key>
           <Property Type="Int32" Name="ContactID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="CustomerName" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Phone" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Phone" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Email" MaxLength="350" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="ContactTitle" MaxLength="550" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="ContactContent" MaxLength="1500" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="ContactDate" Precision="3" />
+        </EntityType>
+        <EntityType Name="SearchHistory">
+          <Key>
+            <PropertyRef Name="SearchID" />
+          </Key>
+          <Property Type="Int32" Name="SearchID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Keyword" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CurrentLocation" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Radious" />
+          <Property Type="String" Name="Properties" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Mode" />
+          <Property Type="Int32" Name="CategoryID" />
+          <Property Type="Int32" Name="BrandID" />
+          <Property Type="Int32" Name="VN0_En1" />
+          <Property Type="DateTime" Name="SearchDate" Precision="0" />
+          <Property Type="DateTime" Name="SearchTime" Precision="3" />
+          <Property Type="Int32" Name="ResultCount" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -971,16 +936,55 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="tbl_ContactUS">
+          <FunctionImportMapping FunctionImportName="SP_Brand_Properties" FunctionName="fqtdModel.Store.SP_Brand_Properties">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="fqtdModel.SP_Brand_Properties_Result">
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+                <ScalarProperty Name="PropertyID" ColumnName="PropertyID" />
+                <ScalarProperty Name="PropertyName" ColumnName="PropertyName" />
+                <ScalarProperty Name="PropertyName_EN" ColumnName="PropertyName_EN" />
+                <ScalarProperty Name="PropertyValue" ColumnName="PropertyValue" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="tbl_Brand_Properties">
+            <EntityTypeMapping TypeName="fqtdModel.tbl_Brand_Properties">
+              <MappingFragment StoreEntitySet="tbl_Brand_Properties">
+                <ScalarProperty Name="PropertyValue" ColumnName="PropertyValue" />
+                <ScalarProperty Name="PropertyID" ColumnName="PropertyID" />
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_RemoveBrandProperties" FunctionName="fqtdModel.Store.SP_RemoveBrandProperties" />
+          <EntitySetMapping Name="ContactUS">
             <EntityTypeMapping TypeName="fqtdModel.ContactUS">
               <MappingFragment StoreEntitySet="tbl_ContactUS">
                 <ScalarProperty Name="ContactDate" ColumnName="ContactDate" />
                 <ScalarProperty Name="ContactContent" ColumnName="ContactContent" />
                 <ScalarProperty Name="ContactTitle" ColumnName="ContactTitle" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
                 <ScalarProperty Name="ContactID" ColumnName="ContactID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SearchHistory">
+            <EntityTypeMapping TypeName="fqtdModel.SearchHistory">
+              <MappingFragment StoreEntitySet="tbl_SearchHistory">
+                <ScalarProperty Name="ResultCount" ColumnName="ResultCount" />
+                <ScalarProperty Name="SearchTime" ColumnName="SearchTime" />
+                <ScalarProperty Name="SearchDate" ColumnName="SearchDate" />
+                <ScalarProperty Name="VN0_En1" ColumnName="VN0_En1" />
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Mode" ColumnName="Mode" />
+                <ScalarProperty Name="Properties" ColumnName="Properties" />
+                <ScalarProperty Name="Radious" ColumnName="Radious" />
+                <ScalarProperty Name="CurrentLocation" ColumnName="CurrentLocation" />
+                <ScalarProperty Name="Keyword" ColumnName="Keyword" />
+                <ScalarProperty Name="SearchID" ColumnName="SearchID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
