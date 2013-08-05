@@ -24,7 +24,7 @@
                 </td>
                 <td>@Html.DropDownList("CategoryID", "-- All --")
                 </td>
-                <td style="text-align: right">Từ khóa:
+                <td style="text-align: right">Brands:
                 </td>
                 <td>@Html.DropDownList("BrandID", "-- All --")
                 </td>
@@ -63,7 +63,7 @@
         <th>
             @Html.DisplayNameFor(model => model.BrandID)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.VN0_En1)
         </th>
         <th>
@@ -71,7 +71,7 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.SearchTime)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.ResultCount)
         </th>
@@ -110,12 +110,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.BrandID)
         </td>
-        <td>
+       @* <td>
             @Html.DisplayFor(modelItem => item.VN0_En1)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.SearchDate)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.SearchTime)
         </td>
