@@ -1,0 +1,32 @@
+﻿@if (Model.PageCount>1)
+{
+<p>
+    @if (Model.HasPreviousPage)
+    {
+        @Ajax.ActionLink("<< Trang đầu", "Index", new { page = 1, keyword = ViewBag.CurrentKeyword }, new AjaxOptions { UpdateTargetId = "main" }, new { @class="navigabun"})
+        @Html.Raw("&nbsp;");
+        @Ajax.ActionLink("< Trang trước", "Index", new { page = Model.PageNumber - 1, keyword = ViewBag.CurrentKeyword }, new AjaxOptions { UpdateTargetId = "main" }, new { @class="navigabun"})
+    }
+    else
+    {
+        @:<a class="navigabun_dia"><< Trang đầu</a>
+        @Html.Raw("&nbsp;");
+        @:<a class="navigabun_dia">< Trang trước</a>
+    }
+
+    &nbsp;&nbsp;
+    
+    @if (Model.HasNextPage)
+    {
+        @Ajax.ActionLink("  Trang sau >  ", "Index", new { page = Model.PageNumber + 1, keyword = ViewBag.CurrentKeyword }, new AjaxOptions { UpdateTargetId = "main" }, new { @class="navigabun"})
+        @Html.Raw("&nbsp;");
+        @Ajax.ActionLink("  Trang cuối >>  ", "Index", new { page = Model.PageCount, keyword = ViewBag.CurrentKeyword }, new AjaxOptions { UpdateTargetId = "main" }, new { @class="navigabun"})
+    }
+    else
+    {
+        @:<a class="navigabun_dia">Trang sau ></a>
+        @Html.Raw("&nbsp;")
+        @:<a class="navigabun_dia">Trang cuối >></a>
+    }
+</p>
+}

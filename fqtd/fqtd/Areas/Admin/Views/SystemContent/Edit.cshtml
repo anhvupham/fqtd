@@ -1,0 +1,26 @@
+﻿@model fqtd.Areas.Admin.Models.tbl_SystemContent
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="main-container col2-right-layout">
+<h2>Edit</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(a=>a.SystemID)
+    @Html.TextAreaFor(model => model.SystemContent, new { @id = "PropertyContent" })
+    <script type="text/javascript">
+        CKEDITOR.replace("PropertyContent");
+    </script>
+    <p>
+        <input type="submit" value="Thêm mới" />
+    </p>
+}
+
+<div>
+    @Html.ActionLink("Trở về danh sách", "Index")
+</div>
+    </div>

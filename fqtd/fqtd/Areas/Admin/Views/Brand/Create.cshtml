@@ -1,0 +1,98 @@
+﻿@model fqtd.Areas.Admin.Models.Brands
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm("Create", "Brand", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Brands</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BrandName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.BrandName)
+            @Html.ValidationMessageFor(model => model.BrandName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BrandName_EN)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.BrandName_EN)
+            @Html.ValidationMessageFor(model => model.BrandName_EN)
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BrandTypeID)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("BrandTypeID", String.Empty)
+            @Html.ValidationMessageFor(model => model.BrandTypeID)
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CategoryID, "tbl_Categories")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("CategoryID", String.Empty)
+            @Html.ValidationMessageFor(model => model.CategoryID)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MarkerIcon)
+        </div>
+        <div class="editor-field">
+             <input type="file" name="icon" />
+            @Html.ValidationMessageFor(model => model.MarkerIcon)
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Logo)
+        </div>
+        <div class="editor-field">
+             <input type="file" name="logo" />
+            @Html.ValidationMessageFor(model => model.Logo)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+             @Html.TextAreaFor(model => model.Description, new { @id = "Description" })
+           <script type="text/javascript">
+               CKEDITOR.replace("Description");
+            </script>
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+             @Html.TextAreaFor(model => model.Description_EN, new { @id = "Description_EN" })
+           <script type="text/javascript">
+               CKEDITOR.replace("Description_EN");
+            </script>
+            @Html.ValidationMessageFor(model => model.Description_EN)
+        </div>
+
+       
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

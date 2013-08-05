@@ -1,0 +1,106 @@
+﻿@model fqtd.Areas.Admin.Models.Properties
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Properties</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PropertyID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PropertyID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PropertyName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PropertyName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PropertyName_EN)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PropertyName_EN)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ParentID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ParentID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.OrderNumber)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.OrderNumber)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IsActive)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsActive)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CreateDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreateDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CreateUser)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreateUser)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ModifyDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ModifyDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ModifyUser)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ModifyUser)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DeleteDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DeleteDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DeleteUser)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DeleteUser)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
