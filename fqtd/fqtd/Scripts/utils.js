@@ -581,11 +581,11 @@ var FQTD = (function () {
             var category = $('#category').val() != "" ? $('#category').val() : "0"
             var brand = $('#brand').val() != "" ? $('#brand').val() : "0"
             var search = $('#search').val() != "" ? encrypt($('#search').val()) : "0"
-
+            
             if (type == "0" && search == "0") return false;
 
-            if (type == "1" && (address == "0" || (category == "0" || brand == "0") || range == "0")) return false;
-           
+            if (type == "1" && address == "0" && brand == "0" && range == "0") return false;
+            
             window.location.href = "result/index/" + type + "/" + category + "/" + brand + "/" + range + "/" + address + "/" + search
         },
         initResult: function () {
@@ -644,7 +644,7 @@ var FQTD = (function () {
                         $("#brand").empty();
                         //alert(siteurl+' '+data);               
                         var result = $.getJSON(siteurl + data, null, function (brands) {
-                            $("#brand").append('<option value="-1" selected>Tất cả</option>');
+                            $("#brand").append('<option value="">Tất cả</option>');
                             for (i in brands) {
                                 brand = brands[i];
                                 $("#brand").append('<option value="' + brand.BrandID + '">' + brand.BrandName + '</option>');;
@@ -652,7 +652,7 @@ var FQTD = (function () {
                         });
                         result.complete(function () {
                             //set autocomplete           
-                            $("#brand").attr("data-required", "false")
+                            $("#input-brand").val("Tất cả")
                             $("#brand").combobox();
                         });
                     }
