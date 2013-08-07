@@ -18,35 +18,35 @@
                 <form id="form1">
                     <div class="contactrow">
                         <div class="contactleft"><strong>Họ tên</strong></div>
-                        <div class="contactright">@Html.TextBoxFor(model => model.CustomerName, new { data_required=true})
+                        <div class="contactright">@Html.TextBoxFor(model => model.CustomerName, new { data_required = true })
                             @Html.ValidationMessageFor(model => model.CustomerName)
                         </div>
                         <div class="clearfix"></div>
                     </div>
                     <div class="contactrow">
                         <div class="contactleft"><strong>Điện thoại</strong></div>
-                        <div class="contactright">@Html.EditorFor(model => model.Phone)
+                        <div class="contactright">@Html.TextBoxFor(model => model.Phone, new { data_required = true })
                             @Html.ValidationMessageFor(model => model.Phone)
                         </div>
                         <div class="clearfix"></div>
                     </div>
                     <div class="contactrow">
                         <div class="contactleft"><strong>Email</strong></div>
-                        <div class="contactright">@Html.TextBoxFor(model => model.Email, new { data_required=true, data_pattern=@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})\s*"})
+                        <div class="contactright">@Html.TextBoxFor(model => model.Email, new { data_required = true, data_pattern = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})\s*" })
                             @Html.ValidationMessageFor(model => model.Email)
                         </div>
                         <div class="clearfix"></div>
                     </div>
                     <div class="contactrow">
                         <div class="contactleft"><strong>Tiêu đề</strong></div>
-                        <div class="contactright">@Html.TextBoxFor(model => model.ContactTitle, new { data_required=true})
+                        <div class="contactright">@Html.TextBoxFor(model => model.ContactTitle, new { data_required = true })
                             @Html.ValidationMessageFor(model => model.ContactTitle)
                         </div>
                         <div class="clearfix"></div>
                     </div>
                     <div class="contactrow">
                         <div class="contactleft"><strong>Nội dung</strong></div>
-                        <div class="contactright">@Html.TextAreaFor(model => model.ContactContent, new { data_required=true})
+                        <div class="contactright">@Html.TextAreaFor(model => model.ContactContent, new { data_required = true })
                             @Html.ValidationMessageFor(model => model.ContactContent)
                         </div>
                         <div class="clearfix"></div>
@@ -64,7 +64,7 @@
 }
 
 @section Scripts {
-     <script>
+    <script>
         jQuery(document).ready(function ($) {
             FQTD.initContactUs();
         });

@@ -212,8 +212,8 @@ var FQTD = (function () {
 
             // Iterate through a selection of the content and build an HTML string
             for (var i = page_index * items_per_page; i < max_elem; i++) {
-                newcontent += '<div id="object"><table style="width: 100%;"><tr><td valign="top" style="width:116px;"><a href="/detail/' + isEmpty(locations[i][7]) + '" target="_blank"><img id="photo" width="150" src="' + isEmpty(checkImage(locations[i][6])) + '" /></a></td><td valign="top"><h2>' + (isEmpty(locations[i][3])) + '</h2>'
-                    + '<p>Địa chỉ : ' + isEmpty(locations[i][4]) + '<br/>Điện thoại : ' + isEmpty(locations[i][5]) + '</p><p><a href="/detail/' + isEmpty(locations[i][7]) + '" target="_blank"><strong>Xem chi tiết</strong></a>'
+                newcontent += '<div id="object"><table style="width: 100%;"><tr><td valign="top" style="width:116px;"><a href="/detail/' + isEmpty(locations[i][7]) + '/' + encodeURIComponent(isEmpty(locations[i][3])) + '" target="_blank"><img id="photo" width="150" src="' + isEmpty(checkImage(locations[i][6])) + '" /></a></td><td valign="top"><h2>' + (isEmpty(locations[i][3])) + '</h2>'
+                    + '<p>Địa chỉ : ' + isEmpty(locations[i][4]) + '<br/>Điện thoại : ' + isEmpty(locations[i][5]) + '</p><p><a href="/detail/' + isEmpty(locations[i][7]) + '/' + encodeURIComponent(isEmpty(locations[i][3])) + '" target="_blank"><strong>Xem chi tiết</strong></a>'
                     + ' | <a href="javascript:void(0);" onclick="FQTD.DisplayDirection(' + isEmpty(checkImage(locations[i][0])) + ',' + isEmpty(checkImage(locations[i][1])) + ')" class="lienket"><strong>Đường đi</strong></a></p></td></tr></table></div>';
             }
 
@@ -262,11 +262,11 @@ var FQTD = (function () {
                                      + '<li id="car" onclick=\"FQTD.calcRoute(' + items[i].Latitude + ',' + items[i].Longitude + ',\'car\',' + $("#form").val() + ')\"></li>'
                                      + '<li id="bus" onclick=\"FQTD.calcRoute(' + items[i].Latitude + ',' + items[i].Longitude + ',\'bus\',' + $("#form").val() + ')\"></li>'
                                      + '<li id="walk" onclick=\"FQTD.calcRoute(' + items[i].Latitude + ',' + items[i].Longitude + ',\'walk\',' + $("#form").val() + ')\"></li></ul>'
-                                     + '<div id="linkview"><a href="/detail/' + isEmpty(items[i].ItemID) + '" target="_blank">Xem chi tiết</a></div><div id="space"></div>';
-                        locations.push([items[i].Latitude, items[i].Longitude, contentmarker, isEmpty(items[i].ItemName), isEmpty(items[i].FullAddress), isEmpty(items[i].Phone), isEmpty(items[i].Logo), isEmpty(items[i].ItemID), 0, isEmpty(items[i].MarkerIcon)]);                        
+                                     + '<div id="linkview"><a href="/detail/' + isEmpty(items[i].ItemID) + '/' + encodeURIComponent(isEmpty(items[i].ItemName)) + '" target="_blank">Xem chi tiết</a></div><div id="space"></div>';
+                        locations.push([items[i].Latitude, items[i].Longitude, contentmarker, isEmpty(items[i].ItemName), isEmpty(items[i].FullAddress), isEmpty(items[i].Phone), isEmpty(items[i].Logo), isEmpty(items[i].ItemID), 0, isEmpty(items[i].MarkerIcon)]);
                     }
                 }
-            });           
+            });
             result.complete(function () {
                 FQTD.BindData()
                 //set back link               
@@ -302,7 +302,7 @@ var FQTD = (function () {
                 else {
                     if (navigator.geolocation) {
                         // Get current position
-                        navigator.geolocation.getCurrentPosition(function (position, status) {                            
+                        navigator.geolocation.getCurrentPosition(function (position, status) {
                             var geocoder = new google.maps.Geocoder();
                             myplace = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
@@ -324,26 +324,26 @@ var FQTD = (function () {
                         //bind marker to map
                         FQTD.SetupMap(myplace, locations, 6, $("#form").val());
                     };
-                    
+
                     //set list display first
                     FQTD.displayMap()
-                    
+
                 }
-                FQTD.Pagination()                
+                FQTD.Pagination()
                 FQTD.MoveFooter()
             }
             else {
                 FQTD.noRecord()
             }
         },
-        SetupMap: function (myplace, listMarker, zoom, type) {            
+        SetupMap: function (myplace, listMarker, zoom, type) {
             if (type == 0) {
                 //set if 1st place will not display in map view
                 var compareDistance = return_Distance(myplace, new google.maps.LatLng(listMarker[0][0], listMarker[0][1]));
                 if (compareDistance > 17639) {
                     myplace = new google.maps.LatLng(listMarker[0][0], listMarker[0][1]);
                 }
-               
+
                 //set map
                 var mapProp = {
                     center: myplace,
@@ -351,7 +351,7 @@ var FQTD = (function () {
                     disableDefaultUI: true,
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 };
-                map = new google.maps.Map(document.getElementById("googleMap"), mapProp);                
+                map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
             }
             else {
                 //get range value
@@ -376,7 +376,7 @@ var FQTD = (function () {
                 myCity.setMap(map);
 
                 map.fitBounds(myCity.getBounds());
-                FQTD.markOutLocation(myplace.lat(), myplace.lng(), map, "<p class='currentplace'>Bạn đang ở đây.</p>", '/images/home.png');                
+                FQTD.markOutLocation(myplace.lat(), myplace.lng(), map, "<p class='currentplace'>Bạn đang ở đây.</p>", '/images/home.png');
             }
 
             //set direction
@@ -541,7 +541,7 @@ var FQTD = (function () {
                 var checkbox = $(this).find("input:checkbox:first");
                 arr.push(checkbox[0].id)
             })
-            
+
             FQTD.GetJSON(arr)
         },
         ResetData: function () {
@@ -554,7 +554,7 @@ var FQTD = (function () {
         },
         SetupWatermarkValidationContactus: function () {
             //watermark
-            //$("#CustomerName").watermark("Nhập họ tên của bạn");
+            $("#CustomerName").watermark("Nhập họ tên của bạn");
             $("#Phone").watermark("Nhập số điện thoại của bạn");
             $("#Email").watermark("Nhập email của bạn");
             $("#ContactTitle").watermark("Nhập tiêu đề liên lạc");
@@ -562,7 +562,7 @@ var FQTD = (function () {
             //validate
             $('#CustomerName').closest('form').validate({
                 onChange: true,
-                sendFormPost: false,
+                sendFormPost: true,
                 eachValidField: function () {
 
                     $(this).closest('div').removeClass('error').addClass('success');
@@ -581,11 +581,11 @@ var FQTD = (function () {
             var category = $('#category').val() != "" ? $('#category').val() : "0"
             var brand = $('#brand').val() != "" ? $('#brand').val() : "0"
             var search = $('#search').val() != "" ? encrypt($('#search').val()) : "0"
-            
+
             if (type == "0" && search == "0") return false;
 
             if (type == "1" && address == "0" && brand == "0" && range == "0") return false;
-            
+
             window.location.href = "result/index/" + type + "/" + category + "/" + brand + "/" + range + "/" + address + "/" + search
         },
         initResult: function () {
@@ -635,7 +635,7 @@ var FQTD = (function () {
 
             //set autocomplete
             $("#category").combobox({
-                select: function (event, ui) {                    
+                select: function (event, ui) {
                     var id = ui.item.value;
                     if (id > 0) {
                         //Fill brand selectbox
@@ -659,7 +659,7 @@ var FQTD = (function () {
                 }
             });
             $("#brand").combobox();
-            
+
             FQTD.SetupWatermarkValidationHomepage()
             FQTD.BindTooltip()
             FQTD.GetCurrentPositionAddress()
@@ -729,7 +729,7 @@ var FQTD = (function () {
                     if (object.RelateList.length > 0) {
                         for (var i = 0; i < 4; i++) {
                             if (object.RelateList[i]) {
-                                relatelist += "<td><a href='/detail/" + object.RelateList[i].ItemID + "'><img src='" + object.RelateList[i].Logo + "'/></a><br /><strong>" + object.RelateList[i].ItemName + "</strong></td>"
+                                relatelist += "<td><a href='/detail/" + object.RelateList[i].ItemID + "/" + encodeURIComponent(object.RelateList[i].ItemName) + "'><img src='" + object.RelateList[i].Logo + "'/></a><br /><strong>" + object.RelateList[i].ItemName + "</strong></td>"
                             }
                         }
                     }
@@ -750,7 +750,7 @@ var FQTD = (function () {
                     if (object.SameCategoryList.length > 0) {
                         for (var i = 0; i < object.SameCategoryList.length; i++) {
                             if (object.SameCategoryList[i]) {
-                                samecategoryList += "<tr><td class='row1'><a href='/detail/" + object.SameCategoryList[i].ItemID + "'><img class='samecategorylogo' src='" + object.SameCategoryList[i].Logo + "'></a></td><td class='row2'>" + object.SameCategoryList[i].ItemName + "<br /><a href='/detail/" + object.SameCategoryList[i].ItemID + "' class='chitiet'>Chi tiết</a><img src='/images/bullet_grey.png' /></td></tr>"
+                                samecategoryList += "<tr><td class='row1'><a href='/detail/" + object.SameCategoryList[i].ItemID + "/" + encodeURIComponent(object.SameCategoryList[i].ItemName) + "'><img class='samecategorylogo' src='" + object.SameCategoryList[i].Logo + "'></a></td><td class='row2'>" + object.SameCategoryList[i].ItemName + "<br /><a href='/detail/" + object.SameCategoryList[i].ItemID + "/" + encodeURIComponent(object.SameCategoryList[i].ItemName) + "' class='chitiet'>Chi tiết</a><img src='/images/bullet_grey.png' /></td></tr>"
                             }
                         }
                     }

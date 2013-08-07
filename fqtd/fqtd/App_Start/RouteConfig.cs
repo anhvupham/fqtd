@@ -21,7 +21,7 @@ namespace fqtd
 
             routes.MapRoute(
                 name: "detail",
-                url: "detail/{id}",
+                url: "detail/{id}/{name}",
                 defaults: new { controller = "Detail", action = "Index", id = UrlParameter.Optional }
             );
 

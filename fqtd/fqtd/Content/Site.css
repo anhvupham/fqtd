@@ -219,10 +219,11 @@ body {
 }
 
 #range {
-    width: 125px;
+    width: 100%;
     height: 34px;
     border: #bababa 1px solid;
     color: #606060;
+    float:right;
 }
 
 #banmuontim {
@@ -597,7 +598,7 @@ input {
     margin: 20px;
 }
 
-.error input, .error select {
+.error input, .error select, .error textarea {
     border-color: #b94a48 !important;
     color: #b94a48 !important;
 }
@@ -894,6 +895,11 @@ input {
 
 #hrfClose, #hrfOpen {
     height: 49px;
+}
+
+textarea {
+    font-family: Tahoma, Verdana, Arial, sans-serif !important;
+    padding:3px;    
 }
 
 /********************
