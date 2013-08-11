@@ -1,15 +1,12 @@
 ﻿@model IEnumerable<fqtd.Areas.Admin.Models.Properties>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Properties list";
 }
 <div class="caption">
-    <div class="title">Item list</div>
-    <div class="addAction">
         @Html.ActionLink("   Create New   ", "Create")
     </div>
-</div><br />
-<table>
+<table class="table_list">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.PropertyID)

@@ -1,15 +1,19 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "System content";
 }
 
-<div class="main-container col2-right-layout">
-    <h2>Index</h2>
-    @Html.ActionLink("Giới thiệu", "Edit", new { id = fqtd.Areas.Admin.Models.SystemContent.Introduction })
-    <br />
-   @* @Html.ActionLink("Liên hệ", "Edit", new { id = fqtd.Areas.Admin.Models.SystemContent.Contact })
+<table style="padding-top: 20px">
+    <tr>
+        <td>
+            <ul>
+           <li> @Html.ActionLink("Giới thiệu", "Edit", new { id = fqtd.Areas.Admin.Models.SystemContent.Introduction })</li>
+            <br />
+            @* @Html.ActionLink("Liên hệ", "Edit", new { id = fqtd.Areas.Admin.Models.SystemContent.Contact })
     <br />*@
-    @Html.ActionLink("Điều khoản sử dụng", "Edit", new { id = fqtd.Areas.Admin.Models.SystemContent.Tern4Use })
-    <br />
-    @Html.ActionLink("Chính sách bảo mật", "Edit", new { id = fqtd.Areas.Admin.Models.SystemContent.Policy })
-    <br />
-</div>
+          <li>  @Html.ActionLink("Điều khoản sử dụng", "Edit", new { id = fqtd.Areas.Admin.Models.SystemContent.Tern4Use })</li>
+            <br />
+           <li> @Html.ActionLink("Chính sách bảo mật", "Edit", new { id = fqtd.Areas.Admin.Models.SystemContent.Policy })</li>
+            <br /></ul>
+        </td>
+    </tr>
+</table>

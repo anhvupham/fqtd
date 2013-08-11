@@ -195,8 +195,8 @@ var FQTD = (function () {
 
         },
         noRecord: function () {
-            $("#list").html("<p style='text-align:center'>Thông tin tìm kiếm hiện chưa cập nhật. Vui lòng tìm lại sau.</p>");
-            $("#map").html("<p style='text-align:center'>Thông tin tìm kiếm hiện chưa cập nhật. Vui lòng tìm lại sau.</p>");
+            $("#list").html("<p style='text-align:center'>Thông tin Search hiện chưa cập nhật. Vui lòng tìm lại sau.</p>");
+            $("#map").html("<p style='text-align:center'>Thông tin Search hiện chưa cập nhật. Vui lòng tìm lại sau.</p>");
             FQTD.displayMap();
         },
         yesRecord: function () {

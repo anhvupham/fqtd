@@ -4,7 +4,6 @@
     ViewBag.Title = "Search history";
 }
 
-<h2>Search history</h2>
 @using (Ajax.BeginForm("Index", new
 {
     page = 1,
@@ -14,7 +13,7 @@
         
     }, new AjaxOptions { UpdateTargetId = "main" }))
     {
-        <table id="giohang">
+        <table class="table_search">
             <tr>
                 <td style="text-align: right">Keyword:
                 </td>
@@ -28,16 +27,15 @@
                 </td>
                 <td>@Html.DropDownList("BrandID", "-- All --")
                 </td>
-                <td style="text-align: right"><input type="submit" value="Tìm kiếm" />
+                <td style="text-align: right"><input type="submit" value="Search" />
                 </td>
             </tr>
         </table>
     }
-<br />
-<table>
+<table class="table_paging">
     <tr><td>
     @Html.Partial("_Paging")</td></tr></table>
-<table>
+<table class="table_list">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.SearchID)
@@ -68,10 +66,10 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.SearchDate)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.SearchTime)
-        </th>*@
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.ResultCount)
         </th>
