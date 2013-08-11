@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Kết quả";
-    Layout = "~/Views/Shared/MasterSub.cshtml";      
+    Layout = "~/Views/Shared/MasterResult.cshtml";      
 }
 
 <input id="address" type="hidden" style="width: 500px" value="@ViewBag.address" />
@@ -26,19 +26,9 @@
         </table>
     </div>
     <div id="noidungchinh">
-        <div id="map" class="hidden">
-            <div id="googleMap">
-            </div>
-            <div class="btn_more">
-                <a class="button" id="btn_xemthemMap">Xem thêm</a>
-            </div>
+        <div id="map" class="hidden">           
         </div>
-        <div id="list" class="hidden">
-            <div id="subList">
-            </div>
-            <div class="btn_more">
-                <div id="pagination" class="pagination"></div>
-            </div>
+        <div id="list" class="hidden">           
         </div>
         <div id="loading">
             <img src="/images/loading.gif" />
@@ -50,7 +40,7 @@
                 </div>
                 <div id="property">
                 </div>
-                <div class="btn_more">
+                <div class="filter">
                     <a class="button" id="btn_filter"/>Tìm</a>
                 </div>
                 <div class="clearfix"></div>

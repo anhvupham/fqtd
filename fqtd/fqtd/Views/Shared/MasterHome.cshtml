@@ -5,40 +5,39 @@
     <title>@ViewBag.Title - timdau.vn</title>
     <meta name="description" content="@ViewBag.keywords" />
     <meta name="keywords" content="@ViewBag.description" />
-    <meta property="og:title" content="Tìm địa điểm với Tìm đâu"/>
-    <meta property="og:url" content="http://timdau.vn"/>
-    <meta property="og:image" content="http://timdau.vn/images/logo_big1.png"/>
-    <meta property="og:site_name" content="Tìm đâu"/>
-    <meta property="og:type" content="tool"/>
+    <meta property="og:title" content="Tìm địa điểm với Tìm đâu" />
+    <meta property="og:url" content="http://timdau.vn" />
+    <meta property="og:image" content="http://timdau.vn/images/logo_big1.png" />
+    <meta property="og:site_name" content="Tìm đâu" />
+    <meta property="og:type" content="tool" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=1040" />
     @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/themes/base/css/autocomplete")
+    @Styles.Render("~/Content/themes/base/autocomplete")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-
-    <header>
-        <div id="header">
-            <a href="~/">
-                <img src="/images/logo_big1.png" /></a>
-        </div>
-    </header>
     <div id="wrapper">
+        <header>
+            <div id="header">
+                <a href="~/">
+                    <img src="/images/logo_big1.png" /></a>
+            </div>
+        </header>
+
         @RenderSection("featured", required: false)
         @RenderBody()
-    </div>
 
-    <footer>
-        <div id="bottomHome" class="bottomHome">
-            <div id="bottom_info">
-                <div id="bottom_left">Copyright@2013 by Timdau.vn</div>
-                <div id="bottom_right"><a href="~/home/contactus"><strong>Liên hệ</strong></a>  |  <a href="~/home/introduction"><strong>Giới thiệu<strong></a>  |  <a href="~/home/termandconditionofuse"><strong>Điều khoản sử dụng<strong></a>  |  <a href="~/home/policy"><strong>Chính sách bảo mật<strong></a> </div>
+        <footer>
+            <div id="bottomHome" class="bottomFixed">
+                <div id="bottom_info">
+                    <div id="bottom_left">Copyright@2013 by Timdau.vn</div>
+                    <div id="bottom_right"><a href="~/home/contactus"><strong>Liên hệ</strong></a>  |  <a href="~/home/introduction"><strong>Giới thiệu<strong></a>  |  <a href="~/home/termandconditionofuse"><strong>Điều khoản sử dụng<strong></a>  |  <a href="~/home/policy"><strong>Chính sách bảo mật<strong></a> </div>
+                </div>
             </div>
-        </div>
-    </footer>
-
+        </footer>
+    </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/plugin")

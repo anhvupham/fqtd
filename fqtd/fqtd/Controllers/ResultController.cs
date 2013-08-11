@@ -300,7 +300,7 @@ namespace fqtd.Controllers
             }
             else // advance search 
             {
-                if (brandid != -1)
+                if (brandid != 0)
                 {
                     jsonNetResult = ItemByBrandID(ref sHis, brandid, properties, vn0_en1);
                 }

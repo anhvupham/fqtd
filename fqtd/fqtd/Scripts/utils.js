@@ -11,7 +11,7 @@ var FQTD = (function () {
             return '';
         }
         else {
-            return str;
+            return $.trim(str);
         }
     }
 
@@ -184,6 +184,7 @@ var FQTD = (function () {
             $("#tabList").removeClass("inactive").addClass("active");
             $("#tabMap").removeClass("active").addClass("inactive");
 
+            FQTD.MoveFooter("bottomFixed")
         },
         displayMap: function () {
 
@@ -193,6 +194,7 @@ var FQTD = (function () {
             $("#tabMap").removeClass("inactive").addClass("active");
             $("#tabList").removeClass("active").addClass("inactive");
 
+            FQTD.MoveFooter("bottomFixed")
         },
         noRecord: function () {
             $("#list").html("<p style='text-align:center'>Thông tin tìm kiếm hiện chưa cập nhật. Vui lòng tìm lại sau.</p>");
@@ -200,8 +202,8 @@ var FQTD = (function () {
             FQTD.displayMap();
         },
         yesRecord: function () {
-            $("#map").html("<div id='googleMap'></div><div class='btn_more'><a class='button' id='btn_xemthemMap'>Xem thêm</a></div>");
-            $("#list").html("<div id='subList'></div><div class='btn_more'><div id='pagination' class='pagination'></div></div>");
+            $("#map").html("<div id='googleMap' style='width: 100%; height: 100%;'></div><div class='btn_more'><a class='button' id='btn_xemthemMap'>Xem thêm</a></div>");
+            $("#list").html("<div id='subList'></div><div class='paging'><div id='pagination' class='pagination'></div></div>");
             FQTD.displayMap();
         },
         pageselectCallback: function (page_index, jq) {
@@ -330,13 +332,13 @@ var FQTD = (function () {
 
                 }
                 FQTD.Pagination()
-                FQTD.MoveFooter()
+                FQTD.MoveFooter("bottomFixed")
             }
             else {
                 FQTD.noRecord()
             }
         },
-        SetupMap: function (myplace, listMarker, zoom, type) {
+        SetupMap: function (myplace, listMarker, zoom, type) {            
             if (type == 0) {
                 //set if 1st place will not display in map view
                 var compareDistance = return_Distance(myplace, new google.maps.LatLng(listMarker[0][0], listMarker[0][1]));
@@ -350,7 +352,7 @@ var FQTD = (function () {
                     zoom: zoom,
                     disableDefaultUI: true,
                     mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
+                };                
                 map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
             }
             else {
@@ -517,8 +519,8 @@ var FQTD = (function () {
         HideLoading: function () {
             $("#loading").addClass("hidden");
         },
-        MoveFooter: function () {
-            $("#bottom").attr("class", "bottom")
+        MoveFooter: function (str) {
+            $("#bottom").attr("class", str)
         },
         Sticker: function () {
             var s = $("#cactienich");
@@ -590,18 +592,10 @@ var FQTD = (function () {
         },
         initResult: function () {
             $("#tabList").bind('click', function () {
-                $("#list").removeClass("hidden");
-                $("#map").addClass("hidden");
-
-                $("#tabList").removeClass("inactive").addClass("active");
-                $("#tabMap").removeClass("active").addClass("inactive");
+               FQTD.displayList()
             });
             $("#tabMap").bind('click', function () {
-                $("#map").removeClass("hidden");
-                $("#list").addClass("hidden");
-
-                $("#tabMap").removeClass("inactive").addClass("active");
-                $("#tabList").removeClass("active").addClass("inactive");
+                FQTD.displayMap()
             });
             FQTD.showPanel();
             FQTD.hidePanel();
@@ -770,7 +764,7 @@ var FQTD = (function () {
                     $("#tblimagegallery").html(imagegallery)
 
                     FQTD.HideLoading()
-                    FQTD.MoveFooter()
+                    FQTD.MoveFooter("bottom")
                 }
             });
         },
