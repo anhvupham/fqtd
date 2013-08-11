@@ -4,13 +4,11 @@
     ViewBag.Title = "Index";
 }
 <div class="caption">
-    <div class="title">Item list</div>
-    <div class="addAction">
-        @Html.ActionLink("   Create New   ", "Create")
-        @Html.ActionLink("   Build keywords   ", "KeywordBuilder")
-    </div>
+    @*<label class="title">Item list</label>*@
+        @Html.ActionLink("   Create New   ", "Create")|
+        @Html.ActionLink("   Build all keywords   ", "KeywordBuilder")
+    
 </div>
-<br />
 @using (Ajax.BeginForm("Index", new
 {
     page = 1,
@@ -20,7 +18,7 @@
         
     }, new AjaxOptions { UpdateTargetId = "main" }))
     {
-        <table id="giohang">
+        <table class="table_search">
             <tr>
                 <td style="text-align: right">Keyword:
                 </td>
@@ -34,16 +32,15 @@
                 </td>
                 <td>@Html.DropDownList("BrandID", "-- All --")
                 </td>
-                <td style="text-align: right"><input type="submit" value="Tìm kiếm" />
+                <td style="text-align: right"><input type="submit" value="Search" />
                 </td>
             </tr>
         </table>
     }
-<br />
-<table>
+<table class="table_paging">
     <tr><td>
     @Html.Partial("_Paging")</td></tr></table>
-<table>
+<table class="table_list">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.ItemName)

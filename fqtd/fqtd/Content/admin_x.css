@@ -19,8 +19,7 @@ body
     float: left;
     text-align: right;
     min-height: 30px;
-    width: 18%;
-    padding-right: 5px;
+    width: 20%;
 }
 
 .display-label
@@ -69,102 +68,112 @@ body
     width: 80%;
 }
 
+.content-wrapper nav ul
+{
+    width: 100%;
+    height: 30px;
+    list-style: none outside none;
+}
+
 header
 {
     background-image: url("../images/bg_top_main.jpg");
     background-repeat: repeat-x;
     height: 100px;
+    text-align: center;
     width: 100%;
 }
 
-    header .logo
-    {
-        width: 20%;
-        float: left;
-    }
-
-    header .login
-    {
-        height: 30px;
-        width: 80%;
-        text-align: right;
-        padding-left: 10%;
-
-    }
-
-    header .menu
-    {
-        padding-top: 45px;
-        font-family: Tahoma;
-        font-size: 15px;
-        font-weight: bold;
-    }
-
-        header .menu li
-        {
-            background-image: url(../images/bullet.png);
-            background-repeat: no-repeat;
-            background-position: left bottom;
-            display: inline-table;
-            padding-left: 10px;
-        }
-
-            header .menu li a
-            {
-                text-decoration: none;
-                color: white;
-                padding-left: 10px;
-            }
-            header .menu li a:hover
-            {
-                color: green;
-            }
-footer
+.float-left
 {
-    margin-top: 20px;
-    height: 30px;
-    vertical-align: middle;
-    background-image: url("../images/bg_top_main.jpg");
+    width: 20%;
+    float: left;
+    border: 1px solid red;
+}
+
+.site-title
+{
+    width: 30%;
+}
+
+#login
+{
     color: #fff;
-    position: fixed;
-    bottom: 0;
-    left: 0;
+    text-align: right;
+}
+
+#login a
+    {
+        font-weight: bold;
+        color: #fff;
+    }
+
+header ul
+{
     width: 100%;
-}
-
-.footer
-{
-    margin-left: 10%;
-    height: 100%;
-    vertical-align: middle;
+    text-align: right;
     padding-top: 5px;
-    text-align: left;
+    margin-right: 50%;
+}
+.float-right
+{
+    width: 80%;
+    border: 1px solid red;
+}
+#menu
+{
+    padding-right: 10%;
+    padding-top: 40px;
 }
 
-#body
+    #menu li
+    {
+        display: inline;
+    }
+
+header ul li a
 {
-    margin-bottom: 15px;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
 }
+
 #body .caption
 {
-    height: 30px;
+    height: 50px;
+    width: 100%;
     background-color: gray;
-    text-align: left;
-    color: green;
-    font-size: 20px;
-    border: 1px solid gray;
-    padding-left: 10%;
 }
 
-    #body .caption a
+#body .title
+{
+    padding-top: 5px;
+    width: 700px;
+    height: 30px;
+    color: #00ff21;
+    font-size: 30px;
+    float: left;
+}
+
+#body .addAction
+{
+    padding-top: 10px;
+    text-align: right;
+    padding-right: 10%;
+    color: lightblue;
+    font-size: 25px;
+}
+
+    #body .addAction a
     {
         height: 30px;
         color: #fff;
         font-size: 20px;
-        text-decoration: none;
+        /*background-image: url("../images/bg_top_main.jpg");
+        text-decoration: none;*/
     }
 
-        #body .caption a:hover
+        #body .addAction a :hover
         {
             color: #0094ff;
         }
@@ -195,7 +204,6 @@ footer
     height: 50px;
     color: #fff;
     border: 1px solid gray;
-    padding: 2px 2px 2px 2px;
 }
 
 #body .table_list
@@ -209,10 +217,25 @@ footer
         border: 1px solid gray;
         padding: 2px 2px 2px 2px;
     }
+
 .navigabun
 {
-    background-color: gray;
-    color: #00ff21;
+    background: url("../images/button.gif") repeat-x scroll 0 0 transparent;
+    color: #EE287A;
+    float: left;
+    font: 14px/25px Arial,Helvetica,sans-serif;
+    height: 25px;
+    text-align: center;
+    white-space: nowrap;
+    text-decoration: none;
+    margin-left: 5px;
+    width: 110px;
+}
+
+.navigabun_dia
+{
+    background: url("../images/button.gif") repeat-x scroll 0 0 transparent;
+    color: #ffffff;
     float: left;
     font: 14px/25px Arial,Helvetica,sans-serif;
     height: 25px;
@@ -223,16 +246,19 @@ footer
     width: 110px;
 }
 
-.navigabun_dia
+footer
 {
-    background-color: gray;
-    color: #ffffff;
-    float: left;
-    font: 14px/25px Arial,Helvetica,sans-serif;
-    height: 25px;
-    text-align: center;
-    white-space: nowrap;
-    text-decoration: none;
-    margin-right: 5px;
-    width: 110px;
+    margin-top: 20px;
+    height: 30px;
+    vertical-align: middle;
+    background-image: url("../images/bg_top_main.jpg");
+    color: #fff;
+}
+
+.footer
+{
+    margin-left: 10%;
+    height: 100%;
+    vertical-align: middle;
+    padding-top: 5px;
 }

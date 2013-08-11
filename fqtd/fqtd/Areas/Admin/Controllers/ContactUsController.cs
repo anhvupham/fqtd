@@ -2,10 +2,17 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using fqtd.Utils;
 using fqtd.Areas.Admin.Models;
+using Newtonsoft.Json;
+using PagedList;
+using System.Configuration;
 
 namespace fqtd.Areas.Admin.Controllers
 {
@@ -16,9 +23,17 @@ namespace fqtd.Areas.Admin.Controllers
         //
         // GET: /Admin/ContacUs/
 
-        public ActionResult Index()
+        public ActionResult Index(string keyword = "", int page = 1)
         {
-            return View(db.ContactUS.ToList());
+            var result = from a in db.ContactUS where   (a.CustomerName.Contains(keyword) || a.Phone.Contains(keyword)) select a;
+            result = result.OrderBy("CustomerName");
+            ViewBag.CurrentKeyword = keyword;
+            int maxRecords = 20;
+            int currentPage = page;
+            ViewBag.CurrentPage = page;
+            TempData["CurrentKeyword"] = keyword;
+            TempData["CurrentPage"] = page;
+            return View(result.ToPagedList(currentPage, maxRecords));
         }
 
         //
