@@ -46,6 +46,13 @@
             @Html.ValidationMessageFor(model => model.CategoryID)
         </div>
         <div class="editor-label">
+            Keyword
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Keyword)
+            @Html.ValidationMessageFor(model => model.Keyword)
+        </div>
+        <div class="editor-label">
             @Html.LabelFor(model => model.MarkerIcon)
         </div>
         <div class="editor-field">

@@ -1,5 +1,5 @@
-﻿@model IEnumerable<fqtd.Areas.Admin.Models.BrandItems>
-
+﻿@model PagedList.IPagedList<fqtd.Areas.Admin.Models.BrandItems>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
 }
@@ -40,34 +40,35 @@
 <table class="table_paging">
     <tr><td>
     @Html.Partial("_Paging")</td></tr></table>
+
 <table class="table_list">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ItemName)
+            Item Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ItemName_EN)
+            Item Name (EN)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FullAddress)
+            Address
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.OpenTime)
+            Open Time
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Phone)
+            Phone
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Website)
+            Website
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.tbl_Brands.BrandName)
+            Brand Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SearchCount)
+            Search Count
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ClickCount)
+            Click Count
         </th>
        
         <th></th>

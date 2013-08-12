@@ -20,7 +20,7 @@
     {
         @Ajax.ActionLink("  Trang sau >  ", "Index", new { page = Model.PageNumber + 1, keyword = ViewBag.CurrentKeyword, CategoryID = ViewBag.CurrentCategoryID, BrandID = ViewBag.CurrentBrandI }, new AjaxOptions { UpdateTargetId = "main" }, new { @class = "navigabun" })
         @Html.Raw("&nbsp;");
-        @Ajax.ActionLink("  Trang cuối >>  ", "Index", new { page = Model.PageCount, keyword = ViewBag.CurrentKeyword, CategoryID = ViewBag.CurrentCategoryID, BrandID = ViewBag.CurrentBrandI }, new AjaxOptions { UpdateTargetId = "main" }, new { @class = "navigabun" })
+        @Ajax.ActionLink(" Trang cuối >> ", "Index", new { page = Model.PageCount, keyword = ViewBag.CurrentKeyword, CategoryID = ViewBag.CurrentCategoryID, BrandID = ViewBag.CurrentBrandI }, new AjaxOptions { UpdateTargetId = "main" }, new { @class = "navigabun" })
     }
     else
     {

@@ -61,8 +61,15 @@
       <HintPath>..\packages\PagedListExt.Mvc4.1.2.1\lib\net45\Calabonga.Mvc.PagedListExt.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="PagedList">
-      <HintPath>..\packages\PagedList.dll</HintPath>
+    <Reference Include="MiniProfiler">
+      <HintPath>..\packages\MiniProfiler.2.1.0\lib\net40\MiniProfiler.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.16.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\PagedList.1.16.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\packages\PagedList.Mvc.4.3.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -566,6 +573,7 @@
     <Content Include="Content\admin.css" />
     <Content Include="Content\font\architep-webfont.svg" />
     <Content Include="Content\font\utm_bebas-webfont.svg" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -700,6 +708,7 @@
     <Content Include="Areas\Admin\Views\SearchHistory\_Paging.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\ContactUs\_Paging.cshtml" />
+    <Content Include="Areas\Admin\Views\Brand\ImageList.cshtml" />
     <None Include="Properties\PublishProfiles\fqtd_test.pubxml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Images\bg_bottom.jpg" />

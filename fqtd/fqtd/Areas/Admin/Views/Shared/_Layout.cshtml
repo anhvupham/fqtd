@@ -37,6 +37,7 @@
     <div id="body">
         @RenderSection("featured", required: false)
             @RenderBody()
+        @StackExchange.Profiling.MiniProfiler.RenderIncludes()
     </div>
     <footer>
         <div class="content-wrapper">
