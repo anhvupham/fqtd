@@ -26,6 +26,30 @@ namespace fqtd.Areas.Admin.Models
         public int UserId { get; set; }
         public string UserName { get; set; }
     }
+    [Table("aspnet_Users")]
+    public class SystemUsers
+    {
+       public Guid ApplicationId { get; set; }
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public Guid UserId { get; set; }
+        public string UserName { get; set; }
+        public string LoweredUserName { get; set; }
+        public string MobileAlias { get; set; }
+        public bool IsAnonymous { get; set; }
+        public DateTime LastActivityDate { get; set; }
+    }
+    [Table("aspnet_Roles")]
+    public class SystemRoles
+    {
+        public Guid ApplicationId { get; set; }
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int RoleId { get; set; }
+        public string RoleName { get; set; }
+        public string LoweredRoleName { get; set; }
+        public string Description { get; set; }
+    }
 
     public class RegisterExternalLoginModel
     {

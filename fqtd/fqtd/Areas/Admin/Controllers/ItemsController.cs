@@ -42,6 +42,7 @@ namespace fqtd.Areas.Admin.Controllers
             ViewBag.CurrentBrandID = BrandID;
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
             ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName");
+            //ViewBag.Users = new SelectList(Roles.GetUsersInRole("Admin"));
 
 
             TempData["CategoryID"] = CategoryID;
@@ -76,7 +77,7 @@ namespace fqtd.Areas.Admin.Controllers
         //
         // POST: /Admin/Items/Create
         [Authorize]
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         [ValidateAntiForgeryToken]
         public ActionResult Create(BrandItems branditems, HttpPostedFileBase icon)
         {
@@ -126,7 +127,7 @@ namespace fqtd.Areas.Admin.Controllers
         //
         // POST: /Admin/Items/Edit/5
         [Authorize]
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(BrandItems branditems, HttpPostedFileBase icon)
         {

@@ -1,20 +1,15 @@
 ﻿@model fqtd.Areas.Admin.Models.BrandItems
 @{
-    ViewBag.Title = "Items list";
+    ViewBag.Title = "Items Images";
     List<string> List = ViewBag.ImageList;
 }
 <div class="main-container col2-right-layout">
-    <h2>AddImages</h2>
-    <div id="AddImages">
-    </div>
-    <fieldset>
-        <legend>Them hinh</legend>
+  
         @using (Html.BeginForm("AddImages", "Items", new { id = Model.ItemID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
         {    
             <input type="file" name="file" />
             <input type="submit" value="Upload Image" />
         }
-    </fieldset>
     <div>
     @Html.ActionLink("Back to List", "Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] })
     </div>

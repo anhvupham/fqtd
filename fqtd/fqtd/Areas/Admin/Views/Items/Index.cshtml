@@ -14,8 +14,8 @@
     page = 1,
     Keyword = ViewBag.CurrentKeyword,
     category = ViewBag.CurrentCategoryID,
-    brand = ViewBag.CurrentBrandID
-        
+    brand = ViewBag.CurrentBrandID,
+    user = ViewBag.CurrentUser
     }, new AjaxOptions { UpdateTargetId = "main" }))
     {
         <table class="table_search">
@@ -31,9 +31,14 @@
                 <td style="text-align: right">Brands:
                 </td>
                 <td>@Html.DropDownList("BrandID", "-- All --")
+                @*</td>
+                <td style="text-align: right">Users:
                 </td>
+                <td>@Html.DropDownList("Users", "-- All --")
+                </td>*@
                 <td style="text-align: right"><input type="submit" value="Search" />
                 </td>
+
             </tr>
         </table>
     }
