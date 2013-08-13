@@ -1,17 +1,17 @@
-﻿@model fqtd.Areas.Admin.Models.BrandItems
+﻿@model fqtd.Areas.Admin.Models.Brands
 @{
-    ViewBag.Title = "Items Images";
+    ViewBag.Title = "Brand Images";
     List<string> List = ViewBag.ImageList;
 }
 <div class="main-container col2-right-layout">
   
-        @using (Html.BeginForm("AddImages", "Items", new { id = Model.ItemID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("AddImages", "Brand", new { id = Model.BrandID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
         {    
             <input type="file" name="file" />
             <input type="submit" value="Upload Image" />
         }
     <div>
-    @Html.ActionLink("Back to List", "Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] })
+    @Html.ActionLink("Back to List", "Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] })
     </div>
 
     <table width="100%" style="">
@@ -22,7 +22,7 @@
                 {
                     <td style="width: 33.333%; text-align: center">
                         <img style="width: 100%;max-width: 300px" src="@x" />
-                        @Html.ActionLink("Xoa", "DeleteImage", new { id = Model.ItemID, image = x })
+                        @Html.ActionLink("Xoa", "DeleteImage", new { id = Model.BrandID, image = x })
                     </td> 
                 }
             </tr>

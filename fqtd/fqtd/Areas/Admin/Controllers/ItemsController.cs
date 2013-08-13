@@ -24,6 +24,7 @@ namespace fqtd.Areas.Admin.Controllers
 
         //
         // GET: /Admin/Items/
+        [OutputCache(CacheProfile = "Aggressive", VaryByParam = "page;keyword;CategoryID;BrandID", Location = System.Web.UI.OutputCacheLocation.ServerAndClient)]
         [Authorize]
         public ActionResult Index(string keyword = "", int? CategoryID = null, int? BrandID = null, int page = 1)
         {
@@ -41,6 +42,7 @@ namespace fqtd.Areas.Admin.Controllers
             ViewBag.CurrentBrandID = BrandID;
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
             ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName");
+            //ViewBag.Users = new SelectList(Roles.GetUsersInRole("Admin"));
 
 
             TempData["CategoryID"] = CategoryID;
@@ -49,7 +51,6 @@ namespace fqtd.Areas.Admin.Controllers
             TempData["CurrentPage"] = page;
             return View(result.ToPagedList(currentPage, maxRecords));
         }
-
 
         //
         // GET: /Admin/Items/Details/5
@@ -76,7 +77,7 @@ namespace fqtd.Areas.Admin.Controllers
         //
         // POST: /Admin/Items/Create
         [Authorize]
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         [ValidateAntiForgeryToken]
         public ActionResult Create(BrandItems branditems, HttpPostedFileBase icon)
         {
@@ -126,7 +127,7 @@ namespace fqtd.Areas.Admin.Controllers
         //
         // POST: /Admin/Items/Edit/5
         [Authorize]
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(BrandItems branditems, HttpPostedFileBase icon)
         {
@@ -220,6 +221,21 @@ namespace fqtd.Areas.Admin.Controllers
             return View(item);
         }
 
+        [Authorize]
+        public ActionResult DeleteImage(int id, string image)
+        {
+            image = image.Replace("../", "");
+
+            string FilesPath = ConfigurationManager.AppSettings["ItemImageLocation"];
+            string full_path = Server.MapPath(FilesPath);
+            FilesPath = Path.Combine(full_path, id + "\\" + image.Substring(image.LastIndexOf('/') + 1));
+            if (System.IO.File.Exists(FilesPath))
+            {
+                System.IO.File.Delete(FilesPath);
+            }
+            return RedirectToAction("ImageList", new { id = id });
+
+        }
 
         //
         // POST: /Admin/Items/Delete/5

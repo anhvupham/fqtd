@@ -97,8 +97,9 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.BrandID }) |
             @Html.ActionLink("Details", "Details", new { id=item.BrandID }) |
-            @Html.ActionLink("Categories", "BrandCategories", new { id=item.BrandID,page=ViewBag.CurrentPage, keyword=ViewBag.CurrentKeyword }) |
-            @Html.ActionLink("Properties", "BrandProperties", new { id=item.BrandID,page=ViewBag.CurrentPage, keyword=ViewBag.CurrentKeyword }) |
+            @Html.ActionLink("Images", "ImageList", new { id=item.BrandID}) |
+            @Html.ActionLink("Categories", "BrandCategories", new { id=item.BrandID}) |
+            @Html.ActionLink("Properties", "BrandProperties", new { id=item.BrandID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.BrandID })
         </td>
     </tr>

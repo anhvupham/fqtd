@@ -1,5 +1,5 @@
-﻿@model IEnumerable<fqtd.Areas.Admin.Models.BrandItems>
-
+﻿@model PagedList.IPagedList<fqtd.Areas.Admin.Models.BrandItems>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
 }
@@ -14,8 +14,8 @@
     page = 1,
     Keyword = ViewBag.CurrentKeyword,
     category = ViewBag.CurrentCategoryID,
-    brand = ViewBag.CurrentBrandID
-        
+    brand = ViewBag.CurrentBrandID,
+    user = ViewBag.CurrentUser
     }, new AjaxOptions { UpdateTargetId = "main" }))
     {
         <table class="table_search">
@@ -31,43 +31,49 @@
                 <td style="text-align: right">Brands:
                 </td>
                 <td>@Html.DropDownList("BrandID", "-- All --")
+                @*</td>
+                <td style="text-align: right">Users:
                 </td>
+                <td>@Html.DropDownList("Users", "-- All --")
+                </td>*@
                 <td style="text-align: right"><input type="submit" value="Search" />
                 </td>
+
             </tr>
         </table>
     }
 <table class="table_paging">
     <tr><td>
     @Html.Partial("_Paging")</td></tr></table>
+
 <table class="table_list">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ItemName)
+            Item Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ItemName_EN)
+            Item Name (EN)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FullAddress)
+            Address
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.OpenTime)
+            Open Time
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Phone)
+            Phone
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Website)
+            Website
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.tbl_Brands.BrandName)
+            Brand Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SearchCount)
+            Search Count
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ClickCount)
+            Click Count
         </th>
        
         <th></th>

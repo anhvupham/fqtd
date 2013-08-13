@@ -5,6 +5,8 @@ using System.Collections.Specialized;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.IO;
+using PagedList;
+using PagedList.Mvc;
 
 namespace System.Web.Mvc
 {

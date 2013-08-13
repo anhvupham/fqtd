@@ -13,6 +13,7 @@ using fqtd.Areas.Admin.Models;
 using Newtonsoft.Json;
 using System.Configuration;
 using PagedList;
+using System.IO;
 
 namespace fqtd.Areas.Admin.Controllers
 {
@@ -22,6 +23,7 @@ namespace fqtd.Areas.Admin.Controllers
 
         //
         // GET: /Admin/Brands/
+        [OutputCache(CacheProfile = "Aggressive", VaryByParam = "page;keyword", Location = System.Web.UI.OutputCacheLocation.Client)]
         [Authorize]
         public ActionResult Index(string keyword = "", int page = 1)
         {
@@ -108,20 +110,20 @@ namespace fqtd.Areas.Admin.Controllers
                 brands.IsActive = true;
                 brands.CreateDate = DateTime.Now;
                 brands.CreateUser = User.Identity.Name;
-                string filesPath = "", full_path = "";
+                string filesPath = "", full_path = "", full_path_logo="";
                 if (icon != null)
                 {
                     char DirSeparator = System.IO.Path.DirectorySeparatorChar;
-                    filesPath = ConfigurationManager.AppSettings["BrandMarkerIconLocaion"];
+                    filesPath = ConfigurationManager.AppSettings["BrandMarkerIconLocation"];
                     full_path = Server.MapPath(filesPath).Replace("Brands", "").Replace("Admin", "");
                     brands.MarkerIcon = FileUpload.UploadFile(icon, full_path);
                 }
                 if (logo != null)
                 {
                     char DirSeparator = System.IO.Path.DirectorySeparatorChar;
-                    filesPath = ConfigurationManager.AppSettings["BrandLogoLocaion"];
-                    full_path = Server.MapPath(filesPath).Replace("Brands", "").Replace("Admin", "");
-                    brands.Logo = FileUpload.UploadFile(logo, full_path);
+                    filesPath = ConfigurationManager.AppSettings["BrandLogoLocation"];
+                    full_path_logo = Server.MapPath(filesPath).Replace("Admin", "");
+                    brands.Logo = FileUpload.UploadFile(logo, full_path_logo);
                 }
 
                 db.Brands.Add(brands);
@@ -129,18 +131,20 @@ namespace fqtd.Areas.Admin.Controllers
                 if (icon != null)
                 {
                     string filename = brands.BrandID + "_" + icon.FileName.Replace(" ", "_").Replace("-", "_");
-                    brands.MarkerIcon = FileUpload.UploadFile(icon, filename, full_path);
+                    brands.MarkerIcon = filename;// FileUpload.UploadFile(icon, filename, full_path);
+                    System.IO.File.Move(Path.Combine(full_path,icon.FileName), Path.Combine(full_path,filename));
                     db.Entry(brands).State = EntityState.Modified;
                     db.SaveChanges();
                 }
                 if (logo != null)
                 {
-                    string filename = brands.BrandID + "_" + icon.FileName.Replace(" ", "_").Replace("-", "_");
-                    brands.Logo = FileUpload.UploadFile(logo, filename, full_path);
+                    string filename = brands.BrandID + "_" + logo.FileName.Replace(" ", "_").Replace("-", "_");
+                    brands.Logo = filename;// FileUpload.UploadFile(logo, filename, full_path);
+                    System.IO.File.Move(Path.Combine(full_path_logo, logo.FileName), Path.Combine(full_path_logo, filename));
                     db.Entry(brands).State = EntityState.Modified;
                     db.SaveChanges();
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] });
             }
 
             ViewBag.CategoryID = new SelectList(db.Categories.Where(a => a.IsActive), "CategoryID", "CategoryName", brands.CategoryID);
@@ -160,7 +164,7 @@ namespace fqtd.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
-            
+
             ViewBag.CategoryID = new SelectList(db.Categories.Where(a => a.IsActive), "CategoryID", "CategoryName", brands.CategoryID);
             ViewBag.BrandTypeID = new SelectList(db.BrandTypes.Where(a => a.IsActive), "BrandTypeID", "BrandTypeName", brands.BrandTypeID);
             return View(brands);
@@ -184,7 +188,7 @@ namespace fqtd.Areas.Admin.Controllers
                 if (icon != null)
                 {
                     char DirSeparator = System.IO.Path.DirectorySeparatorChar;
-                    filesPath = ConfigurationManager.AppSettings["BrandMarkerIconLocaion"];
+                    filesPath = ConfigurationManager.AppSettings["BrandMarkerIconLocation"];
                     full_path = Server.MapPath(filesPath).Replace("Brands", "").Replace("Admin", "");
                     brands.MarkerIcon = FileUpload.UploadFile(icon, full_path);
                 }
@@ -206,14 +210,16 @@ namespace fqtd.Areas.Admin.Controllers
                 if (icon != null)
                 {
                     string filename = brands.BrandID + "_" + icon.FileName.Replace(" ", "_").Replace("-", "_");
-                    brands.MarkerIcon = FileUpload.UploadFile(icon, filename, full_path);
+                    brands.MarkerIcon = filename;// FileUpload.UploadFile(logo, filename, full_path);
+                    System.IO.File.Move(Path.Combine(full_path, icon.FileName), Path.Combine(full_path, filename));
                     db.Entry(brands).State = EntityState.Modified;
                     db.SaveChanges();
                 }
                 if (logo != null)
                 {
                     string filename = brands.BrandID + "_" + logo.FileName.Replace(" ", "_").Replace("-", "_");
-                    brands.Logo = FileUpload.UploadFile(logo, filename, full_path_logo);
+                    brands.Logo = filename;// FileUpload.UploadFile(logo, filename, full_path);
+                    System.IO.File.Move(Path.Combine(full_path_logo, logo.FileName), Path.Combine(full_path_logo, filename));
                     db.Entry(brands).State = EntityState.Modified;
                     db.SaveChanges();
                 }
@@ -253,13 +259,13 @@ namespace fqtd.Areas.Admin.Controllers
             brands.DeleteUser = User.Identity.Name;
             db.Entry(brands).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] });
         }
 
 
 
         [Authorize]
-        public ActionResult BrandCategories(int id = 0, int page=1, string keyword="")
+        public ActionResult BrandCategories(int id = 0, int page = 1, string keyword = "")
         {
 
 
@@ -314,8 +320,8 @@ namespace fqtd.Areas.Admin.Controllers
             db.SaveChanges();
             TempData["BrandID"] = null;
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
-            
-            return RedirectToAction("index", "Brand", new { keyword=TempData["CurrentKeyword"], page=TempData["CurrentPage"]});
+
+            return RedirectToAction("index", "Brand", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] });
         }
 
 
@@ -366,6 +372,65 @@ namespace fqtd.Areas.Admin.Controllers
             return RedirectToAction("index", "Brand", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] });
         }
 
+        [Authorize]
+        public ViewResult ImageList(int id)
+        {
+            Brands item = db.Brands.Find(id);
+            string path = ConfigurationManager.AppSettings["BrandImageLocation"] + "\\" + item.BrandID;
+            path = Server.MapPath(path);
+            List<string> list = new List<string>();
+            if (Directory.Exists(path))
+            {
+                string[] files = Directory.GetFiles(path);
+
+                foreach (string s in files)
+                {
+                    string filename = Path.GetFileName(s);
+                    if (!System.IO.File.Exists(s.Replace(" ", "_").Replace("-", "_")))
+                        //System.IO.File.Delete(s.Replace(" ", "_").Replace("-", "_"));
+                        System.IO.File.Move(s, s.Replace(" ", "_").Replace("-", "_"));
+                    if (filename.ToLower().IndexOf(".jpg") >= 0 || filename.ToLower().IndexOf(".png") >= 0 || filename.ToLower().IndexOf(".gif") >= 0)
+                        list.Add(ConfigurationManager.AppSettings["BrandImageLocation"].Replace("~", "../../../..") + "/" + item.BrandID + "/" + filename.Replace(" ", "_").Replace("-", "_"));
+
+                }
+            }
+            ViewBag.ImageList = list;
+            return View(item);
+        }
+        [HttpPost]
+        [Authorize]
+        public ActionResult AddImages(int id, HttpPostedFileBase file)
+        {
+            var item = db.Brands.Find(id);
+            if (ModelState.IsValid)
+            {
+                if (file != null)
+                {
+                    char DirSeparator = System.IO.Path.DirectorySeparatorChar;
+                    string FilesPath = ConfigurationManager.AppSettings["BrandImageLocation"];
+                    string full_path = Server.MapPath(FilesPath).Replace("AddImages", "").Replace(" ", "_").Replace("-", "_") + "\\" + item.BrandID;
+                    FileUpload.UploadFile(file, full_path);
+                }
+                return RedirectToAction("ImageList", new { id = item.BrandID });
+            }
+            return View(item);
+        }
+
+        [Authorize]
+        public ActionResult DeleteImage(int id, string image)
+        {
+            image = image.Replace("../","");
+
+            string FilesPath = ConfigurationManager.AppSettings["BrandImageLocation"];
+            string full_path = Server.MapPath(FilesPath);
+            FilesPath = Path.Combine(full_path,id+"\\"+image.Substring(image.LastIndexOf('/')+1));
+            if (System.IO.File.Exists(FilesPath))
+            {
+                System.IO.File.Delete(FilesPath);
+            }
+            return RedirectToAction("ImageList", new { id = id });
+
+        }
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

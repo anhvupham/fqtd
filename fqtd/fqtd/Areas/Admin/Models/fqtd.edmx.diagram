@@ -25,6 +25,7 @@
         <AssociationConnector Association="fqtdModel.FK_tbl_Brand_Properties_tbl_Properties" />
         <EntityTypeShape EntityType="fqtdModel.ContactUS" Width="1.5" PointX="6.75" PointY="14.125" />
         <EntityTypeShape EntityType="fqtdModel.SearchHistory" Width="1.5" PointX="6.75" PointY="17.375" />
+        <EntityTypeShape EntityType="fqtdModel.SystemUsers" Width="1.5" PointX="6.875" PointY="21.125" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
