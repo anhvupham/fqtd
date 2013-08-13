@@ -273,6 +273,12 @@ var FQTD = (function () {
                 FQTD.BindData()
                 //set back link               
                 $("#backlink").attr("href", "/#" + $("#form").val())
+                $("#btn_xemthemMap").bind("click", function () {
+                    console.log(locations.length)
+                    if (limit < locations.length) {
+                        FQTD.DisplayMore(limit, locations);
+                    }
+                });
             });
         },
         BindData: function () {
@@ -487,6 +493,7 @@ var FQTD = (function () {
         DisplayMore: function (localLimit, listMarker) {
             var bound = (listMarker.length - localLimit) >= 5 ? 5 : (listMarker.length - localLimit);
             bound = (parseInt(localLimit) + parseInt(bound));
+            console.log(bound);
             for (i = localLimit; i <= (bound - 1) ; i++) {
                 FQTD.markOutLocation(listMarker[i][0], listMarker[i][1], map, listMarker[i][2], listMarker[i][9]);
                 localLimit++;
@@ -600,18 +607,12 @@ var FQTD = (function () {
             FQTD.showPanel();
             FQTD.hidePanel();
             FQTD.BindPropertyData();
-            FQTD.GetJSON();
-            $("#btn_xemthemMap").bind("click", function () {
-                if (limit < locations.length) {
-                    FQTD.DisplayMore(limit, locations);
-                }
-            });
+            FQTD.GetJSON();            
             $("#btn_filter").bind("click", function () {
                 FQTD.ResetData()
                 FQTD.GetPropertyValue()
             })
-            FQTD.Sticker();
-            //footer
+            FQTD.Sticker();            
             FQTD.HideLoading()
         },
         initHomepage: function () {
