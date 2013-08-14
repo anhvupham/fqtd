@@ -3,12 +3,14 @@
     Layout = "~/Views/Shared/MasterResult.cshtml";      
 }
 
-<input id="address" type="hidden" style="width: 500px" value="@ViewBag.address" />
-<input id="range" type="hidden" style="width: 100px" value="@ViewBag.range" />
-<input id="category" type="hidden" style="width: 100px" value="@ViewBag.category" />
-<input id="brand" type="hidden" style="width: 100px" value="@ViewBag.brand" />
-<input id="search" type="hidden" style="width: 100px" value="@ViewBag.search" />
-<input id="form" type="hidden" style="width: 100px" value="@ViewBag.form" />
+<input id="address" type="hidden"  value="@ViewBag.address" />
+<input id="range" type="hidden" value="@ViewBag.range" />
+<input id="category" type="hidden"  value="@ViewBag.category" />
+<input id="brand" type="hidden"  value="@ViewBag.brand" />
+<input id="search" type="hidden" value="@ViewBag.search" />
+<input id="form" type="hidden" value="@ViewBag.form" />
+<input id="NumberOfIntemShow" type="hidden" value="@ViewBag.NumberOfIntemShow" />
+<input id="NumberOfIntemAddmore" type="hidden" value="@ViewBag.NumberOfIntemAddmore" />
 
 <div id="content_sub">
     <div id="menu">
@@ -26,9 +28,9 @@
         </table>
     </div>
     <div id="noidungchinh">
-        <div id="map" class="hidden">           
+        <div id="map" class="hidden">
         </div>
-        <div id="list" class="hidden">           
+        <div id="list" class="hidden">
         </div>
         <div id="loading">
             <img src="/images/loading.gif" />
@@ -41,7 +43,7 @@
                 <div id="property">
                 </div>
                 <div class="filter">
-                    <a class="button" id="btn_filter"/>Tìm</a>
+                    <a class="button" id="btn_filter" />Tìm</a>
                 </div>
                 <div class="clearfix"></div>
             </div>

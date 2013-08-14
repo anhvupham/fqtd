@@ -5,6 +5,8 @@ var FQTD = (function () {
     var locations = new Array();
     var limit = 0;
     var infobox;
+    var NumberOfIntemShow;
+    var NumberOfIntemAddmore;
 
     function isEmpty(str) {
         if ((!str || 0 === str.length) == true) {
@@ -255,7 +257,6 @@ var FQTD = (function () {
             }
             urlResult += "&vn0_en1=0";
             var result = $.getJSON(urlResult, null, function (items) {
-                //alert(items);
                 for (var i = 0; i < items.length; i++) {
                     if (items[i].Latitude != null && items[i].Longitude != null) {
                         var contentmarker = '<div class="marker"><h2>' + isEmpty(items[i].ItemName) + '</h2><p>' + isEmpty(items[i].FullAddress) + '<br/>' + isEmpty(items[i].Phone) + '</p></div>'
@@ -274,9 +275,11 @@ var FQTD = (function () {
                 //set back link               
                 $("#backlink").attr("href", "/#" + $("#form").val())
                 $("#btn_xemthemMap").bind("click", function () {
-                    console.log(locations.length)
                     if (limit < locations.length) {
                         FQTD.DisplayMore(limit, locations);
+                    }
+                    else {
+                        $("#btn_xemthemMap").addClass("hidden")
                     }
                 });
             });
@@ -351,7 +354,6 @@ var FQTD = (function () {
                 if (compareDistance > 17639) {
                     myplace = new google.maps.LatLng(listMarker[0][0], listMarker[0][1]);
                 }
-
                 //set map
                 var mapProp = {
                     center: myplace,
@@ -392,7 +394,7 @@ var FQTD = (function () {
             directionsDisplay.setMap(map);
 
             //add marker to map
-            for (i = 0; i <= 4; i++) {
+            for (i = 0; i <= NumberOfIntemShow; i++) {
                 if (listMarker[i]) {
                     FQTD.markOutLocation(listMarker[i][0], listMarker[i][1], map, listMarker[i][2], listMarker[i][9]);
                     limit++;
@@ -400,7 +402,7 @@ var FQTD = (function () {
             }
 
             //check to display button more
-            if (listMarker.length <= 4) $("#btn_xemthemMap").addClass("hidden")
+            if (listMarker.length <= NumberOfIntemShow) $("#btn_xemthemMap").addClass("hidden")
         },
         BindSelectCategory: function () {
             //Bind data to select box Category
@@ -491,9 +493,8 @@ var FQTD = (function () {
             });
         },
         DisplayMore: function (localLimit, listMarker) {
-            var bound = (listMarker.length - localLimit) >= 5 ? 5 : (listMarker.length - localLimit);
+            var bound = (listMarker.length - localLimit) >= NumberOfIntemAddmore ? NumberOfIntemAddmore : (listMarker.length - localLimit);
             bound = (parseInt(localLimit) + parseInt(bound));
-            console.log(bound);
             for (i = localLimit; i <= (bound - 1) ; i++) {
                 FQTD.markOutLocation(listMarker[i][0], listMarker[i][1], map, listMarker[i][2], listMarker[i][9]);
                 localLimit++;
@@ -604,6 +605,8 @@ var FQTD = (function () {
             $("#tabMap").bind('click', function () {
                 FQTD.displayMap()
             });
+            NumberOfIntemShow = $("#NumberOfIntemShow").val()
+            NumberOfIntemAddmore = $("#NumberOfIntemAddmore").val()
             FQTD.showPanel();
             FQTD.hidePanel();
             FQTD.BindPropertyData();
@@ -693,6 +696,11 @@ var FQTD = (function () {
             $("#form2").submit(function () {
                 FQTD.SubmitForm()
             });
+
+            if (navigator.userAgent.match(/mobile/i)) {
+                console.log("aaaa")
+            }
+            
         },
         initDetail: function () {
             var id = $(location).attr('pathname').split('/')[2]
@@ -709,7 +717,7 @@ var FQTD = (function () {
                         $("#tendiadiem").html("<h1>" + object.ItemDetail[0].ItemName + "</h1>")
                         $("#txtaddress").html(object.ItemDetail[0].FullAddress)
                         $("#txtphone").html(object.ItemDetail[0].Phone)
-                        $("#txtwebsite").html(object.ItemDetail[0].Website)
+                        $("#txtcategory").html(object.ItemDetail[0].CategoryName)
                         $("#txtopentime").html(object.ItemDetail[0].OpenTime)
                         if (isEmpty(object.ItemDetail[0].Latitude) != "" && isEmpty(object.ItemDetail[0].Longitude) != "") {
                             $("#staticmap").attr('src', 'http://maps.googleapis.com/maps/api/staticmap?center=' + isEmpty(object.ItemDetail[0].Latitude) + ',' + isEmpty(object.ItemDetail[0].Longitude) + '&zoom=15&size=682x300&maptype=roadmap&markers=color:blue%7Clabel:A%7C' + isEmpty(object.ItemDetail[0].Latitude) + ',' + isEmpty(object.ItemDetail[0].Longitude) + '&sensor=false')
