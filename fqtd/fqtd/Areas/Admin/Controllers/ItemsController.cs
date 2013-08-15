@@ -24,7 +24,7 @@ namespace fqtd.Areas.Admin.Controllers
 
         //
         // GET: /Admin/Items/
-        [OutputCache(CacheProfile = "Aggressive", VaryByParam = "page;keyword;CategoryID;BrandID", Location = System.Web.UI.OutputCacheLocation.ServerAndClient)]
+        [OutputCache(CacheProfile = "Aggressive", VaryByParam = "page;keyword;CategoryID;BrandID", Location = System.Web.UI.OutputCacheLocation.Client)]
         [Authorize]
         public ActionResult Index(string keyword = "", int? CategoryID = null, int? BrandID = null, int page = 1)
         {

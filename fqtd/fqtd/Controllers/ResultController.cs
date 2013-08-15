@@ -271,7 +271,7 @@ namespace fqtd.Controllers
             return jsonNetResult;
         }
 
-        [OutputCache(CacheProfile = "Aggressive", VaryByParam = "mode;keyword;currentLocation;categoryid;brandid;radious;properties;vn0_en1", Location = System.Web.UI.OutputCacheLocation.ServerAndClient)]        
+        [OutputCache(CacheProfile = "Aggressive", VaryByParam = "mode;keyword;currentLocation;categoryid;brandid;radious;properties;vn0_en1", Location = System.Web.UI.OutputCacheLocation.Client)]        
         public ActionResult Search(int mode = 0, string keyword = "", string currentLocation = "", int categoryid = -1, int brandid = -1, int radious = 1, string properties = "", int vn0_en1 = 0)
         {
             ViewBag.Mode = mode;

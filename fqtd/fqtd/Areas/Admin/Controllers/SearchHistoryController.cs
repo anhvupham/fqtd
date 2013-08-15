@@ -14,7 +14,7 @@ namespace fqtd.Areas.Admin.Controllers
         // GET: /Admin/SearchHistory/
         fqtd.Areas.Admin.Models.fqtdEntities db = new Models.fqtdEntities();
         [Authorize]
-        [OutputCache(CacheProfile = "Aggressive", VaryByParam = "page;keyword;CategoryID;BrandID", Location = System.Web.UI.OutputCacheLocation.ServerAndClient)]
+        [OutputCache(CacheProfile = "Aggressive", VaryByParam = "page;keyword;CategoryID;BrandID", Location = System.Web.UI.OutputCacheLocation.Client)]
         public ActionResult Index(string keyword = "", int? CategoryID = null, int? BrandID = null, int page = 1)
         {
             var result = from a in db.SearchHistory where (a.Keyword.Contains(keyword)) select a;
