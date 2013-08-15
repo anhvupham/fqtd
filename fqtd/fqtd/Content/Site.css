@@ -170,7 +170,7 @@ body, html {
     display: block;
     float: left;
     margin-right: 20px;
-    margin-top: 80px;
+    margin-top: 8%;
 }
 
 #home_center {
@@ -178,14 +178,14 @@ body, html {
     display: block;
     float: left;
     margin-right: 20px;
-    margin-top: 80px;
+    margin-top: 8%;
 }
 
 #home_right {
     width: 152px;
     display: block;
     float: right;
-    margin-top: 80px;
+    margin-top: 8%;
 }
 
 #home_left2 {
@@ -193,7 +193,7 @@ body, html {
     display: block;
     float: left;
     margin-right: 20px;
-    margin-top: 80px;
+    margin-top: 8%;
 }
 
 #home_center2 {
@@ -201,14 +201,14 @@ body, html {
     display: block;
     float: left;
     margin-left: 64px;
-    margin-top: 80px;
+    margin-top: 8%;
 }
 
 #home_right2 {
     width: 170px;
     display: block;
     float: left;
-    margin-top: 80px;
+    margin-top: 8%;
 }
 
 #address {

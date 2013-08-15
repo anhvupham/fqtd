@@ -32,6 +32,8 @@ namespace fqtd.Controllers
             ViewBag.brand = brand;
             ViewBag.search = search;
             ViewBag.form = form;
+            ViewBag.NumberOfIntemShow = ConfigurationManager.AppSettings["NumberOfIntemShow"];
+            ViewBag.NumberOfIntemAddmore = ConfigurationManager.AppSettings["NumberOfIntemAddmore"];
             return View("Index");
         }
 

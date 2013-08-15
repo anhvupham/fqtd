@@ -641,11 +641,6 @@
     <Content Include="ckeditor\samples\plugins\htmlwriter\assets\outputforflash\outputforflash.fla" />
     <Content Include="ckeditor\samples\sample_posteddata.php" />
     <Content Include="ckeditor\skins\moono\readme.md" />
-    <Content Include="Areas\Admin\Views\Property\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Property\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Property\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Property\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Property\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout__.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
