@@ -1,86 +1,93 @@
 ﻿@{
     ViewBag.Title = "Trang chủ";
-    Layout = "~/Views/Shared/MasterHome.cshtml";    
+    Layout = "~/Views/Shared/MasterHome.cshtml";
 }
+<div id="fb-root"></div>
+<script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 <div id="content_home">
     <div id="content">
         <div id="step1" class="inner">
-            <form id="form1" action="result" method="post">
-                <input id="form" type="hidden" style="width: 500px" value="1" name="form" />
+            <form id="form1" action="result" method="get">
                 <div id="home_left">
                 </div>
                 <div id="home_center">
-                    <table style="width:100%; border:0px; border-collapse:separate; border-spacing: 13px;">
+                    <table style="width: 100%; border: 0px; border-collapse: separate; border-spacing: 13px;">
                         <tr>
-                            <td colspan="3" style="width:50px">
+                            <td colspan="4">
                                 <div>
-                                    <input id="address" data-required="true" name="address" />
+                                    <input id="search" data-required="true" name="search" type="search" />
                                 </div>
                             </td>
-                            <td style="width:34px">
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="text-align: center">
+                                <a class="button" id="btn_home1">TÌM</a></td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="home_right">
+                    <div id="banmuontim">
+                        <a class="next" href="#1" title="Bạn muốn tìm xung quanh một địa điểm xác định?">Bạn muốn tìm xung quanh<br />
+                            bạn?
+                        <img src="../images/icon_black.png" /></a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="step2" class="inner">
+            <form id="form2" action="result" method="get">
+                <div id="home_left2">
+                    <div id="banmuontim2">
+                        <a class="pre" href="#0" title="Bạn muốn tìm một địa điểm bất kỳ?">Bạn muốn tìm một<br />
+                            địa điểm bất kỳ?
+                    <img src="../images/icon_black2.png" /></a>
+                    </div>
+                </div>
+                <div id="home_center2">
+                    <table style="width: 100%; border: 0px; border-collapse: separate; border-spacing: 13px;">
+                        <tr>
+                            <td colspan="3" style="width: 50px">
+                                <div>
+                                    <input id="address" data-required="true" name="address" type="search" />
+                                </div>
+                            </td>
+                            <td style="width: 34px">
                                 <a id="getCurrentPosition" href="JavaScript:void(0);" title="Geolocation chỉ hoạt động chính xác với các thiết bị di động như Điện thoại, Laptop, Máy tính bảng.">
                                     <img id="iconTarget" src="../images/icon1.png" /></a></td>
                         </tr>
                         <tr>
                             <td>
                                 <div>
-                                    <select data-required="true" id="category" name="category">
-                                        <option>Loại</option>
+                                    <select id="category" name="category">
+                                        <option value="">Loại</option>
                                     </select>
                                 </div>
                             </td>
                             <td>
                                 <div>
                                     <select data-required="true" id="brand" name="brand">
-                                        <option>Tên quán</option>
+                                        <option value="">Tên quán</option>
                                     </select>
                                 </div>
                             </td>
                             <td>
                                 <div>
-                                    <input id="range" name="range" data-required="true" data-pattern="^(?:R\$)?\s*(\d+)(?:[,\.](\d)(\d)?)?\d*$" />
+                                    <input id="range" name="range" data-required="true" data-pattern="^(?:R\$)?\s*(\d+)(?:[,\.](\d)(\d)?)?\d*$" type="search" />
                                 </div>
                             </td>
-                            <td>mét</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>                            
-                            <td colspan="4" style="text-align:center">
-                                <input type="submit" value="TÌM" id="btn_home1" /></td>                           
-                        </tr>
-                    </table>
-                </div>
-                <div id="home_right">
-                    <div id="banmuontim">
-                        <a class="next" href="JavaScript:void(0);" title="Bạn muốn tìm một địa điểm bất kỳ?">Bạn muốn tìm một<br />
-                            địa điểm bất kỳ?
-                    <img src="../images/icon_black.png" /></a>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div id="step2" class="inner">
-            <form id="form2" action="result" method="post">
-                <input id="form" type="hidden" style="width: 500px" value="0" name="form" />
-                <div id="home_left2">
-                    <div id="banmuontim2">
-                        <a class="pre" href="JavaScript:void(0);" title="Bạn muốn tìm xung quanh một địa điểm xác định?">Bạn muốn tìm xung quanh<br />
-                            một địa điểm xác định?
-                        <img src="../images/icon_black2.png" /></a>
-                    </div>
-                </div>
-                <div id="home_center2">
-                    <table style="width:100%; border:0px; border-collapse:separate; border-spacing: 13px;">
-                        <tr>
-                            <td colspan="4">
-                                <div>
-                                    <input id="search" data-required="true" name="search" />
-                                </div>
+                            <td>mét
                             </td>
                         </tr>
                         <tr>
@@ -89,12 +96,11 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr>                            
-                            <td colspan="4" style="text-align:center">
-                                <input type="submit" value="TÌM" id="btn_home2" /></td>                            
+                        <tr>
+                            <td colspan="4" style="text-align: center">
+                                <a class="button" id="btn_home2">TÌM</a></td>
                         </tr>
                     </table>
-
                 </div>
                 <div id="home_right2">
                 </div>
@@ -106,7 +112,14 @@
     <li class="active"><a href="JavaScript:void(0);">&nbsp;</a></li>
     <li><a href="JavaScript:void(0);">&nbsp;</a></li>
 </ul>
-
+@*<div id="facebook">
+    <div class="fb-like" data-href="@ViewBag.URL" 
+    data-send="false" data-width="260">
+    </div>
+</div>*@
+<div class="notice">
+    <marquee behavior="scroll" direction="left" scrollamout="5">Sắp ra mắt giao diện mobile.</marquee>
+</div>
 @section scripts
  {
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDTNlc8mcX8hdGZpkkPK1NXVq1PJY1zYs0&sensor=false&libraries=places"></script>

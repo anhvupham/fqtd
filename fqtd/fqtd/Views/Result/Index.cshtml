@@ -1,63 +1,63 @@
 ﻿@{
     ViewBag.Title = "Kết quả";
-    Layout = "~/Views/Shared/MasterSub.cshtml";      
+    Layout = "~/Views/Shared/MasterResult.cshtml";      
 }
 
-<input id="address" type="hidden" style="width: 500px" value="@ViewBag.address" />
-<input id="range" type="hidden" style="width: 100px" value="@ViewBag.range" />
-<input id="category" type="hidden" style="width: 100px" value="@ViewBag.category" />
-<input id="brand" type="hidden" style="width: 100px" value="@ViewBag.brand" />
-<input id="search" type="hidden" style="width: 100px" value="@ViewBag.search" />
-<input id="form" type="hidden" style="width: 100px" value="@ViewBag.form" />
+<input id="address" type="hidden"  value="@ViewBag.address" />
+<input id="range" type="hidden" value="@ViewBag.range" />
+<input id="category" type="hidden"  value="@ViewBag.category" />
+<input id="brand" type="hidden"  value="@ViewBag.brand" />
+<input id="search" type="hidden" value="@ViewBag.search" />
+<input id="form" type="hidden" value="@ViewBag.form" />
+<input id="NumberOfIntemShow" type="hidden" value="@ViewBag.NumberOfIntemShow" />
+<input id="NumberOfIntemAddmore" type="hidden" value="@ViewBag.NumberOfIntemAddmore" />
 
 <div id="content_sub">
     <div id="menu">
         <table>
             <tr>
                 <td id="tabMap" class="active">
-                    <img src="../images/icon_map.jpg" />
-                    <strong>Bản đồ</strong>
+                    <img src="/images/icon_map.jpg" />
+                    Bản đồ
                 </td>
                 <td id="tabList">
-                    <img src="../images/icon_list.jpg" />
-                    <strong>Danh sách</strong>
+                    <img src="/images/icon_list.jpg" />
+                    Danh sách
                 </td>
             </tr>
         </table>
     </div>
     <div id="noidungchinh">
         <div id="map" class="hidden">
-            <div id="googleMap"></div>
-            <div id="btn_more">
-                <input type="button" id="btn_xemthemMap" value="Xem thêm" />
-            </div>
         </div>
         <div id="list" class="hidden">
-            <div id="subList">
-            </div>
-            <div id="btn_more">
-                <div id="pagination" class="pagination"></div>
-            </div>
         </div>
-        <div id="cactienich">
-            <table id="tableTienich" style="width: 240px; height: 718px;">
-                <tr>
-                    <td id="tbtable" style="display: none;" valign="top">
-                        <p>
-                            <strong>Các tiện ích:</strong>
-                        </p>
-                        <br />
-                        <div id="property">
-                        </div>
-                    </td>
-                    <td style="width: 25px;"><a id="hrfClose" style="display: none; cursor: pointer;">
-                        <img src="../images/button_close.jpg" /></a><a id="hrfOpen" style="cursor: pointer;">
-                            <img src="../images/button_open.jpg">
-                        </a></td>
-                </tr>
-            </table>
+        <div id="loading">
+            <img src="/images/loading.gif" />
         </div>
-
+        <div id="cactienich" class="nostick">
+            <div id="tbtable" style="display: none;">
+                <div id="titleproperty">
+                    <p>Các tiện ích:</p>
+                </div>
+                <div id="property">
+                </div>
+                <div class="filter">
+                    <a class="button" id="btn_filter" />Tìm</a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div id="arrow">
+                <div id="hrfClose" style="display: none; cursor: pointer;">
+                    <img src="/images/button_close.jpg" />
+                </div>
+                <div id="hrfOpen" style="cursor: pointer;">
+                    <img src="/images/button_open.jpg">
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
     </div>
 </div>
 

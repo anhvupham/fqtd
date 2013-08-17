@@ -1,0 +1,48 @@
+﻿@model IEnumerable<fqtd.Areas.Admin.Models.SP_Item_Properties_Result>
+
+@{
+    ViewBag.Title = "ItemProperties";
+    int itemid = Convert.ToInt32(ViewBag.ItemID);
+}
+
+<h2>ItemProperties</h2>
+
+@Html.Hidden("ItemID", itemid)
+<form method="post" action="ItemProperties">
+
+    @Html.AntiForgeryToken()
+    @if (ViewBag.ItemP_HasValue)
+    {
+        foreach (var item in Model)
+        {
+            if (item.PropertyValue)
+            {
+        <input id="@item.PropertyID" name="MyCheckList" value="@item.PropertyID" type="checkbox" checked="checked"/>
+            }
+            else
+            {<input id="@item.PropertyID" name="MyCheckList" value="@item.PropertyID" type="checkbox" />}
+        <label for="@item.PropertyID">@item.PropertyName</label><br />
+        }
+    }
+    else
+    {
+        IEnumerable<fqtd.Areas.Admin.Models.SP_Brand_Properties_Result> result = ViewBag.BrandProperties;
+        if (result != null)
+        {
+            foreach (var item in result)
+            {
+                if (item.PropertyValue)
+                {
+        <input id="@item.PropertyID" name="MyCheckList" value="@item.PropertyID" type="checkbox" checked="checked"/>
+                }
+                else
+                {<input id="@item.PropertyID" name="MyCheckList" value="@item.PropertyID" type="checkbox" />}
+        <label for="@item.PropertyID">@item.PropertyName</label><br />
+            }
+        }
+    }
+    <input id="Submit1" type="submit" value="Submit" />
+</form>
+<div>
+    @Html.ActionLink("Back to List", "Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] })
+</div>

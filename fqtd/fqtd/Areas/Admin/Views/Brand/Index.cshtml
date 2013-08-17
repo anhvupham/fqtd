@@ -3,39 +3,49 @@
 @{
     ViewBag.Title = "Index";
 }
+
 <div class="caption">
-    <div class="title">Item list</div>
-    <div class="addAction">
         @Html.ActionLink("   Create New   ", "Create")
     </div>
-</div><br />
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        alert('hide');
+        //hideDetail();
+    });
+    function showDetail()
+    {        
+        $(".detail").toggle();
+    }
+    function hideDetail() {
+        $(".detail").slideToggle();
+    }
+</script>
 @using (Ajax.BeginForm("Index", new
     {
         page = ViewBag.keyword
     }, new AjaxOptions { UpdateTargetId = "main" }))
     {
-        <table id="giohang">
+        <table class="table_search">
             <tr>
                 <td style="text-align: right">Từ khóa:
                 </td>
                 <td>@Html.TextBox("keyword", (string)ViewBag.CurrentKeyword, new { id = "keyword" })
                 </td>
-                <td style="text-align: right"><input type="submit" value="Tìm kiếm" />
+                <td style="text-align: right"><input type="submit" value="Search" />
                 </td>
             </tr>
         </table>
     }
-<br />
-<table>
+<table class="table_paging">
     <tr><td>
     @Html.Partial("_Paging")</td></tr></table>
-<table>
+<table class="table_list">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.BrandName)
+            Brand Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BrandName_EN)
+           Brand Name (EN)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.tbl_BrandType.BrandTypeName)
@@ -43,19 +53,19 @@
         <th>
             @Html.DisplayNameFor(model => model.tbl_Categories.CategoryName)
         </th>
-        <th>
+        <th class="detail">
             @Html.DisplayNameFor(model => model.CreateDate)
         </th>
-        <th>
+        <th class="detail">
             @Html.DisplayNameFor(model => model.CreateUser)
         </th>
-        <th>
+        <th class="detail">
             @Html.DisplayNameFor(model => model.ModifyDate)
         </th>
-        <th>
+        <th class="detail">
             @Html.DisplayNameFor(model => model.ModifyUser)
         </th>
-        <th></th>
+        <th><button onclick="showDetail()">show detail</button></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -72,21 +82,24 @@
         <td>
             @Html.DisplayFor(modelItem => item.tbl_Categories.CategoryName)
         </td>
-        <td>
+        <td class="detail">
             @Html.DisplayFor(modelItem => item.CreateDate)
         </td>
-        <td>
+        <td class="detail">
             @Html.DisplayFor(modelItem => item.CreateUser)
         </td>
-        <td>
+        <td class="detail">
             @Html.DisplayFor(modelItem => item.ModifyDate)
         </td>
-        <td>
+        <td class="detail">
             @Html.DisplayFor(modelItem => item.ModifyUser)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.BrandID }) |
             @Html.ActionLink("Details", "Details", new { id=item.BrandID }) |
+            @Html.ActionLink("Images", "ImageList", new { id=item.BrandID}) |
+            @Html.ActionLink("Categories", "BrandCategories", new { id=item.BrandID}) |
+            @Html.ActionLink("Properties", "BrandProperties", new { id=item.BrandID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.BrandID })
         </td>
     </tr>

@@ -38,9 +38,20 @@ namespace fqtd.Areas.Admin.Models
         public Nullable<System.DateTime> DeleteDate { get; set; }
         public string DeleteUser { get; set; }
         public string MarkerIcon { get; set; }
+        public string Keyword { get; set; }
+        public string Keyword_unsign { get; set; }
+        public string FullAddress { get; set; }
+        public string AddressNumber { get; set; }
+        public string Street { get; set; }
+        public string Ward { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        public string MapAddress { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
+        public string District { get; set; }
     
         public virtual Brands tbl_Brands { get; set; }
-        public virtual ItemLocation tbl_Item_Location { get; set; }
         public virtual ICollection<ItemProperties> tbl_Item_Properties { get; set; }
     }
 }

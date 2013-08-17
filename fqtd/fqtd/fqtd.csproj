@@ -61,8 +61,15 @@
       <HintPath>..\packages\PagedListExt.Mvc4.1.2.1\lib\net45\Calabonga.Mvc.PagedListExt.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="PagedList">
-      <HintPath>..\packages\PagedList.dll</HintPath>
+    <Reference Include="MiniProfiler">
+      <HintPath>..\packages\MiniProfiler.2.1.0\lib\net40\MiniProfiler.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.16.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\PagedList.1.16.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\packages\PagedList.Mvc.4.3.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -184,16 +191,68 @@
   <ItemGroup>
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="Areas\Admin\Controllers\ContactUsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ItemsController.cs" />
     <Compile Include="Areas\Admin\Controllers\PropertiesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SearchHistoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SystemContentController.cs" />
+    <Compile Include="Areas\Admin\Models\BrandCategories.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\BrandItems.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\Brands.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\BrandType.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\Categories.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\ContactUS.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\ItemProperties.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\Properties.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\SearchHistory.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\SP_Brand_Categories_Result.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\SP_Brand_Categories_Result1.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\SP_Brand_Properties_Result.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
     <Compile Include="Areas\Admin\Models\SP_Category_Properties_Result.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\SP_GetKeyword1_Result.cs">
       <DependentUpon>fqtd.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\Admin\Models\SP_Item_Properties_Result.cs">
       <DependentUpon>fqtd.tt</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\AboutController.cs" />
-    <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Areas\Admin\Models\SP_List_Brand_Categories_Result.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\SystemContent.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\tbl_Brand_Properties.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\tbl_SystemContent.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\DetailController.cs" />
     <Compile Include="Controllers\ResultController.cs" />
     <Compile Include="Utils\Dynamic.cs" />
@@ -207,18 +266,6 @@
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\BrandController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
-    <Compile Include="Areas\Admin\Models\BrandItems.cs">
-      <DependentUpon>fqtd.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\Admin\Models\Brands.cs">
-      <DependentUpon>fqtd.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\Admin\Models\BrandType.cs">
-      <DependentUpon>fqtd.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\Admin\Models\Categories.cs">
-      <DependentUpon>fqtd.tt</DependentUpon>
-    </Compile>
     <Compile Include="Areas\Admin\Models\fqtd.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -233,15 +280,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>fqtd.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\Admin\Models\ItemLocation.cs">
-      <DependentUpon>fqtd.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\Admin\Models\ItemProperties.cs">
-      <DependentUpon>fqtd.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\Admin\Models\Properties.cs">
-      <DependentUpon>fqtd.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -532,6 +570,9 @@
     <Content Include="ckeditor\skins\moono\images\mini.png" />
     <Content Include="ckeditor\styles.js" />
     <Content Include="Content\admin.css" />
+    <Content Include="Content\font\architep-webfont.svg" />
+    <Content Include="Content\font\utm_bebas-webfont.svg" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -600,12 +641,8 @@
     <Content Include="ckeditor\samples\plugins\htmlwriter\assets\outputforflash\outputforflash.fla" />
     <Content Include="ckeditor\samples\sample_posteddata.php" />
     <Content Include="ckeditor\skins\moono\readme.md" />
-    <Content Include="Areas\Admin\Views\Property\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Property\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Property\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Property\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Property\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout__.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Brand\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Brand\Details.cshtml" />
@@ -643,6 +680,30 @@
     <Content Include="Areas\Admin\Views\Properties\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Properties\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Properties\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\SystemContent\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\SystemContent\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Items\ItemProperties.cshtml" />
+    <Content Include="Areas\Admin\Views\Brand\BrandCategories.cshtml" />
+    <Content Include="Areas\Admin\Views\ContactUs\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ContactUs\Details.cshtml" />
+    <Content Include="Images\close.png" />
+    <Content Include="Images\next.png" />
+    <Content Include="Images\prev.png" />
+    <Content Include="Views\Home\ContactUs.cshtml" />
+    <Content Include="Areas\Admin\Views\ContactUs\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ContactUs\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Brand\BrandProperties.cshtml" />
+    <Content Include="Content\font\utm_bebas-webfont.eot" />
+    <Content Include="Content\font\utm_bebas-webfont.ttf" />
+    <Content Include="Content\font\utm_bebas-webfont.woff" />
+    <Content Include="Content\font\architep-webfont.eot" />
+    <Content Include="Content\font\architep-webfont.ttf" />
+    <Content Include="Content\font\architep-webfont.woff" />
+    <Content Include="Areas\Admin\Views\SearchHistory\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SearchHistory\_Paging.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\ContactUs\_Paging.cshtml" />
+    <Content Include="Areas\Admin\Views\Brand\ImageList.cshtml" />
     <None Include="Properties\PublishProfiles\fqtd_test.pubxml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Images\bg_bottom.jpg" />
@@ -658,7 +719,6 @@
     <Content Include="Images\close.gif" />
     <Content Include="Images\direction-map-sprite.png" />
     <Content Include="Images\home.png" />
-    <Content Include="Images\icon+.png" />
     <Content Include="Images\icon1.png" />
     <Content Include="Images\icon_arrow.png" />
     <Content Include="Images\icon_arrow_over.png" />
@@ -670,8 +730,6 @@
     <Content Include="Images\icon_car_over.png" />
     <Content Include="Images\icon_check2.png" />
     <Content Include="Images\icon_down.png" />
-    <Content Include="Images\icon_email.png" />
-    <Content Include="Images\icon_fb.png" />
     <Content Include="Images\icon_home.png" />
     <Content Include="Images\icon_human.png" />
     <Content Include="Images\icon_human_over.png" />
@@ -679,18 +737,15 @@
     <Content Include="Images\icon_left_over.png" />
     <Content Include="Images\icon_list.jpg" />
     <Content Include="Images\icon_map.jpg" />
-    <Content Include="Images\icon_p.png" />
     <Content Include="Images\icon_right.png" />
     <Content Include="Images\icon_right_over.png" />
-    <Content Include="Images\icon_tw.png" />
+    <Content Include="Images\loading.gif" />
     <Content Include="Images\logo_big.png" />
     <Content Include="Images\logo_big1.png" />
     <Content Include="Images\logo_small.png" />
     <Content Include="Images\logo_small1.png" />
-    <Content Include="Images\map.jpg" />
     <Content Include="Images\MarkerIcon\Brand\schools_maps.png" />
     <Content Include="Images\no-image.jpg" />
-    <Content Include="Images\photo1.jpg" />
     <Content Include="Images\tipbox.gif" />
     <Content Include="Intro.html" />
     <Content Include="Images\square%402x.png" />
@@ -743,8 +798,6 @@
     <Content Include="Areas\Admin\Views\Account\Register.cshtml" />
     <Content Include="Areas\Admin\Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Areas\Admin\Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\About\Index.cshtml" />
-    <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_LoginPartial.cshtml" />
@@ -759,6 +812,10 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\MasterSub.cshtml" />
     <Content Include="Views\Detail\Index.cshtml" />
+    <Content Include="Views\Home\Introduction.cshtml" />
+    <Content Include="Views\Home\TermAndConditionOfUse.cshtml" />
+    <Content Include="Views\Home\Policy.cshtml" />
+    <Content Include="Views\Shared\MasterResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -791,9 +848,10 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>18868</DevelopmentServerPort>
+          <DevelopmentServerPort>51011</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:12808/</IISUrl>
+          <IISUrl>
+          </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

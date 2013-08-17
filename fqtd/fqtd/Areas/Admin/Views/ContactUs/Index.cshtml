@@ -1,0 +1,83 @@
+﻿@model IEnumerable<fqtd.Areas.Admin.Models.ContactUS>
+
+@{
+    ViewBag.Title = "Contacts";
+}
+@using (Ajax.BeginForm("Index", new
+    {
+        page = ViewBag.keyword
+    }, new AjaxOptions { UpdateTargetId = "main" }))
+    {
+        <table class="table_search">
+            <tr>
+                <td style="text-align: right">Name or Phone:
+                </td>
+                <td>@Html.TextBox("keyword", (string)ViewBag.CurrentKeyword, new { id = "keyword" })
+                </td>
+                <td style="text-align: right"><input type="submit" value="Search" />
+                </td>
+            </tr>
+        </table>
+    }
+<table class="table_paging">
+    <tr><td>
+    @Html.Partial("_Paging")</td></tr></table>
+
+<table class="table_list">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactContent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContactID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CustomerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContactTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContactContent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContactDate)
+        </td>
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.ContactID }) |*@
+            @Html.ActionLink("Details", "Details", new { id=item.ContactID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ContactID })
+        </td>
+    </tr>
+}
+
+</table>

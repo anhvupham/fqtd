@@ -18,7 +18,7 @@ namespace fqtd
     {
         protected void Application_Start()
         {
-            //Database.SetInitializer<fqtd.Areas.Admin.Models.TimDauEntity>(null);
+            
 
             AreaRegistration.RegisterAllAreas();
 
@@ -27,6 +27,17 @@ namespace fqtd
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+        }
+        protected void Application_BeginRequest()
+        {
+            if (Request.IsLocal)
+            {
+                StackExchange.Profiling.MiniProfiler.Start();
+            }
+        }
+        protected void Application_EndRequest()
+        {
+            StackExchange.Profiling.MiniProfiler.Stop();
         }
     }
 }

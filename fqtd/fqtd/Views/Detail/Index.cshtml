@@ -2,10 +2,18 @@
     ViewBag.Title = "Chi tiết";
     Layout = "~/Views/Shared/MasterSub.cshtml";      
 }
-
+<div id="fb-root"></div>
+<script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 <div id="content_subdetail">
     <div id="gioithieuchung">
-        <h1 id="brandname"></h1>
+        <img id="brandlogo" width="150px" />
+        @*<h1 id="brandname"></h1>*@
         <p id="branddescription"></p>
     </div>
     <div id="tendiadiem">
@@ -20,9 +28,7 @@
                                 <div class="title_box">
                                     <table>
                                         <tr>
-                                            <td class="row1">THÔNG TIN ĐỊA ĐIỂM</td>
-                                            <td class="row2">
-                                                <img src="../images/icon_down.png" /></td>
+                                            <td class="row1">THÔNG TIN ĐỊA ĐIỂM</td>                                           
                                         </tr>
                                     </table>
                                 </div>
@@ -36,13 +42,18 @@
                                             <td>Điện thoại</td>
                                             <td id="txtphone"></td>
                                         </tr>
-                                        <tr>
-                                            <td>Website</td>
-                                            <td id="txtwebsite"></td>
+                                       <tr>
+                                            <td>Danh mục</td>
+                                            <td id="txtcategory"></td>
                                         </tr>
-                                        <tr class="silverrow">
+                                        @* <tr class="silverrow">
                                             <td>Giờ mở cửa</td>
                                             <td id="txtopentime"></td>
+                                        </tr>*@
+                                        <tr>                                            
+                                            <td colspan="2">
+                                                <img id="staticmap" />
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -56,9 +67,7 @@
                                 <div class="title_box">
                                     <table>
                                         <tr>
-                                            <td class="row1">CÙNG THƯƠNG HIỆU</td>
-                                            <td class="row2">
-                                                <img src="../images/icon_down.png" /></td>
+                                            <td class="row1">CÙNG THƯƠNG HIỆU</td>                                            
                                         </tr>
                                     </table>
                                 </div>
@@ -67,6 +76,14 @@
                                         <tr id="samebrand"></tr>
                                     </table>
                                 </div>
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="whiteline">&nbsp;</td>
+                        </tr>
+                         <tr>
+                            <td class="group">
+                                <div class="fb-comments" data-href="@ViewBag.URL" data-width="685" data-num-posts="10"></div>
                             </td>
                         </tr>
                     </table>
@@ -86,36 +103,18 @@
                         <tr>
                             <td style="width: 20px">&nbsp;</td>
                         </tr>
-                        @*<tr>
-                            <td id="group">
-                                <div id="title_box">HÌNH ẢNH</div>
-                                <div id="content_box">
-                                    <table width="100%" border="0" cellspacing="10" cellpadding="10">
-                                        <tr>
-                                            <td width="50%" align="center" valign="top">
-                                                <img src="../images/photo2.jpg" id="photo2"></td>
-                                            <td width="50%" align="center" valign="top">
-                                                <img src="../images/photo2.jpg" id="photo2"></td>
-                                        </tr>
-                                        <tr>
-                                            <td align="center" valign="top">
-                                                <img src="../images/photo2.jpg" id="photo2"></td>
-                                            <td align="center" valign="top">
-                                                <img src="../images/photo2.jpg" id="photo2"></td>
-                                        </tr>
-                                        <tr>
-                                            <td align="center" valign="top">
-                                                <img src="../images/photo2.jpg" id="photo2"></td>
-                                            <td align="center" valign="top">
-                                                <img src="../images/photo2.jpg" id="photo2"></td>
-                                        </tr>
+                        <tr>
+                            <td class="group">
+                                <div class="title_box">HÌNH ẢNH</div>
+                                <div class="content_box">
+                                    <table id="tblimagegallery">                                        
                                     </table>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td height="20">&nbsp;</td>
-                        </tr>*@
+                        </tr>
                         <tr>
                             <td class="group">
                                 <div class="title_box">CÙNG THỂ LOẠI</div>
@@ -131,7 +130,7 @@
                         <tr>
                             <td id="sociallink">
                                 <!-- AddThis Button BEGIN -->
-                               @* <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+                                <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
                                     <a class="addthis_button_preferred_1"></a>
                                     <a class="addthis_button_preferred_2"></a>
                                     <a class="addthis_button_preferred_3"></a>
@@ -139,7 +138,7 @@
                                     <a class="addthis_counter addthis_bubble_style"></a>
                                 </div>
                                 <script type="text/javascript">var addthis_config = { "data_track_addressbar": true };</script>
-                                <script type="text/javascript" src="//s7.addthis.*@com/js/300/addthis_widget.js#pubid=anhvuphamx"></script>
+                                <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=anhvuphamx"></script>
                                 <!-- AddThis Button END -->
                             </td>
                         </tr>
@@ -150,7 +149,6 @@
         </table>
     </div>
 </div>
-
 @section scripts
 {
     <script>

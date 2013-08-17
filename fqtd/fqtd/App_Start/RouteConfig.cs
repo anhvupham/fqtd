@@ -15,8 +15,14 @@ namespace fqtd
 
             routes.MapRoute(
                   name: "result",
-                  url: "result/",                  
+                  url: "result/index/{form}/{category}/{brand}/{range}/{address}/{search}",                  
                   defaults: new { controller = "Result", action = "ShowResult", address = string.Empty, range = -1, category = -1, brand = -1, search = string.Empty, form = -1 }
+            );           
+
+            routes.MapRoute(
+                name: "detail",
+                url: "detail/{id}/{name}",
+                defaults: new { controller = "Detail", action = "Index", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(
@@ -24,9 +30,6 @@ namespace fqtd
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
-
-
-
 
         }
     }

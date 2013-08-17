@@ -27,6 +27,12 @@
     <div class="display-field">
         <img src="@Href(System.Configuration.ConfigurationManager.AppSettings["CategoryMarkerIconLocaion"] + "/" + Model.MarkerIcon)" width="50" />
     </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Keyword)
+    </div>
+    <div class="editor-field">
+        @Html.DisplayNameFor(model => model.Keyword)
+    </div>
     <div class="display-label">
         @Html.DisplayNameFor(model => model.Description)
     </div>

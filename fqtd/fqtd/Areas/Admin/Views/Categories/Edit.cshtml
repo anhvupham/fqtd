@@ -27,7 +27,7 @@
             @Html.EditorFor(model => model.CategoryName)
             @Html.ValidationMessageFor(model => model.CategoryName)
         </div>
-        
+
         <div class="editor-label">
             @Html.LabelFor(model => model.CategoryName_EN)
         </div>
@@ -39,16 +39,23 @@
             @Html.LabelFor(model => model.MarkerIcon)
         </div>
         <div class="editor-field">
-             <input type="file" name="icon" />
-            @Html.ValidationMessageFor(model => model.MarkerIcon)
+            <input type="file" name="icon" />
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Keyword)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Keyword, new { @id = "Keyword" })
+            @Html.ValidationMessageFor(model => model.Keyword)
         </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.Description)
         </div>
         <div class="editor-field">
             @Html.TextAreaFor(model => model.Description, new { @id = "Description" })
-           <script type="text/javascript">
-               CKEDITOR.replace("Description");
+            <script type="text/javascript">
+                CKEDITOR.replace("Description");
             </script>
             @Html.ValidationMessageFor(model => model.Description)
         </div>
@@ -59,14 +66,11 @@
         </div>
         <div class="editor-field">
             @Html.TextAreaFor(model => model.Description_EN, new { @id = "Description_EN" })
-           <script type="text/javascript">
-               CKEDITOR.replace("Description_EN");
+            <script type="text/javascript">
+                CKEDITOR.replace("Description_EN");
             </script>
             @Html.ValidationMessageFor(model => model.Description_EN)
         </div>
-
-      
-
         <p>
             <input type="submit" value="Save" />
         </p>

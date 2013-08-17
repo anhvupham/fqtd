@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "System content";
+}
+
+<table style="padding-top: 20px">
+    <tr>
+        <td>
+            <ul>
+           <li> @Html.ActionLink("Giới thiệu", "Edit", new { id = fqtd.Areas.Admin.Models.SystemContent.Introduction })</li>
+            <br />
+            @* @Html.ActionLink("Liên hệ", "Edit", new { id = fqtd.Areas.Admin.Models.SystemContent.Contact })
+    <br />*@
+          <li>  @Html.ActionLink("Điều khoản sử dụng", "Edit", new { id = fqtd.Areas.Admin.Models.SystemContent.Tern4Use })</li>
+            <br />
+           <li> @Html.ActionLink("Chính sách bảo mật", "Edit", new { id = fqtd.Areas.Admin.Models.SystemContent.Policy })</li>
+            <br /></ul>
+        </td>
+    </tr>
+</table>

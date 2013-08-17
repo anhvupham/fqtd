@@ -17,6 +17,8 @@ namespace fqtd.Areas.Admin.Models
         public Categories()
         {
             this.tbl_Brands = new HashSet<Brands>();
+            this.tbl_Properties = new HashSet<Properties>();
+            this.tbl_Brand_Categories = new HashSet<BrandCategories>();
         }
     
         public int CategoryID { get; set; }
@@ -32,7 +34,11 @@ namespace fqtd.Areas.Admin.Models
         public Nullable<System.DateTime> DeleteDate { get; set; }
         public string DeleteUser { get; set; }
         public string MarkerIcon { get; set; }
+        public string Keyword { get; set; }
+        public string Keyword_Unsign { get; set; }
     
         public virtual ICollection<Brands> tbl_Brands { get; set; }
+        public virtual ICollection<Properties> tbl_Properties { get; set; }
+        public virtual ICollection<BrandCategories> tbl_Brand_Categories { get; set; }
     }
 }

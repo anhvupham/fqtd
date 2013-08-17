@@ -1,0 +1,38 @@
+﻿@model IEnumerable<fqtd.Areas.Admin.Models.SP_Brand_Categories_Result1>
+
+@{
+    ViewBag.Title = "Brand categories: " + ViewBag.BrandName;
+}
+
+<h2>Brand Categories: @ViewBag.BrandName</h2>
+<form method="post" action="BrandCategories">
+
+    @Html.AntiForgeryToken()
+    <table>
+        <tr>
+            <td>Main Category</td>
+            <td>
+    @Html.DropDownList("CategoryID", String.Empty)</td>
+        </tr>
+        <tr>
+            <td>Munti Category</td>
+            <td>@foreach (var item in Model)
+    {
+        if (item.Checked.HasValue && item.Checked.Value)
+        {
+        <input id="@item.CategoryID" name="MyCheckList" value="@item.CategoryID" type="checkbox" checked="checked"/>
+        }
+        else
+        {<input id="@item.CategoryID" name="MyCheckList" value="@item.CategoryID" type="checkbox" />}
+        <label for="@item.CategoryID">@item.CategoryName</label><br />
+    }</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+    <input id="Submit1" type="submit" value="Submit" /></td>
+        </tr>
+    </table>
+
+    
+</form>

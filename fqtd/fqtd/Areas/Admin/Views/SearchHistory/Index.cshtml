@@ -1,0 +1,131 @@
+﻿@model IEnumerable<fqtd.Areas.Admin.Models.SearchHistory>
+
+@{
+    ViewBag.Title = "Search history";
+}
+
+@using (Ajax.BeginForm("Index", new
+{
+    page = 1,
+    Keyword = ViewBag.CurrentKeyword,
+    category = ViewBag.CurrentCategoryID,
+    brand = ViewBag.CurrentBrandID
+        
+    }, new AjaxOptions { UpdateTargetId = "main" }))
+    {
+        <table class="table_search">
+            <tr>
+                <td style="text-align: right">Keyword:
+                </td>
+                <td>@Html.TextBox("keyword", (string)ViewBag.CurrentKeyword, new { id = "keyword" })
+                </td>
+                <td style="text-align: right">Categories:
+                </td>
+                <td>@Html.DropDownList("CategoryID", "-- All --")
+                </td>
+                <td style="text-align: right">Brands:
+                </td>
+                <td>@Html.DropDownList("BrandID", "-- All --")
+                </td>
+                <td style="text-align: right"><input type="submit" value="Search" />
+                </td>
+            </tr>
+        </table>
+    }
+<table class="table_paging">
+    <tr><td>
+    @Html.Partial("_Paging")</td></tr></table>
+<table class="table_list">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SearchID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Keyword)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentLocation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Radious)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Properties)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BrandID)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.VN0_En1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SearchDate)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.SearchTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ResultCount)
+        </th>
+       @* <th></th>*@
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SearchID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Keyword)
+        </td>
+        <td>
+            @if(item.CurrentLocation.Length>35){
+            <label title="@item.CurrentLocation">@Html.Substring(item.CurrentLocation, 30);</label>
+            }
+            else             
+            {
+                @item.CurrentLocation
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Radious)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Properties)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoryID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrandID)
+        </td>
+       @* <td>
+            @Html.DisplayFor(modelItem => item.VN0_En1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SearchDate)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.SearchTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ResultCount)
+        </td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>*@
+    </tr>
+}
+
+</table>

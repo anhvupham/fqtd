@@ -3,47 +3,65 @@
 @{
     ViewBag.Title = "Log in";
 }
+<style>
+    .login_title
+    {
+        height: 50px;
+        text-align: center;
+        vertical-align: middle;
+    }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-</hgroup>
+    .login_content
+    {
+        width: 20%;
+        margin-left: 40%;
+        border: 1px solid #808080;
+        margin-top: 100px;
+        padding: 20px 20px 20px 20px;
+    }
+</style>
+<div style="width: 100%; min-height: 550px">
+    
+    <div class="login_content">
 
-<section id="loginForm">
-<h2>Use a local account to log in.</h2>
-@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+            @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
 
-    <fieldset>
-        <legend>Log in Form</legend>
-        <ol>
-            <li>
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
-                @Html.ValidationMessageFor(m => m.UserName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Password)
-                @Html.PasswordFor(m => m.Password)
-                @Html.ValidationMessageFor(m => m.Password)
-            </li>
-            <li>
-                @Html.CheckBoxFor(m => m.RememberMe)
-                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
-            </li>
-        </ol>
-        <input type="submit" value="Log in" />
-    </fieldset>
-    <p>
-        @Html.ActionLink("Register", "Register") if you don't have an account.
-    </p>
-}
-</section>
 
-<section class="social" id="socialLoginForm">
-    <h2>Use another service to log in.</h2>
-    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-</section>
+                <table style="width: 100%; border: none">
+                    <tr>
+                        <td style="text-align: right; width: 50%">@Html.LabelFor(m => m.UserName)</td>
+                        <td>
+                            @Html.TextBoxFor(m => m.UserName)
+                            @Html.ValidationMessageFor(m => m.UserName)</td>
+
+                    </tr>
+                    <tr>
+                        <td style="text-align: right">
+                            @Html.LabelFor(m => m.Password)</td>
+                        <td>
+                            @Html.PasswordFor(m => m.Password)
+                            @Html.ValidationMessageFor(m => m.Password)</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            @Html.CheckBoxFor(m => m.RememberMe)
+                            @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="submit" value="Log in" /></td>
+                    </tr>
+                </table>
+    
+            }
+    </div>
+</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

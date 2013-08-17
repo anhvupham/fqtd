@@ -22,25 +22,27 @@ namespace fqtd.Areas.Admin.Controllers
 
         //
         // GET: /Category/
-
-        public ActionResult Index(string keyword = "", int page=1)
+        [Authorize]
+        [OutputCache(CacheProfile = "Aggressive", VaryByParam = "page;keyword", Location = System.Web.UI.OutputCacheLocation.Client)]
+        public ActionResult Index(string keyword = "", int page = 1)
         {
-            var result = from a in db.Categories where (a.CategoryName.Contains(keyword) || a.CategoryName_EN.Contains(keyword) ) select a;
-            result=result.OrderBy("CategoryName");
+            var result = from a in db.Categories where a.IsActive == true && (a.CategoryName.Contains(keyword) || a.CategoryName_EN.Contains(keyword)) select a;
+            result = result.OrderBy("CategoryName");
             ViewBag.CurrentKeyword = keyword;
             int maxRecords = 20;
             int currentPage = page;
             ViewBag.CurrentPage = page;
+            TempData["CurrentKeyword"] = keyword;
+            TempData["CurrentPage"] = page;
             return View(result.ToPagedList(currentPage, maxRecords));
         }
-
         public ActionResult Categories(int vn0_en1 = 0)
         {
             var categories = db.Categories.Where(a => a.IsActive);
             JsonNetResult jsonNetResult = new JsonNetResult();
             jsonNetResult.Formatting = Formatting.Indented;
             jsonNetResult.Data = from a in categories
-                                 select new { a.CategoryID, a.CategoryName};
+                                 select new { a.CategoryID, a.CategoryName };
             if (vn0_en1 == 1)
                 jsonNetResult.Data = from a in categories
                                      select new { a.CategoryID, CategoryName = a.CategoryName_EN };
@@ -50,7 +52,7 @@ namespace fqtd.Areas.Admin.Controllers
 
         //
         // GET: /Category/Details/5
-
+        [Authorize]
         public ActionResult Details(int id = 0)
         {
             Categories Categories = db.Categories.Where(a => a.IsActive && a.CategoryID == id).FirstOrDefault();
@@ -64,6 +66,7 @@ namespace fqtd.Areas.Admin.Controllers
         //
         // GET: /Category/Create
 
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -72,6 +75,7 @@ namespace fqtd.Areas.Admin.Controllers
         //
         // POST: /Category/Create
 
+        [Authorize]
         [HttpPost, ValidateInput(false)]
         public ActionResult Create(Categories Categories, HttpPostedFileBase icon)
         {
@@ -79,7 +83,7 @@ namespace fqtd.Areas.Admin.Controllers
             {
                 Categories.IsActive = true;
                 Categories.CreateDate = DateTime.Now;
-                Categories.CreateUser = User.Identity.Name; 
+                Categories.CreateUser = User.Identity.Name;
                 string filesPath = "", full_path = "";
                 if (icon != null)
                 {
@@ -98,7 +102,7 @@ namespace fqtd.Areas.Admin.Controllers
                     db.SaveChanges();
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] });
             }
 
             return View(Categories);
@@ -107,6 +111,7 @@ namespace fqtd.Areas.Admin.Controllers
         //
         // GET: /Category/Edit/5
 
+        [Authorize]
         public ActionResult Edit(int id = 0)
         {
             Categories Categories = db.Categories.Where(a => a.IsActive && a.CategoryID == id).FirstOrDefault();
@@ -120,6 +125,7 @@ namespace fqtd.Areas.Admin.Controllers
         //
         // POST: /Category/Edit/5
 
+        [Authorize]
         [HttpPost, ValidateInput(false)]
         public ActionResult Edit(Categories Categories, HttpPostedFileBase icon)
         {
@@ -129,6 +135,7 @@ namespace fqtd.Areas.Admin.Controllers
                 {
                     Categories.ModifyDate = DateTime.Now;
                     Categories.ModifyUser = User.Identity.Name;
+                    if (Categories.CreateUser == null || Categories.CreateUser == "") Categories.CreateUser = "import";
                     string filesPath = "", full_path = "";
                     string marker = Categories.MarkerIcon;
                     if (icon != null)
@@ -144,7 +151,7 @@ namespace fqtd.Areas.Admin.Controllers
 
                     if (marker + "" != "")
                         FileUpload.DeleteFile(marker, full_path);
-                    
+
                     if (icon != null)
                     {
                         string filename = Categories.CategoryID + "_" + icon.FileName.Replace(" ", "_").Replace("-", "_");
@@ -153,21 +160,26 @@ namespace fqtd.Areas.Admin.Controllers
                         db.SaveChanges();
                     }
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] });
                 }
             }
-            catch (DbEntityValidationException e)
+            catch (System.Data.Entity.Validation.DbEntityValidationException e)
             {
+                var outputLines = new List<string>();
                 foreach (var eve in e.EntityValidationErrors)
                 {
-                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    outputLines.Add(string.Format(
+                        "Entity of type \"{1}\" in state \"{2}\" has the following validation errors:",
+                         eve.Entry.Entity.GetType().Name, eve.Entry.State));
                     foreach (var ve in eve.ValidationErrors)
                     {
-                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
+                        outputLines.Add(string.Format(
+                            "- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage));
                     }
                 }
+                foreach (var error in outputLines)
+                    HtmlHelpers.WriteErrorLogs(error);
                 throw;
             }
             return View(Categories);
@@ -176,6 +188,7 @@ namespace fqtd.Areas.Admin.Controllers
         //
         // GET: /Category/Delete/5
 
+        [Authorize]
         public ActionResult Delete(int id = 0)
         {
             Categories Categories = db.Categories.Where(a => a.IsActive && a.CategoryID == id).FirstOrDefault();
@@ -189,6 +202,7 @@ namespace fqtd.Areas.Admin.Controllers
         //
         // POST: /Category/Delete/5
 
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -198,11 +212,11 @@ namespace fqtd.Areas.Admin.Controllers
                 return HttpNotFound();
             }
             Categories.IsActive = false;
-            //Categories.DeleteDate = DateTime.Now;
-            //Categories.DeleteUser = User.Identity.Name;
+            Categories.DeleteDate = DateTime.Now;
+            Categories.DeleteUser = User.Identity.Name;
             db.Entry(Categories).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] });
         }
 
         protected override void Dispose(bool disposing)

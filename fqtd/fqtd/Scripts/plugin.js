@@ -1,4 +1,4 @@
-﻿
+﻿//slider
 ; (function ($, window, undefined) {
     var pluginName = 'smSlideChart';
     var privateVar = null;
@@ -82,7 +82,7 @@
             options.callback(index, last);
             that.element.animate({
                 'margin-left': -that.containerWidth * index
-            }, options.duration, 'easeInOutBack', function () {
+            }, options.duration, 'easeOutQuint', function () {
                 $.isFunction(callback) && callback();
                 //options.callback(index, last);
             });
@@ -122,7 +122,8 @@
     };
 }(jQuery, window));
 
-;(function ($, window, undefined) {
+//watermark
+; (function ($, window, undefined) {
 
     var
         // String constants for data names
@@ -733,7 +734,7 @@
 				field = $(this),
 
 				// Current field value
-				fieldValue = field.val() || '',
+				fieldValue = field.val() || '',                
 
 				// An index of extend
 				fieldValidate = field.data('validate'),
@@ -930,7 +931,7 @@
 		            log = fieldDescription.conditional;
 		        }
 
-		        describedby.html(log || '');		       
+		        describedby.html(log || '');
 		    }
 
 		    // Check if display message in the textbox
@@ -939,7 +940,7 @@
 		            field.val(fieldDescription.required);
 		        }
 		    }
-		    
+
 
 		    if (typeof (validation.each) == 'function') {
 
@@ -1075,14 +1076,14 @@
 
                                 }
                             });
-
                             // If form is valid
                             if (formValid) {
 
-                                // Send form?
-                                if (!options.sendForm) {
+                                // Send form post?
+                                if (!options.sendFormPost) {
 
                                     event.preventDefault();
+                                                                        
                                 }
 
                                 // Is a function?
@@ -1090,6 +1091,7 @@
 
                                     options.valid.call(form, event, options);
                                 }
+
                             } else {
 
                                 event.preventDefault();
@@ -1100,6 +1102,7 @@
                                     options.invalid.call(form, event, options);
                                 }
                             }
+                            
                         });
                     }
                 }
@@ -1134,7 +1137,7 @@
 })({
 
     // Send form if is valid?
-    sendForm: true,
+    sendFormPost: true,
 
     // Use WAI-ARIA properties
     waiAria: true,
@@ -1617,7 +1620,7 @@
 })(jQuery, window, document);
 
 //iCheckbox
-(function ($, _iCheck, _checkbox, _radio, _checked, _disabled, _type, _click, _touch, _add, _remove, _cursor) {
+; (function ($, _iCheck, _checkbox, _radio, _checked, _disabled, _type, _click, _touch, _add, _remove, _cursor) {
 
     // Create a plugin
     $.fn[_iCheck] = function (options, fire) {
@@ -2005,6 +2008,510 @@
         return string.charAt(0).toUpperCase() + string.slice(1);
     };
 })(jQuery, 'iCheck', 'checkbox', 'radio', 'checked', 'disabled', 'type', 'click', 'touchbegin.i touchend.i', 'addClass', 'removeClass', 'cursor');
+
+//lightbox
+; (function () {
+    var $, Lightbox, LightboxOptions;
+
+    $ = jQuery;
+
+    LightboxOptions = (function () {
+        function LightboxOptions() {
+            this.fadeDuration = 500;
+            this.fitImagesInViewport = true;
+            this.resizeDuration = 700;
+            this.showImageNumberLabel = true;
+            this.wrapAround = false;
+        }
+
+        LightboxOptions.prototype.albumLabel = function (curImageNum, albumSize) {
+            return "Image " + curImageNum + " of " + albumSize;
+        };
+
+        return LightboxOptions;
+
+    })();
+
+    Lightbox = (function () {
+        function Lightbox(options) {
+            this.options = options;
+            this.album = [];
+            this.currentImageIndex = void 0;
+            this.init();
+        }
+
+        Lightbox.prototype.init = function () {
+            this.enable();
+            return this.build();
+        };
+
+        Lightbox.prototype.enable = function () {
+            var _this = this;
+            return $('body').on('click', 'a[rel^=lightbox], area[rel^=lightbox], a[data-lightbox], area[data-lightbox]', function (e) {
+                _this.start($(e.currentTarget));
+                return false;
+            });
+        };
+
+        Lightbox.prototype.build = function () {
+            var _this = this;
+            $("<div id='lightboxOverlay' class='lightboxOverlay'></div><div id='lightbox' class='lightbox'><div class='lb-outerContainer'><div class='lb-container'><img class='lb-image' src='' /><div class='lb-nav'><a class='lb-prev' href='' ></a><a class='lb-next' href='' ></a></div><div class='lb-loader'><a class='lb-cancel'></a></div></div></div><div class='lb-dataContainer'><div class='lb-data'><div class='lb-details'><span class='lb-caption'></span><span class='lb-number'></span></div><div class='lb-closeContainer'><a class='lb-close'></a></div></div></div></div>").appendTo($('body'));
+            this.$lightbox = $('#lightbox');
+            this.$overlay = $('#lightboxOverlay');
+            this.$outerContainer = this.$lightbox.find('.lb-outerContainer');
+            this.$container = this.$lightbox.find('.lb-container');
+            this.containerTopPadding = parseInt(this.$container.css('padding-top'), 10);
+            this.containerRightPadding = parseInt(this.$container.css('padding-right'), 10);
+            this.containerBottomPadding = parseInt(this.$container.css('padding-bottom'), 10);
+            this.containerLeftPadding = parseInt(this.$container.css('padding-left'), 10);
+            this.$overlay.hide().on('click', function () {
+                _this.end();
+                return false;
+            });
+            this.$lightbox.hide().on('click', function (e) {
+                if ($(e.target).attr('id') === 'lightbox') {
+                    _this.end();
+                }
+                return false;
+            });
+            this.$outerContainer.on('click', function (e) {
+                if ($(e.target).attr('id') === 'lightbox') {
+                    _this.end();
+                }
+                return false;
+            });
+            this.$lightbox.find('.lb-prev').on('click', function () {
+                if (_this.currentImageIndex === 0) {
+                    _this.changeImage(_this.album.length - 1);
+                } else {
+                    _this.changeImage(_this.currentImageIndex - 1);
+                }
+                return false;
+            });
+            this.$lightbox.find('.lb-next').on('click', function () {
+                if (_this.currentImageIndex === _this.album.length - 1) {
+                    _this.changeImage(0);
+                } else {
+                    _this.changeImage(_this.currentImageIndex + 1);
+                }
+                return false;
+            });
+            return this.$lightbox.find('.lb-loader, .lb-close').on('click', function () {
+                _this.end();
+                return false;
+            });
+        };
+
+        Lightbox.prototype.start = function ($link) {
+            var $window, a, dataLightboxValue, i, imageNumber, left, top, _i, _j, _len, _len1, _ref, _ref1;
+            $(window).on("resize", this.sizeOverlay);
+            $('select, object, embed').css({
+                visibility: "hidden"
+            });
+            this.$overlay.width($(document).width()).height($(document).height()).fadeIn(this.options.fadeDuration);
+            this.album = [];
+            imageNumber = 0;
+            dataLightboxValue = $link.attr('data-lightbox');
+            if (dataLightboxValue) {
+                _ref = $($link.prop("tagName") + '[data-lightbox="' + dataLightboxValue + '"]');
+                for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+                    a = _ref[i];
+                    this.album.push({
+                        link: $(a).attr('href'),
+                        title: $(a).attr('title')
+                    });
+                    if ($(a).attr('href') === $link.attr('href')) {
+                        imageNumber = i;
+                    }
+                }
+            } else {
+                if ($link.attr('rel') === 'lightbox') {
+                    this.album.push({
+                        link: $link.attr('href'),
+                        title: $link.attr('title')
+                    });
+                } else {
+                    _ref1 = $($link.prop("tagName") + '[rel="' + $link.attr('rel') + '"]');
+                    for (i = _j = 0, _len1 = _ref1.length; _j < _len1; i = ++_j) {
+                        a = _ref1[i];
+                        this.album.push({
+                            link: $(a).attr('href'),
+                            title: $(a).attr('title')
+                        });
+                        if ($(a).attr('href') === $link.attr('href')) {
+                            imageNumber = i;
+                        }
+                    }
+                }
+            }
+            $window = $(window);
+            top = $window.scrollTop() + $window.height() / 10;
+            left = $window.scrollLeft();
+            this.$lightbox.css({
+                top: top + 'px',
+                left: left + 'px'
+            }).fadeIn(this.options.fadeDuration);
+            this.changeImage(imageNumber);
+        };
+
+        Lightbox.prototype.changeImage = function (imageNumber) {
+            var $image, preloader,
+              _this = this;
+            this.disableKeyboardNav();
+            $image = this.$lightbox.find('.lb-image');
+            this.sizeOverlay();
+            this.$overlay.fadeIn(this.options.fadeDuration);
+            $('.lb-loader').fadeIn('slow');
+            this.$lightbox.find('.lb-image, .lb-nav, .lb-prev, .lb-next, .lb-dataContainer, .lb-numbers, .lb-caption').hide();
+            this.$outerContainer.addClass('animating');
+            preloader = new Image();
+            preloader.onload = function () {
+                var $preloader, imageHeight, imageWidth, maxImageHeight, maxImageWidth, windowHeight, windowWidth;
+                $image.attr('src', _this.album[imageNumber].link);
+                $preloader = $(preloader);
+                $image.width(preloader.width);
+                $image.height(preloader.height);
+                if (_this.options.fitImagesInViewport) {
+                    windowWidth = $(window).width();
+                    windowHeight = $(window).height();
+                    maxImageWidth = windowWidth - _this.containerLeftPadding - _this.containerRightPadding - 20;
+                    maxImageHeight = windowHeight - _this.containerTopPadding - _this.containerBottomPadding - 110;
+                    if ((preloader.width > maxImageWidth) || (preloader.height > maxImageHeight)) {
+                        if ((preloader.width / maxImageWidth) > (preloader.height / maxImageHeight)) {
+                            imageWidth = maxImageWidth;
+                            imageHeight = parseInt(preloader.height / (preloader.width / imageWidth), 10);
+                            $image.width(imageWidth);
+                            $image.height(imageHeight);
+                        } else {
+                            imageHeight = maxImageHeight;
+                            imageWidth = parseInt(preloader.width / (preloader.height / imageHeight), 10);
+                            $image.width(imageWidth);
+                            $image.height(imageHeight);
+                        }
+                    }
+                }
+                return _this.sizeContainer($image.width(), $image.height());
+            };
+            preloader.src = this.album[imageNumber].link;
+            this.currentImageIndex = imageNumber;
+        };
+
+        Lightbox.prototype.sizeOverlay = function () {
+            return $('#lightboxOverlay').width($(document).width()).height($(document).height());
+        };
+
+        Lightbox.prototype.sizeContainer = function (imageWidth, imageHeight) {
+            var newHeight, newWidth, oldHeight, oldWidth,
+              _this = this;
+            oldWidth = this.$outerContainer.outerWidth();
+            oldHeight = this.$outerContainer.outerHeight();
+            newWidth = imageWidth + this.containerLeftPadding + this.containerRightPadding;
+            newHeight = imageHeight + this.containerTopPadding + this.containerBottomPadding;
+            this.$outerContainer.animate({
+                width: newWidth,
+                height: newHeight
+            }, this.options.resizeDuration, 'swing');
+            setTimeout(function () {
+                _this.$lightbox.find('.lb-dataContainer').width(newWidth);
+                _this.$lightbox.find('.lb-prevLink').height(newHeight);
+                _this.$lightbox.find('.lb-nextLink').height(newHeight);
+                _this.showImage();
+            }, this.options.resizeDuration);
+        };
+
+        Lightbox.prototype.showImage = function () {
+            this.$lightbox.find('.lb-loader').hide();
+            this.$lightbox.find('.lb-image').fadeIn('slow');
+            this.updateNav();
+            this.updateDetails();
+            this.preloadNeighboringImages();
+            this.enableKeyboardNav();
+        };
+
+        Lightbox.prototype.updateNav = function () {
+            this.$lightbox.find('.lb-nav').show();
+            if (this.album.length > 1) {
+                if (this.options.wrapAround) {
+                    this.$lightbox.find('.lb-prev, .lb-next').show();
+                } else {
+                    if (this.currentImageIndex > 0) {
+                        this.$lightbox.find('.lb-prev').show();
+                    }
+                    if (this.currentImageIndex < this.album.length - 1) {
+                        this.$lightbox.find('.lb-next').show();
+                    }
+                }
+            }
+        };
+
+        Lightbox.prototype.updateDetails = function () {
+            var _this = this;
+            if (typeof this.album[this.currentImageIndex].title !== 'undefined' && this.album[this.currentImageIndex].title !== "") {
+                this.$lightbox.find('.lb-caption').html(this.album[this.currentImageIndex].title).fadeIn('fast');
+            }
+            if (this.album.length > 1 && this.options.showImageNumberLabel) {
+                this.$lightbox.find('.lb-number').text(this.options.albumLabel(this.currentImageIndex + 1, this.album.length)).fadeIn('fast');
+            } else {
+                this.$lightbox.find('.lb-number').hide();
+            }
+            this.$outerContainer.removeClass('animating');
+            this.$lightbox.find('.lb-dataContainer').fadeIn(this.resizeDuration, function () {
+                return _this.sizeOverlay();
+            });
+        };
+
+        Lightbox.prototype.preloadNeighboringImages = function () {
+            var preloadNext, preloadPrev;
+            if (this.album.length > this.currentImageIndex + 1) {
+                preloadNext = new Image();
+                preloadNext.src = this.album[this.currentImageIndex + 1].link;
+            }
+            if (this.currentImageIndex > 0) {
+                preloadPrev = new Image();
+                preloadPrev.src = this.album[this.currentImageIndex - 1].link;
+            }
+        };
+
+        Lightbox.prototype.enableKeyboardNav = function () {
+            $(document).on('keyup.keyboard', $.proxy(this.keyboardAction, this));
+        };
+
+        Lightbox.prototype.disableKeyboardNav = function () {
+            $(document).off('.keyboard');
+        };
+
+        Lightbox.prototype.keyboardAction = function (event) {
+            var KEYCODE_ESC, KEYCODE_LEFTARROW, KEYCODE_RIGHTARROW, key, keycode;
+            KEYCODE_ESC = 27;
+            KEYCODE_LEFTARROW = 37;
+            KEYCODE_RIGHTARROW = 39;
+            keycode = event.keyCode;
+            key = String.fromCharCode(keycode).toLowerCase();
+            if (keycode === KEYCODE_ESC || key.match(/x|o|c/)) {
+                this.end();
+            } else if (key === 'p' || keycode === KEYCODE_LEFTARROW) {
+                if (this.currentImageIndex !== 0) {
+                    this.changeImage(this.currentImageIndex - 1);
+                }
+            } else if (key === 'n' || keycode === KEYCODE_RIGHTARROW) {
+                if (this.currentImageIndex !== this.album.length - 1) {
+                    this.changeImage(this.currentImageIndex + 1);
+                }
+            }
+        };
+
+        Lightbox.prototype.end = function () {
+            this.disableKeyboardNav();
+            $(window).off("resize", this.sizeOverlay);
+            this.$lightbox.fadeOut(this.options.fadeDuration);
+            this.$overlay.fadeOut(this.options.fadeDuration);
+            return $('select, object, embed').css({
+                visibility: "visible"
+            });
+        };
+
+        return Lightbox;
+
+    })();
+
+    $(function () {
+        var lightbox, options;
+        options = new LightboxOptions();
+        return lightbox = new Lightbox(options);
+    });
+
+}).call(this);
+
+//encrypt decrypt
+(function ($) {
+    $.fn.rc4 = function (settings) {
+        var defaults = { key: null, method: "encrypt", callback: null };
+        var options = $.extend(defaults, settings);
+        if ($.fn.rc4.ctrlrInst == null) { $.fn.rc4.ctrlrInst = new $.fn.rc4.ctrlr(options); }
+        return this.each(function () {
+            $.fn.rc4.ctrlrInst.settings = options;
+            $.fn.rc4.ctrlrInst.container = this; $.fn.rc4.ctrlrInst.initialise(this);
+        });
+    }
+    $.extend({
+        hexEncode: function (data) {
+            var b16D = '0123456789abcdef'; var b16M = new Array();
+            for (var i = 0; i < 256; i++) { b16M[i] = b16D.charAt(i >> 4) + b16D.charAt(i & 15); }
+            var result = new Array(); for (var i = 0; i < data.length; i++) { result[i] = b16M[data.charCodeAt(i)]; }
+            return result.join('');
+        }, hexDecode: function (data) {
+            var b16D = '0123456789abcdef'; var b16M = new Array();
+            for (var i = 0; i < 256; i++) { b16M[b16D.charAt(i >> 4) + b16D.charAt(i & 15)] = String.fromCharCode(i); }
+            if (!data.match(/^[a-f0-9]*$/i)) return false; if (data.length % 2) data = '0' + data;
+            var result = new Array(); var j = 0; for (var i = 0; i < data.length; i += 2) { result[j++] = b16M[data.substr(i, 2)]; }
+            return result.join('');
+        }, rc4Encrypt: function (key, pt) {
+            s = new Array(); for (var i = 0; i < 256; i++) { s[i] = i; }; var j = 0; var x;
+            for (i = 0; i < 256; i++) { j = (j + s[i] + key.charCodeAt(i % key.length)) % 256; x = s[i]; s[i] = s[j]; s[j] = x; }
+            i = 0; j = 0; var ct = ''; for (var y = 0; y < pt.length; y++) {
+                i = (i + 1) % 256; j = (j + s[i]) % 256; x = s[i]; s[i] = s[j]; s[j] = x;
+                ct += String.fromCharCode(pt.charCodeAt(y) ^ s[(s[i] + s[j]) % 256]);
+            } return ct;
+        }, rc4Decrypt: function (key, ct) {
+            return $.rc4Encrypt(key, ct);
+        }, rc4EncryptStr: function (str, key) {
+            return $.hexEncode($.rc4Encrypt(key, unescape(encodeURIComponent(str))));
+        }, rc4DecryptStr: function (hexStr, key) { return decodeURIComponent(escape($.rc4Decrypt(key, $.hexDecode(hexStr)))); }
+    });
+    $.rc4 = {}; $.fn.rc4.ctrlrInst = null; $.fn.rc4.ctrlr = function (settings) { this.settings = settings; }; var ctrlr = $.fn.rc4.ctrlr;
+    ctrlr.prototype.initialise = function () {
+        if (this.settings.key) {
+            if (this.settings.method) {
+                if ($.trim(this.settings.method.toUpperCase()) == "ENCRYPT") {
+                    this.setObjectValue($.hexEncode($.rc4Encrypt(this.settings.key, this.getObjectValue())))
+                }
+                if ($.trim(this.settings.method.toUpperCase()) == "DECRYPT") {
+                    this.setObjectValue($.rc4Decrypt(this.settings.key, $.hexDecode(this.getObjectValue())));
+                }
+            }
+        };
+    }
+    ctrlr.prototype.getObjectValue = function () {
+        if ($.fn.rc4.ctrlrInst.container.innerHTML) { return $.fn.rc4.ctrlrInst.container.innerHTML; }
+        if ($.fn.rc4.ctrlrInst.container.value) { return $.fn.rc4.ctrlrInst.container.value; }
+    }
+    ctrlr.prototype.setObjectValue = function (data) {
+        if ($.fn.rc4.ctrlrInst.container.innerHTML) { $.fn.rc4.ctrlrInst.container.innerHTML = data; }
+        if ($.fn.rc4.ctrlrInst.container.value) { $.fn.rc4.ctrlrInst.container.value = data; }
+    }
+})(jQuery);
+
+//autocomplete select box
+(function ($) {    
+    $.widget("custom.combobox", {
+        _create: function () {
+            this.wrapper = $("<span>")
+              .addClass("custom-combobox")
+              .insertAfter(this.element);
+
+            this.element.hide();
+            this._createAutocomplete();
+            this._createShowAllButton();
+        },
+        
+        _createAutocomplete: function () {
+            var selected = this.element.children(":selected"),
+              value = selected.val() ? selected.text() : "";
+            
+            this.input = $("<input>")
+              .appendTo(this.wrapper)
+              .val(value)
+              .attr("id", "input-" + this.element.attr("id"))
+              .attr("data-required", this.element.attr("data-required"))
+              .addClass("custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left")
+              .autocomplete({
+                  delay: 0,
+                  minLength: 0,
+                  source: $.proxy(this, "_source")
+              })
+              .tooltip({
+                  tooltipClass: "ui-state-highlight"
+              });
+
+            this._on(this.input, {
+                autocompleteselect: function (event, ui) {
+                    ui.item.option.selected = true;
+                    this._trigger("select", event, {
+                        item: ui.item.option
+                    });
+                },
+
+                autocompletechange: "_removeIfInvalid"
+            });
+        },
+
+        _createShowAllButton: function () {
+            var input = this.input,
+              wasOpen = false;
+
+            $("<a>")
+              .attr("tabIndex", -1)
+              .attr("title", "Xem tất cả")
+              .tooltip()
+              .appendTo(this.wrapper)
+              .button({
+                  icons: {
+                      primary: "ui-icon-triangle-1-s"
+                  },
+                  text: false
+              })
+              .removeClass("ui-corner-all")
+              .addClass("custom-combobox-toggle ui-corner-right")
+              .mousedown(function () {
+                  wasOpen = input.autocomplete("widget").is(":visible");
+              })
+              .click(function () {
+                  input.focus();
+
+                  // Close if already visible
+                  if (wasOpen) {
+                      return;
+                  }
+
+                  // Pass empty string as value to search for, displaying all results
+                  input.autocomplete("search", "");
+              });
+        },
+
+        _source: function (request, response) {
+            var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+            response(this.element.children("option").map(function () {
+                var text = $(this).text();
+                if (this.value && (!request.term || matcher.test(text)))
+                    return {
+                        label: text,
+                        value: text,
+                        option: this
+                    };
+            }));
+        },
+
+        _removeIfInvalid: function (event, ui) {
+
+            // Selected an item, nothing to do
+            if (ui.item) {
+                return;
+            }
+
+            // Search for a match (case-insensitive)
+            var value = this.input.val(),
+              valueLowerCase = value.toLowerCase(),
+              valid = false;
+            this.element.children("option").each(function () {
+                if ($(this).text().toLowerCase() === valueLowerCase) {
+                    this.selected = valid = true;
+                    return false;
+                }
+            });
+
+            // Found a match, nothing to do
+            if (valid) {
+                return;
+            }
+
+            // Remove invalid value
+            this.input
+              .val("")
+              .attr("title", "Không tìm thấy kết quả với từ " + value)
+              .tooltip("open");
+            this.element.val("");
+            this._delay(function () {
+                this.input.tooltip("close").attr("title", "");
+            }, 2500);
+            this.input.data("ui-autocomplete").term = "";
+        },
+
+        _destroy: function () {
+            this.wrapper.remove();
+            this.element.show();
+        }
+    });
+})(jQuery);
 
 //pagination
 jQuery.fn.pagination = function (maxentries, opts) {

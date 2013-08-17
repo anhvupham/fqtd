@@ -10,10 +10,10 @@
     <legend>BrandItems</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.tbl_Item_Location.FullAddress)
+         @Html.DisplayNameFor(model => model.FullAddress)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.tbl_Item_Location.FullAddress)
+        @Html.DisplayFor(model => model.FullAddress)
     </div>
 
     <div class="display-label">
@@ -71,7 +71,38 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.tbl_Brands.BrandName)
     </div>
-
+    
+        <div class="editor-label">
+            @Html.DisplayNameFor(model => model.FullAddress)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.FullAddress)
+        </div>
+        
+        <div class="editor-label">
+            @Html.DisplayNameFor(model => model.AddressNumber)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.AddressNumber)
+        </div>
+        <div class="editor-label">
+            @Html.DisplayNameFor(model => model.Street)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.Street)
+        </div>
+        <div class="editor-label">
+            @Html.DisplayNameFor(model => model.District)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.District)
+        </div>
+        <div class="editor-label">
+            @Html.DisplayNameFor(model => model.City)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.City)
+        </div>
     <div class="display-label">
          @Html.DisplayNameFor(model => model.SearchCount)
     </div>
@@ -143,6 +174,6 @@
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new {  id=Model.ItemID  }) |
+    @Html.ActionLink("Back to List", "Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] })
 </p>

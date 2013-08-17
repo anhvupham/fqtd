@@ -1,0 +1,63 @@
+﻿@model fqtd.Areas.Admin.Models.ContactUS
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>ContactUS</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ContactID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ContactID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CustomerName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CustomerName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Phone)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Phone)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Email)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ContactTitle)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ContactTitle)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ContactContent)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ContactContent)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ContactDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ContactDate)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,26 @@
+﻿@model IEnumerable<fqtd.Areas.Admin.Models.SP_Brand_Properties_Result>
+
+@{
+    ViewBag.Title = "Brand Properties:"+ @ViewBag.BrandName;
+    int Brandid = Convert.ToInt32(ViewBag.BrandID);
+}
+
+<h2>Brand Properties: @ViewBag.BrandName</h2>
+
+@Html.Hidden("BrandID", Brandid)
+<form method="post" action="BrandProperties">
+  
+    @Html.AntiForgeryToken()
+   
+    @foreach (var Brand in Model)
+    {
+        if (Brand.PropertyValue)
+        {
+        <input id="@Brand.PropertyID" name="MyCheckList" value="@Brand.PropertyID" type="checkbox" checked="checked"/>
+        }
+        else
+        {<input id="@Brand.PropertyID" name="MyCheckList" value="@Brand.PropertyID" type="checkbox" />}
+        <label for="@Brand.PropertyID">@Brand.PropertyName</label><br />
+    }
+    <input id="Submit1" type="submit" value="Submit" />
+</form>

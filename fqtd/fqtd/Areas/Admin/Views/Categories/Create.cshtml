@@ -35,6 +35,12 @@
             @Html.ValidationMessageFor(model => model.MarkerIcon)
         </div>
         <div class="editor-label">
+            @Html.LabelFor(model => model.Keyword)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Keyword, new { @id = "Keyword" })
+        </div>
+        <div class="editor-label">
             @Html.LabelFor(model => model.Description)
         </div>
         <div class="editor-field-htmleditor">

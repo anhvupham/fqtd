@@ -18,97 +18,146 @@
     @Html.HiddenFor(model => model.IsActive)
     @Html.HiddenFor(model => model.MarkerIcon)
 
-    <fieldset>
-        <legend>Item Infos</legend>
+@* <fieldset>
+        <legend>Item Infos</legend>*@
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.ItemName)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.ItemName)
+        @Html.ValidationMessageFor(model => model.ItemName)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.ItemName_EN)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.ItemName_EN)
+        @Html.ValidationMessageFor(model => model.ItemName_EN)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.MarkerIcon)
+    </div>
+    <div class="editor-field">
+        <input type="file" name="icon" />
+        @Html.ValidationMessageFor(model => model.MarkerIcon)
+    </div>
+
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.OpenTime)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.OpenTime)
+        @Html.ValidationMessageFor(model => model.OpenTime)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Phone)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Phone)
+        @Html.ValidationMessageFor(model => model.Phone)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Website)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Website)
+        @Html.ValidationMessageFor(model => model.Website)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.BrandID, "tbl_Brands")
+    </div>
+    <div class="editor-field">
+        @Html.DropDownList("BrandID", String.Empty)
+        @Html.ValidationMessageFor(model => model.BrandID)
+    </div>
         
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ItemName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ItemName)
-            @Html.ValidationMessageFor(model => model.ItemName)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ItemName_EN)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ItemName_EN)
-            @Html.ValidationMessageFor(model => model.ItemName_EN)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.MarkerIcon)
-        </div>
-        <div class="editor-field">
-            <input type="file" name="icon" />
-            @Html.ValidationMessageFor(model => model.MarkerIcon)
-        </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.FullAddress)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.FullAddress)
+        @Html.ValidationMessageFor(model => model.FullAddress)
+    </div>
         
+    <div class="editor-label">
+        @Html.LabelFor(model => model.AddressNumber)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.AddressNumber)
+        @Html.ValidationMessageFor(model => model.AddressNumber)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Street)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Street)
+        @Html.ValidationMessageFor(model => model.Street)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.District)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.District)
+        @Html.ValidationMessageFor(model => model.District)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.City)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.City)
+        @Html.ValidationMessageFor(model => model.City)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Longitude)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Longitude)
+        @Html.ValidationMessageFor(model => model.Longitude)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Latitude)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Latitude)
+        @Html.ValidationMessageFor(model => model.Latitude)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Description)
+    </div>
+    <div class="editor-field">
+        @Html.TextAreaFor(model => model.Description, new { @id = "Description" })
+        <script type="text/javascript">
+            CKEDITOR.replace("Description");
+        </script>
+        @Html.ValidationMessageFor(model => model.Description)
+    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.OpenTime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.OpenTime)
-            @Html.ValidationMessageFor(model => model.OpenTime)
-        </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Phone)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Phone)
-            @Html.ValidationMessageFor(model => model.Phone)
-        </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Description_EN)
+    </div>
+    <div class="editor-field">
+        @Html.TextAreaFor(model => model.Description_EN, new { @id = "Description_EN" })
+        <script type="text/javascript">
+            CKEDITOR.replace("Description_EN");
+        </script>
+        @Html.ValidationMessageFor(model => model.Description_EN)
+    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Website)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Website)
-            @Html.ValidationMessageFor(model => model.Website)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.BrandID, "tbl_Brands")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("BrandID", String.Empty)
-            @Html.ValidationMessageFor(model => model.BrandID)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Description)
-        </div>
-        <div class="editor-field">
-            @Html.TextAreaFor(model => model.Description, new { @id = "Description" })
-           <script type="text/javascript">
-               CKEDITOR.replace("Description");
-            </script>
-            @Html.ValidationMessageFor(model => model.Description)
-        </div>
-
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Description_EN)
-        </div>
-        <div class="editor-field">
-            @Html.TextAreaFor(model => model.Description_EN, new { @id = "Description_EN" })
-           <script type="text/javascript">
-               CKEDITOR.replace("Description_EN");
-            </script>
-            @Html.ValidationMessageFor(model => model.Description_EN)
-        </div>
-
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-    </fieldset>
+    <p>
+        <input type="submit" value="Save" />
+        |
+    @Html.ActionLink("Back to List", "Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] })
+    </p>@*
+    </fieldset>*@
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

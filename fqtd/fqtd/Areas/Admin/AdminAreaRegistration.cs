@@ -15,6 +15,12 @@ namespace fqtd.Areas.Admin
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
+                "Admin",
+                "Admin",
+                new { controller="SearchHistory",action = "Index", id = "" },
+                namespaces: new[] { "fqtd.Areas.Admin.Controllers" }
+            );
+            context.MapRoute(
                 "Admin_default",
                 "Admin/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional },

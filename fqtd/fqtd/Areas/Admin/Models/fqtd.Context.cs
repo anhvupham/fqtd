@@ -32,9 +32,13 @@ namespace fqtd.Areas.Admin.Models
         public DbSet<Brands> Brands { get; set; }
         public DbSet<BrandType> BrandTypes { get; set; }
         public DbSet<Categories> Categories { get; set; }
-        public DbSet<ItemLocation> ItemLocations { get; set; }
         public DbSet<ItemProperties> ItemProperties { get; set; }
         public DbSet<Properties> Properties { get; set; }
+        public DbSet<tbl_SystemContent> tbl_SystemContent { get; set; }
+        public DbSet<BrandCategories> tbl_Brand_Categories { get; set; }
+        public DbSet<tbl_Brand_Properties> tbl_Brand_Properties { get; set; }
+        public DbSet<ContactUS> ContactUS { get; set; }
+        public DbSet<SearchHistory> SearchHistory { get; set; }
     
         public virtual ObjectResult<SP_Category_Properties_Result> SP_Category_Properties(Nullable<int> categoryID)
         {
@@ -52,6 +56,150 @@ namespace fqtd.Areas.Admin.Models
                 new ObjectParameter("ItemID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Item_Properties_Result>("SP_Item_Properties", itemIDParameter);
+        }
+    
+        public virtual ObjectResult<SP_GetKeyword1_Result> SP_GetKeyword1(string street, string district, string city)
+        {
+            var streetParameter = street != null ?
+                new ObjectParameter("street", street) :
+                new ObjectParameter("street", typeof(string));
+    
+            var districtParameter = district != null ?
+                new ObjectParameter("district", district) :
+                new ObjectParameter("district", typeof(string));
+    
+            var cityParameter = city != null ?
+                new ObjectParameter("city", city) :
+                new ObjectParameter("city", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetKeyword1_Result>("SP_GetKeyword1", streetParameter, districtParameter, cityParameter);
+        }
+    
+        public virtual int SP_RemoveItemProperties(Nullable<int> itemID)
+        {
+            var itemIDParameter = itemID.HasValue ?
+                new ObjectParameter("ItemID", itemID) :
+                new ObjectParameter("ItemID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_RemoveItemProperties", itemIDParameter);
+        }
+    
+        public virtual int SP_ItemSearch(Nullable<int> mode, Nullable<int> categoryID, Nullable<int> brandID, string keyword, string properties, string path, string c_path, string b_path, string i_path)
+        {
+            var modeParameter = mode.HasValue ?
+                new ObjectParameter("mode", mode) :
+                new ObjectParameter("mode", typeof(int));
+    
+            var categoryIDParameter = categoryID.HasValue ?
+                new ObjectParameter("CategoryID", categoryID) :
+                new ObjectParameter("CategoryID", typeof(int));
+    
+            var brandIDParameter = brandID.HasValue ?
+                new ObjectParameter("BrandID", brandID) :
+                new ObjectParameter("BrandID", typeof(int));
+    
+            var keywordParameter = keyword != null ?
+                new ObjectParameter("Keyword", keyword) :
+                new ObjectParameter("Keyword", typeof(string));
+    
+            var propertiesParameter = properties != null ?
+                new ObjectParameter("properties", properties) :
+                new ObjectParameter("properties", typeof(string));
+    
+            var pathParameter = path != null ?
+                new ObjectParameter("path", path) :
+                new ObjectParameter("path", typeof(string));
+    
+            var c_pathParameter = c_path != null ?
+                new ObjectParameter("c_path", c_path) :
+                new ObjectParameter("c_path", typeof(string));
+    
+            var b_pathParameter = b_path != null ?
+                new ObjectParameter("b_path", b_path) :
+                new ObjectParameter("b_path", typeof(string));
+    
+            var i_pathParameter = i_path != null ?
+                new ObjectParameter("i_path", i_path) :
+                new ObjectParameter("i_path", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ItemSearch", modeParameter, categoryIDParameter, brandIDParameter, keywordParameter, propertiesParameter, pathParameter, c_pathParameter, b_pathParameter, i_pathParameter);
+        }
+    
+        public virtual int SP_SearchItem(Nullable<int> mode, Nullable<int> categoryID, Nullable<int> brandID, string keyword, string properties, string path, string c_path, string b_path, string i_path)
+        {
+            var modeParameter = mode.HasValue ?
+                new ObjectParameter("mode", mode) :
+                new ObjectParameter("mode", typeof(int));
+    
+            var categoryIDParameter = categoryID.HasValue ?
+                new ObjectParameter("CategoryID", categoryID) :
+                new ObjectParameter("CategoryID", typeof(int));
+    
+            var brandIDParameter = brandID.HasValue ?
+                new ObjectParameter("BrandID", brandID) :
+                new ObjectParameter("BrandID", typeof(int));
+    
+            var keywordParameter = keyword != null ?
+                new ObjectParameter("Keyword", keyword) :
+                new ObjectParameter("Keyword", typeof(string));
+    
+            var propertiesParameter = properties != null ?
+                new ObjectParameter("properties", properties) :
+                new ObjectParameter("properties", typeof(string));
+    
+            var pathParameter = path != null ?
+                new ObjectParameter("path", path) :
+                new ObjectParameter("path", typeof(string));
+    
+            var c_pathParameter = c_path != null ?
+                new ObjectParameter("c_path", c_path) :
+                new ObjectParameter("c_path", typeof(string));
+    
+            var b_pathParameter = b_path != null ?
+                new ObjectParameter("b_path", b_path) :
+                new ObjectParameter("b_path", typeof(string));
+    
+            var i_pathParameter = i_path != null ?
+                new ObjectParameter("i_path", i_path) :
+                new ObjectParameter("i_path", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_SearchItem", modeParameter, categoryIDParameter, brandIDParameter, keywordParameter, propertiesParameter, pathParameter, c_pathParameter, b_pathParameter, i_pathParameter);
+        }
+    
+        public virtual int SP_RemoveBrandCategories(Nullable<int> brandID)
+        {
+            var brandIDParameter = brandID.HasValue ?
+                new ObjectParameter("BrandID", brandID) :
+                new ObjectParameter("BrandID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_RemoveBrandCategories", brandIDParameter);
+        }
+    
+        public virtual ObjectResult<SP_Brand_Categories_Result1> SP_Brand_Categories(Nullable<int> brandID)
+        {
+            var brandIDParameter = brandID.HasValue ?
+                new ObjectParameter("BrandID", brandID) :
+                new ObjectParameter("BrandID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Brand_Categories_Result1>("SP_Brand_Categories", brandIDParameter);
+        }
+    
+        public virtual ObjectResult<SP_Brand_Properties_Result> SP_Brand_Properties(Nullable<int> brandID)
+        {
+            var brandIDParameter = brandID.HasValue ?
+                new ObjectParameter("BrandID", brandID) :
+                new ObjectParameter("BrandID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Brand_Properties_Result>("SP_Brand_Properties", brandIDParameter);
+        }
+    
+        public virtual int SP_RemoveBrandProperties(Nullable<int> brandID)
+        {
+            var brandIDParameter = brandID.HasValue ?
+                new ObjectParameter("BrandID", brandID) :
+                new ObjectParameter("BrandID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_RemoveBrandProperties", brandIDParameter);
         }
     }
 }

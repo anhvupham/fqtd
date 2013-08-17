@@ -1,25 +1,24 @@
-﻿@model IEnumerable<fqtd.Areas.Admin.Models.BrandItems>
-
+﻿@model PagedList.IPagedList<fqtd.Areas.Admin.Models.BrandItems>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
 }
 <div class="caption">
-    <div class="title">Item list</div>
-    <div class="addAction">
-        @Html.ActionLink("   Create New   ", "Create")
-    </div>
+    @*<label class="title">Item list</label>*@
+        @Html.ActionLink("   Create New   ", "Create")|
+        @Html.ActionLink("   Build all keywords   ", "KeywordBuilder")
+    
 </div>
-<br />
 @using (Ajax.BeginForm("Index", new
 {
-    page = ViewBag.CurrentPage,
+    page = 1,
     Keyword = ViewBag.CurrentKeyword,
-    category = ViewBag.CurrentCategory,
-    brand = ViewBag.CurrentBrand
-        
+    category = ViewBag.CurrentCategoryID,
+    brand = ViewBag.CurrentBrandID,
+    user = ViewBag.CurrentUser
     }, new AjaxOptions { UpdateTargetId = "main" }))
     {
-        <table id="giohang">
+        <table class="table_search">
             <tr>
                 <td style="text-align: right">Keyword:
                 </td>
@@ -29,47 +28,52 @@
                 </td>
                 <td>@Html.DropDownList("CategoryID", "-- All --")
                 </td>
-                <td style="text-align: right">Từ khóa:
+                <td style="text-align: right">Brands:
                 </td>
                 <td>@Html.DropDownList("BrandID", "-- All --")
+                @*</td>
+                <td style="text-align: right">Users:
                 </td>
-                <td style="text-align: right"><input type="submit" value="Tìm kiếm" />
+                <td>@Html.DropDownList("Users", "-- All --")
+                </td>*@
+                <td style="text-align: right"><input type="submit" value="Search" />
                 </td>
+
             </tr>
         </table>
     }
-<br />
-<table>
+<table class="table_paging">
     <tr><td>
     @Html.Partial("_Paging")</td></tr></table>
-<table>
+
+<table class="table_list">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ItemName)
+            Item Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ItemName_EN)
+            Item Name (EN)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.tbl_Item_Location.FullAddress)
+            Address
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.OpenTime)
+            Open Time
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Phone)
+            Phone
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Website)
+            Website
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.tbl_Brands.BrandName)
+            Brand Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SearchCount)
+            Search Count
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ClickCount)
+            Click Count
         </th>
        
         <th></th>
@@ -84,7 +88,7 @@
             @Html.DisplayFor(modelItem => item.ItemName_EN)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.tbl_Item_Location.FullAddress)
+            @Html.DisplayFor(modelItem => item.FullAddress)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.OpenTime)
@@ -109,6 +113,8 @@
             @Html.ActionLink("Edit", "Edit", new { id = item.ItemID }) |
             @Html.ActionLink("Details", "Details", new { id = item.ItemID }) |
             @Html.ActionLink("Images", "ImageList", new { id = item.ItemID }) |
+            @Html.ActionLink("Properties", "ItemProperties", new { id = item.ItemID }) |
+            @Html.ActionLink("BuildKeyword", "KeywordBuilder", new { itemid = item.ItemID }) |
             @Html.ActionLink("Delete", "Delete", new { id = item.ItemID })
         </td>
     </tr>
