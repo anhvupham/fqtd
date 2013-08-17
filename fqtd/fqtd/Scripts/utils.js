@@ -231,7 +231,7 @@ var FQTD = (function () {
                     }
                 }
             });
-
+            console.log(urlResult);
             result.complete(function () { FQTD.BindData() });
         },
         BindData: function () {
@@ -302,7 +302,7 @@ var FQTD = (function () {
                         FQTD.SetupMap(myplace, locations, 6);
                     };
                     //set list display first
-                    FQTD.displayMap()
+                    FQTD.displayList()
                 }
                 FQTD.Pagination();
             }
