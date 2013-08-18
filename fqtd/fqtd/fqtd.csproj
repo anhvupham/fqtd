@@ -413,7 +413,6 @@
     <Content Include="ckeditor\plugins\colordialog\dialogs\colordialog.js" />
     <Content Include="ckeditor\plugins\dialog\dialogDefinition.js" />
     <Content Include="ckeditor\plugins\div\dialogs\div.js" />
-    <Content Include="ckeditor\plugins\fakeobjects\images\spacer.gif" />
     <Content Include="ckeditor\plugins\find\dialogs\find.js" />
     <Content Include="ckeditor\plugins\flash\dialogs\flash.js" />
     <Content Include="ckeditor\plugins\flash\images\placeholder.png" />
@@ -819,6 +818,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ckeditor\plugins\fakeobjects\images\" />
     <Folder Include="Images\Images\" />
     <Folder Include="Images\ItemImages\" />
     <Folder Include="Images\Logo\Brand\" />
