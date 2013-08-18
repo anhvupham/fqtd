@@ -1,0 +1,29 @@
+﻿@model IEnumerable<fqtd.Areas.Admin.Models.KeywordHis>
+
+@{
+    ViewBag.Title = "KeywordHis";
+}
+
+<h2>KeywordHis</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            Keyword
+        </th>
+        <th>Count</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.Keyword        </td>
+        <td>
+        </td>
+    </tr>
+}
+
+</table>

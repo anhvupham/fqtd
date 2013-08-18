@@ -15,12 +15,13 @@ namespace fqtd.Areas.Admin.Controllers
         private fqtdEntities db = new fqtdEntities();
         //
         // GET: /SystemContent/
-
+        [Authorize]
         public ActionResult Index()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult Edit(fqtd.Areas.Admin.Models.SystemContent id = 0)
         {
             tbl_SystemContent tbl_SystemContent = db.tbl_SystemContent.Find(id);
@@ -34,6 +35,7 @@ namespace fqtd.Areas.Admin.Controllers
         //
         // POST: /Order/Edit/5
 
+        [Authorize]
         [HttpPost,ValidateInput(false)]
         public ActionResult Edit(tbl_SystemContent content)
         {

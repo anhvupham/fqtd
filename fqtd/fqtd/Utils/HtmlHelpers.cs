@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using PagedList;
 using PagedList.Mvc;
+using System.Dynamic;
 
 namespace System.Web.Mvc
 {
@@ -27,7 +28,14 @@ namespace System.Web.Mvc
                 htmlHelper.RouteCollection, linkText, null,
                 action, null, newRoute, null).ToMvcHtml();
         }
-
+        public static ExpandoObject ToExpando(this object anonymousObject)
+        {
+            IDictionary<string, object> anonymousDictionary = new RouteValueDictionary(anonymousObject);
+            IDictionary<string, object> expando = new ExpandoObject();
+            foreach (var item in anonymousDictionary)
+                expando.Add(item);
+            return (ExpandoObject)expando;
+        }
         public static MvcHtmlString ToMvcHtml(this string content)
         {
             return MvcHtmlString.Create(content);

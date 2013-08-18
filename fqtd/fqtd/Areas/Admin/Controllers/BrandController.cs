@@ -23,7 +23,7 @@ namespace fqtd.Areas.Admin.Controllers
 
         //
         // GET: /Admin/Brands/
-        [OutputCache(CacheProfile = "Aggressive", VaryByParam = "page;keyword", Location = System.Web.UI.OutputCacheLocation.Client)]
+        //[OutputCache(CacheProfile = "Aggressive", VaryByParam = "page;keyword", Location = System.Web.UI.OutputCacheLocation.Client)]
         [Authorize]
         public ActionResult Index(string keyword = "", int page = 1)
         {
@@ -164,7 +164,6 @@ namespace fqtd.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
-
             ViewBag.CategoryID = new SelectList(db.Categories.Where(a => a.IsActive), "CategoryID", "CategoryName", brands.CategoryID);
             ViewBag.BrandTypeID = new SelectList(db.BrandTypes.Where(a => a.IsActive), "BrandTypeID", "BrandTypeName", brands.BrandTypeID);
             return View(brands);
@@ -202,9 +201,9 @@ namespace fqtd.Areas.Admin.Controllers
 
                 db.Entry(brands).State = EntityState.Modified;
                 db.SaveChanges();
-                if (marker + "" != "")
+                if (marker + "" != "" && marker!=null)
                     FileUpload.DeleteFile(marker, full_path);
-                if (oldlogo + "" != "")
+                if (oldlogo + "" != "" && logo!=null)
                     FileUpload.DeleteFile(oldlogo, full_path_logo);
 
                 if (icon != null)
@@ -223,6 +222,7 @@ namespace fqtd.Areas.Admin.Controllers
                     db.Entry(brands).State = EntityState.Modified;
                     db.SaveChanges();
                 }
+                Console.Write(TempData["CurrentKeyword"]+"-"+TempData["CurrentPage"]);
                 return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] });
             }
             ViewBag.CategoryID = new SelectList(db.Categories.Where(a => a.IsActive), "CategoryID", "CategoryName", brands.CategoryID);

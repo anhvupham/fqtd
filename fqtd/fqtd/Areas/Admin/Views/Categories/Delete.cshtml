@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Delete";
+    TempData.Keep();
 }
 
 <h2>Delete</h2>
@@ -90,6 +91,6 @@
 @using (Html.BeginForm()) {
     <p>
         <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] })
     </p>
 }

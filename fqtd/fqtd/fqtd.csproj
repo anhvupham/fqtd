@@ -220,6 +220,7 @@
     <Compile Include="Areas\Admin\Models\Properties.cs">
       <DependentUpon>fqtd.tt</DependentUpon>
     </Compile>
+    <Compile Include="Areas\Admin\Models\SearchHis.cs" />
     <Compile Include="Areas\Admin\Models\SearchHistory.cs">
       <DependentUpon>fqtd.tt</DependentUpon>
     </Compile>
@@ -288,6 +289,7 @@
     </Compile>
     <Compile Include="Areas\Admin\Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\MailClient.cs" />
     <Compile Include="Utils\QueryExtention.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -703,6 +705,7 @@
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\ContactUs\_Paging.cshtml" />
     <Content Include="Areas\Admin\Views\Brand\ImageList.cshtml" />
+    <Content Include="Areas\Admin\Views\SearchHistory\KeywordHis.cshtml" />
     <None Include="Properties\PublishProfiles\fqtd_test.pubxml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Images\bg_bottom.jpg" />
@@ -815,6 +818,7 @@
     <Content Include="Views\Home\TermAndConditionOfUse.cshtml" />
     <Content Include="Views\Home\Policy.cshtml" />
     <Content Include="Views\Shared\MasterResult.cshtml" />
+    <Content Include="Views\Home\Thanks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

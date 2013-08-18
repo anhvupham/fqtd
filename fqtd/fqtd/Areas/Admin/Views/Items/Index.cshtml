@@ -12,9 +12,9 @@
 @using (Ajax.BeginForm("Index", new
 {
     page = 1,
-    Keyword = ViewBag.CurrentKeyword,
-    category = ViewBag.CurrentCategoryID,
-    brand = ViewBag.CurrentBrandID,
+    keyword = ViewBag.CurrentKeyword,
+    CategoryID = ViewBag.CurrentCategoryID,
+    BrandID = ViewBag.CurrentBrandID,
     user = ViewBag.CurrentUser
     }, new AjaxOptions { UpdateTargetId = "main" }))
     {

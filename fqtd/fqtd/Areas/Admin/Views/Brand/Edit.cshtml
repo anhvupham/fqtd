@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Edit";
+    TempData.Keep();
 }
 
 <h2>Edit</h2>
@@ -95,14 +96,12 @@
 
        
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Save" />|
+    @Html.ActionLink("Back to List", "Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] })
         </p>
     </fieldset>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
