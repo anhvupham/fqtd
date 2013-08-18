@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using fqtd.Areas.Admin.Models;
 using System.Configuration;
+using fqtd.Utils;
 
 namespace fqtd.Controllers
 {
@@ -67,10 +68,17 @@ namespace fqtd.Controllers
                 contactus.ContactDate = DateTime.Now;
                 db.ContactUS.Add(contactus);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                MailClient.SendConfirm(contactus.Email, Url.Action("detail", "ContactUS", new {id=contactus.ContactID}),contactus.CustomerName);
+                return RedirectToAction("Thanks");
             }
 
             return View(contactus);
         }
+        public ActionResult Thanks()
+        {
+            return View();
+        }
+
     }
 }

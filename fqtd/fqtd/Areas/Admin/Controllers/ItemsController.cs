@@ -24,7 +24,7 @@ namespace fqtd.Areas.Admin.Controllers
 
         //
         // GET: /Admin/Items/
-        [OutputCache(CacheProfile = "Aggressive", VaryByParam = "page;keyword;CategoryID;BrandID", Location = System.Web.UI.OutputCacheLocation.Client)]
+        //[OutputCache(CacheProfile = "Aggressive", VaryByParam = "page;keyword;CategoryID;BrandID", Location = System.Web.UI.OutputCacheLocation.Client)]
         [Authorize]
         public ActionResult Index(string keyword = "", int? CategoryID = null, int? BrandID = null, int page = 1)
         {
@@ -376,7 +376,7 @@ namespace fqtd.Areas.Admin.Controllers
 
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
             ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName");
-            return RedirectToAction("index", "items", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] });
+            return RedirectToAction("index",  new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] });
         }
 
         public static string StripDiacritics(string accented)
@@ -438,7 +438,7 @@ namespace fqtd.Areas.Admin.Controllers
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
             ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName");
-            return RedirectToAction("index", "items", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] });
+            return RedirectToAction("index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] });
         }
         protected override void Dispose(bool disposing)
         {

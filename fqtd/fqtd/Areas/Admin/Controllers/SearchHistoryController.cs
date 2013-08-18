@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Dynamic;
 using System.Web;
 using System.Web.Mvc;
+using fqtd.Areas.Admin.Models;
 using PagedList;
 
 namespace fqtd.Areas.Admin.Controllers
@@ -37,6 +38,20 @@ namespace fqtd.Areas.Admin.Controllers
 
             //return View(db.SearchHistory.OrderByDescending(a=>a.SearchTime).ToList());
         }
+        [Authorize]
+        public ActionResult KeywordHis(int page = 1)
+        {
+            var result = from a in db.SearchHistory
+                         group a by new { a.Keyword } into gr
+                         select new {new KeywordHis(Keyword= gr.Key.Keyword, SearchCount = gr.Count()) };
 
+            result = result.OrderBy("Keyword");
+            int maxRecords = 20;
+            int currentPage = page;
+            ViewBag.CurrentPage = page;
+            return View(result);//.ToPagedList(currentPage, maxRecords));
+
+            //return View(db.SearchHistory.OrderByDescending(a=>a.SearchTime).ToList());
+        }
     }
 }

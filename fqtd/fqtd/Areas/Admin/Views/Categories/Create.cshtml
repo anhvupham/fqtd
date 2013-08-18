@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Create catetory";
+    TempData.Keep();
 }
 
 <h2>Create category</h2>
@@ -62,14 +63,12 @@
             @Html.ValidationMessageFor(model => model.Description_EN)
         </div>
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="Create" />|
+    @Html.ActionLink("Back to List", "Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] })
         </p>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

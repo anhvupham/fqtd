@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Edit";
+    TempData.Keep();
 }
 
 <h2>Edit</h2>
@@ -115,18 +116,18 @@
         @Html.ValidationMessageFor(model => model.City)
     </div>
     <div class="editor-label">
-        @Html.LabelFor(model => model.Longitude)
-    </div>
-    <div class="editor-field">
-        @Html.EditorFor(model => model.Longitude)
-        @Html.ValidationMessageFor(model => model.Longitude)
-    </div>
-    <div class="editor-label">
         @Html.LabelFor(model => model.Latitude)
     </div>
     <div class="editor-field">
         @Html.EditorFor(model => model.Latitude)
         @Html.ValidationMessageFor(model => model.Latitude)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Longitude)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Longitude)
+        @Html.ValidationMessageFor(model => model.Longitude)
     </div>
     <div class="editor-label">
         @Html.LabelFor(model => model.Description)
@@ -155,10 +156,23 @@
         <input type="submit" value="Save" />
         |
     @Html.ActionLink("Back to List", "Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] })
+        
     </p>@*
     </fieldset>*@
 }
+<script>
+    function buildAddress() {
+        //alert("cu");
+        var number = $("#AddressNumber").val();
+        var street = $("#Street").val();
+        var district = $("#District").val();
+        var city = $("#City").val();
+        var fullAddress = number + ", " + street + ", " + district + ", " + city;
+        //alert(fullAddress);
+        $("#FullAddress").val(fullAddress);
+    }
 
+</script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Brand categories: " + ViewBag.BrandName;
+    TempData.Keep();
 }
 
 <h2>Brand Categories: @ViewBag.BrandName</h2>
@@ -15,7 +16,7 @@
     @Html.DropDownList("CategoryID", String.Empty)</td>
         </tr>
         <tr>
-            <td>Munti Category</td>
+            <td>Other Category</td>
             <td>@foreach (var item in Model)
     {
         if (item.Checked.HasValue && item.Checked.Value)
@@ -30,7 +31,8 @@
         <tr>
             <td></td>
             <td>
-    <input id="Submit1" type="submit" value="Submit" /></td>
+    <input id="Submit1" type="submit" value="Submit" />|
+    @Html.ActionLink("Back to List", "Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] })</td>
         </tr>
     </table>
 
