@@ -59,6 +59,10 @@ var FQTD = (function () {
             return $.rc4DecryptStr(value, "timdau")
     }
 
+    function encodeItemName(value) {
+        return encodeURIComponent(value.replace(".", "_").replace("/", "_").replace("\"", "_"));
+    }
+
     return {
         BindPropertyData: function () {
             //Bind data to checkbox
@@ -91,7 +95,7 @@ var FQTD = (function () {
                     pixelOffset: new google.maps.Size(-140, 0),
                     zIndex: null,
                     closeBoxMargin: "12px 4px 2px 2px",
-                    closeBoxURL: "/images/close.gif",
+                    closeBoxURL: "/images/close.png",
                     infoBoxClearance: new google.maps.Size(1, 1)
                 });
                 infobox.open(map, marker);
@@ -199,8 +203,8 @@ var FQTD = (function () {
             FQTD.MoveFooter("bottomFixed")
         },
         noRecord: function () {
-            $("#list").html("<p style='text-align:center'>Thông tin Search hiện chưa cập nhật. Vui lòng tìm lại sau.</p>");
-            $("#map").html("<p style='text-align:center'>Thông tin Search hiện chưa cập nhật. Vui lòng tìm lại sau.</p>");
+            $("#list").html("<p class='noResultText'>Thông tin Search hiện chưa cập nhật. Vui lòng tìm lại sau.</p>");
+            $("#map").html("<p class='noResultText'>Thông tin Search hiện chưa cập nhật. Vui lòng tìm lại sau.</p>");
             FQTD.displayMap();
         },
         yesRecord: function () {
@@ -210,14 +214,14 @@ var FQTD = (function () {
         },
         pageselectCallback: function (page_index, jq) {
             // Get number of elements per pagionation page from form
-            var items_per_page = 5
+            var items_per_page = NumberOfIntemShow
             var max_elem = Math.min((page_index + 1) * items_per_page, locations.length);
             var newcontent = '';
 
             // Iterate through a selection of the content and build an HTML string
             for (var i = page_index * items_per_page; i < max_elem; i++) {
-                newcontent += '<div id="object"><table style="width: 100%;"><tr><td valign="top" style="width:116px;"><a href="/detail/' + isEmpty(locations[i][7]) + '/' + encodeURIComponent(isEmpty(locations[i][3])) + '" target="_blank"><img id="photo" width="150" src="' + isEmpty(checkImage(locations[i][6])) + '" /></a></td><td valign="top"><h2>' + (isEmpty(locations[i][3])) + '</h2>'
-                    + '<p>Địa chỉ : ' + isEmpty(locations[i][4]) + '<br/>Điện thoại : ' + isEmpty(locations[i][5]) + '</p><p><a href="/detail/' + isEmpty(locations[i][7]) + '/' + encodeURIComponent(isEmpty(locations[i][3])) + '" target="_blank"><strong>Xem chi tiết</strong></a>'
+                newcontent += '<div id="object"><table style="width: 100%;"><tr><td valign="top" style="width:116px;"><a href="/detail/' + isEmpty(locations[i][7]) + '/' + encodeItemName(isEmpty(locations[i][3])) + '" target="_blank"><img id="photo" width="150" src="' + isEmpty(checkImage(locations[i][6])) + '" /></a></td><td valign="top"><h2><a href="/detail/' + isEmpty(locations[i][7]) + '/' + encodeItemName(isEmpty(locations[i][3])) + '" target="_blank">' + (isEmpty(locations[i][3])) + '</a></h2>'
+                    + '<p>Địa chỉ : ' + isEmpty(locations[i][4]) + '<br/>Điện thoại : ' + isEmpty(locations[i][5]) + '</p><p><a href="/detail/' + isEmpty(locations[i][7]) + '/' + encodeItemName(isEmpty(locations[i][3])) + '" target="_blank"><strong>Xem chi tiết</strong></a>'
                     + ' | <a href="javascript:void(0);" onclick="FQTD.DisplayDirection(' + isEmpty(checkImage(locations[i][0])) + ',' + isEmpty(checkImage(locations[i][1])) + ')" class="lienket"><strong>Đường đi</strong></a></p></td></tr></table></div>';
             }
 
@@ -230,7 +234,7 @@ var FQTD = (function () {
         Pagination: function () {
             var opt = {
                 callback: FQTD.pageselectCallback,
-                items_per_page: 5,
+                items_per_page: NumberOfIntemShow,
                 num_display_entries: 5,
                 num_edge_entries: 2,
                 prev_text: "Trước",
@@ -265,7 +269,7 @@ var FQTD = (function () {
                                      + '<li id="car" onclick=\"FQTD.calcRoute(' + items[i].Latitude + ',' + items[i].Longitude + ',\'car\',' + $("#form").val() + ')\"></li>'
                                      + '<li id="bus" onclick=\"FQTD.calcRoute(' + items[i].Latitude + ',' + items[i].Longitude + ',\'bus\',' + $("#form").val() + ')\"></li>'
                                      + '<li id="walk" onclick=\"FQTD.calcRoute(' + items[i].Latitude + ',' + items[i].Longitude + ',\'walk\',' + $("#form").val() + ')\"></li></ul>'
-                                     + '<div id="linkview"><a href="/detail/' + isEmpty(items[i].ItemID) + '/' + encodeURIComponent(isEmpty(items[i].ItemName)) + '" target="_blank">Xem chi tiết</a></div><div id="space"></div>';
+                                     + '<div id="linkview"><a href="/detail/' + isEmpty(items[i].ItemID) + '/' + encodeItemName(isEmpty(items[i].ItemName)) + '" target="_blank">Xem chi tiết</a></div><div id="space"></div>';
                         locations.push([items[i].Latitude, items[i].Longitude, contentmarker, isEmpty(items[i].ItemName), isEmpty(items[i].FullAddress), isEmpty(items[i].Phone), isEmpty(items[i].Logo), isEmpty(items[i].ItemID), 0, isEmpty(items[i].MarkerIcon)]);
                     }
                 }
@@ -300,6 +304,9 @@ var FQTD = (function () {
                                 //add distance to array and sort array by distance
                                 FQTD.SortArray()
 
+                                //bind list
+                                FQTD.Pagination()
+
                                 //bind marker to map
                                 FQTD.SetupMap(myplace, locations, 12, $("#form").val());
 
@@ -321,6 +328,9 @@ var FQTD = (function () {
                             //add distance to array and sort array by distance
                             FQTD.SortArray()
 
+                            //bind list
+                            FQTD.Pagination()
+
                             //bind marker to map
                             FQTD.SetupMap(myplace, locations, 12, $("#form").val());
                         });
@@ -333,14 +343,16 @@ var FQTD = (function () {
                         //add distance to array and sort array by distance
                         FQTD.SortArray()
 
+                        //bind list
+                        FQTD.Pagination()
+
                         //bind marker to map
                         FQTD.SetupMap(myplace, locations, 6, $("#form").val());
                     };
 
                     //set list display first
                     FQTD.displayMap()
-                }
-                FQTD.Pagination()
+                }                
                 FQTD.MoveFooter("bottomFixed")
             }
             else {
@@ -516,12 +528,37 @@ var FQTD = (function () {
         },
         BindKeywordAutocomplete: function () {
             //get all keyword
-            var urlResult = "result/GetKeyword4Autocomplete?stringinput=";
+            //var urlResult = "result/GetKeyword4Autocomplete?stringinput=";
 
-            var result = $.getJSON(urlResult, null, function (items) {
+            /*var result = $.getJSON(urlResult, null, function (items) {
                 $("#search").autocomplete({
                     source: items
                 })
+            });*/
+            $("#search").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "result/GetKeyword4Autocomplete",
+                        dataType: "json",
+                        data: {                            
+                            stringinput: request.term,
+                        },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return {
+                                    label: item
+                                }
+                            }));
+                        }
+                    });
+                },
+                minLength: 2,                
+                open: function () {
+                    $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+                },
+                close: function () {
+                    $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+                }
             });
         },
         HideLoading: function () {
@@ -598,6 +635,13 @@ var FQTD = (function () {
 
             window.location.href = "result/index/" + type + "/" + category + "/" + brand + "/" + range + "/" + address + "/" + search
         },
+        ShowMoreDescription: function () {
+            $("#showmoreDescription").click(function () {
+                $("#branddescription").removeClass("less");
+                $("#showmoreDescription").addClass("hidden");
+                return false;
+            });
+        },
         initResult: function () {
             $("#tabList").bind('click', function () {
                FQTD.displayList()
@@ -631,32 +675,50 @@ var FQTD = (function () {
             FQTD.BindSelectCategory()
             FQTD.BindSelectBrand()
 
-            //set autocomplete
-            $("#category").combobox({
-                select: function (event, ui) {
-                    var id = ui.item.value;
-                    if (id > 0) {
-                        //Fill brand selectbox
-                        var siteurl = "/admin/brand/BrandsByCategory";
-                        var data = '?id=' + id;
-                        $("#brand").empty();
-                        //alert(siteurl+' '+data);               
-                        var result = $.getJSON(siteurl + data, null, function (brands) {
-                            $("#brand").append('<option value="">Tất cả</option>');
-                            for (i in brands) {
-                                brand = brands[i];
-                                $("#brand").append('<option value="' + brand.BrandID + '">' + brand.BrandName + '</option>');;
-                            }
-                        });
-                        result.complete(function () {
-                            //set autocomplete           
-                            $("#input-brand").val("Tất cả")
-                            $("#brand").combobox();
-                        });
+            if (!(navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i))) {
+                //set autocomplete
+                $("#category").combobox({
+                    select: function (event, ui) {
+                        var id = ui.item.value;
+                        if (id > 0) {
+                            //Fill brand selectbox
+                            var siteurl = "/admin/brand/BrandsByCategory";
+                            var data = '?id=' + id;
+                            $("#brand").empty();
+                            //alert(siteurl+' '+data);               
+                            var result = $.getJSON(siteurl + data, null, function (brands) {
+                                $("#brand").append('<option value="">Tất cả</option>');
+                                for (i in brands) {
+                                    brand = brands[i];
+                                    $("#brand").append('<option value="' + brand.BrandID + '">' + brand.BrandName + '</option>');;
+                                }
+                            });
+                            result.complete(function () {
+                                //set autocomplete           
+                                $("#input-brand").val("Tất cả")
+                                $("#brand").combobox();
+                            });
+                        }
                     }
-                }
-            });
-            $("#brand").combobox();
+                });
+                $("#brand").combobox();
+            }
+            else {
+                $('#category').change(function () {
+                    //Fill brand selectbox
+                    var siteurl = "/admin/brand/BrandsByCategory";
+                    var categoryVal = $('#category').val();
+                    var data = '?id=' + categoryVal;
+                    $("#brand").empty();
+                    var result = $.getJSON(siteurl + data, null, function (brands) {
+                        $("#brand").append('<option value="">Tất cả</option>');
+                        for (i in brands) {
+                            brand = brands[i];
+                            $("#brand").append('<option value="' + brand.BrandID + '">' + brand.BrandName + '</option>');;
+                        }
+                    });
+                });
+            }
 
             FQTD.SetupWatermarkValidationHomepage()
             FQTD.BindTooltip()
@@ -697,10 +759,6 @@ var FQTD = (function () {
                 FQTD.SubmitForm()
             });
 
-            if (navigator.userAgent.match(/mobile/i)) {
-                console.log("aaaa")
-            }
-            
         },
         initDetail: function () {
             var id = $(location).attr('pathname').split('/')[2]
@@ -712,9 +770,9 @@ var FQTD = (function () {
                     //bind data to item detail
                     if (object.ItemDetail[0] != null) {
                         $("#brandlogo").attr('src', object.BrandLogo)
-                        $("#brandname").html(object.ItemDetail[0].BrandName)
-                        $("#branddescription").html(object.ItemDetail[0].Description)
-                        $("#tendiadiem").html("<h1>" + object.ItemDetail[0].ItemName + "</h1>")
+                        $("#brandname").html(object.ItemDetail[0].ItemName)
+                        $("#branddescription").html(object.ItemDetail[0].Description)                        
+                        //$("#tendiadiem").html("<h1>" + object.ItemDetail[0].ItemName + "</h1>")
                         $("#txtaddress").html(object.ItemDetail[0].FullAddress)
                         $("#txtphone").html(object.ItemDetail[0].Phone)
                         $("#txtcategory").html(object.ItemDetail[0].CategoryName)
@@ -732,7 +790,7 @@ var FQTD = (function () {
                     if (object.RelateList.length > 0) {
                         for (var i = 0; i < 4; i++) {
                             if (object.RelateList[i]) {
-                                relatelist += "<td><a href='/detail/" + object.RelateList[i].ItemID + "/" + encodeURIComponent(object.RelateList[i].ItemName) + "'><img src='" + object.RelateList[i].Logo + "'/></a><br /><strong>" + object.RelateList[i].ItemName + "</strong></td>"
+                                relatelist += "<td><a href='/detail/" + object.RelateList[i].ItemID + "/" + encodeItemName(object.RelateList[i].ItemName) + "'><img src='" + object.RelateList[i].Logo + "'/></a><br /><strong>" + object.RelateList[i].ItemName + "</strong></td>"
                             }
                         }
                     }
@@ -753,7 +811,7 @@ var FQTD = (function () {
                     if (object.SameCategoryList.length > 0) {
                         for (var i = 0; i < object.SameCategoryList.length; i++) {
                             if (object.SameCategoryList[i]) {
-                                samecategoryList += "<tr><td class='row1'><a href='/detail/" + object.SameCategoryList[i].ItemID + "/" + encodeURIComponent(object.SameCategoryList[i].ItemName) + "'><img class='samecategorylogo' src='" + object.SameCategoryList[i].Logo + "'></a></td><td class='row2'>" + object.SameCategoryList[i].ItemName + "<br /><a href='/detail/" + object.SameCategoryList[i].ItemID + "/" + encodeURIComponent(object.SameCategoryList[i].ItemName) + "' class='chitiet'>Chi tiết</a><img src='/images/bullet_grey.png' /></td></tr>"
+                                samecategoryList += "<tr><td class='row1'><a href='/detail/" + object.SameCategoryList[i].ItemID + "/" + encodeItemName(object.SameCategoryList[i].ItemName) + "'><img class='samecategorylogo' src='" + object.SameCategoryList[i].Logo + "'></a></td><td class='row2'>" + object.SameCategoryList[i].ItemName + "<br /><a href='/detail/" + object.SameCategoryList[i].ItemID + "/" + encodeItemName(object.SameCategoryList[i].ItemName) + "' class='chitiet'>Chi tiết</a><img src='/images/bullet_grey.png' /></td></tr>"
                             }
                         }
                     }
@@ -764,8 +822,8 @@ var FQTD = (function () {
                         for (var i = 0; i < object.ItemImages.length; i += 2) {
                             if (object.ItemImages[i]) {
                                 imagegallery += "<tr>"
-                                if (object.ItemImages[i]) imagegallery += "<td class='row1'><a href='" + object.ItemImages[i] + "' data-lightbox='imagegallery'><img src='" + object.ItemImages[i] + "'></a></td>"
-                                if (object.ItemImages[i + 1]) imagegallery += "<td class='row1'><a href='" + object.ItemImages[i + 1] + "' data-lightbox='imagegallery'><img src='" + object.ItemImages[i + 1] + "'></a></td>"
+                                if (object.ItemImages[i]) imagegallery += "<td class='row1'><a href='" + object.ItemImages[i] + "' data-lightbox='imagegallery' title='Hình ảnh chỉ mang tính chất minh họa'><img src='" + object.ItemImages[i] + "'></a></td>"
+                                if (object.ItemImages[i + 1]) imagegallery += "<td class='row1'><a href='" + object.ItemImages[i + 1] + "' data-lightbox='imagegallery' title='Hình ảnh chỉ mang tính chất minh họa'><img src='" + object.ItemImages[i + 1] + "'></a></td>"
                                 imagegallery += "</tr>"
                             }
                         }
@@ -774,6 +832,7 @@ var FQTD = (function () {
 
                     FQTD.HideLoading()
                     FQTD.MoveFooter("bottom")
+                    FQTD.ShowMoreDescription()
                 }
             });
         },

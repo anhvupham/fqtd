@@ -45,7 +45,7 @@ body, html {
     height: auto !important;
     height: 100%;
     /* Negative indent footer by it's height */
-    margin: 0 auto -40px;
+    margin: 0 auto -90px;
 }
 
 .bottomFixed {
@@ -66,7 +66,6 @@ body, html {
     background-repeat: repeat-x;
     text-align: center;
     z-index: 1;
-
 }
 
 #facebook {
@@ -91,7 +90,7 @@ body, html {
     width: 960px;
     margin: auto;
     padding: 0;
-    font-weight:bold;        
+    font-weight: bold;
 }
 
 #bottom_left {
@@ -143,7 +142,7 @@ body, html {
     width: 960px;
     position: relative;
     overflow: hidden;
-    margin: 0 auto;
+    margin: 22px auto 50px auto;
     height: 100%;
 }
 
@@ -233,6 +232,11 @@ body, html {
     border: #bababa 1px solid;
     color: #606060;
     padding: 3px;
+}
+
+#brandlogo {
+    float: left;
+    margin-right: 18px;
 }
 
 #range {
@@ -438,7 +442,7 @@ input {
     margin-bottom: 25px;
     width: 960px;
     margin: 0 auto;
-    height: 150px;
+    height: 167px;
 }
 
     #object h2 {
@@ -535,7 +539,8 @@ input {
     }
 
 #thongtinchitiet {
-    margin: 25px 0;
+    margin-top: 25px;
+    margin-bottom: 50px;
 }
 
     #thongtinchitiet table {
@@ -691,6 +696,8 @@ input {
         margin-top: 10px;
         padding-bottom: 8px;
         border-bottom: 1px dotted;
+        font-family: Tahoma,Verdana,Arial,sans-serif;
+        font-size: 10pt;
     }
 
     .marker h2 {
@@ -731,19 +738,19 @@ input {
 }
 
 #car {
-    left: 25px;
+    left: 37px;
     width: 19px;
     background: url('../images/direction-map-sprite.png') -46px 0;
 }
 
 #bus {
-    left: 50px;
+    left: 74px;
     width: 15px;
     background: url('../images/direction-map-sprite.png') -95px 0;
 }
 
 #walk {
-    left: 71px;
+    left: 110px;
     width: 15px;
     background: url('../images/direction-map-sprite.png') -23px 0;
 }
@@ -763,12 +770,16 @@ input {
             color: #35a018;
             text-decoration: none;
             padding-right: 5px;
+            font-family: Tahoma,Verdana,Arial,sans-serif;
+            font-size: 10pt;
         }
 
             .infoBox #linkview a:hover {
                 color: #35a018;
                 text-decoration: underline;
                 padding-right: 5px;
+                font-family: Tahoma,Verdana,Arial,sans-serif;
+                font-size: 10pt;
             }
 
 .currentplace {
@@ -954,16 +965,50 @@ textarea {
     width: 100%;
 }
 
+.noResultText {
+    margin-top: 57px !important;
+    text-align: center;
+}
 
+div.less {
+    height: 100px;
+    overflow: hidden;
+}
+
+#showmoreDescription {
+    color: #35a018;
+    text-decoration: none;
+    padding-right: 5px;
+}
 /********************
 *   Mobile Styles   *
 ********************/
-/*
-@media only screen and (max-width: 850px) {
 
-will be defined
+/*for tablet 7 inch*/
+@media only screen and (max-height: 550px) and (min-width: 960px) {
+    #header {
+        height: 110px;
+    }
 
-*/
+        #header img {
+            height:100px;
+        }
+}
+
+/*for mobile*/
+@media only screen and (max-width: 720px) {
+    #header {
+        height: 110px;
+    }
+
+        #header img {
+            height:100px;
+        }
+
+    #search {
+        width: 100px;
+    }
+}
 
 /* iCheck plugin Square skin, black
 ----------------------------------- */

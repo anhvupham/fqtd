@@ -11,142 +11,144 @@
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 <div id="content_subdetail">
-    <div id="gioithieuchung">
-        <img id="brandlogo" width="150px" />
-        @*<h1 id="brandname"></h1>*@
-        <p id="branddescription"></p>
-    </div>
-    <div id="tendiadiem">
-    </div>
-    <div id="thongtinchitiet">
-        <table>
-            <tr>
-                <td>
-                    <table>
-                        <tr>
-                            <td class="group">
-                                <div class="title_box">
-                                    <table>
-                                        <tr>
-                                            <td class="row1">THÔNG TIN ĐỊA ĐIỂM</td>                                           
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div>
-                                    <table id="detailinfo">
-                                        <tr>
-                                            <td>Địa chỉ</td>
-                                            <td id="txtaddress"></td>
-                                        </tr>
-                                        <tr class="silverrow">
-                                            <td>Điện thoại</td>
-                                            <td id="txtphone"></td>
-                                        </tr>
-                                       <tr>
-                                            <td>Danh mục</td>
-                                            <td id="txtcategory"></td>
-                                        </tr>
-                                        @* <tr class="silverrow">
+    <div id="noidungchinh">
+        <div id="gioithieuchung">
+            <img id="brandlogo" width="150px" />
+            <h1 id="brandname"></h1>
+            <div id="branddescription" class="less"></div><a id="showmoreDescription" href="javascript:void(0);">Xem thêm</a>
+        </div>
+        <div id="tendiadiem">
+        </div>
+        <div id="thongtinchitiet">
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="group">
+                                    <div class="title_box">
+                                        <table>
+                                            <tr>
+                                                <td class="row1">THÔNG TIN ĐỊA ĐIỂM</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <table id="detailinfo">
+                                            <tr>
+                                                <td>Địa chỉ</td>
+                                                <td id="txtaddress"></td>
+                                            </tr>
+                                            <tr class="silverrow">
+                                                <td>Điện thoại</td>
+                                                <td id="txtphone"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Danh mục</td>
+                                                <td id="txtcategory"></td>
+                                            </tr>
+                                            @* <tr class="silverrow">
                                             <td>Giờ mở cửa</td>
                                             <td id="txtopentime"></td>
                                         </tr>*@
-                                        <tr>                                            
-                                            <td colspan="2">
-                                                <img id="staticmap" />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="whiteline">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td class="group">
-                                <div class="title_box">
-                                    <table>
-                                        <tr>
-                                            <td class="row1">CÙNG THƯƠNG HIỆU</td>                                            
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div class="content_box">
-                                    <table>
-                                        <tr id="samebrand"></tr>
-                                    </table>
-                                </div>
-                            </td>
-                        </tr>
-                         <tr>
-                            <td class="whiteline">&nbsp;</td>
-                        </tr>
-                         <tr>
-                            <td class="group">
-                                <div class="fb-comments" data-href="@ViewBag.URL" data-width="685" data-num-posts="10"></div>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td style="width: 20px"></td>
-                <td style="width: 240px">
-                    <table>
-                        <tr>
-                            <td class="group">
-                                <div class="title_box">CÁC TIỆN ÍCH</div>
-                                <div class="content_box">
-                                    <table id="tblproperty">
-                                    </table>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="width: 20px">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td class="group">
-                                <div class="title_box">HÌNH ẢNH</div>
-                                <div class="content_box">
-                                    <table id="tblimagegallery">                                        
-                                    </table>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td height="20">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td class="group">
-                                <div class="title_box">CÙNG THỂ LOẠI</div>
-                                <div class="content_box">
-                                    <table id="tblSameCategory">                                        
-                                    </table>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="whiteline">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td id="sociallink">
-                                <!-- AddThis Button BEGIN -->
-                                <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
-                                    <a class="addthis_button_preferred_1"></a>
-                                    <a class="addthis_button_preferred_2"></a>
-                                    <a class="addthis_button_preferred_3"></a>
-                                    <a class="addthis_button_compact"></a>
-                                    <a class="addthis_counter addthis_bubble_style"></a>
-                                </div>
-                                <script type="text/javascript">var addthis_config = { "data_track_addressbar": true };</script>
-                                <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=anhvuphamx"></script>
-                                <!-- AddThis Button END -->
-                            </td>
-                        </tr>
-                    </table>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <img id="staticmap" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="whiteline">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="group">
+                                    <div class="title_box">
+                                        <table>
+                                            <tr>
+                                                <td class="row1">CÙNG THƯƠNG HIỆU</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="content_box">
+                                        <table>
+                                            <tr id="samebrand"></tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="whiteline">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="group">
+                                    <div class="fb-comments" data-href="@ViewBag.URL" data-width="685" data-num-posts="10"></div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td style="width: 20px"></td>
+                    <td style="width: 240px">
+                        <table>
+                            <tr>
+                                <td class="group">
+                                    <div class="title_box">CÁC TIỆN ÍCH</div>
+                                    <div class="content_box">
+                                        <table id="tblproperty">
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20px">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="group">
+                                    <div class="title_box">HÌNH ẢNH</div>
+                                    <div class="content_box">
+                                        <table id="tblimagegallery">
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="20">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="group">
+                                    <div class="title_box">CÙNG THỂ LOẠI</div>
+                                    <div class="content_box">
+                                        <table id="tblSameCategory">
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="whiteline">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td id="sociallink">
+                                    <!-- AddThis Button BEGIN -->
+                                    <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+                                        <a class="addthis_button_preferred_1"></a>
+                                        <a class="addthis_button_preferred_2"></a>
+                                        <a class="addthis_button_preferred_3"></a>
+                                        <a class="addthis_button_compact"></a>
+                                        <a class="addthis_counter addthis_bubble_style"></a>
+                                    </div>
+                                    <script type="text/javascript">var addthis_config = { "data_track_addressbar": true };</script>
+                                    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=anhvuphamx"></script>
+                                    <!-- AddThis Button END -->
+                                </td>
+                            </tr>
+                        </table>
 
-                </td>
-            </tr>
-        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
 @section scripts
