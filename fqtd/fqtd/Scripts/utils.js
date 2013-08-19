@@ -208,7 +208,7 @@ var FQTD = (function () {
             FQTD.displayMap();
         },
         yesRecord: function () {
-            $("#map").html("<div id='googleMap' style='width: 100%; height: 100%;'></div><div class='btn_more'><a class='button' id='btn_xemthemMap'>Xem thêm</a></div>");
+            $("#map").html("<div id='googleMap' style='width: 100%; height: 100%;'></div><div class='btn_more'><a class='buttonGreen showmorebtn' id='btn_xemthemMap'>Xem thêm</a></div>");
             $("#list").html("<div id='subList'></div><div class='paging'><div id='pagination' class='pagination'></div></div>");
             FQTD.displayMap();
         },
@@ -437,9 +437,11 @@ var FQTD = (function () {
         },
         SetupWatermarkValidationHomepage: function () {
             //watermark and validation
-            $("#address").watermark("Nhập địa chỉ hiện tại của bạn");
-            $("#search").watermark("Nhập tên hoặc địa chỉ quán bạn muốn tìm");
-            $("#range").watermark("Bán kính");
+            $("#address").watermark("Nhập địa chỉ hiện tại của bạn hoặc sử dụng chức năng định vị bên cạnh");
+            $("#search").watermark("Nhập thông tin tìm kiếm");
+            $("#range").watermark("Nhập bán kính");
+            $("#input-category").watermark("Chọn lĩnh vực");
+            $("#input-brand").watermark("Chọn tên quán");
             $("#form1").validate({
                 onChange: true,
                 sendFormPost: false,
@@ -631,7 +633,7 @@ var FQTD = (function () {
 
             if (type == "0" && search == "0") return false;
 
-            if (type == "1" && address == "0" && brand == "0" && range == "0") return false;
+            if (type == "1" && (address == "0" || brand == "0" || range == "0")) return false;
 
             window.location.href = "result/index/" + type + "/" + category + "/" + brand + "/" + range + "/" + address + "/" + search
         },
