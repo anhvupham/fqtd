@@ -43,7 +43,7 @@ namespace fqtd.Areas.Admin.Controllers
         {
             var result = from a in db.SearchHistory
                          group a by new { a.Keyword } into gr
-                         select new {new KeywordHis(Keyword= gr.Key.Keyword, SearchCount = gr.Count()) };
+                         select new {Keyword= gr.Key.Keyword, SearchCount = gr.Count() };
 
             result = result.OrderBy("Keyword");
             int maxRecords = 20;
