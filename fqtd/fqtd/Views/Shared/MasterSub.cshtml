@@ -11,7 +11,8 @@
     <meta property="og:site_name" content="Tìm đâu" />
     <meta property="og:type" content="tool" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <meta name="viewport" content="width=1040" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Content/bootstrapcss")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/modernizr")
@@ -37,7 +38,7 @@
         <div id="bottom" class="bottom">
             <div id="bottom_info">
                 <div id="bottom_left">Copyright@2013 by Timdau.vn</div>
-                <div id="bottom_right"> <a href="~/home/introduction">Giới thiệu</a>  |  <a href="~/home/termandconditionofuse">Điều khoản sử dụng</a>  |  <a href="~/home/policy">Chính sách bảo mật</a> |  <a href="~/home/contactus">Liên hệ</a> </div>
+                <div id="bottom_right"><a href="~/home/introduction">Giới thiệu</a>  |  <a href="~/home/termandconditionofuse">Điều khoản sử dụng</a>  |  <a href="~/home/policy">Chính sách bảo mật</a> |  <a href="~/home/contactus">Liên hệ</a> </div>
             </div>
         </div>
     </footer>
@@ -47,6 +48,7 @@
     @Scripts.Render("~/bundles/plugin")
     @Scripts.Render("~/bundles/infobox")
     @Scripts.Render("~/bundles/utils")
+    @Scripts.Render("~/bundles/bootstrapjs")
     @RenderSection("scripts", required: false)
     <script>
         (function (i, s, o, g, r, a, m) {

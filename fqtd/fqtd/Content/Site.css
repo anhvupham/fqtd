@@ -15,10 +15,6 @@ body, html {
     height: 100%;
 }
 
-img {
-    border:none;
-}
-
 #header {
     display: block;
     height: 10%;
@@ -48,8 +44,10 @@ img {
     min-height: 100%;
     height: auto !important;
     height: 100%;
-    /* Negative indent footer by it's height */
-    margin: 0 auto -90px;
+    /* Negative indent footer by its height */
+    margin: 0 auto -40px;
+    /* Pad bottom by footer height */
+    padding: 0 0 60px;
 }
 
 .bottomFixed {
@@ -96,6 +94,14 @@ img {
     padding: 0;
     font-weight: bold;
 }
+
+
+    #bottom_info:after {
+        clear: both;
+        display: table;
+        line-height: 0;
+        content: "";
+    }
 
 #bottom_left {
     width: 350px;
@@ -394,7 +400,7 @@ input {
         background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #298F15), color-stop(1, #55D040) );
         background: -moz-linear-gradient( center top, #298F15 5%, #55D040 100% );
         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#298F15', endColorstr='#55D040');
-        background-color: #8cb82b;
+        background-color: #298F15;
         cursor: pointer;
     }
 
@@ -482,7 +488,7 @@ input {
 
 #btn_guidi {
     width: 180px !important;
-    line-height:0px;   
+    line-height: 0px;
 }
 
 #menu {
@@ -639,12 +645,12 @@ input {
 .group {
     border: #b4b4b4 1px solid;
     padding: 2px;
+    margin: 0px;
 }
 
 .title_box {
     background-image: url(../images/bg_title_box.jpg);
     background-repeat: repeat-x;
-    height: 16px;
     padding: 7px 15px;
     color: #ffffff;
     font-weight: bold;
@@ -861,67 +867,53 @@ input {
     padding-top: 3px;
 }
 
-#content_subdetail {
-    width: 960px;
-    margin: 22px auto 120px auto;
-}
-
 .whiteline {
     height: 20px;
 }
 
-#detailinfo td {
-    line-height: 26px;
-    padding-left: 5px;
+.detailinfo [class^="col-"] {
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
-#samebrand td {
+#samebrand div {
     text-align: center;
-    width: 25%;
 }
 
 #samebrand img {
     width: 100px;
-    border: 0px none;
 }
 
-#samebrand a {
-    border: 0px none;
+#tblproperty .record {
+    line-height: 20px;
 }
 
-#tblproperty .row1 {
-    width: 10px;
-    float: right;
-}
-
-#tblSameCategory .row1 {
-    text-align: center;
-    width: 50%;
-    height: 85px;
-}
-
-    #tblSameCategory .row1 img {
-        border: 0px none;
+    #tblproperty .record img {
+        padding-bottom: 5px;
     }
 
-    #tblSameCategory .row1 a {
-        border: 0px none;
+    #tblproperty .record span {
+        margin-left: 5px;
     }
 
-#tblSameCategory .row2 {
-    width: 50%;
-    text-align: left;
+#tblSameCategory {
+    margin-top: 15px;
 }
 
-#tblimagegallery .row1 {
-    text-align: center;
-    width: 50%;
-}
-
-    #tblimagegallery .row1 img {
-        width: 98px;
-        height: 98px;
+    #tblSameCategory .record {
+        text-align: center;
+        height: 85px;
     }
+
+#tblimagegallery .record {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+#tblimagegallery img {
+    width: 98px;
+    height: 98px;
+}
 
 .silverrow {
     background-color: #eaeaea;
@@ -932,7 +924,7 @@ input {
 }
 
 #staticmap {
-    width: 682px;
+    width: 100%;
 }
 
 .ui-autocomplete {
@@ -1049,6 +1041,28 @@ div.less {
     text-decoration: none;
     padding-right: 5px;
 }
+
+.rowspace {
+    margin-bottom: 30px;
+}
+
+.rowspacesmall {
+    margin-bottom: 15px;
+}
+
+.facebook {
+    text-align: center;
+}
+
+.fb_iframe_widget, .fb_iframe_widget span, .fb_iframe_widget span iframe[style] {
+    width: 100% !important;
+}
+
+.container h1 {
+    color: #202020;
+    font-family: utm_bebasregular;
+    font-size: 32px;
+}
 /********************
 *   Mobile Styles   *
 ********************/
@@ -1062,21 +1076,6 @@ div.less {
         #header img {
             height: 100px;
         }
-}
-
-/*for mobile*/
-@media only screen and (max-width: 720px) {
-    #header {
-        height: 110px;
-    }
-
-        #header img {
-            height: 100px;
-        }
-
-    #search {
-        width: 100px;
-    }
 }
 
 /* iCheck plugin Square skin, black
@@ -1389,6 +1388,7 @@ body:after {
 .custom-combobox {
     position: relative;
     display: inline-block;
+    height: 34px;
 }
 
 .custom-combobox-toggle {
@@ -1405,6 +1405,7 @@ body:after {
 .custom-combobox-input {
     margin: 0;
     width: 152px;
+    height: 34px;
 }
 
 .ui-icon {
