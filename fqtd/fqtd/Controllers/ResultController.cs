@@ -474,6 +474,7 @@ namespace fqtd.Controllers
             return images;
         }
 
+        [OutputCache(CacheProfile = "Aggressive", VaryByParam = "StringInput", Location = System.Web.UI.OutputCacheLocation.Server)]        
         public ActionResult GetKeyword4Autocomplete(string StringInput)
         {
             var items = db.BrandItems.Where(a => a.Keyword.Length > 0);

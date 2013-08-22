@@ -3,9 +3,9 @@
     <p>
         @if (Model.HasPreviousPage)
         {
-            @Ajax.ActionLink("<< Trang đầu", "Index", new { page = 1, keyword = ViewBag.CurrentKeyword, CategoryID = ViewBag.CurrentCategoryID, BrandID = ViewBag.CurrentBrandI }, new AjaxOptions { UpdateTargetId = "main" }, new { @class = "navigabun" })
+            @Ajax.ActionLink("<< Trang đầu", "Index", new { page = 1, sortOrder = ViewBag.CurrentSortOrder,keyword = ViewBag.CurrentKeyword, CategoryID = ViewBag.CurrentCategoryID, BrandID = ViewBag.CurrentBrandI }, new AjaxOptions { UpdateTargetId = "main" }, new { @class = "navigabun" })
             
-            @Ajax.ActionLink("< Trang trước", "Index", new { page = Model.PageNumber - 1, keyword = ViewBag.CurrentKeyword, CategoryID = ViewBag.CurrentCategoryID, BrandID = ViewBag.CurrentBrandI }, new AjaxOptions { UpdateTargetId = "main" }, new { @class = "navigabun" })
+            @Ajax.ActionLink("< Trang trước", "Index", new { page = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSortOrder,keyword = ViewBag.CurrentKeyword, CategoryID = ViewBag.CurrentCategoryID, BrandID = ViewBag.CurrentBrandI }, new AjaxOptions { UpdateTargetId = "main" }, new { @class = "navigabun" })
         }
         else
         {
@@ -17,9 +17,9 @@
     
     @if (Model.HasNextPage)
     {
-        @Ajax.ActionLink("  Trang sau >  ", "Index", new { page = Model.PageNumber + 1, keyword = ViewBag.CurrentKeyword, CategoryID = ViewBag.CurrentCategoryID, BrandID = ViewBag.CurrentBrandI }, new AjaxOptions { UpdateTargetId = "main" }, new { @class = "navigabun" })
+        @Ajax.ActionLink("  Trang sau >  ", "Index", new { page = Model.PageNumber + 1,sortOrder = ViewBag.CurrentSortOrder, keyword = ViewBag.CurrentKeyword, CategoryID = ViewBag.CurrentCategoryID, BrandID = ViewBag.CurrentBrandI }, new AjaxOptions { UpdateTargetId = "main" }, new { @class = "navigabun" })
        
-        @Ajax.ActionLink(" Trang cuối >> ", "Index", new { page = Model.PageCount, keyword = ViewBag.CurrentKeyword, CategoryID = ViewBag.CurrentCategoryID, BrandID = ViewBag.CurrentBrandI }, new AjaxOptions { UpdateTargetId = "main" }, new { @class = "navigabun" })
+        @Ajax.ActionLink(" Trang cuối >> ", "Index", new { page = Model.PageCount, sortOrder = ViewBag.CurrentSortOrder,keyword = ViewBag.CurrentKeyword, CategoryID = ViewBag.CurrentCategoryID, BrandID = ViewBag.CurrentBrandI }, new AjaxOptions { UpdateTargetId = "main" }, new { @class = "navigabun" })
     }
     else
     {
