@@ -10,144 +10,131 @@
     js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-<div id="content_subdetail">
-    <div id="noidungchinh">
-        <div id="gioithieuchung">
-            <img id="brandlogo" width="150px" />
-            <h1 id="brandname"></h1>
-            <div id="branddescription" class="less"></div><a id="showmoreDescription" href="javascript:void(0);">Xem thêm</a>
+<div class="container">
+    <div class="row rowspace">
+        <div class="col-md-12">
+            <div id="gioithieuchung">
+                <img id="brandlogo" width="150px" />
+                <h1 id="brandname"></h1>
+                <div id="branddescription" class="less"></div>
+                <a id="showmoreDescription" href="javascript:void(0);">Xem thêm</a>
+            </div>
         </div>
-        <div id="tendiadiem">
+    </div>
+    <div class="row">
+        <div class="col-md-9">
+            <div class="row rowspace group ">
+                <div class="col-md-12 rowspacesmall">
+                    <div class="row">
+                        <div class="col-md-12 title_box">
+                            THÔNG TIN ĐỊA ĐIỂM
+                        </div>
+                    </div>
+                    <div class="row detailinfo">
+                        <div class="col-md-2">
+                            Địa chỉ
+                        </div>
+                        <div class="col-md-10">
+                            <div id="txtaddress"></div>
+                        </div>
+                    </div>
+                    <div class="row silverrow detailinfo">
+                        <div class="col-md-2">
+                            Điện thoại
+                        </div>
+                        <div class="col-md-10">
+                            <div id="txtphone"></div>
+                        </div>
+                    </div>
+                    <div class="row detailinfo">
+                        <div class="col-md-2">
+                            Danh mục
+                        </div>
+                        <div class="col-md-10">
+                            <div id="txtcategory"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img id="staticmap" class="img-responsive" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row rowspace group">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12 title_box">
+                            CÙNG THƯƠNG HIỆU
+                        </div>
+                    </div>
+                    <div class="row rowspacesmall">
+                        <div class="col-md-12">
+                            <div class="row" id="samebrand">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row rowspace group">
+                <div class="col-md-12 facebook">
+                    <div class="fb-comments" data-href="@ViewBag.URL" data-width="682" data-num-posts="10"></div>
+                </div>
+            </div>
         </div>
-        <div id="thongtinchitiet">
-            <table>
-                <tr>
-                    <td>
-                        <table>
-                            <tr>
-                                <td class="group">
-                                    <div class="title_box">
-                                        <table>
-                                            <tr>
-                                                <td class="row1">THÔNG TIN ĐỊA ĐIỂM</td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    <div>
-                                        <table id="detailinfo">
-                                            <tr>
-                                                <td>Địa chỉ</td>
-                                                <td id="txtaddress"></td>
-                                            </tr>
-                                            <tr class="silverrow">
-                                                <td>Điện thoại</td>
-                                                <td id="txtphone"></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Danh mục</td>
-                                                <td id="txtcategory"></td>
-                                            </tr>
-                                            @* <tr class="silverrow">
-                                            <td>Giờ mở cửa</td>
-                                            <td id="txtopentime"></td>
-                                        </tr>*@
-                                            <tr>
-                                                <td colspan="2">
-                                                    <img id="staticmap" />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="whiteline">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td class="group">
-                                    <div class="title_box">
-                                        <table>
-                                            <tr>
-                                                <td class="row1">CÙNG THƯƠNG HIỆU</td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    <div class="content_box">
-                                        <table>
-                                            <tr id="samebrand"></tr>
-                                        </table>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="whiteline">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td class="group">
-                                    <div class="fb-comments" data-href="@ViewBag.URL" data-width="685" data-num-posts="10"></div>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td style="width: 20px"></td>
-                    <td style="width: 240px">
-                        <table>
-                            <tr>
-                                <td class="group">
-                                    <div class="title_box">CÁC TIỆN ÍCH</div>
-                                    <div class="content_box">
-                                        <table id="tblproperty">
-                                        </table>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 20px">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td class="group">
-                                    <div class="title_box">HÌNH ẢNH</div>
-                                    <div class="content_box">
-                                        <table id="tblimagegallery">
-                                        </table>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td height="20">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td class="group">
-                                    <div class="title_box">CÙNG THỂ LOẠI</div>
-                                    <div class="content_box">
-                                        <table id="tblSameCategory">
-                                        </table>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="whiteline">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td id="sociallink">
-                                    <!-- AddThis Button BEGIN -->
-                                    <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
-                                        <a class="addthis_button_preferred_1"></a>
-                                        <a class="addthis_button_preferred_2"></a>
-                                        <a class="addthis_button_preferred_3"></a>
-                                        <a class="addthis_button_compact"></a>
-                                        <a class="addthis_counter addthis_bubble_style"></a>
-                                    </div>
-                                    <script type="text/javascript">var addthis_config = { "data_track_addressbar": true };</script>
-                                    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=anhvuphamx"></script>
-                                    <!-- AddThis Button END -->
-                                </td>
-                            </tr>
-                        </table>
-
-                    </td>
-                </tr>
-            </table>
+        <div class="col-md-3">
+            <div class="row rowspace group">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12 title_box">
+                            CÁC TIỆN ÍCH
+                        </div>
+                    </div>
+                    <div class="row rowspacesmall" id="tblproperty">
+                    </div>
+                </div>
+            </div>
+            <div class="row rowspace group">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12 title_box">
+                            HÌNH ẢNH
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" id="tblimagegallery">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row rowspace group">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12 title_box">
+                            CÙNG THỂ LOẠI
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" id="tblSameCategory">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row rowspace">
+                <div class="col-md-12">
+                    <!-- AddThis Button BEGIN -->
+                    <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+                        <a class="addthis_button_preferred_1"></a>
+                        <a class="addthis_button_preferred_2"></a>
+                        <a class="addthis_button_preferred_3"></a>
+                        <a class="addthis_button_compact"></a>
+                        <a class="addthis_counter addthis_bubble_style"></a>
+                    </div>
+                    <script type="text/javascript">var addthis_config = { "data_track_addressbar": true };</script>
+                    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=anhvuphamx"></script>
+                    <!-- AddThis Button END -->
+                </div>
+            </div>
         </div>
     </div>
 </div>

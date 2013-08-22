@@ -208,7 +208,7 @@ var FQTD = (function () {
             FQTD.displayMap();
         },
         yesRecord: function () {
-            $("#map").html("<div id='googleMap' style='width: 100%; height: 100%;'></div><div class='btn_more'><a class='buttonGreen showmorebtn' id='btn_xemthemMap'>Xem thêm</a></div>");
+            $("#map").html("<div id='googleMap' style='width: 100%; height: 100%;'></div><div class='btn_more'><div class='buttonGreen showmorebtn' id='btn_xemthemMap'>Xem thêm</div></div>");
             $("#list").html("<div id='subList'></div><div class='paging'><div id='pagination' class='pagination'></div></div>");
             FQTD.displayMap();
         },
@@ -787,50 +787,54 @@ var FQTD = (function () {
                         //page title
                         document.title = object.ItemDetail[0].ItemName;
                     }
+
                     //bind data to same brand list
                     var relatelist = "";
                     if (object.RelateList.length > 0) {
                         for (var i = 0; i < 4; i++) {
                             if (object.RelateList[i]) {
-                                relatelist += "<td><a href='/detail/" + object.RelateList[i].ItemID + "/" + encodeItemName(object.RelateList[i].ItemName) + "'><img src='" + object.RelateList[i].Logo + "'/></a><br /><strong>" + object.RelateList[i].ItemName + "</strong></td>"
+                                relatelist += "<div class='col-md-3'><a href='/detail/" + object.RelateList[i].ItemID + "/" + encodeItemName(object.RelateList[i].ItemName) + "'><img src='" + object.RelateList[i].Logo + "'/></a><br /><strong>" + object.RelateList[i].ItemName + "</strong></div>"
                             }
                         }
                     }
                     $("#samebrand").html(relatelist)
+
                     //bind data to property list
                     var propertylist = "";
                     if (object.PropertyList.length > 0) {
                         for (var i = 0; i < object.PropertyList.length; i++) {
                             if (object.PropertyList[i]) {
-                                var hidden = object.PropertyList[i].PropertyValue == false ? " class='hidden'" : ""
-                                propertylist += "<tr " + hidden + "><td class='row1'><img src='/images/bullet_green.png' /></td><td>" + object.PropertyList[i].PropertyName + "</td></tr>"
+                                var hidden = object.PropertyList[i].PropertyValue == false ? " hidden" : ""
+                                propertylist += "<div class='col-md-12 record" + hidden + "'><img src='/images/bullet_green.png' /><span>" + object.PropertyList[i].PropertyName + "</span></div>"
                             }
                         }
                     }
                     $("#tblproperty").html(propertylist)
-                    //bind data to same category list
-                    var samecategoryList = "";
-                    if (object.SameCategoryList.length > 0) {
-                        for (var i = 0; i < object.SameCategoryList.length; i++) {
-                            if (object.SameCategoryList[i]) {
-                                samecategoryList += "<tr><td class='row1'><a href='/detail/" + object.SameCategoryList[i].ItemID + "/" + encodeItemName(object.SameCategoryList[i].ItemName) + "'><img class='samecategorylogo' src='" + object.SameCategoryList[i].Logo + "'></a></td><td class='row2'>" + object.SameCategoryList[i].ItemName + "<br /><a href='/detail/" + object.SameCategoryList[i].ItemID + "/" + encodeItemName(object.SameCategoryList[i].ItemName) + "' class='chitiet'>Chi tiết</a><img src='/images/bullet_grey.png' /></td></tr>"
-                            }
-                        }
-                    }
-                    $("#tblSameCategory").html(samecategoryList)
+                    
                     //bind to image gallery
                     var imagegallery = "";
                     if (object.ItemImages.length > 0) {
                         for (var i = 0; i < object.ItemImages.length; i += 2) {
                             if (object.ItemImages[i]) {
-                                imagegallery += "<tr>"
-                                if (object.ItemImages[i]) imagegallery += "<td class='row1'><a href='" + object.ItemImages[i] + "' data-lightbox='imagegallery' title='Hình ảnh chỉ mang tính chất minh họa'><img src='" + object.ItemImages[i] + "'></a></td>"
-                                if (object.ItemImages[i + 1]) imagegallery += "<td class='row1'><a href='" + object.ItemImages[i + 1] + "' data-lightbox='imagegallery' title='Hình ảnh chỉ mang tính chất minh họa'><img src='" + object.ItemImages[i + 1] + "'></a></td>"
-                                imagegallery += "</tr>"
+                                imagegallery += "<div class='row record'>"
+                                if (object.ItemImages[i]) imagegallery += "<div class='col-md-6'><a href='" + object.ItemImages[i] + "' data-lightbox='imagegallery' title='Hình ảnh chỉ mang tính chất minh họa'><img src='" + object.ItemImages[i] + "'></a></div>"
+                                if (object.ItemImages[i + 1]) imagegallery += "<div class='col-md-6'><a href='" + object.ItemImages[i + 1] + "' data-lightbox='imagegallery' title='Hình ảnh chỉ mang tính chất minh họa'><img src='" + object.ItemImages[i + 1] + "'></a></div>"
+                                imagegallery += "</div>"
                             }
                         }
                     }
                     $("#tblimagegallery").html(imagegallery)
+                    
+                    //bind data to same category list
+                    var samecategoryList = "";
+                    if (object.SameCategoryList.length > 0) {
+                        for (var i = 0; i < object.SameCategoryList.length; i++) {
+                            if (object.SameCategoryList[i]) {
+                                samecategoryList += "<div class='row'><div class='col-md-4 record'><a href='/detail/" + object.SameCategoryList[i].ItemID + "/" + encodeItemName(object.SameCategoryList[i].ItemName) + "'><img class='samecategorylogo' src='" + object.SameCategoryList[i].Logo + "'></a></div><div class='col-md-8'>" + object.SameCategoryList[i].ItemName + "<br /><a href='/detail/" + object.SameCategoryList[i].ItemID + "/" + encodeItemName(object.SameCategoryList[i].ItemName) + "' class='chitiet'>Chi tiết</a><img src='/images/bullet_grey.png' /></div></div>"
+                            }
+                        }
+                    }
+                    $("#tblSameCategory").html(samecategoryList)
 
                     FQTD.HideLoading()
                     FQTD.MoveFooter("bottom")

@@ -23,6 +23,9 @@ namespace fqtd
             bundles.Add(new ScriptBundle("~/bundles/infobox").Include(
                         "~/Scripts/infobox.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include(
+                        "~/Scripts/bootstrap.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/utils").Include(
                         "~/Scripts/utils.js"));  
 
@@ -32,6 +35,8 @@ namespace fqtd
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/bootstrapcss").Include("~/Content/bootstrap.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",
