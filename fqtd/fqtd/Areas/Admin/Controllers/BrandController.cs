@@ -105,7 +105,11 @@ namespace fqtd.Areas.Admin.Controllers
         [Authorize]
         public ActionResult Create(Brands brands, HttpPostedFileBase icon, HttpPostedFileBase logo)
         {
-            if (ModelState.IsValid)
+            if (db.Brands.Where(a => a.IsActive && (a.BrandName == brands.BrandName || a.BrandName_EN == brands.BrandName_EN)).Count() > 0)
+            {                
+                ModelState.AddModelError("BrandName", "Already Exists Brand name");
+            }
+            else if (ModelState.IsValid)
             {
                 brands.IsActive = true;
                 brands.CreateDate = DateTime.Now;
@@ -232,6 +236,9 @@ namespace fqtd.Areas.Admin.Controllers
 
         //
         // GET: /Admin/Brands/Delete/5
+
+
+        
 
         [Authorize]
         public ActionResult Delete(int id = 0)

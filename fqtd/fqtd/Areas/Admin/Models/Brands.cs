@@ -38,6 +38,7 @@ namespace fqtd.Areas.Admin.Models
         public string Logo { get; set; }
         public string Keyword { get; set; }
         public string Keyword_Unsign { get; set; }
+        public string Website { get; set; }
     
         public virtual ICollection<BrandItems> tbl_Brand_Items { get; set; }
         public virtual BrandType tbl_BrandType { get; set; }

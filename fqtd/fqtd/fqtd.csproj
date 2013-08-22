@@ -706,6 +706,7 @@
     <Content Include="Areas\Admin\Views\ContactUs\_Paging.cshtml" />
     <Content Include="Areas\Admin\Views\Brand\ImageList.cshtml" />
     <Content Include="Areas\Admin\Views\SearchHistory\KeywordHis.cshtml" />
+    <Content Include="Areas\Admin\Views\Items\Copy.cshtml" />
     <None Include="Properties\PublishProfiles\fqtd_test.pubxml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Images\bg_bottom.jpg" />

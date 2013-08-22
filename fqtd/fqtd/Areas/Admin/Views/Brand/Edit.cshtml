@@ -40,13 +40,19 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.BrandTypeID)
+            Brand type
         </div>
         <div class="editor-field">
             @Html.DropDownList("BrandTypeID", string.Empty)
             @Html.ValidationMessageFor(model => model.BrandTypeID)
         </div>
-
+        <div class="editor-label">
+            Website
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model=>model.Website)
+            @Html.ValidationMessageFor(model => model.Website)
+        </div>
         <div class="editor-label">
             Keyword
         </div>
@@ -58,24 +64,27 @@
             @Html.LabelFor(model => model.MarkerIcon)
         </div>
         <div class="editor-field">
-             <input type="file" name="icon" />
+            <input type="file" name="icon" />
             @Html.ValidationMessageFor(model => model.MarkerIcon)
         </div>
-        
+
         <div class="editor-label">
             @Html.LabelFor(model => model.Logo)
         </div>
         <div class="editor-field">
-             <input type="file" name="logo" />
+
+            <img src="@Href(System.Configuration.ConfigurationManager.AppSettings["BrandLogoLocation"] + "/" + Model.Logo)" width="50" />
+            <br />
+            <input type="file" name="logo" />
             @Html.ValidationMessageFor(model => model.Logo)
         </div>
-         <div class="editor-label">
+        <div class="editor-label">
             @Html.LabelFor(model => model.Description)
         </div>
         <div class="editor-field">
             @Html.TextAreaFor(model => model.Description, new { @id = "Description" })
-           <script type="text/javascript">
-               CKEDITOR.replace("Description");
+            <script type="text/javascript">
+                CKEDITOR.replace("Description");
             </script>
             @Html.ValidationMessageFor(model => model.Description)
         </div>
@@ -86,15 +95,15 @@
         </div>
         <div class="editor-field">
             @Html.TextAreaFor(model => model.Description_EN, new { @id = "Description_EN" })
-           <script type="text/javascript">
-               CKEDITOR.replace("Description_EN");
+            <script type="text/javascript">
+                CKEDITOR.replace("Description_EN");
             </script>
             @Html.ValidationMessageFor(model => model.Description_EN)
         </div>
 
-        
 
-       
+
+
         <p>
             <input type="submit" value="Save" />|
     @Html.ActionLink("Back to List", "Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] })

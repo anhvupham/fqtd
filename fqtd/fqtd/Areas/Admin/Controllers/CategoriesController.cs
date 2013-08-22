@@ -79,7 +79,11 @@ namespace fqtd.Areas.Admin.Controllers
         [HttpPost, ValidateInput(false)]
         public ActionResult Create(Categories Categories, HttpPostedFileBase icon)
         {
-            if (ModelState.IsValid)
+            if (db.Categories.Where(a => a.IsActive && (a.CategoryName == Categories.CategoryName || a.CategoryName_EN == Categories.CategoryName_EN)).Count() > 0)
+            {
+                ModelState.AddModelError("CategoryName", "Already Exists Category name");
+            }
+            else if (ModelState.IsValid)
             {
                 Categories.IsActive = true;
                 Categories.CreateDate = DateTime.Now;

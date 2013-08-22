@@ -1,26 +1,16 @@
 ﻿@model fqtd.Areas.Admin.Models.BrandItems
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Copy of: "+Model.ItemName;
     TempData.Keep();
 }
 
-<h2>Edit</h2>
-
-@using (Html.BeginForm("Edit", "Items", FormMethod.Post, new { enctype = "multipart/form-data" }))
+<h2>Copy of: @Model.ItemName</h2>
+<br />
+@using (Html.BeginForm("Copy", "Items", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-
-    
-    @Html.HiddenFor(model => model.ItemID)
-    @Html.HiddenFor(model => model.CreateDate)
-    @Html.HiddenFor(model => model.CreateUser)
-    @Html.HiddenFor(model => model.IsActive)
-    @Html.HiddenFor(model => model.MarkerIcon)
-
-@* <fieldset>
-        <legend>Item Infos</legend>*@
 
     <div class="editor-label">
         @Html.LabelFor(model => model.ItemName)

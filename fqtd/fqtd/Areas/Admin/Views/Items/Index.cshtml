@@ -12,6 +12,7 @@
 @using (Ajax.BeginForm("Index", new
 {
     page = 1,
+    sortOrder = ViewBag.CurrentSortOrder,
     keyword = ViewBag.CurrentKeyword,
     CategoryID = ViewBag.CurrentCategoryID,
     BrandID = ViewBag.CurrentBrandID,
@@ -49,7 +50,12 @@
 <table class="table_list">
     <tr>
         <th>
-            Item Name
+            @Ajax.ActionLink("Item Name", "Index", new { sortOrder = ViewBag.ItemName, page = 1,
+            keyword = ViewBag.CurrentKeyword,
+            CategoryID = ViewBag.CurrentCategoryID,
+            BrandID = ViewBag.CurrentBrandID,
+            user = ViewBag.CurrentUse }, new AjaxOptions { UpdateTargetId = "main" })
+            
         </th>
         <th>
             Item Name (EN)
@@ -67,7 +73,11 @@
             Website
         </th>
         <th>
-            Brand Name
+            @Ajax.ActionLink("Brand Name", "Index", new { sortOrder = ViewBag.BrandName, page = 1,
+            keyword = ViewBag.CurrentKeyword,
+            CategoryID = ViewBag.CurrentCategoryID,
+            BrandID = ViewBag.CurrentBrandID,
+            user = ViewBag.CurrentUse }, new AjaxOptions { UpdateTargetId = "main" })
         </th>
         <th>
             Search Count
@@ -110,8 +120,9 @@
         </td>
         
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ItemID }) |
+            @Html.ActionLink("Edit", "Edit", new { id = item.ItemID }) |@Html.ActionLink("Copy", "Copy", new { id = item.ItemID }) |
             @Html.ActionLink("Details", "Details", new { id = item.ItemID }) |
+            <a href="~/detail/@item.ItemID/@item.ItemName" target="_blank">Review</a>|
             @Html.ActionLink("Images", "ImageList", new { id = item.ItemID }) |
             @Html.ActionLink("Properties", "ItemProperties", new { id = item.ItemID }) |
             @Html.ActionLink("BuildKeyword", "KeywordBuilder", new { itemid = item.ItemID }) |

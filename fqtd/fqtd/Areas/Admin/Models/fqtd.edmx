@@ -36,6 +36,10 @@
             <End Role="tbl_BrandType" EntitySet="tbl_BrandType" />
             <End Role="tbl_Brands" EntitySet="tbl_Brands" />
           </AssociationSet>
+          <AssociationSet Name="FK_tbl_Brands_tbl_Categories" Association="fqtdModel.Store.FK_tbl_Brands_tbl_Categories">
+            <End Role="tbl_Categories" EntitySet="tbl_Categories" />
+            <End Role="tbl_Brands" EntitySet="tbl_Brands" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbl_Category_Properties_tbl_Categories" Association="fqtdModel.Store.FK_tbl_Category_Properties_tbl_Categories">
             <End Role="tbl_Categories" EntitySet="tbl_Categories" />
             <End Role="tbl_Category_Properties" EntitySet="tbl_Category_Properties" />
@@ -131,6 +135,7 @@
           <Property Name="BrandTypeID" Type="int" />
           <Property Name="CategoryID" Type="int" />
           <Property Name="MarkerIcon" Type="nvarchar" MaxLength="250" />
+          <Property Name="Website" Type="nvarchar" MaxLength="250" />
           <Property Name="Keyword" Type="nvarchar(max)" />
           <Property Name="Keyword_Unsign" Type="nvarchar(max)" StoreGeneratedPattern="Computed" />
           <Property Name="Logo" Type="nvarchar" MaxLength="250" />
@@ -285,6 +290,18 @@
             </Principal>
             <Dependent Role="tbl_Brands">
               <PropertyRef Name="BrandTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Brands_tbl_Categories">
+          <End Role="tbl_Categories" Type="fqtdModel.Store.tbl_Categories" Multiplicity="0..1" />
+          <End Role="tbl_Brands" Type="fqtdModel.Store.tbl_Brands" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Categories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="tbl_Brands">
+              <PropertyRef Name="CategoryID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -555,6 +572,7 @@
           <Property Type="String" Name="Keyword" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Keyword_Unsign" MaxLength="Max" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="tbl_Brand_Categories" Relationship="fqtdModel.FK_tbl_Brand_Categories_tbl_Brands" FromRole="Brands" ToRole="tbl_Brand_Categories" />
+          <Property Type="String" Name="Website" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="BrandType">
           <Key>
@@ -897,6 +915,7 @@
           <EntitySetMapping Name="Brands">
             <EntityTypeMapping TypeName="fqtdModel.Brands">
               <MappingFragment StoreEntitySet="tbl_Brands">
+                <ScalarProperty Name="Website" ColumnName="Website" />
                 <ScalarProperty Name="Keyword_Unsign" ColumnName="Keyword_Unsign" />
                 <ScalarProperty Name="Keyword" ColumnName="Keyword" />
                 <ScalarProperty Name="Logo" ColumnName="Logo" />
