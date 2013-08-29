@@ -89,7 +89,6 @@ body, html {
 }
 
 #bottom_info {
-    width: 960px;
     margin: auto;
     padding: 0;
     font-weight: bold;
@@ -104,18 +103,14 @@ body, html {
     }
 
 #bottom_left {
-    width: 350px;
     display: block;
-    float: left;
     text-align: left;
     margin-top: 12px;
     color: #e8e8e8;
 }
 
 #bottom_right {
-    width: 600px;
     display: block;
-    float: right;
     text-align: right;
     margin-top: 12px;
     color: #e8e8e8;
@@ -876,13 +871,19 @@ input {
     padding-bottom: 5px;
 }
 
-#samebrand div {
-    text-align: center;
+#samebrand {
+    margin-top: 15px;
 }
 
-#samebrand img {
-    width: 100px;
-}
+    #samebrand div {
+        text-align: center;
+        margin-bottom: 3px;
+    }
+
+    #samebrand img {
+        width: 100px;
+        display: inline;
+    }
 
 #tblproperty .record {
     line-height: 20px;
@@ -900,27 +901,39 @@ input {
     margin-top: 15px;
 }
 
-    #tblSameCategory .record {
-        text-align: center;
-        height: 85px;
+    #tblSameCategory .samecategorylogo {
+        width: 75px;
     }
 
-#tblimagegallery .record {
+    #tblSameCategory .record {
+        margin-bottom: 15px;
+    }
+
+@media (max-width:992px) {
+    #tblSameCategory div {
+        text-align: center;
+    }
+
+    #tblSameCategory .samecategorylogo {
+        width: 100px;
+        display: inline;
+    }    
+}
+
+#tblimagegallery div {
     margin-bottom: 5px;
     margin-top: 5px;
-}
+    text-align: center;
+} 
 
 #tblimagegallery img {
     width: 98px;
     height: 98px;
+    display: inline;
 }
 
 .silverrow {
     background-color: #eaeaea;
-}
-
-.samecategorylogo {
-    width: 75px;
 }
 
 #staticmap {
