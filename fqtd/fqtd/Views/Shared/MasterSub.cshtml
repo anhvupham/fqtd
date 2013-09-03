@@ -19,26 +19,40 @@
     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDTNlc8mcX8hdGZpkkPK1NXVq1PJY1zYs0&sensor=false"></script>
 </head>
 <body>
-    <div id="wrapper">
-        <header>
-            <div id="header_subpage">
-                <a href="/">
-                    <img id="logo_small" src="/images/logo_small1.png" /></a>
-                <div id="back_home">
-                    <img src="/images/icon_home.png" />
-                    <a id="backlink" href="/">Về trang chủ</a>
+    <header>
+        <div class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="/">
+                        <img src="/images/logo_small1.png" class="img-responsive" />
+                    </a>
                 </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/">Trang chủ</a></li>
+                        <li><a href="~/home/introduction">Giới thiệu</a></li>
+                        <li><a href="~/home/termandconditionofuse">Điều khoản sử dụng</a></li>
+                        <li><a href="~/home/policy">Chính sách bảo mật</a></li>
+                        <li><a href="~/home/contactus">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
             </div>
-        </header>
+        </div>
+    </header>
 
-        @RenderSection("featured", required: false)
-        @RenderBody()
-    </div>
-    <footer>        
-        <div id="bottom" class="bottom container">
-            <div id="bottom_info" class="row">
-                <div id="bottom_left" class="col-sm-4">Copyright@2013 by Timdau.vn</div>
-                <div id="bottom_right" class="col-sm-8"><a href="~/home/introduction">Giới thiệu</a>  |  <a href="~/home/termandconditionofuse">Điều khoản sử dụng</a>  |  <a href="~/home/policy">Chính sách bảo mật</a> |  <a href="~/home/contactus">Liên hệ</a> </div>
+    @RenderSection("featured", required: false)
+    @RenderBody()
+
+    <footer>
+        <div id="footer">
+            <div class="container">
+                <p class="text-muted credit">Copyright 2013 by Timdau.vn</p>
             </div>
         </div>
     </footer>

@@ -573,6 +573,7 @@
     <Content Include="Content\admin.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\font\architep-webfont.svg" />
+    <Content Include="Content\font\glyphicons-halflings-regular.svg" />
     <Content Include="Content\font\utm_bebas-webfont.svg" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -709,6 +710,9 @@
     <Content Include="Areas\Admin\Views\Brand\ImageList.cshtml" />
     <Content Include="Areas\Admin\Views\SearchHistory\KeywordHis.cshtml" />
     <Content Include="Areas\Admin\Views\Items\Copy.cshtml" />
+    <Content Include="Content\font\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\font\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\font\glyphicons-halflings-regular.woff" />
     <None Include="Properties\PublishProfiles\fqtd_test.pubxml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Images\bg_bottom.jpg" />

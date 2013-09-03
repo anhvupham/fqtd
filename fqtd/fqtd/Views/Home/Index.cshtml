@@ -10,100 +10,80 @@
     js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-<div id="content_home" class="container">
-    <div id="content">
-        <div id="step1" class="inner">
-            <form id="form1" action="result" method="get">
-                <div id="home_left">
-                </div>
-                <div id="home_center">
-                    <table style="width: 100%; border: 0px; border-collapse: separate; border-spacing: 13px;">
-                        <tr>
-                            <td colspan="4">
-                                <div>
-                                    <input id="search" data-required="true" name="search" type="search" />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" style="text-align: center">
-                                <p class="buttonGreen" id="btn_home1">TÌM</p></td>
-                        </tr>
-                    </table>
-                </div>
-                <div id="home_right">
-                    <div id="banmuontim">
-                        <a class="next" href="#1" title="Bạn muốn tìm xung quanh một địa điểm xác định?">Bạn muốn tìm địa điểm xung quanh mình ?
-                        <img src="../images/icon_black.png" /></a>
+<div class="container">
+    <div id="myCarousel" class="carousel slide">
+        <div class="carousel-inner">
+            <div class="item active">
+                <form id="form1" action="result" method="get" role="form">
+                    <div class="row homepagerow">
+                        <div class="col-xs-2">
+                        </div>
+                        <div class="col-xs-8">
+                            <input id="search" data-required="true" name="search" type="search" class="form-control" placeholder="Nhập thông tin tìm kiếm" />
+                        </div>
+                        <div class="col-xs-2">
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
-        <div id="step2" class="inner">
-            <form id="form2" action="result" method="get">
-                <div id="home_left2">
-                    <div id="banmuontim2">
-                        <a class="pre" href="#0" title="Bạn muốn tìm một địa điểm bất kỳ?">Bạn muốn tìm một địa điểm bất kỳ?
-                    <img src="../images/icon_black2.png" /></a>
+                    <div class="row">
+                        <div class="col-xs-4">
+                        </div>
+                        <div class="col-xs-4">
+                            <p class="buttonGreen" id="btn_home1">TÌM</p>
+                        </div>
+                        <div class="col-xs-4">
+                        </div>
                     </div>
-                </div>
-                <div id="home_center2">
-                    <table style="width: 100%; border: 0px; border-collapse: separate; border-spacing: 13px;">
-                        <tr>
-                            <td colspan="3" style="width: 50px">
-                                <div>
-                                    <input id="address" data-required="true" name="address" type="search" />
-                                </div>
-                            </td>
-                            <td style="width: 34px">
-                                <a id="getCurrentPosition" href="JavaScript:void(0);" title="Chức năng định vị này chỉ hoạt động chính xác với các thiết bị dùng mạng wifi hoặc 3G/4G.">
-                                    <img id="iconTarget" src="../images/icon1.png" /></a></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>
-                                    <select id="category" name="category">
+                </form>
+            </div>
+            <div class="item">
+                <form id="form2" action="result" method="get">
+                    <div class="row homepagerowsmall">
+                        <div class="col-xs-2">
+                        </div>
+                        <div class="col-xs-8">
+                            <input id="address" data-required="true" name="address" type="search" class="form-control" placeholder="Nhập địa chỉ hiện tại của bạn hoặc sử dụng chức năng định vị bên cạnh" />
+                        </div>
+                        <div class="col-xs-2 text-left locationicon">
+                            <a id="getCurrentPosition" href="JavaScript:void(0);" title="Chức năng định vị này chỉ hoạt động chính xác với các thiết bị dùng mạng wifi hoặc 3G/4G.">
+                                <img id="iconTarget" src="../images/icon1.png" /></a>
+                        </div>
+                    </div>
+                    <div class="row homepagerow">
+                        <div class="col-xs-2">
+                        </div>
+                        <div class="col-xs-8">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <select id="category" name="category" class="form-control">
                                         <option value="">Loại</option>
                                     </select>
                                 </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <select data-required="true" id="brand" name="brand">
+                                <div class="col-xs-4">
+                                    <select data-required="true" id="brand" name="brand" class="form-control">
                                         <option value="">Tên quán</option>
                                     </select>
                                 </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <input id="range" name="range" data-required="true" data-pattern="^(?:R\$)?\s*(\d+)(?:[,\.](\d)(\d)?)?\d*$" type="search" />
-                                </div>
-                            </td>
-                            <td>mét
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" style="text-align: center">
-                                <p class="buttonGreen" id="btn_home2">TÌM</p></td>
-                        </tr>
-                    </table>
-                </div>
-                <div id="home_right2">
-                </div>
-            </form>
+                                <div class="col-xs-4">
+                                    <input id="range" name="range" data-required="true" data-pattern="^(?:R\$)?\s*(\d+)(?:[,\.](\d)(\d)?)?\d*$" type="search" class="form-control" placeholder="Nhập bán kính (mét)" /></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-2">                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                        </div>
+                        <div class="col-xs-4">
+                            <p class="buttonGreen" id="btn_home2">TÌM</p>
+                        </div>
+                        <div class="col-xs-4">
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
     </div>
 </div>
 <ul class="hidden" id="index">

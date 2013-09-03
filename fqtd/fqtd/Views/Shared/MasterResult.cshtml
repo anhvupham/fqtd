@@ -12,20 +12,37 @@
     <meta property="og:type" content="tool" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Content/bootstrapcss")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/modernizr")
     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDTNlc8mcX8hdGZpkkPK1NXVq1PJY1zYs0&sensor=false"></script>
 </head>
 <body>
-    <div id="wrapperResult">
+    <div id="wrapper">
         <header>
-            <div id="header_subpage">
-                <a href="/">
-                    <img id="logo_small" src="/images/logo_small1.png" /></a>
-                <div id="back_home">
-                    <img src="/images/icon_home.png" />
-                    <a id="backlink" href="/">Về trang chủ</a>
+            <div class="navbar navbar-default navbar-static-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a href="/">
+                            <img src="/images/logo_small1.png" class="img-responsive" />
+                        </a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/">Trang chủ</a></li>
+                            <li><a href="~/home/introduction">Giới thiệu</a></li>
+                            <li><a href="~/home/termandconditionofuse">Điều khoản sử dụng</a></li>
+                            <li><a href="~/home/policy">Chính sách bảo mật</a></li>
+                            <li><a href="~/home/contactus">Liên hệ</a></li>
+                        </ul>
+                    </div>
+                    <!--/.nav-collapse -->
                 </div>
             </div>
         </header>
@@ -33,20 +50,20 @@
         @RenderSection("featured", required: false)
         @RenderBody()
 
-        <footer>
-            <div id="bottom" class="bottomFixed">
-                <div id="bottom_info">
-                    <div id="bottom_left">Copyright@2013 by Timdau.vn</div>
-                    <div id="bottom_right"><a href="~/home/introduction">Giới thiệu</a>  |  <a href="~/home/termandconditionofuse">Điều khoản sử dụng</a>  |  <a href="~/home/policy">Chính sách bảo mật</a> |  <a href="~/home/contactus">Liên hệ</a> </div>
-                </div>
-            </div>
-        </footer>
     </div>
+    <footer>
+        <div id="footer">
+            <div class="container">
+                <p class="text-muted credit">Copyright 2013 by Timdau.vn</p>
+            </div>
+        </div>
+    </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/plugin")
     @Scripts.Render("~/bundles/infobox")
     @Scripts.Render("~/bundles/utils")
+    @Scripts.Render("~/bundles/bootstrapjs")
     @RenderSection("scripts", required: false)
     <script>
         (function (i, s, o, g, r, a, m) {

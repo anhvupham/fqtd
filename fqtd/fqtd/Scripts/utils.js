@@ -190,7 +190,6 @@ var FQTD = (function () {
             $("#tabList").removeClass("inactive").addClass("active");
             $("#tabMap").removeClass("active").addClass("inactive");
 
-            FQTD.MoveFooter("bottomFixed")
         },
         displayMap: function () {
 
@@ -200,7 +199,6 @@ var FQTD = (function () {
             $("#tabMap").removeClass("inactive").addClass("active");
             $("#tabList").removeClass("active").addClass("inactive");
 
-            FQTD.MoveFooter("bottomFixed")
         },
         noRecord: function () {
             $("#list").html("<p class='noResultText'>Thông tin Search hiện chưa cập nhật. Vui lòng tìm lại sau.</p>");
@@ -353,7 +351,6 @@ var FQTD = (function () {
                     //set list display first
                     FQTD.displayMap()
                 }
-                FQTD.MoveFooter("bottomFixed")
             }
             else {
                 FQTD.noRecord()
@@ -437,9 +434,9 @@ var FQTD = (function () {
         },
         SetupWatermarkValidationHomepage: function () {
             //watermark and validation
-            $("#address").watermark("Nhập địa chỉ hiện tại của bạn hoặc sử dụng chức năng định vị bên cạnh");
-            $("#search").watermark("Nhập thông tin tìm kiếm");
-            $("#range").watermark("Nhập bán kính");
+            //$("#address").watermark("Nhập địa chỉ hiện tại của bạn hoặc sử dụng chức năng định vị bên cạnh");
+            //$("#search").watermark("Nhập thông tin tìm kiếm");
+            //$("#range").watermark("Nhập bán kính");
             $("#input-category").watermark("Chọn lĩnh vực");
             $("#input-brand").watermark("Chọn tên quán");
             $("#form1").validate({
@@ -565,10 +562,7 @@ var FQTD = (function () {
         },
         HideLoading: function () {
             $("#loading").addClass("hidden");
-        },
-        MoveFooter: function (str) {
-            $("#bottom").attr("class", str)
-        },
+        },        
         Sticker: function () {
             var s = $("#cactienich");
             var pos = s.position();
@@ -666,13 +660,9 @@ var FQTD = (function () {
         },
         initHomepage: function () {
             //event slide
-            var chartsBlock = $('#content');
-            chartsBlock.smSlideChart({
-                btnNext: $('.next'),
-                btnPrev: $('.pre'),
-                thumbs: $('#index'),
-                callback: function (t, f) { }
-            });
+            $('.carousel').carousel({
+                interval: false
+            })
 
             FQTD.BindSelectCategory()
             FQTD.BindSelectBrand()
@@ -761,6 +751,7 @@ var FQTD = (function () {
                 FQTD.SubmitForm()
             });
 
+
         },
         initDetail: function () {
             var id = $(location).attr('pathname').split('/')[2]
@@ -842,7 +833,6 @@ var FQTD = (function () {
                     $("#tblSameCategory").html(samecategoryList)
 
                     FQTD.HideLoading()
-                    FQTD.MoveFooter("bottom")
                     FQTD.ShowMoreDescription()
                 }
             });
