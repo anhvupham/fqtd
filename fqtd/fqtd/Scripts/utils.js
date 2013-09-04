@@ -616,7 +616,7 @@ var FQTD = (function () {
         SubmitForm: function () {
             //direct to result page
             var address = $('#address').val() != "" ? encrypt($('#address').val()) : "0"
-            var type = window.location.hash == "#1" ? "1" : "0"
+            var type = $(".carousel-indicators").find('.active').attr('data-slide-to')
             var range = $('#range').val() != "" ? $('#range').val() : "0"
             var category = $('#category').val() != "" ? $('#category').val() : "0"
             var brand = $('#brand').val() != "" ? $('#brand').val() : "0"
@@ -723,7 +723,7 @@ var FQTD = (function () {
 
             //check if step2
             if (window.location.hash == "#1") {
-                $('.next').click();
+                $('.carousel').carousel(1)
             }
 
             //button keyword click
