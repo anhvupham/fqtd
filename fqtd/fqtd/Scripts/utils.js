@@ -70,7 +70,6 @@ var FQTD = (function () {
             $.getJSON(urlProperty + "?id=-1", null, function (properties) {
                 for (i in properties) {
                     $("#property").append('<div class="propertyrow"><input tabindex="' + i + '" type="checkbox" id="' + properties[i].PropertyID + '"><label for="' + properties[i].PropertyID + '">' + properties[i].PropertyName + '</label></div>');
-                    $("#property").append('<div class="clearfix"></div>')
                     $('#' + properties[i].PropertyID).iCheck({
                         checkboxClass: 'icheckbox_square',
                         increaseArea: '20%' // optional
@@ -207,7 +206,7 @@ var FQTD = (function () {
         },
         yesRecord: function () {
             $("#map").html("<div id='googleMap' style='width: 100%; height: 100%;'></div><div class='btn_more'><div class='buttonGreen showmorebtn' id='btn_xemthemMap'>Xem thêm</div></div>");
-            $("#list").html("<div id='subList'></div><div class='paging'><div id='pagination' class='pagination'></div></div>");
+            $("#list").html("<div id='subList' class='container'></div><div class='paging container'><div class='row'><div id='pagination' class='pagination col-xs-12'></div></div></div>");
             FQTD.displayMap();
         },
         pageselectCallback: function (page_index, jq) {
@@ -215,14 +214,12 @@ var FQTD = (function () {
             var items_per_page = NumberOfIntemShow
             var max_elem = Math.min((page_index + 1) * items_per_page, locations.length);
             var newcontent = '';
-
             // Iterate through a selection of the content and build an HTML string
             for (var i = page_index * items_per_page; i < max_elem; i++) {
-                newcontent += '<div id="object"><table style="width: 100%;"><tr><td valign="top" style="width:116px;"><a href="/detail/' + isEmpty(locations[i][7]) + '/' + encodeItemName(isEmpty(locations[i][3])) + '" target="_blank"><img id="photo" width="150" src="' + isEmpty(checkImage(locations[i][6])) + '" class="img-responsive" /></a></td><td valign="top"><h2><a href="/detail/' + isEmpty(locations[i][7]) + '/' + encodeItemName(isEmpty(locations[i][3])) + '" target="_blank">' + (isEmpty(locations[i][3])) + '</a></h2>'
+                newcontent += '<div class="row object"><div class="col-sm-2 col-xs-12"><a href="/detail/' + isEmpty(locations[i][7]) + '/' + encodeItemName(isEmpty(locations[i][3])) + '" target="_blank"><img id="photo" width="150" src="' + isEmpty(checkImage(locations[i][6])) + '" class="img-responsive" /></a></div><div class="col-sm-10 col-xs-12"><h2><a href="/detail/' + isEmpty(locations[i][7]) + '/' + encodeItemName(isEmpty(locations[i][3])) + '" target="_blank">' + (isEmpty(locations[i][3])) + '</a></h2>'
                     + '<p>Địa chỉ : ' + isEmpty(locations[i][4]) + '<br/>Điện thoại : ' + isEmpty(locations[i][5]) + '</p><p><a href="/detail/' + isEmpty(locations[i][7]) + '/' + encodeItemName(isEmpty(locations[i][3])) + '" target="_blank"><strong>Xem chi tiết</strong></a>'
-                    + ' | <a href="javascript:void(0);" onclick="FQTD.DisplayDirection(' + isEmpty(checkImage(locations[i][0])) + ',' + isEmpty(checkImage(locations[i][1])) + ')" class="lienket"><strong>Đường đi</strong></a></p></td></tr></table></div>';
+                    + ' | <a href="javascript:void(0);" onclick="FQTD.DisplayDirection(' + isEmpty(checkImage(locations[i][0])) + ',' + isEmpty(checkImage(locations[i][1])) + ')" class="lienket"><strong>Đường đi</strong></a></p></div></div>';
             }
-
             // Replace old content with new content
             $('#subList').html(newcontent);
 
@@ -597,11 +594,11 @@ var FQTD = (function () {
         },
         SetupWatermarkValidationContactus: function () {
             //watermark
-            $("#CustomerName").watermark("Nhập họ tên của bạn");
-            $("#Phone").watermark("Nhập số điện thoại của bạn");
-            $("#Email").watermark("Nhập email của bạn");
-            $("#ContactTitle").watermark("Nhập tiêu đề liên lạc");
-            $("#ContactContent").watermark("Nhập nội dung liên lạc");
+            //$("#CustomerName").watermark("Nhập họ tên của bạn");
+            //$("#Phone").watermark("Nhập số điện thoại của bạn");
+            //$("#Email").watermark("Nhập email của bạn");
+            //$("#ContactTitle").watermark("Nhập tiêu đề liên lạc");
+            //$("#ContactContent").watermark("Nhập nội dung liên lạc");
             //validate
             $('#CustomerName').closest('form').validate({
                 onChange: true,

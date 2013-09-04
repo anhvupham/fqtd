@@ -4,9 +4,11 @@
     ViewBag.Title = "Chính sách bảo mật";
     Layout = "~/Views/Shared/MasterSub.cshtml";   
 }
-<div id="content_subdetail">
-    <div id="noidungchinh">
-        <h1>Ch&iacute;nh s&aacute;ch bảo mật</h1>
-        @Html.Raw(Model.SystemContent)
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>Ch&iacute;nh s&aacute;ch bảo mật</h1>
+            @Html.Raw(Model.SystemContent)
+        </div>
     </div>
 </div>

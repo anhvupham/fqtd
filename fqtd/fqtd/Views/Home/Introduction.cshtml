@@ -5,9 +5,11 @@
     Layout = "~/Views/Shared/MasterSub.cshtml";   
 }
 
-<div id="content_home">
-    <div id="noidungchinh">
-        <h1>Giới thiệu</h1>
-        @Html.Raw(Model.SystemContent)
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>Giới thiệu</h1>
+            @Html.Raw(Model.SystemContent)
+        </div>
     </div>
 </div>

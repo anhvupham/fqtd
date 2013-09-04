@@ -19,36 +19,36 @@
     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDTNlc8mcX8hdGZpkkPK1NXVq1PJY1zYs0&sensor=false"></script>
 </head>
 <body>
-    <header>
-        <div class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a href="/">
-                        <img src="/images/logo_small1.png" class="img-responsive" />
-                    </a>
+    <div id="wrapper">
+        <header>
+            <div class="navbar navbar-default navbar-static-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a href="/">
+                            <img src="/images/logo_small1.png" class="img-responsive" />
+                        </a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/">Trang chủ</a></li>
+                            <li><a href="~/home/introduction">Giới thiệu</a></li>
+                            <li><a href="~/home/termandconditionofuse">Điều khoản sử dụng</a></li>
+                            <li><a href="~/home/policy">Chính sách bảo mật</a></li>
+                            <li><a href="~/home/contactus">Liên hệ</a></li>
+                        </ul>
+                    </div>
+                    <!--/.nav-collapse -->
                 </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/">Trang chủ</a></li>
-                        <li><a href="~/home/introduction">Giới thiệu</a></li>
-                        <li><a href="~/home/termandconditionofuse">Điều khoản sử dụng</a></li>
-                        <li><a href="~/home/policy">Chính sách bảo mật</a></li>
-                        <li><a href="~/home/contactus">Liên hệ</a></li>
-                    </ul>
-                </div>
-                <!--/.nav-collapse -->
             </div>
-        </div>
-    </header>
-
-    @RenderSection("featured", required: false)
-    @RenderBody()
-
+        </header>
+        @RenderSection("featured", required: false)
+        @RenderBody()
+    </div>
     <footer>
         <div id="footer">
             <div class="container">
