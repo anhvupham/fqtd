@@ -59,7 +59,7 @@ body, html {
 /*******end header********/
 /*******carrousel******/
 .carousel .item {
-    height: 300px;
+    height: 370px;
     text-align: center;
     padding-top: 100px;
 }
@@ -91,6 +91,11 @@ body, html {
 
 .locationicon {
     margin-left: -20px;
+}
+
+.glyphicon-chevron-right, .glyphicon-chevron-left {
+    left: 0!important;
+    right: 0;
 }
 /*******end carrousel******/
 #wrapperResult {
@@ -295,8 +300,14 @@ input {
     text-align: center;
 }
 
+@media (max-width:768px) {
+    .object {
+        text-align: center;
+    }
+}
+
 .object {
-    margin-bottom: 25px;   
+    margin-bottom: 25px;
 }
 
     .object h2 {
@@ -339,7 +350,7 @@ input {
 }
 
 .paging {
-    text-align: center;   
+    text-align: center;
 }
 
 .filterbtn {

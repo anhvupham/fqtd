@@ -60,7 +60,11 @@ var FQTD = (function () {
     }
 
     function encodeItemName(value) {
-        return encodeURIComponent(value.replace(".", "_").replace("/", "_").replace("\"", "_"));
+        return encodeURIComponent(value.replace(".", "_").replace("/", ",").replace("\"", "_"));
+    }
+
+    function validateNumber(value) {
+        return $.isNumeric(value)
     }
 
     return {
@@ -216,7 +220,7 @@ var FQTD = (function () {
             var newcontent = '';
             // Iterate through a selection of the content and build an HTML string
             for (var i = page_index * items_per_page; i < max_elem; i++) {
-                newcontent += '<div class="row object"><div class="col-sm-2 col-xs-12"><a href="/detail/' + isEmpty(locations[i][7]) + '/' + encodeItemName(isEmpty(locations[i][3])) + '" target="_blank"><img id="photo" width="150" src="' + isEmpty(checkImage(locations[i][6])) + '" class="img-responsive" /></a></div><div class="col-sm-10 col-xs-12"><h2><a href="/detail/' + isEmpty(locations[i][7]) + '/' + encodeItemName(isEmpty(locations[i][3])) + '" target="_blank">' + (isEmpty(locations[i][3])) + '</a></h2>'
+                newcontent += '<div class="row object"><div class="col-sm-2 col-xs-12"><a href="/detail/' + isEmpty(locations[i][7]) + '/' + encodeItemName(isEmpty(locations[i][3])) + '" target="_blank"><img id="photo" width="150" src="' + isEmpty(checkImage(locations[i][6])) + '" /></a></div><div class="col-sm-10 col-xs-12"><h2><a href="/detail/' + isEmpty(locations[i][7]) + '/' + encodeItemName(isEmpty(locations[i][3])) + '" target="_blank">' + (isEmpty(locations[i][3])) + '</a></h2>'
                     + '<p>Địa chỉ : ' + isEmpty(locations[i][4]) + '<br/>Điện thoại : ' + isEmpty(locations[i][5]) + '</p><p><a href="/detail/' + isEmpty(locations[i][7]) + '/' + encodeItemName(isEmpty(locations[i][3])) + '" target="_blank"><strong>Xem chi tiết</strong></a>'
                     + ' | <a href="javascript:void(0);" onclick="FQTD.DisplayDirection(' + isEmpty(checkImage(locations[i][0])) + ',' + isEmpty(checkImage(locations[i][1])) + ')" class="lienket"><strong>Đường đi</strong></a></p></div></div>';
             }
@@ -241,8 +245,8 @@ var FQTD = (function () {
             //Get data result            
             var urlResult = "/result/search?";
             urlResult += "mode=" + $("#form").val();
-            urlResult += "&keyword=" + decrypt($("#search").val());
-            urlResult += "&currentLocation=" + decrypt($("#address").val());
+            urlResult += "&keyword=" + ($("#search").val());
+            urlResult += "&currentLocation=" + ($("#address").val());
             urlResult += "&categoryid=" + $("#category").val();
             urlResult += "&brandid=" + $("#brand").val();
             urlResult += "&radious=" + $("#range").val();
@@ -559,7 +563,7 @@ var FQTD = (function () {
         },
         HideLoading: function () {
             $("#loading").addClass("hidden");
-        },        
+        },
         Sticker: function () {
             var s = $("#cactienich");
             var pos = s.position();
@@ -615,17 +619,17 @@ var FQTD = (function () {
         },
         SubmitForm: function () {
             //direct to result page
-            var address = $('#address').val() != "" ? encrypt($('#address').val()) : "0"
-            var type = $(".carousel-indicators").find('.active').attr('data-slide-to')
+            var address = $('#address').val() != "" ? encodeItemName($('#address').val()) : "0"
+            var type = $(".carousel-indicators").find('.active').attr('data-slide-to') == "1" ? "1" : "0"
             var range = $('#range').val() != "" ? $('#range').val() : "0"
             var category = $('#category').val() != "" ? $('#category').val() : "0"
             var brand = $('#brand').val() != "" ? $('#brand').val() : "0"
-            var search = $('#search').val() != "" ? encrypt($('#search').val()) : "0"
+            var search = $('#search').val() != "" ? encodeItemName($('#search').val()) : "0"
 
             if (type == "0" && search == "0") return false;
 
-            if (type == "1" && (address == "0" || brand == "0" || range == "0")) return false;
-
+            if (type == "1" && (address == "0" || brand == "0" || range == "0" || validateNumber(range) == false)) return false; 
+                        
             window.location.href = "result/index/" + type + "/" + category + "/" + brand + "/" + range + "/" + address + "/" + search
         },
         ShowMoreDescription: function () {
