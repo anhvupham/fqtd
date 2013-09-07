@@ -88,7 +88,7 @@ namespace fqtd.Controllers
                          select new
                          {
                              i.ItemID,
-                             ItemName=i.ItemName.ToUpper(),
+                             ItemName = i.ItemName.ToUpper(),
                              i.FullAddress,
                              i.Phone,
                              i.Website,
@@ -165,7 +165,7 @@ namespace fqtd.Controllers
                              i.Phone,
                              i.Website,
                              i.OpenTime,
-                             ItemName_EN=i.ItemName_EN.ToUpper(),
+                             ItemName_EN = i.ItemName_EN.ToUpper(),
                              i.Description,
                              i.Description_EN,
                              i.Longitude,
@@ -229,7 +229,7 @@ namespace fqtd.Controllers
                              join b in db.BrandItems on i.BrandID equals b.BrandID
                              where items.Contains(i.PropertyID)// >= 0
                              select new { b.ItemID }).Distinct();
-            
+
             var brands = from i in db.BrandItems
                          join br in db.Brands on i.BrandID equals br.BrandID
                          join c in db.Categories on br.CategoryID equals c.CategoryID
@@ -239,7 +239,7 @@ namespace fqtd.Controllers
                          select new
                          {
                              i.ItemID,
-                             ItemName=i.ItemName.ToUpper(),
+                             ItemName = i.ItemName.ToUpper(),
                              i.FullAddress,
                              i.Phone,
                              i.Website,
@@ -261,7 +261,7 @@ namespace fqtd.Controllers
                 brands = from i in brands
                          join ip in brandlist on i.ItemID equals ip.ItemID
                          select i;
-            
+
             JsonNetResult jsonNetResult = new JsonNetResult();
             jsonNetResult.Formatting = Formatting.Indented;
             jsonNetResult.Data = from a in brands
@@ -273,7 +273,7 @@ namespace fqtd.Controllers
             return jsonNetResult;
         }
 
-        [OutputCache(CacheProfile = "Aggressive", VaryByParam = "mode;keyword;currentLocation;categoryid;brandid;radious;properties;vn0_en1", Location = System.Web.UI.OutputCacheLocation.Client)]        
+        [OutputCache(CacheProfile = "Aggressive", VaryByParam = "mode;keyword;currentLocation;categoryid;brandid;radious;properties;vn0_en1", Location = System.Web.UI.OutputCacheLocation.Client)]
         public ActionResult Search(int mode = 0, string keyword = "", string currentLocation = "", int categoryid = -1, int brandid = -1, int radious = 1, string properties = "", int vn0_en1 = 0)
         {
             ViewBag.Mode = mode;
@@ -299,7 +299,7 @@ namespace fqtd.Controllers
             JsonNetResult jsonNetResult = new JsonNetResult();
             if (mode == 0)//search basic
             {
-                jsonNetResult= ItemByKeyword(ref sHis, keyword, properties, vn0_en1 );
+                jsonNetResult = ItemByKeyword(ref sHis, keyword, properties, vn0_en1);
             }
             else // advance search 
             {
@@ -322,8 +322,8 @@ namespace fqtd.Controllers
             var bitem = db.BrandItems.Find(itemID);
             if (bitem != null)
             {
-                if(bitem.ClickCount.HasValue)
-                bitem.ClickCount += 1;
+                if (bitem.ClickCount.HasValue)
+                    bitem.ClickCount += 1;
                 else bitem.ClickCount = 1;
                 db.Entry(bitem).State = System.Data.EntityState.Modified;
                 db.SaveChanges();
@@ -337,7 +337,7 @@ namespace fqtd.Controllers
                        {
                            i.ItemID
                            ,
-                            ItemName=i.ItemName.ToUpper()
+                           ItemName = i.ItemName.ToUpper()+ " "+i.AddressNumber+" "+ i.Street
                            ,
                            ItemName_EN = i.ItemName_EN.ToUpper()
                           ,
@@ -376,10 +376,10 @@ namespace fqtd.Controllers
             jsonNetResult.Formatting = Formatting.Indented;
 
             var result = from a in item
-                         select new { a.ItemID, a.ItemName, a.BrandName, CategoryName= a.CategoryName, a.Description, a.Longitude, a.Latitude, a.FullAddress, a.Phone, a.Website, a.OpenTime, a.ClickCount, a.SearchCount };
+                         select new { a.ItemID, a.ItemName, a.BrandName, CategoryName = a.CategoryName, a.Description, a.Longitude, a.Latitude, a.FullAddress, a.Phone, a.Website, a.OpenTime, a.ClickCount, a.SearchCount };
             if (vn0_en1 == 1)
                 result = from a in item
-                         select new { a.ItemID, ItemName = a.ItemName_EN, BrandName = a.BrandName_EN, CategoryName= a.CategoryName_EN, Description = a.Description_EN, a.Longitude, a.Latitude, a.FullAddress, a.Phone, a.Website, a.OpenTime, a.ClickCount, a.SearchCount };
+                         select new { a.ItemID, ItemName = a.ItemName_EN, BrandName = a.BrandName_EN, CategoryName = a.CategoryName_EN, Description = a.Description_EN, a.Longitude, a.Latitude, a.FullAddress, a.Phone, a.Website, a.OpenTime, a.ClickCount, a.SearchCount };
             Dictionary<string, object> list = new Dictionary<string, object>();
             list.Add("ItemDetail", result);
             var temp = item.FirstOrDefault();
@@ -406,10 +406,8 @@ namespace fqtd.Controllers
                                  Logo = path + "/" + br.Logo
                              };
             list.Add("RelateList", relateList.OrderBy(t => Guid.NewGuid()).Take(5));
-            var items = from i in db.BrandItems
+            var items = from i in GetSameCategory(temp.BrandID)
                         join br in db.Brands on i.BrandID equals br.BrandID
-                        join ca in db.Categories on br.CategoryID equals ca.CategoryID
-                        where i.ItemID != itemID && br.CategoryID == temp.CategoryID && i.BrandID != temp.BrandID
                         select new
                         {
                             i.ItemID
@@ -427,54 +425,73 @@ namespace fqtd.Controllers
             list.Add("SameCategoryList", items.OrderBy(t => Guid.NewGuid()).Take(5));
             var properties = from a in db.SP_Item_Properties(temp.ItemID)
                              select new { a.PropertyID, a.PropertyValue, PropertyName = vn0_en1 == 0 ? a.PropertyName : a.PropertyName_EN };
-            if(properties.Where(a=>a.PropertyValue).Count()==0)
-                list.Add("PropertyList",db.SP_Brand_Properties(temp.BrandID));
+            if (properties.Where(a => a.PropertyValue).Count() == 0)
+                list.Add("PropertyList", db.SP_Brand_Properties(temp.BrandID));
             else list.Add("PropertyList", properties);
             jsonNetResult.Data = list;
-            
+
             return jsonNetResult;
         }
 
+        private List<BrandItems> GetSameCategory(int brandid)
+        {
+            var brand = db.Brands.Find(brandid);
+            List<BrandItems> items = new List<BrandItems>();
+            var brands = db.Brands.Where(a => a.IsActive & a.CategoryID == brand.CategoryID && a.BrandID != brandid).OrderBy(t => Guid.NewGuid()).Take(5);
+            foreach(var b in brands)
+            {
+                items.Add(db.BrandItems.Where(a => a.IsActive && a.BrandID == b.BrandID).OrderBy(t => Guid.NewGuid()).Take(1).FirstOrDefault());
+            }
+            return items;
+        }
         private object GetImageList(int ItemID)
         {
-
-            List<string> images = new List<string>();
-            var item = db.BrandItems.Find(ItemID);
-            if (item == null) return images;
-            string path = ConfigurationManager.AppSettings["ItemImageLocation"] + "\\" + ItemID;
-            path = Server.MapPath(path);
-            if (Directory.Exists(path))
+            try
             {
-                string[] files = Directory.GetFiles(path);
-
-                foreach (string s in files)
+                List<string> images = new List<string>();
+                var item = db.BrandItems.Find(ItemID);
+                if (item == null) return images;
+                string path = ConfigurationManager.AppSettings["ItemImageLocation"] + "\\" + ItemID;
+                path = Server.MapPath(path);
+                if (Directory.Exists(path))
                 {
-                    string filename = Path.GetFileName(s);
-                    System.IO.File.Move(s, s.Replace(" ", "_").Replace("-", "_"));
-                    if (filename.ToLower().IndexOf(".jpg") >= 0 || filename.ToLower().IndexOf(".png") >= 0 || filename.ToLower().IndexOf(".gif") >= 0)
-                        images.Add(ConfigurationManager.AppSettings["ItemImageLocation"].Replace("~", "") + "/" + ItemID + "/" + filename.Replace(" ", "_").Replace("-", "_"));
+                    string[] files = Directory.GetFiles(path);
 
+                    foreach (string s in files)
+                    {
+                        string filename = Path.GetFileName(s);
+                        if (s != s.Replace(" ", "_").Replace("-", "_"))
+                        {
+                            System.IO.File.Move(s, s.Replace(" ", "_").Replace("-", "_"));
+
+                        }
+                        if (filename.ToLower().IndexOf(".jpg") >= 0 || filename.ToLower().IndexOf(".png") >= 0 || filename.ToLower().IndexOf(".gif") >= 0)
+                            images.Add(ConfigurationManager.AppSettings["ItemImageLocation"].Replace("~", "") + "/" + ItemID + "/" + filename.Replace(" ", "_").Replace("-", "_"));
+
+                    }
                 }
-            }
-            path = ConfigurationManager.AppSettings["BrandImageLocation"] + "\\" + item.BrandID;
-            path = Server.MapPath(path);
-            if (Directory.Exists(path))
-            {
-                string[] files = Directory.GetFiles(path);
-
-                foreach (string s in files)
+                path = ConfigurationManager.AppSettings["BrandImageLocation"] + "\\" + item.BrandID;
+                path = Server.MapPath(path);
+                if (Directory.Exists(path))
                 {
-                    string filename = Path.GetFileName(s);
-                    System.IO.File.Move(s, s.Replace(" ", "_").Replace("-", "_"));
-                    if (filename.ToLower().IndexOf(".jpg") >= 0 || filename.ToLower().IndexOf(".png") >= 0 || filename.ToLower().IndexOf(".gif") >= 0)
-                        images.Add(ConfigurationManager.AppSettings["BrandImageLocation"].Replace("~", "") + "/" + item.BrandID + "/" + filename.Replace(" ", "_").Replace("-", "_"));
+                    string[] files = Directory.GetFiles(path);
 
+                    foreach (string s in files)
+                    {
+                        string filename = Path.GetFileName(s);
+                        if (s != s.Replace(" ", "_").Replace("-", "_"))
+                        System.IO.File.Move(s, s.Replace(" ", "_").Replace("-", "_"));
+                        if (filename.ToLower().IndexOf(".jpg") >= 0 || filename.ToLower().IndexOf(".png") >= 0 || filename.ToLower().IndexOf(".gif") >= 0)
+                            images.Add(ConfigurationManager.AppSettings["BrandImageLocation"].Replace("~", "") + "/" + item.BrandID + "/" + filename.Replace(" ", "_").Replace("-", "_"));
+
+                    }
                 }
+                return images;
             }
-            return images;
+            catch { return null; }
         }
 
-        [OutputCache(CacheProfile = "Aggressive", VaryByParam = "StringInput", Location = System.Web.UI.OutputCacheLocation.Server)]        
+        [OutputCache(CacheProfile = "Aggressive", VaryByParam = "StringInput", Location = System.Web.UI.OutputCacheLocation.Server)]
         public ActionResult GetKeyword4Autocomplete(string StringInput)
         {
             var items = db.BrandItems.Where(a => a.Keyword.Length > 0);

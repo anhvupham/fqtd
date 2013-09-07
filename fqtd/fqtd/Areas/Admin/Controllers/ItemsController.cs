@@ -60,12 +60,21 @@ namespace fqtd.Areas.Admin.Controllers
             TempData["CurrentPage"] = page;
             return View(result.ToPagedList(currentPage, maxRecords));
         }
-
+        public ActionResult GetStreet()
+        {
+            var items = (from a in db.BrandItems select a.Street).Distinct();
+            
+            JsonNetResult jsonNetResult = new JsonNetResult();
+            jsonNetResult.Formatting = Formatting.Indented;
+            jsonNetResult.Data = items;
+            return jsonNetResult;
+        }
         //
         // GET: /Admin/Items/Details/5
         [Authorize]
         public ActionResult Details(int id = 0)
         {
+            
             BrandItems branditems = db.BrandItems.Find(id);
             if (branditems == null)
             {

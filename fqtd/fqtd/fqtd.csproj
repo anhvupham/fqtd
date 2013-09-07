@@ -692,6 +692,13 @@
     <Content Include="Images\close.png" />
     <Content Include="Images\next.png" />
     <Content Include="Images\prev.png" />
+    <Content Include="Scripts\autocomplete\content\countries.txt" />
+    <Content Include="Scripts\autocomplete\content\styles.css" />
+    <Content Include="Scripts\autocomplete\demo.js" />
+    <Content Include="Scripts\autocomplete\jquery-1.8.2.min.js" />
+    <Content Include="Scripts\autocomplete\jquery.mockjax.js" />
+    <Content Include="Scripts\autocomplete\src\jquery.autocomplete.d.ts" />
+    <Content Include="Scripts\autocomplete\src\jquery.autocomplete.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Views\Home\ContactUs.cshtml" />
     <Content Include="Areas\Admin\Views\ContactUs\Edit.cshtml" />

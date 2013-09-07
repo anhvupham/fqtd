@@ -63,7 +63,7 @@
         </div>
 
         <div class="editor-label">
-           Brand
+            Brand
         </div>
         <div class="editor-field">
             @Html.DropDownList("BrandID", String.Empty)
@@ -82,28 +82,28 @@
             @Html.LabelFor(model => model.AddressNumber)
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.AddressNumber, "", new { onchange="buildAddress()"})
+            @Html.TextBoxFor(model => model.AddressNumber, "", new { onchange = "buildAddress()" })
             @Html.ValidationMessageFor(model => model.AddressNumber)
         </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.Street)
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.Street, "", new { onchange="buildAddress()"})
+            @Html.TextBoxFor(model => model.Street, "", new { onchange = "buildAddress()" })
             @Html.ValidationMessageFor(model => model.Street)
         </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.District)
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.District, "", new { onchange="buildAddress()"})
+            @Html.TextBoxFor(model => model.District, "", new { onchange = "buildAddress()", value = "Quận " })
             @Html.ValidationMessageFor(model => model.District)
         </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.City)
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.City, "", new { onchange="buildAddress()"})
+            @Html.TextBoxFor(model => model.City, "", new { onchange = "buildAddress()" })
             @Html.ValidationMessageFor(model => model.City)
         </div>
         <div class="editor-label">
@@ -152,9 +152,20 @@
 <div>
     @Html.ActionLink("Back to List", "Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] })
 </div>
+
+   <script src="~/Scripts/jquery-1.9.1.js"></script>
+
+    <script src="~/Scripts/bootstrap.js"></script>
+
+    <script src="~/Scripts/jquery-ui-1.10.3.js"></script>
+
+    <script src="~/Scripts/plugin.js"></script>
+
+    <script src="~/Scripts/utils.js"></script>
+<link href="~/Content/themes/base/jquery.ui.autocomplete.css" rel="stylesheet"/>
+<link href="~/Content/themes/base/jquery.ui.theme.css" rel="stylesheet"/>
 <script>
-    function buildAddress()
-    {
+    function buildAddress() {
         //alert("cu");
         var number = $("#AddressNumber").val();
         var street = $("#Street").val();
@@ -165,8 +176,19 @@
         $("#FullAddress").val(fullAddress);
     }
 
+    jQuery(document).ready(function ($) {
+
+        var urlResult = "GetStreet";
+            //alert(urlResult);
+        var result = $.getJSON(urlResult, null, function (items) {
+            ///alert(items),
+            $("#Street").autocomplete({
+                source: items
+            })
+        });
+    });
 </script>
 @section Scripts {
-    
+
     @Scripts.Render("~/bundles/jqueryval")
 }
