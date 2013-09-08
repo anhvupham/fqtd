@@ -60,7 +60,14 @@ var FQTD = (function () {
     }
 
     function encodeItemName(value) {
-        return encodeURIComponent(value.replace(".", "_").replace("/", ",").replace("\"", "_"));
+        //return encodeURIComponent(value.replace(".", "_").replace("/", ",").replace("\"", "*"));
+        value = value.replace(/\ /g, '+').replace(/\//g, "^").replace(/\\/g, "*");
+        return encodeURIComponent(value);
+    }
+
+    function decodeItemName(value) {
+        value = decodeURIComponent(value)
+        return value.replace(/\+/g, ' ').replace(/\^/g, "/").replace(/\*/g, '\\');
     }
 
     function validateNumber(value) {
@@ -220,7 +227,7 @@ var FQTD = (function () {
             var newcontent = '';
             // Iterate through a selection of the content and build an HTML string
             for (var i = page_index * items_per_page; i < max_elem; i++) {
-                newcontent += '<div class="row object"><div class="col-sm-2 col-xs-12"><a href="/detail/' + isEmpty(locations[i][7]) + '/' + encodeItemName(isEmpty(locations[i][3])) + '" target="_blank"><img id="photo" width="150" src="' + isEmpty(checkImage(locations[i][6])) + '" /></a></div><div class="col-sm-10 col-xs-12"><h2><a href="/detail/' + isEmpty(locations[i][7]) + '/' + encodeItemName(isEmpty(locations[i][3])) + '" target="_blank">' + (isEmpty(locations[i][3])) + '</a></h2>'
+                newcontent += '<div class="row object"><div class="col-sm-2 col-xs-12"><a href="/detail/' + isEmpty(locations[i][7]) + '/' + encodeItemName(isEmpty(locations[i][3])) + '" target="_blank"><img id="photo" width="150" class="img-responsive" src="' + isEmpty(checkImage(locations[i][6])) + '" /></a></div><div class="col-sm-10 col-xs-12"><h2><a href="/detail/' + isEmpty(locations[i][7]) + '/' + encodeItemName(isEmpty(locations[i][3])) + '" target="_blank">' + (isEmpty(locations[i][3])) + '</a></h2>'
                     + '<p>Địa chỉ : ' + isEmpty(locations[i][4]) + '<br/>Điện thoại : ' + isEmpty(locations[i][5]) + '</p><p><a href="/detail/' + isEmpty(locations[i][7]) + '/' + encodeItemName(isEmpty(locations[i][3])) + '" target="_blank"><strong>Xem chi tiết</strong></a>'
                     + ' | <a href="javascript:void(0);" onclick="FQTD.DisplayDirection(' + isEmpty(checkImage(locations[i][0])) + ',' + isEmpty(checkImage(locations[i][1])) + ')" class="lienket"><strong>Đường đi</strong></a></p></div></div>';
             }
@@ -245,8 +252,8 @@ var FQTD = (function () {
             //Get data result            
             var urlResult = "/result/search?";
             urlResult += "mode=" + $("#form").val();
-            urlResult += "&keyword=" + ($("#search").val());
-            urlResult += "&currentLocation=" + ($("#address").val());
+            urlResult += "&keyword=" + decodeItemName($("#search").val());
+            urlResult += "&currentLocation=" + decodeItemName($("#address").val());
             urlResult += "&categoryid=" + $("#category").val();
             urlResult += "&brandid=" + $("#brand").val();
             urlResult += "&radious=" + $("#range").val();
@@ -292,7 +299,7 @@ var FQTD = (function () {
             if (locations.length > 0) {
                 FQTD.yesRecord()
                 if ($("#form").val() == "1") {
-                    var address = decrypt($("#address").val());
+                    var address = decodeItemName($("#address").val());
                     var geocoder = new google.maps.Geocoder();
                     if (geocoder) {
                         geocoder.geocode({ 'address': address }, function (results, status, content) {
@@ -628,8 +635,10 @@ var FQTD = (function () {
 
             if (type == "0" && search == "0") return false;
 
-            if (type == "1" && (address == "0" || brand == "0" || range == "0" || validateNumber(range) == false)) return false; 
-                        
+            if (type == "1" && (address == "0" || brand == "0" || range == "0" || validateNumber(range) == false)) return false;
+            //console.log(search)
+            //console.log(decodeItemName(search))
+            //return false;
             window.location.href = "result/index/" + type + "/" + category + "/" + brand + "/" + range + "/" + address + "/" + search
         },
         ShowMoreDescription: function () {
@@ -769,6 +778,7 @@ var FQTD = (function () {
                         //$("#tendiadiem").html("<h1>" + object.ItemDetail[0].ItemName + "</h1>")
                         $("#txtaddress").html(object.ItemDetail[0].FullAddress)
                         $("#txtphone").html(object.ItemDetail[0].Phone)
+                        $("#txtopentime").html(object.ItemDetail[0].OpenTime)
                         $("#txtcategory").html(object.ItemDetail[0].CategoryName)
                         $("#txtopentime").html(object.ItemDetail[0].OpenTime)
                         if (isEmpty(object.ItemDetail[0].Latitude) != "" && isEmpty(object.ItemDetail[0].Longitude) != "") {
@@ -809,11 +819,12 @@ var FQTD = (function () {
                         for (var i = 0; i < object.ItemImages.length; i += 2) {
                             if (object.ItemImages[i]) {
                                 var hidden = "";
-                                if (i == object.SameCategoryList.length - 1)
-                                    hidden = "hidden-sm";
+                                //if (i == object.ItemImages.length - 1)
+                                //    hidden = "hidden-sm";
                                 if (object.ItemImages[i]) imagegallery += "<div class='col-md-6 col-xs-12 col-sm-3 " + hidden + "'><a href='" + object.ItemImages[i] + "' data-lightbox='imagegallery' title='Hình ảnh chỉ mang tính chất minh họa'><img src='" + object.ItemImages[i] + "' class='img-responsive'/></a></div>"
-                                if (i != object.SameCategoryList.length - 1)
+                                if (i != object.ItemImages.length - 1) {
                                     if (object.ItemImages[i + 1]) imagegallery += "<div class='col-md-6 col-xs-12 col-sm-3'><a href='" + object.ItemImages[i + 1] + "' data-lightbox='imagegallery' title='Hình ảnh chỉ mang tính chất minh họa'><img src='" + object.ItemImages[i + 1] + "' class='img-responsive'/></a></div>"
+                                }
                             }
                         }
                     }
@@ -825,8 +836,8 @@ var FQTD = (function () {
                         for (var i = 0; i < object.SameCategoryList.length; i++) {
                             if (object.SameCategoryList[i]) {
                                 var hidden = "";
-                                if (i == object.SameCategoryList.length - 1)
-                                    hidden = "hidden-sm";
+                                //if (i == object.SameCategoryList.length - 1)
+                                //    hidden = "hidden-sm";
                                 samecategoryList += "<div class='col-sm-3 col-md-12 record " + hidden + "'><div class='col-md-5 col-sm-12 col-xs-12'><a href='/detail/" + object.SameCategoryList[i].ItemID + "/" + encodeItemName(object.SameCategoryList[i].ItemName) + "'><img class='samecategorylogo img-responsive' src='" + object.SameCategoryList[i].Logo + "' /></a></div><div class='col-md-7 col-sm-12 col-xs-12'>" + object.SameCategoryList[i].ItemName + "<br /><a href='/detail/" + object.SameCategoryList[i].ItemID + "/" + encodeItemName(object.SameCategoryList[i].ItemName) + "' class='chitiet'>Chi tiết</a><img src='/images/bullet_grey.png' /></div></div>"
                             }
                         }

@@ -11,21 +11,21 @@
 <input id="form" type="hidden" value="@ViewBag.form" />
 <input id="NumberOfIntemShow" type="hidden" value="@ViewBag.NumberOfIntemShow" />
 <input id="NumberOfIntemAddmore" type="hidden" value="@ViewBag.NumberOfIntemAddmore" />
-
+<div id="menu">
+    <p id="tabMap" class="active">
+        Bản đồ                    
+    </p>
+    <p id="tabList" class="inactive">
+        Danh sách
+    </p>
+</div>
+<div id="list" class="hidden">
+</div>
 <div id="content_result">
-    <div id="menu">
-        <p id="tabMap" class="active">
-            Bản đồ                    
-        </p>
-        <p id="tabList" class="inactive">
-            Danh sách
-        </p>
-    </div>
     <div id="noidungresult">
         <div id="map" class="hidden">
         </div>
-        <div id="list" class="hidden">
-        </div>
+
         <div id="loading">
             <img src="/images/loading.gif" />
         </div>
@@ -37,7 +37,7 @@
                 <div id="property">
                 </div>
                 <div class="filter">
-                    <div class="buttonGrey filterbtn" id="btn_filter" >Tìm</div>
+                    <div class="buttonGrey filterbtn" id="btn_filter">Tìm</div>
                 </div>
                 <div class="clearfix"></div>
             </div>
