@@ -97,6 +97,38 @@ body, html {
     left: 0!important;
     right: 0;
 }
+
+.ferrari {
+    width: 37px !important;
+    height: 50px !important;
+    background: url(../images/ferrari_horse.png) -37px 0;
+    background-color: transparent !important;
+    border: none !important;
+    border-radius: 0px !important;
+    margin: 0px !important;
+}
+
+.carousel-indicators {
+    position: inherit;
+    width: 100%;
+    left: 0;
+    right: 0;
+    margin-left: 0;
+}
+
+    .carousel-indicators .active {
+        background-position: 2px 0;
+    }
+
+.lamborghini {
+    width: 37px !important;
+    height: 50px !important;
+    background: url(../images/lamborghini_bull.png) -37px 0;
+    background-color: transparent !important;
+    border: none !important;
+    border-radius: 0px !important;
+    margin: 0px !important;
+}
 /*******end carrousel******/
 #wrapperResult {
     margin: 0 auto;

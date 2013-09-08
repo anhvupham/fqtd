@@ -62,11 +62,11 @@ var FQTD = (function () {
     function encodeItemName(value) {
         //return encodeURIComponent(value.replace(".", "_").replace("/", ",").replace("\"", "*"));
         value = value.replace(/\ /g, '+').replace(/\//g, "^").replace(/\\/g, "*");
-        return encodeURIComponent(value);
+        return (value);
     }
 
     function decodeItemName(value) {
-        value = decodeURIComponent(value)
+        value = (value)
         return value.replace(/\+/g, ' ').replace(/\^/g, "/").replace(/\*/g, '\\');
     }
 
