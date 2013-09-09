@@ -337,7 +337,7 @@ namespace fqtd.Controllers
                        {
                            i.ItemID
                            ,
-                           ItemName = i.ItemName.ToUpper()+ " "+i.AddressNumber+" "+ i.Street
+                           ItemName = i.ItemName.ToUpper()//+ " "+i.AddressNumber+" "+ i.Street
                            ,
                            ItemName_EN = i.ItemName_EN.ToUpper()
                           ,
