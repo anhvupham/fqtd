@@ -446,7 +446,7 @@ var FQTD = (function () {
             //$("#search").watermark("Nhập thông tin tìm kiếm");
             //$("#range").watermark("Nhập bán kính");
             $("#input-category").watermark("Chọn lĩnh vực");
-            $("#input-brand").watermark("Chọn tên quán");
+            $("#input-brand").watermark("Chọn địa điểm");
             $("#form1").validate({
                 onChange: true,
                 sendFormPost: false,
