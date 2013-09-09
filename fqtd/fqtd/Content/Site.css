@@ -772,7 +772,7 @@ input {
     top: 0;
     left: 0;
     cursor: default;
-    max-height: 150px;
+    max-height: 200px;
     overflow-y: auto;
     /* prevent horizontal scrollbar */
     overflow-x: hidden;
@@ -780,6 +780,7 @@ input {
     background-color: #606060;
     color: white;
     padding: 5px;
+    z_index: 50;
 }
 
 .ui-menu-item .ui-state-focus {
