@@ -61,13 +61,13 @@ var FQTD = (function () {
 
     function encodeItemName(value) {
         //return encodeURIComponent(value.replace(".", "_").replace("/", ",").replace("\"", "*"));
-        value = value.replace(/\ /g, '+').replace(/\//g, "^").replace(/\\/g, "*");
+        value = value.replace(/\ /g, '_').replace(/\//g, "^").replace(/\\/g, "*");
         return (value);
     }
 
     function decodeItemName(value) {
         value = (value)
-        return value.replace(/\+/g, ' ').replace(/\^/g, "/").replace(/\*/g, '\\');
+        return value.replace(/\_/g, ' ').replace(/\^/g, "/").replace(/\*/g, '\\');
     }
 
     function validateNumber(value) {
