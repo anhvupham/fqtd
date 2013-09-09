@@ -43,10 +43,10 @@ namespace fqtd.Controllers
             JsonNetResult jsonNetResult = new JsonNetResult();
             jsonNetResult.Formatting = Formatting.Indented;
             if (vn0_en1 == 0)
-                jsonNetResult.Data = from a in db.SP_Category_Properties(id)
+                jsonNetResult.Data = from a in db.SP_Category_Properties(id).OrderBy(a=>a.PropertyName)
                                      select new { a.PropertyID, a.PropertyName, a.Description };
             if (vn0_en1 == 1)
-                jsonNetResult.Data = from a in db.SP_Category_Properties(id)
+                jsonNetResult.Data = from a in db.SP_Category_Properties(id).OrderBy(a => a.PropertyName_EN)
                                      select new { a.PropertyID, PropertyName = a.PropertyName_EN, a.Description };
 
             return jsonNetResult;

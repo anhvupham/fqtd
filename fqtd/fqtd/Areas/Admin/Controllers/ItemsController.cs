@@ -26,9 +26,9 @@ namespace fqtd.Areas.Admin.Controllers
         // GET: /Admin/Items/
         //[OutputCache(CacheProfile = "Aggressive", VaryByParam = "page;keyword;CategoryID;BrandID", Location = System.Web.UI.OutputCacheLocation.Client)]
         [Authorize]
-        public ActionResult Index(string sortOrder="",string keyword = "", int? CategoryID = null, int? BrandID = null, int page = 1)
+        public ActionResult Index(string sortOrder = "", string keyword = "", int? CategoryID = null, int? BrandID = null, int page = 1)
         {
-            
+
             var result = from a in db.BrandItems where (a.ItemName.Contains(keyword) || a.ItemName_EN.Contains(keyword)) select a;
             if (CategoryID != null)
                 result = result.Where(a => a.tbl_Brands.CategoryID == CategoryID);
@@ -38,7 +38,7 @@ namespace fqtd.Areas.Admin.Controllers
             ViewBag.ItemName = sortOrder == "ItemName" ? "ItemName desc" : "ItemName";
             ViewBag.BrandName = sortOrder == "tbl_Brands.BrandName" ? "tbl_Brands.BrandName desc" : "tbl_Brands.BrandName";
 
-            if(sortOrder=="")
+            if (sortOrder == "")
                 result = result.OrderBy("ItemName");
             else result = result.OrderBy(sortOrder);
             ViewBag.CurrentSortOrder = sortOrder;
@@ -62,10 +62,25 @@ namespace fqtd.Areas.Admin.Controllers
         }
         public ActionResult GetStreet()
         {
-            var items = (from a in db.BrandItems select a.Street).Distinct();
-            
+            var items = (from a in db.BrandItems where a.Street != null select a.Street).Distinct();
             JsonNetResult jsonNetResult = new JsonNetResult();
-            jsonNetResult.Formatting = Formatting.Indented;
+            jsonNetResult.Formatting = Formatting.None;
+            jsonNetResult.Data = items;
+            return jsonNetResult;
+        }
+        public ActionResult GetDistrict()
+        {
+            var items = (from a in db.BrandItems where a.District != null select a.District).Distinct();
+            JsonNetResult jsonNetResult = new JsonNetResult();
+            jsonNetResult.Formatting = Formatting.None;
+            jsonNetResult.Data = items;
+            return jsonNetResult;
+        }
+        public ActionResult GetCity()
+        {
+            var items = (from a in db.BrandItems where a.City != null select a.City).Distinct();
+            JsonNetResult jsonNetResult = new JsonNetResult();
+            jsonNetResult.Formatting = Formatting.None;
             jsonNetResult.Data = items;
             return jsonNetResult;
         }
@@ -74,7 +89,7 @@ namespace fqtd.Areas.Admin.Controllers
         [Authorize]
         public ActionResult Details(int id = 0)
         {
-            
+
             BrandItems branditems = db.BrandItems.Find(id);
             if (branditems == null)
             {
@@ -336,8 +351,8 @@ namespace fqtd.Areas.Admin.Controllers
                           i.tbl_Brands.BrandName_EN,
                           i.tbl_Brands.tbl_Categories.CategoryName,
                           i.tbl_Brands.tbl_Categories.CategoryName_EN,
-                          BrandKeyword=i.tbl_Brands.Keyword_Unsign,
-                          CategoryKeyword=i.tbl_Brands.tbl_Categories.Keyword_Unsign,
+                          BrandKeyword = i.tbl_Brands.Keyword_Unsign,
+                          CategoryKeyword = i.tbl_Brands.tbl_Categories.Keyword_Unsign,
                           i.FullAddress,
                           i.Street,
                           i.District,
@@ -355,7 +370,7 @@ namespace fqtd.Areas.Admin.Controllers
                 keyword += ";" + item.FullAddress;
                 keyword += ";" + item.ItemName_EN;
                 keyword += ";" + item.BrandName;
-                keyword += ";" + (item.BrandName_EN==null?"":item.BrandName_EN);
+                keyword += ";" + (item.BrandName_EN == null ? "" : item.BrandName_EN);
                 keyword += ";" + item.CategoryName;
                 keyword += ";" + item.CategoryName_EN;
 
@@ -449,7 +464,7 @@ namespace fqtd.Areas.Admin.Controllers
 
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
             ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName");
-            return RedirectToAction("index",  new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] });
+            return RedirectToAction("index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] });
         }
 
         public static string StripDiacritics(string accented)

@@ -18,6 +18,9 @@
     @Html.HiddenFor(model => model.CreateUser)
     @Html.HiddenFor(model => model.IsActive)
     @Html.HiddenFor(model => model.MarkerIcon)
+    @Html.HiddenFor(model => model.SearchCount)
+    @Html.HiddenFor(model => model.ClickCount)
+    @Html.HiddenFor(model => model.Keyword)
 
 @* <fieldset>
         <legend>Item Infos</legend>*@
@@ -91,28 +94,28 @@
         @Html.LabelFor(model => model.AddressNumber)
     </div>
     <div class="editor-field">
-            @Html.TextBoxFor(model => model.AddressNumber, "", new { onchange="buildAddress()"})
+            @Html.TextBoxFor(model => model.AddressNumber, "", new { onchange = "buildAddress()" })
         @Html.ValidationMessageFor(model => model.AddressNumber)
     </div>
     <div class="editor-label">
         @Html.LabelFor(model => model.Street)
     </div>
     <div class="editor-field">
-            @Html.TextBoxFor(model => model.Street, "", new { onchange="buildAddress()"})
+            @Html.TextBoxFor(model => model.Street, "", new { onchange = "buildAddress()" })
         @Html.ValidationMessageFor(model => model.Street)
     </div>
     <div class="editor-label">
         @Html.LabelFor(model => model.District)
     </div>
     <div class="editor-field">
-            @Html.TextBoxFor(model => model.District, "", new { onchange="buildAddress()"})
+            @Html.TextBoxFor(model => model.District, "", new { onchange = "buildAddress()" })
         @Html.ValidationMessageFor(model => model.District)
     </div>
     <div class="editor-label">
         @Html.LabelFor(model => model.City)
     </div>
     <div class="editor-field">
-            @Html.TextBoxFor(model => model.City, "", new { onchange="buildAddress()"})
+            @Html.TextBoxFor(model => model.City, "", new { onchange = "buildAddress()" })
         @Html.ValidationMessageFor(model => model.City)
     </div>
     <div class="editor-label">
@@ -160,6 +163,9 @@
     </p>@*
     </fieldset>*@
 }
+<script src="~/Scripts/jquery-1.9.1.js"></script>
+<script src="~/Scripts/jquery-ui-1.10.3.js"></script> 
+    @Styles.Render("~/Content/themes/base/autocomplete")
 <script>
     function buildAddress() {
         //alert("cu");
@@ -167,11 +173,35 @@
         var street = $("#Street").val();
         var district = $("#District").val();
         var city = $("#City").val();
-        var fullAddress = number + ", " + street + ", " + district + ", " + city;
+        var fullAddress = number + " " + street + ", " + district + ", " + city;
         //alert(fullAddress);
         $("#FullAddress").val(fullAddress);
     }
+    jQuery(document).ready(function ($) {
 
+        var urlResult = "../GetStreet";
+        //alert(urlResult);
+        var result = $.getJSON(urlResult, null, function (items) {
+            $("#Street").autocomplete({
+                source: items
+            });
+        });
+
+        urlResult = "../GetDistrict";
+        //alert(urlResult);
+        var result = $.getJSON(urlResult, null, function (items) {
+            $("#District").autocomplete({
+                source: items
+            });
+        });
+        urlResult = "../GetCity";
+        //alert(urlResult);
+        var result = $.getJSON(urlResult, null, function (items) {
+            $("#City").autocomplete({
+                source: items
+            });
+        });
+    });
 </script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

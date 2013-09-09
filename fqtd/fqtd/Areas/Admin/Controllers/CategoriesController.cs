@@ -42,9 +42,11 @@ namespace fqtd.Areas.Admin.Controllers
             JsonNetResult jsonNetResult = new JsonNetResult();
             jsonNetResult.Formatting = Formatting.Indented;
             jsonNetResult.Data = from a in categories
+                                 orderby a.CategoryName
                                  select new { a.CategoryID, a.CategoryName };
             if (vn0_en1 == 1)
                 jsonNetResult.Data = from a in categories
+                                     orderby a.CategoryName_EN
                                      select new { a.CategoryID, CategoryName = a.CategoryName_EN };
 
             return jsonNetResult;

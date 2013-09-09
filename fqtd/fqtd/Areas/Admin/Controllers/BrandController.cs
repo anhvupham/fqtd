@@ -45,9 +45,11 @@ namespace fqtd.Areas.Admin.Controllers
             JsonNetResult jsonNetResult = new JsonNetResult();
             jsonNetResult.Formatting = Formatting.Indented;
             jsonNetResult.Data = from a in brands
+                                 orderby a.BrandName
                                  select new { a.BrandID, a.BrandName, a.Description };
             if (vn0_en1 == 1)
                 jsonNetResult.Data = from a in brands
+                                     orderby a.BrandName_EN
                                      select new { a.BrandID, BrandName = a.BrandName_EN, Description = a.Description_EN };
             return jsonNetResult;
         }
@@ -64,9 +66,11 @@ namespace fqtd.Areas.Admin.Controllers
             JsonNetResult jsonNetResult = new JsonNetResult();
             jsonNetResult.Formatting = Formatting.Indented;
             jsonNetResult.Data = from a in brands
+                                 orderby a.BrandName
                                  select new { a.BrandID, a.BrandName, a.Description };
             if (vn0_en1 == 1)
                 jsonNetResult.Data = from a in brands
+                                     orderby a.BrandName_EN
                                      select new { a.BrandID, BrandName = a.BrandName_EN, Description = a.Description_EN };
 
             return jsonNetResult;
@@ -106,7 +110,7 @@ namespace fqtd.Areas.Admin.Controllers
         public ActionResult Create(Brands brands, HttpPostedFileBase icon, HttpPostedFileBase logo)
         {
             if (db.Brands.Where(a => a.IsActive && (a.BrandName == brands.BrandName || a.BrandName_EN == brands.BrandName_EN)).Count() > 0)
-            {                
+            {
                 ModelState.AddModelError("BrandName", "Already Exists Brand name");
             }
             else if (ModelState.IsValid)
@@ -114,7 +118,7 @@ namespace fqtd.Areas.Admin.Controllers
                 brands.IsActive = true;
                 brands.CreateDate = DateTime.Now;
                 brands.CreateUser = User.Identity.Name;
-                string filesPath = "", full_path = "", full_path_logo="";
+                string filesPath = "", full_path = "", full_path_logo = "";
                 if (icon != null)
                 {
                     char DirSeparator = System.IO.Path.DirectorySeparatorChar;
@@ -136,7 +140,7 @@ namespace fqtd.Areas.Admin.Controllers
                 {
                     string filename = brands.BrandID + "_" + icon.FileName.Replace(" ", "_").Replace("-", "_");
                     brands.MarkerIcon = filename;// FileUpload.UploadFile(icon, filename, full_path);
-                    System.IO.File.Move(Path.Combine(full_path,icon.FileName), Path.Combine(full_path,filename));
+                    System.IO.File.Move(Path.Combine(full_path, icon.FileName), Path.Combine(full_path, filename));
                     db.Entry(brands).State = EntityState.Modified;
                     db.SaveChanges();
                 }
@@ -205,9 +209,9 @@ namespace fqtd.Areas.Admin.Controllers
 
                 db.Entry(brands).State = EntityState.Modified;
                 db.SaveChanges();
-                if (marker + "" != "" && marker!=null)
+                if (marker + "" != "" && marker != null)
                     FileUpload.DeleteFile(marker, full_path);
-                if (oldlogo + "" != "" && logo!=null)
+                if (oldlogo + "" != "" && logo != null)
                     FileUpload.DeleteFile(oldlogo, full_path_logo);
 
                 if (icon != null)
@@ -226,7 +230,7 @@ namespace fqtd.Areas.Admin.Controllers
                     db.Entry(brands).State = EntityState.Modified;
                     db.SaveChanges();
                 }
-                Console.Write(TempData["CurrentKeyword"]+"-"+TempData["CurrentPage"]);
+                Console.Write(TempData["CurrentKeyword"] + "-" + TempData["CurrentPage"]);
                 return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] });
             }
             ViewBag.CategoryID = new SelectList(db.Categories.Where(a => a.IsActive), "CategoryID", "CategoryName", brands.CategoryID);
@@ -238,7 +242,7 @@ namespace fqtd.Areas.Admin.Controllers
         // GET: /Admin/Brands/Delete/5
 
 
-        
+
 
         [Authorize]
         public ActionResult Delete(int id = 0)
@@ -426,11 +430,11 @@ namespace fqtd.Areas.Admin.Controllers
         [Authorize]
         public ActionResult DeleteImage(int id, string image)
         {
-            image = image.Replace("../","");
+            image = image.Replace("../", "");
 
             string FilesPath = ConfigurationManager.AppSettings["BrandImageLocation"];
             string full_path = Server.MapPath(FilesPath);
-            FilesPath = Path.Combine(full_path,id+"\\"+image.Substring(image.LastIndexOf('/')+1));
+            FilesPath = Path.Combine(full_path, id + "\\" + image.Substring(image.LastIndexOf('/') + 1));
             if (System.IO.File.Exists(FilesPath))
             {
                 System.IO.File.Delete(FilesPath);

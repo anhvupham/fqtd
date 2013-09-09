@@ -8,11 +8,13 @@ $(function () {
 
     // Load countries then initialize plugin:
     $.ajax({
-        url: '../../scripts/autocomplete/content/countries.txt',
+        //url: '../../scripts/autocomplete/content/countries.txt',
+        url: 'getstreet',
         dataType: 'json'
     }).done(function (source) {
 
         var countriesArray = $.map(source, function (value, key) { return { value: value, data: key }; }),
+        //var countriesArray = $.map(source, function (value) { return { value: value}; }),
             countries = $.map(source, function (value) { return value; });
 
         // Setup jQuery ajax mock:
@@ -38,7 +40,7 @@ $(function () {
 
         // Initialize ajax autocomplete:
         $('#Street').autocomplete({
-            // serviceUrl: '/autosuggest/service/url',
+             //serviceUrl: 'admin/items/getstreet',
             lookup: countriesArray,
             lookupFilter: function(suggestion, originalQuery, queryLowerCase) {
                 var re = new RegExp('\\b' + $.Autocomplete.utils.escapeRegExChars(queryLowerCase), 'gi');
