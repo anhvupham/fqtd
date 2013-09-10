@@ -780,7 +780,7 @@ input {
     background-color: #606060;
     color: white;
     padding: 5px;
-    z_index: 50;
+    z-index: 50;
 }
 
 .ui-menu-item .ui-state-focus {
@@ -865,8 +865,12 @@ textarea {
     background-color: #fff;
 }
 
-.noResultText {
-    margin-top: 57px !important;
+#map .noResultText {
+    margin-top: 57px;
+    text-align: center;
+}
+
+.noResultText {    
     text-align: center;
 }
 

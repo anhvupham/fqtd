@@ -576,13 +576,15 @@ var FQTD = (function () {
             var pos = s.position();
             $(window).scroll(function () {
                 var windowpos = $(window).scrollTop();
-                if (windowpos >= pos.top) {
+                if (windowpos > pos.top) {
                     s.removeClass("nostick");
                     s.addClass("stick");
                 } else {
                     s.removeClass("stick");
                     s.addClass("nostick");
                 }
+                console.log(windowpos)
+                console.log(pos.top)
             });
         },
         GetPropertyValue: function () {
