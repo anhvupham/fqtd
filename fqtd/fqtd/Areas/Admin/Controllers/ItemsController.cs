@@ -48,8 +48,8 @@ namespace fqtd.Areas.Admin.Controllers
             ViewBag.CurrentPage = page;
             ViewBag.CurrentCategoryID = CategoryID;
             ViewBag.CurrentBrandID = BrandID;
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
-            ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName");
+            ViewBag.CategoryID = new SelectList(db.Categories.Where(a => a.IsActive).OrderBy(a => a.CategoryName), "CategoryID", "CategoryName");
+            ViewBag.BrandID = new SelectList(db.Brands.Where(a => a.IsActive).OrderBy(a => a.BrandName), "BrandID", "BrandName");
             //ViewBag.Users = new SelectList(Roles.GetUsersInRole("Admin"));
 
 
@@ -103,7 +103,7 @@ namespace fqtd.Areas.Admin.Controllers
         [Authorize]
         public ActionResult Create()
         {
-            ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName");
+            ViewBag.BrandID = new SelectList(db.Brands.Where(a => a.IsActive).OrderBy(a => a.BrandName), "BrandID", "BrandName");
             return View();
         }
 
@@ -143,7 +143,7 @@ namespace fqtd.Areas.Admin.Controllers
                 return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] });
             }
 
-            ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName", branditems.BrandID);
+            ViewBag.BrandID = new SelectList(db.Brands.Where(a => a.IsActive).OrderBy(a => a.BrandName), "BrandID", "BrandName", branditems.BrandID);
             return View(branditems);
         }
 
@@ -157,7 +157,7 @@ namespace fqtd.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName", branditems.BrandID);
+            ViewBag.BrandID = new SelectList(db.Brands.Where(a => a.IsActive).OrderBy(a => a.BrandName), "BrandID", "BrandName", branditems.BrandID);
             return View(branditems);
         }
 
@@ -197,7 +197,7 @@ namespace fqtd.Areas.Admin.Controllers
                 }
                 return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] });
             }
-            ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName", branditems.BrandID);
+            ViewBag.BrandID = new SelectList(db.Brands.Where(a => a.IsActive).OrderBy(a => a.BrandName), "BrandID", "BrandName", branditems.BrandID);
             return View(branditems);
         }
 
@@ -210,7 +210,7 @@ namespace fqtd.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName", branditems.BrandID);
+            ViewBag.BrandID = new SelectList(db.Brands.Where(a=>a.IsActive).OrderBy(a=>a.BrandName), "BrandID", "BrandName", branditems.BrandID);
             return View(branditems);
         }
 
@@ -248,7 +248,7 @@ namespace fqtd.Areas.Admin.Controllers
                 return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] });
             }
 
-            ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName", branditems.BrandID);
+            ViewBag.BrandID = new SelectList(db.Brands.Where(a => a.IsActive).OrderBy(a => a.BrandName), "BrandID", "BrandName", branditems.BrandID);
             return View(branditems);
         }
 

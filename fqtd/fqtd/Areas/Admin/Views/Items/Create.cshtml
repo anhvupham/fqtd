@@ -163,13 +163,13 @@
 <script>
     function buildAddress() {
         //alert("cu");
-        var number = $("#AddressNumber").val();
-        var street = $("#Street").val();
-        var district = $("#District").val();
-        var city = $("#City").val();
+        var number = $("#AddressNumber").val().trim();
+        var street = $("#Street").val().trim();
+        var district = $("#District").val().trim();
+        var city = $("#City").val().trim();
         var fullAddress = number + " " + street + ", " + district + ", " + city;
         //alert(fullAddress);
-        $("#FullAddress").val(fullAddress);
+        $("#FullAddress").val(fullAddress.replace(', ,',','));
     }
 
     jQuery(document).ready(function ($) {
