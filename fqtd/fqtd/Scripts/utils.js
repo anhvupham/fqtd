@@ -434,7 +434,7 @@ var FQTD = (function () {
             //Bind data to select box Brand
             var urlBrand = "/admin/brand/BrandsByCategory";
             $.getJSON(urlBrand + "?id=-1", null, function (brands) {
-                $("#brand").append('<option value="-1">Tất cả</option>');
+                //$("#brand").append('<option value="-1">Tất cả</option>');
                 for (i in brands) {
                     $("#brand").append('<option value="' + brands[i].BrandID + '">' + brands[i].BrandName + '</option>');;
                 }
