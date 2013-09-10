@@ -902,9 +902,10 @@ div.less {
     font-family: utm_bebasregular;
     font-size: 32px;
 }
-/********************
-*   Mobile Styles   *
-********************/
+
+.contactus .caption{
+	margin-bottom:30px;
+}
 
 
 /* iCheck plugin Square skin, black
