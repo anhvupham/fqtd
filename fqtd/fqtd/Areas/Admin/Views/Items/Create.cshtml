@@ -167,6 +167,7 @@
         var street = $("#Street").val().trim();
         var district = $("#District").val().trim();
         var city = $("#City").val().trim();
+        if (city == 'Hồ Chí Minh') city = 'TP. Hồ Chí Minh';
         var fullAddress = number + " " + street + ", " + district + ", " + city;
         //alert(fullAddress);
         $("#FullAddress").val(fullAddress.replace(', ,',','));
