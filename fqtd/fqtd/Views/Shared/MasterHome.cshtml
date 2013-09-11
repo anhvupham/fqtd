@@ -18,7 +18,15 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div id="wrapper">
+    <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+    <div id="wrapperHomepage">
         <header>
             <div class="navbar navbar-default navbar-static-top">
                 <div class="container">
@@ -48,6 +56,11 @@
         @RenderSection("featured", required: false)
         @RenderBody()
     </div>
+    <div id="facebook">
+        <div class="fb-like" data-href="@ViewBag.URL" 
+    data-send="false" data-width="260">
+        </div>
+    </div>
     <footer>
         <div id="footer">
             <div class="container">
@@ -55,7 +68,7 @@
             </div>
         </div>
     </footer>
-
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDTNlc8mcX8hdGZpkkPK1NXVq1PJY1zYs0&sensor=false&libraries=places"></script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrapjs")
     @Scripts.Render("~/bundles/jqueryui")

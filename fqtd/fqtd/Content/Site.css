@@ -130,15 +130,6 @@ body, html {
     margin: 0px !important;
 }
 /*******end carrousel******/
-#wrapperResult {
-    margin: 0 auto;
-    overflow: hidden;
-    position: relative;
-    /*height:auto !important;  real browsers */
-    height: 100%; /* IE6: treaded as min-height*/
-    min-height: 100%; /* real browsers */
-}
-
 #wrapper {
     min-height: 100%;
     height: auto !important;
@@ -146,7 +137,17 @@ body, html {
     /* Negative indent footer by its height */
     margin: 0 auto -40px;
     /* Pad bottom by footer height */
-    padding: 0 0 60px;
+    padding: 0 0 40px;
+}
+
+#wrapperHomepage {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    /* Negative indent footer by its height */
+    margin: 0 auto -110px;
+    /* Pad bottom by footer height */
+    padding: 0 0 110px;
 }
 
 #footer {
@@ -163,8 +164,7 @@ body, html {
     min-height: 27px;   
     width:100%;
     text-align: left;
-    position: absolute;
-    bottom: 42px;
+    position: relative;
     padding-left: 5px;
     padding-bottom: 5px;
 }

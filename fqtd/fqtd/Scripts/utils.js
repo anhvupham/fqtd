@@ -211,8 +211,8 @@ var FQTD = (function () {
 
         },
         noRecord: function () {
-            $("#list").html("<p class='noResultText'>Thông tin Search hiện chưa cập nhật. Vui lòng tìm lại sau.</p>");
-            $("#map").html("<p class='noResultText'>Thông tin Search hiện chưa cập nhật. Vui lòng tìm lại sau.</p>");
+            $("#list").html("<p class='noResultText'>Thông tin tìm kiếm của bạn hiện không có trong cơ sở dữ liệu của chúng tôi. Vui lòng tìm lại sau.</p>");
+            $("#map").html("<p class='noResultText'>Thông tin tìm kiếm của bạn hiện không có trong cơ sở dữ liệu của chúng tôi. Vui lòng tìm lại sau.</p>");
             FQTD.displayMap();
         },
         yesRecord: function () {
@@ -420,7 +420,7 @@ var FQTD = (function () {
 
             //check to display button more
             if (listMarker.length <= NumberOfIntemShow) $("#btn_xemthemMap").addClass("hidden")
-        },
+        },        
         BindSelectCategory: function () {
             //Bind data to select box Category
             var urlCategory = "/admin/categories/Categories";
@@ -441,12 +441,9 @@ var FQTD = (function () {
             });
         },
         SetupWatermarkValidationHomepage: function () {
-            //watermark and validation
-            //$("#address").watermark("Nhập địa chỉ hiện tại của bạn hoặc sử dụng chức năng định vị bên cạnh");
-            //$("#search").watermark("Nhập thông tin tìm kiếm");
-            //$("#range").watermark("Nhập bán kính");
-            $("#input-category").watermark("Chọn lĩnh vực");
-            $("#input-brand").watermark("Chọn địa điểm");
+            //watermark and validation           
+            $("#input-category").attr("placeholder", "Chọn lĩnh vực");
+            $("#input-brand").attr("placeholder", "Chọn địa điểm");
             $("#form1").validate({
                 onChange: true,
                 sendFormPost: false,
@@ -605,13 +602,7 @@ var FQTD = (function () {
             limit = 0;
             infobox = null;
         },
-        SetupWatermarkValidationContactus: function () {
-            //watermark
-            //$("#CustomerName").watermark("Nhập họ tên của bạn");
-            //$("#Phone").watermark("Nhập số điện thoại của bạn");
-            //$("#Email").watermark("Nhập email của bạn");
-            //$("#ContactTitle").watermark("Nhập tiêu đề liên lạc");
-            //$("#ContactContent").watermark("Nhập nội dung liên lạc");
+        SetupWatermarkValidationContactus: function () {           
             //validate
             $('#CustomerName').closest('form').validate({
                 onChange: true,

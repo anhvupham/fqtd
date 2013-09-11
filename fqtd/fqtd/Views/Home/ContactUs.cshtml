@@ -1,7 +1,9 @@
 ﻿@model fqtd.Areas.Admin.Models.ContactUS
 
 @{
-    ViewBag.Title = "Contact US";
+    ViewBag.Title = "Liên hệ";
+    ViewBag.keywords = System.Configuration.ConfigurationManager.AppSettings["metakeywords"];
+    ViewBag.description = System.Configuration.ConfigurationManager.AppSettings["metakeydescription"];
     Layout = "~/Views/Shared/MasterSub.cshtml";  
 }
 <div class="container contactus">

@@ -2,23 +2,16 @@
     ViewBag.Title = "Trang chủ";
     Layout = "~/Views/Shared/MasterHome.cshtml";
 }
-<div id="fb-root"></div>
-<script>(function (d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+
 <div class="container">
-    <div id="myCarousel" class="carousel slide">       
+    <div id="myCarousel" class="carousel slide">
         <div class="carousel-inner">
             <div class="item active">
                 <form id="form1" action="result" method="get" role="form">
-                     <div class="row homepagerow">
+                    <div class="row homepagerow">
                         <div class="col-md-2 col-xs-1">
                         </div>
-                        <div class="col-md-8 col-xs-10">                            
+                        <div class="col-md-8 col-xs-10">
                         </div>
                         <div class="col-md-2 col-xs-1">
                         </div>
@@ -101,22 +94,14 @@
         <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
         <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
     </div>
-</div>
-<ul class="hidden" id="index">
-    <li class="active"><a href="JavaScript:void(0);">&nbsp;</a></li>
-    <li><a href="JavaScript:void(0);">&nbsp;</a></li>
-</ul>
-<div id="facebook">
-    <div class="fb-like" data-href="@ViewBag.URL" 
-    data-send="false" data-width="260">
+    <div class="alert alert-warning fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+        <strong>Chào mừng bạn đến với Tìmđâu.vn !</strong> Bạn có thể dùng chức năng bên trái (biểu tượng con ngựa) để tìm 1 đia điểm bất kì. Hoặc dùng chức năng bên phải (biểu tượng con bò) để tìm những đia điểm xung quanh mình theo lĩnh vực.
     </div>
 </div>
-@*<div class="notice">
-    <marquee behavior="scroll" direction="left" scrollamout="5">Sắp ra mắt giao diện mobile.</marquee>
-</div>*@
+
 @section scripts
- {
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDTNlc8mcX8hdGZpkkPK1NXVq1PJY1zYs0&sensor=false&libraries=places"></script>
+ {    
     <script>
         jQuery(document).ready(function ($) {
             FQTD.initHomepage();
