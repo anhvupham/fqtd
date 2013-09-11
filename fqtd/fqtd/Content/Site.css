@@ -160,7 +160,7 @@ body, html {
 }
 
 #facebook {
-    height: 27px;   
+    min-height: 27px;   
     width:100%;
     text-align: left;
     position: absolute;
