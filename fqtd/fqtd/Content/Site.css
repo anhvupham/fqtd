@@ -145,7 +145,7 @@ body, html {
     height: auto !important;
     height: 100%;
     /* Negative indent footer by its height */
-    margin: 0 auto -110px;
+    margin: 0 auto -78px;
     /* Pad bottom by footer height */
     padding: 0 0 110px;
 }
@@ -161,13 +161,17 @@ body, html {
 }
 
 #facebook {
-    min-height: 27px;   
-    width:100%;
+    min-height: 27px;
+    width: 100%;
     text-align: left;
     position: relative;
     padding-left: 5px;
     padding-bottom: 5px;
 }
+
+    #facebook .fb_iframe_widget, #facebook .fb_iframe_widget span, #facebook .fb_iframe_widget span iframe[style] {
+        width: auto;
+    }
 
 .notice {
     height: 20px;
@@ -870,7 +874,7 @@ textarea {
     text-align: center;
 }
 
-.noResultText {    
+.noResultText {
     text-align: center;
 }
 
@@ -897,9 +901,9 @@ div.less {
     text-align: center;
 }
 
-.fb_iframe_widget, .fb_iframe_widget span, .fb_iframe_widget span iframe[style] {
-    width: 100% !important;
-}
+    .facebook .fb_iframe_widget, .facebook .fb_iframe_widget span, .facebook .fb_iframe_widget span iframe[style] {
+        width: 100% !important;
+    }
 
 .container h1 {
     color: #202020;
@@ -907,8 +911,8 @@ div.less {
     font-size: 32px;
 }
 
-.contactus .caption{
-	margin-bottom:30px;
+.contactus .caption {
+    margin-bottom: 30px;
 }
 
 
@@ -1242,8 +1246,8 @@ body:after {
     width: 100%;
     height: 34px;
     background: #fff !important;
-	font-size: 14px !important;
-	padding-left: 10px;
+    font-size: 14px !important;
+    padding-left: 10px;
 }
 
 .ui-icon {
