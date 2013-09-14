@@ -11,7 +11,7 @@ namespace fqtd.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.URL = Request.Url.OriginalString;
+            ViewBag.URL = Request.Url.AbsoluteUri;
             ViewBag.keywords = ConfigurationManager.AppSettings["metakeywords"];
             ViewBag.description = ConfigurationManager.AppSettings["metakeydescription"];
             return View("Index");

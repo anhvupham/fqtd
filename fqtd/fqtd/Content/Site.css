@@ -65,15 +65,17 @@ body, html {
 }
 
 .carousel-control {
-    width: 10%;
+    width: 30px;
 }
 
     .carousel-control.left {
         background-image: none;
+        filter:none;
     }
 
     .carousel-control.right {
         background-image: none;
+        filter:none;
     }
 
 .glyphicon {

@@ -14,7 +14,7 @@ namespace fqtd.Controllers
         private fqtdEntities db = new fqtdEntities();
         public ActionResult Index()
         {
-            ViewBag.URL = ConfigurationManager.AppSettings["fbURL"];
+            ViewBag.URL = Request.Url.AbsoluteUri;
             ViewBag.keywords = ConfigurationManager.AppSettings["metakeywords"];
             ViewBag.description = ConfigurationManager.AppSettings["metakeydescription"];
             return View("Index");

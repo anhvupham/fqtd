@@ -74,6 +74,31 @@ var FQTD = (function () {
         return $.isNumeric(value)
     }
 
+    function handleNoGeolocation(errorFlag) {
+        var mapOptions = {
+            zoom: 6,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        map = new google.maps.Map(document.getElementById('googleMap'),
+            mapOptions);
+
+
+        if (errorFlag) {
+            var content = 'Xin vui lòng bật chức năng định vị, như vậy chúng tôi có thể tìm những địa điểm gần bạn nhất.';
+        } else {
+            var content = 'Trình duyệt của bạn không hỗ trợ chức năng định vị. Vui lòng truy cập vào <<http://caniuse.com/geolocation>> để biết thêm chi tiết.';
+        }
+
+        var options = {
+            map: map,
+            position: new google.maps.LatLng(60, 105),
+            content: content
+        };
+
+        var infowindow = new google.maps.InfoWindow(options);
+        map.setCenter(options.position);
+    }
+
     return {
         BindPropertyData: function () {
             //Bind data to checkbox
@@ -324,25 +349,35 @@ var FQTD = (function () {
                     //set map display first
                     FQTD.displayMap()
                 }
-                else {
+                else if ($("#form").val() == "0") {
                     if (navigator.geolocation) {
                         // Get current position
                         navigator.geolocation.getCurrentPosition(function (position, status) {
                             var geocoder = new google.maps.Geocoder();
-                            myplace = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-                            //add distance to array and sort array by distance
-                            FQTD.SortArray()
+                            if (geocoder) {
+                                myplace = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
+                                //add distance to array and sort array by distance
+                                FQTD.SortArray()
+
+                                //bind list
+                                FQTD.Pagination()
+
+                                //bind marker to map
+                                FQTD.SetupMap(myplace, locations, 12, $("#form").val());
+                            }
+                            else {
+                                console.log("Geocode không hoạt động vì lí do sau: " + status);
+                            }
+                        }, function () {
+                            handleNoGeolocation(true);
                             //bind list
                             FQTD.Pagination()
-
-                            //bind marker to map
-                            FQTD.SetupMap(myplace, locations, 12, $("#form").val());
                         });
                     }
                     else {
-                        alert("Xin vui lòng bật chức năng định vị, như vậy chúng tôi có thể tìm những địa điểm gần bạn nhất.");
+                        alert("Trình duyệt của bạn không hỗ trợ chức năng định vị. Vui lòng truy cập vào <<http://caniuse.com/geolocation>> để biết thêm chi tiết.");
                         //set default location is Hue (middle of Vietnam)
                         myplace = new google.maps.LatLng(16.46346, 107.58470);
 
@@ -420,7 +455,7 @@ var FQTD = (function () {
 
             //check to display button more
             if (listMarker.length <= NumberOfIntemShow) $("#btn_xemthemMap").addClass("hidden")
-        },        
+        },
         BindSelectCategory: function () {
             //Bind data to select box Category
             var urlCategory = "/admin/categories/Categories";
@@ -441,9 +476,14 @@ var FQTD = (function () {
             });
         },
         SetupWatermarkValidationHomepage: function () {
-            //watermark and validation           
-            $("#input-category").attr("placeholder", "Chọn lĩnh vực");
-            $("#input-brand").attr("placeholder", "Chọn địa điểm");
+            //watermark and validation
+            $("#address").watermark("Nhập địa chỉ hiện tại của bạn hoặc sử dụng chức năng định vị bên cạnh");
+            $("#search").watermark("Nhập tên hoặc địa chỉ địa điểm tìm kiếm");
+            $("#range").watermark("Nhập bán kính (mét)");
+            $("#input-category").watermark("Chọn lĩnh vực");
+            $("#input-brand").watermark("Chọn địa điểm");
+            //$("#input-category").attr("placeholder", "Chọn lĩnh vực");
+            //$("#input-brand").attr("placeholder", "Chọn địa điểm");
             $("#form1").validate({
                 onChange: true,
                 sendFormPost: false,
@@ -497,14 +537,15 @@ var FQTD = (function () {
                                     $("#address").val(results[0].formatted_address);
                                 }
                                 else {
-                                    console.log("Geocoding failed: " + status);
+                                    console.log("Geocode không hoạt động vì lí do sau: " + status);
                                 }
                             });
                         }
                     });
                 }
                 else {
-                    alert("Xin vui lòng bật chức năng định vị, như vậy chúng tôi có thể định vị bạn đang ở đâu.");
+                    //do not use handleNoGeolocation because not in map page
+                    alert("Trình duyệt của bạn không hỗ trợ chức năng định vị. Vui lòng truy cập vào <<http://caniuse.com/geolocation>> để biết thêm chi tiết.");
                 };
             });
         },
@@ -602,7 +643,14 @@ var FQTD = (function () {
             limit = 0;
             infobox = null;
         },
-        SetupWatermarkValidationContactus: function () {           
+        SetupWatermarkValidationContactus: function () {
+            //watermark
+            $("#CustomerName").watermark("Nhập họ tên của bạn");
+            $("#Phone").watermark("Nhập số điện thoại của bạn");
+            $("#Email").watermark("Nhập email của bạn");
+            $("#ContactTitle").watermark("Nhập tiêu đề liên lạc");
+            $("#ContactContent").watermark("Nhập nội dung liên lạc");
+
             //validate
             $('#CustomerName').closest('form').validate({
                 onChange: true,
@@ -778,7 +826,8 @@ var FQTD = (function () {
                             $("#staticmap").attr('src', 'http://maps.googleapis.com/maps/api/staticmap?center=' + isEmpty(object.ItemDetail[0].Latitude) + ',' + isEmpty(object.ItemDetail[0].Longitude) + '&zoom=15&size=682x300&maptype=roadmap&markers=color:blue%7Clabel:A%7C' + isEmpty(object.ItemDetail[0].Latitude) + ',' + isEmpty(object.ItemDetail[0].Longitude) + '&sensor=false')
                         }
                         //facebook tags
-                        $('meta[name=og\\:title]').attr('content', object.ItemDetail[0].ItemName);
+                        $('meta[property="og\\:title"]').attr('content', object.ItemDetail[0].ItemName);
+                        $('meta[name="description"]').attr('content', object.ItemDetail[0].Description);
                         //page title
                         document.title = object.ItemDetail[0].ItemName;
                     }
