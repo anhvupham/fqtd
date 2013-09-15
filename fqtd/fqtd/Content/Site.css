@@ -70,12 +70,12 @@ body, html {
 
     .carousel-control.left {
         background-image: none;
-        filter:none;
+        filter: none;
     }
 
     .carousel-control.right {
         background-image: none;
-        filter:none;
+        filter: none;
     }
 
 .glyphicon {
@@ -116,6 +116,7 @@ body, html {
     left: 0;
     right: 0;
     margin-left: 0;
+    margin-top: 15px;
 }
 
     .carousel-indicators .active {
@@ -130,6 +131,12 @@ body, html {
     border: none !important;
     border-radius: 0px !important;
     margin: 0px !important;
+}
+
+#form1 .title, #form2 .title {
+    color: #878787;
+    font-family: utm_bebasregular;
+    font-size: 22px;
 }
 /*******end carrousel******/
 #wrapper {
@@ -658,32 +665,26 @@ input {
     background: url('../images/direction-map-sprite.png') -23px 0;
 }
 
-.infoBox {
-    width: 280px;
-    height: auto;
-    padding: 0 14px;
-    background: url('../images/tipbox.gif') no-repeat #fff;
+
+.gm-style-iw #linkview {
+    float: right;
 }
 
-    .infoBox #linkview {
-        float: right;
+    .gm-style-iw #linkview a {
+        color: #35a018;
+        text-decoration: none;
+        padding-right: 5px;
+        font-family: Tahoma,Verdana,Arial,sans-serif;
+        font-size: 10pt;
     }
 
-        .infoBox #linkview a {
+        .gm-style-iw #linkview a:hover {
             color: #35a018;
-            text-decoration: none;
+            text-decoration: underline;
             padding-right: 5px;
             font-family: Tahoma,Verdana,Arial,sans-serif;
             font-size: 10pt;
         }
-
-            .infoBox #linkview a:hover {
-                color: #35a018;
-                text-decoration: underline;
-                padding-right: 5px;
-                font-family: Tahoma,Verdana,Arial,sans-serif;
-                font-size: 10pt;
-            }
 
 .currentplace {
     font-size: 20px;

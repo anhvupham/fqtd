@@ -1,7 +1,7 @@
 ﻿/*Global variables and functions*/
 
 var FQTD = (function () {
-    var myplace, directionsDisplay, map;
+    var myplace, directionsDisplay, map, infowindow;
     var locations = new Array();
     var limit = 0;
     var infobox;
@@ -122,18 +122,21 @@ var FQTD = (function () {
             });
 
             google.maps.event.addListener(marker, 'click', function () {
-                if (infobox) infobox.close();
-                infobox = new InfoBox({
-                    content: contentPopup,
-                    disableAutoPan: true,
-                    maxWidth: 0,
-                    pixelOffset: new google.maps.Size(-140, 0),
-                    zIndex: null,
-                    closeBoxMargin: "12px 4px 2px 2px",
-                    closeBoxURL: "/images/close.png",
-                    infoBoxClearance: new google.maps.Size(1, 1)
+                if (infowindow) infowindow.close();
+                //infobox = new InfoBox({
+                //    content: contentPopup,
+                //    disableAutoPan: true,
+                //    maxWidth: 0,
+                //    pixelOffset: new google.maps.Size(-140, 0),
+                //    zIndex: null,
+                //    closeBoxMargin: "12px 4px 2px 2px",
+                //    closeBoxURL: "/images/close.png",
+                //    infoBoxClearance: new google.maps.Size(1, 1)
+                //});
+                infowindow = new google.maps.InfoWindow({
+                    content: contentPopup
                 });
-                infobox.open(map, marker);
+                infowindow.open(map, marker);
             });
             marker.setMap(map);
         },
@@ -158,10 +161,12 @@ var FQTD = (function () {
                         FQTD.directionWay(start, latitude, longitude, type, directionsService);
                     }, function (err) {
                         console.warn('ERROR(' + err.code + '): ' + err.message);
+                    }, function () {
+                        alert("Xin vui lòng bật chức năng định vị để chúng tôi tìm được vị trí của bạn.");
                     }, options);
                 }
                 else {
-                    alert("Xin vui lòng bật chức năng định vị, như vậy chúng tôi có thể tìm những địa điểm gần bạn nhất.");
+                    alert("Trình duyệt của bạn không hỗ trợ chức năng định vị. Vui lòng truy cập vào <<http://caniuse.com/geolocation>> để biết thêm chi tiết.");
                 }
             }
         },
@@ -236,8 +241,8 @@ var FQTD = (function () {
 
         },
         noRecord: function () {
-            $("#list").html("<p class='noResultText'>Thông tin tìm kiếm của bạn hiện không có trong cơ sở dữ liệu của chúng tôi. Vui lòng tìm lại sau.</p>");
-            $("#map").html("<p class='noResultText'>Thông tin tìm kiếm của bạn hiện không có trong cơ sở dữ liệu của chúng tôi. Vui lòng tìm lại sau.</p>");
+            $("#list").html("<p class='container noResultText'>Thông tin tìm kiếm của bạn hiện không có trong cơ sở dữ liệu của chúng tôi. Hiện tại chúng tôi chỉ cung cấp các danh mục quán ăn, nhà hàng.<br/> Trong thời gian tới, chúng tôi sẽ ra mắt danh mục Trung tâm thương mại và Vui chơi. Vui lòng tìm lại sau !</p>");
+            $("#map").html("<p class='container noResultText'>Thông tin tìm kiếm của bạn hiện không có trong cơ sở dữ liệu của chúng tôi. Hiện tại chúng tôi chỉ cung cấp các danh mục quán ăn, nhà hàng.<br/> Trong thời gian tới, chúng tôi sẽ ra mắt danh mục Trung tâm thương mại và Vui chơi. Vui lòng tìm lại sau !</p>");
             FQTD.displayMap();
         },
         yesRecord: function () {
@@ -541,6 +546,8 @@ var FQTD = (function () {
                                 }
                             });
                         }
+                    }, function () {
+                        alert("Xin vui lòng bật chức năng định vị để chúng tôi tìm được vị trí của bạn.");
                     });
                 }
                 else {
