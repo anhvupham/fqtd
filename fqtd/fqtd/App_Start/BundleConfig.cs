@@ -14,14 +14,14 @@ namespace fqtd
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-{version}.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jquerymobile").Include(
+                        "~/Scripts/jquery.mobile-{version}.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(                       
                         "~/Scripts/jquery.validate.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/plugin").Include(                        
-                        "~/Scripts/plugin.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/infobox").Include(
-                        "~/Scripts/infobox.js"));
+                        "~/Scripts/plugin.js"));            
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include(
                         "~/Scripts/bootstrap.js"));

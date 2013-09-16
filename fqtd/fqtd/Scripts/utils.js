@@ -202,25 +202,20 @@ var FQTD = (function () {
             }
         },
         hidePanel: function () {
-            $("#hrfClose").bind('click', function () {
-                var options = {};
-                $("#hrfClose").hide("fade", options, 500);
-                $("#tbtable").toggle("slide", options, 500, function () {
-                    var options = {};
-                    $("#hrfOpen").removeClass("hidden");
-                    $("#hrfOpen").show("fade", options, 500);
-                });
-            })
+            $("#panelProp").panel({
+                close: function (event, ui) {
+                    setTimeout(function () {
+                        $("#buttonProp").removeClass("hidden");
+                    }, 500);
+                }
+            });
         },
         showPanel: function () {
-            $("#hrfOpen").bind('click', function () {
-                var options = {};
-                $("#hrfOpen").addClass("hidden");
-                $("#tbtable").toggle("slide", options, 500, function () {
-                    var options = {};
-                    $("#hrfClose").show("fade", options, 500);
-                });
+            $("#buttonProp").bind("click", function () {
+                $("#buttonProp").addClass("hidden");
             })
+
+            $("#panelcontent").removeClass("hidden")
         },
         displayList: function () {
 
@@ -230,6 +225,8 @@ var FQTD = (function () {
             $("#tabList").removeClass("inactive").addClass("active");
             $("#tabMap").removeClass("active").addClass("inactive");
 
+            $("#footer").removeClass("result");
+
         },
         displayMap: function () {
 
@@ -238,6 +235,8 @@ var FQTD = (function () {
 
             $("#tabMap").removeClass("inactive").addClass("active");
             $("#tabList").removeClass("active").addClass("inactive");
+
+            $("#footer").addClass("result");
 
         },
         noRecord: function () {
@@ -713,7 +712,7 @@ var FQTD = (function () {
                 FQTD.ResetData()
                 FQTD.GetPropertyValue()
             })
-            FQTD.Sticker();
+            //FQTD.Sticker();
             FQTD.HideLoading()
         },
         initHomepage: function () {
