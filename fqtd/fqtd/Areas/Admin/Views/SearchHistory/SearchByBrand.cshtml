@@ -1,0 +1,43 @@
+﻿@model IEnumerable<fqtd.Areas.Admin.Models.SP_SearchByBrand_Result>
+
+@{
+    ViewBag.Title = "SearchByBrand";
+}
+<div class="caption">
+    
+    @Html.ActionLink("   List ALL   ", "Index")|
+    @Html.ActionLink("   SearchByMode   ", "SearchByMode")|
+        @Html.ActionLink("SearchByKeyword", "SearchByKeyword")|
+        @Html.ActionLink("SearchByCategory", "SearchByCategory")
+
+</div>
+<h2>SearchByBrand</h2>
+
+<table class="table_list">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BrandName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SearchCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ResultCount)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrandName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SearchCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ResultCount)
+        </td>
+    </tr>
+}
+
+</table>

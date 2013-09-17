@@ -50,6 +50,7 @@ namespace fqtd.Areas.Admin.Models
         public string Latitude { get; set; }
         public string Longitude { get; set; }
         public string District { get; set; }
+        public bool IsShow { get; set; }
     
         public virtual Brands tbl_Brands { get; set; }
         public virtual ICollection<ItemProperties> tbl_Item_Properties { get; set; }

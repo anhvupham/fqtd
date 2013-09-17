@@ -24,5 +24,7 @@
         <label for="@Brand.PropertyID">@Brand.PropertyName</label><br />
     }
     <input id="Submit1" type="submit" value="Submit" />|
+            <input type="submit" value="Save2ImageList" name="Command"/>|
+            <input type="submit" value="Save2Category" name="Command"/>|
     @Html.ActionLink("Back to List", "Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] })
 </form>

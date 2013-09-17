@@ -23,7 +23,7 @@ namespace fqtd.Areas.Admin.Controllers
                 result = result.Where(a => a.CategoryID == CategoryID);
             if (BrandID != null)
                 result = result.Where(a => a.BrandID == BrandID);
-            result = result.OrderBy("SearchTime");
+            result = result.OrderByDescending(a=>a.SearchTime);
             ViewBag.CurrentKeyword = keyword;
             int maxRecords = 20;
             int currentPage = page;
@@ -39,13 +39,50 @@ namespace fqtd.Areas.Admin.Controllers
             //return View(db.SearchHistory.OrderByDescending(a=>a.SearchTime).ToList());
         }
         [Authorize]
-        public ActionResult KeywordHis(int page = 1)
+        public ActionResult SearchByMode(int page = 1)
         {
-            var result = from a in db.SearchHistory
-                         group a by new { a.Keyword } into gr
-                         select new {Keyword= gr.Key.Keyword, SearchCount = gr.Count() };
+            var result = db.SP_SearchByMode();
 
-            result = result.OrderBy("Keyword");
+            //result = result.OrderBy("Keyword");
+            int maxRecords = 20;
+            int currentPage = page;
+            ViewBag.CurrentPage = page;
+            return View(result);//.ToPagedList(currentPage, maxRecords));
+
+            //return View(db.SearchHistory.OrderByDescending(a=>a.SearchTime).ToList());
+        }
+        [Authorize]
+        public ActionResult SearchByBrand(int page = 1)
+        {
+            var result = db.SP_SearchByBrand();
+
+            //result = result.OrderBy("Keyword");
+            int maxRecords = 20;
+            int currentPage = page;
+            ViewBag.CurrentPage = page;
+            return View(result);//.ToPagedList(currentPage, maxRecords));
+
+            //return View(db.SearchHistory.OrderByDescending(a=>a.SearchTime).ToList());
+        }
+        [Authorize]
+        public ActionResult SearchByKeyword(int page = 1)
+        {
+            var result = db.SP_SearchByKeyword();
+
+            //result = result.OrderBy("Keyword");
+            int maxRecords = 20;
+            int currentPage = page;
+            ViewBag.CurrentPage = page;
+            return View(result);//.ToPagedList(currentPage, maxRecords));
+
+            //return View(db.SearchHistory.OrderByDescending(a=>a.SearchTime).ToList());
+        }
+        [Authorize]
+        public ActionResult SearchByCategory(int page = 1)
+        {
+            var result = db.SP_SearchByCategory();
+
+            //result = result.OrderBy("Keyword");
             int maxRecords = 20;
             int currentPage = page;
             ViewBag.CurrentPage = page;

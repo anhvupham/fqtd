@@ -26,19 +26,19 @@ namespace fqtd.Areas.Admin.Models
         public int UserId { get; set; }
         public string UserName { get; set; }
     }
-    [Table("aspnet_Users")]
-    public class SystemUsers
-    {
-       public Guid ApplicationId { get; set; }
-        [Key]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public Guid UserId { get; set; }
-        public string UserName { get; set; }
-        public string LoweredUserName { get; set; }
-        public string MobileAlias { get; set; }
-        public bool IsAnonymous { get; set; }
-        public DateTime LastActivityDate { get; set; }
-    }
+    //[Table("aspnet_Users")]
+    //public class SystemUsers
+    //{
+    //   public Guid ApplicationId { get; set; }
+    //    [Key]
+    //    [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+    //    public Guid UserId { get; set; }
+    //    public string UserName { get; set; }
+    //    public string LoweredUserName { get; set; }
+    //    public string MobileAlias { get; set; }
+    //    public bool IsAnonymous { get; set; }
+    //    public DateTime LastActivityDate { get; set; }
+    //}
     [Table("aspnet_Roles")]
     public class SystemRoles
     {

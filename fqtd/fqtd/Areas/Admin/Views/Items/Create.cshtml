@@ -121,6 +121,13 @@
             @Html.ValidationMessageFor(model => model.Longitude)
         </div>
         <div class="editor-label">
+            @Html.LabelFor(model => model.IsShow)
+        </div>
+        <div class="editor-field">
+            @Html.CheckBoxFor(model => model.IsShow)
+            @Html.ValidationMessageFor(model => model.IsShow)
+        </div>
+        <div class="editor-label">
             @Html.LabelFor(model => model.Description)
         </div>
         <div class="editor-field">
@@ -153,9 +160,9 @@
     @Html.ActionLink("Back to List", "Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] })
 </div>
 
- <script src="~/Scripts/jquery-1.9.1.js"></script>
-<script src="~/Scripts/jquery-ui-1.10.3.js"></script> 
-    @Styles.Render("~/Content/themes/base/autocomplete")
+<script src="~/Scripts/jquery-1.9.1.js"></script>
+<script src="~/Scripts/jquery-ui-1.10.3.js"></script>
+@Styles.Render("~/Content/themes/base/autocomplete")
 @*<script type="text/javascript" src="~/scripts/autocomplete/jquery-1.8.2.min.js"></script>
     <script type="text/javascript" src="~/scripts/autocomplete/jquery.mockjax.js"></script>
     <script type="text/javascript" src="~/scripts/autocomplete/src/jquery.autocomplete.js"></script>
@@ -170,13 +177,13 @@
         if (city == 'Hồ Chí Minh') city = 'TP. Hồ Chí Minh';
         var fullAddress = number + " " + street + ", " + district + ", " + city;
         //alert(fullAddress);
-        $("#FullAddress").val(fullAddress.replace(', ,',','));
+        $("#FullAddress").val(fullAddress.replace(', ,', ','));
     }
 
     jQuery(document).ready(function ($) {
 
         var urlResult = "GetStreet";
-            //alert(urlResult);
+        //alert(urlResult);
         var result = $.getJSON(urlResult, null, function (items) {
             $("#Street").autocomplete({
                 source: items

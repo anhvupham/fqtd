@@ -106,6 +106,7 @@
           <Property Name="Longitude" Type="varchar" MaxLength="50" />
           <Property Name="Keyword_unsign" Type="nvarchar(max)" />
           <Property Name="Keyword" Type="nvarchar(max)" />
+          <Property Name="IsShow" Type="bit" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="CreateUser" Type="nvarchar" Nullable="false" MaxLength="256" />
@@ -184,7 +185,7 @@
           <Property Name="DeleteUser" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'timdau_fqtd.dbo.tbl_Category_Properties' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'timdau_test.dbo.tbl_Category_Properties' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="tbl_Category_Properties">
           <Key>
@@ -406,6 +407,10 @@
         <Function Name="SP_Item_Properties" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="timdau_fqtd">
           <Parameter Name="ItemID" Type="int" Mode="In" />
         </Function>
+        <Function Name="SP_SearchByBrand" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="timdau_fqtd" />
+        <Function Name="SP_SearchByCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="timdau_fqtd" />
+        <Function Name="SP_SearchByKeyword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="timdau_fqtd" />
+        <Function Name="SP_SearchByMode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="timdau_fqtd" />
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -507,6 +512,10 @@
           <EntitySet Name="ContactUS" EntityType="fqtdModel.ContactUS" />
           <EntitySet Name="SearchHistory" EntityType="fqtdModel.SearchHistory" />
           <EntitySet Name="aspnet_Users" EntityType="fqtdModel.SystemUsers" />
+          <FunctionImport Name="SP_SearchByBrand" ReturnType="Collection(fqtdModel.SP_SearchByBrand_Result)" />
+          <FunctionImport Name="SP_SearchByCategory" ReturnType="Collection(fqtdModel.SP_SearchByCategory_Result)" />
+          <FunctionImport Name="SP_SearchByKeyword" ReturnType="Collection(fqtdModel.SP_SearchByKeyword_Result)" />
+          <FunctionImport Name="SP_SearchByMode" ReturnType="Collection(fqtdModel.SP_SearchByMode_Result)" />
         </EntityContainer>
         <EntityType Name="BrandItems">
           <Key>
@@ -545,6 +554,7 @@
           <Property Type="String" Name="Latitude" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Longitude" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="District" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsShow" Nullable="false" />
         </EntityType>
         <EntityType Name="Brands">
           <Key>
@@ -869,6 +879,28 @@
           <Property Type="Boolean" Name="IsAnonymous" Nullable="false" />
           <Property Type="DateTime" Name="LastActivityDate" Nullable="false" Precision="3" />
         </EntityType>
+        <ComplexType Name="SP_SearchByBrand_Result">
+          <Property Type="Int32" Name="SearchCount" Nullable="true" />
+          <Property Type="Int32" Name="ResultCount" Nullable="true" />
+          <Property Type="String" Name="BrandName" Nullable="true" MaxLength="550" />
+        </ComplexType>
+        <ComplexType Name="SP_SearchByCategory_Result">
+          <Property Type="Int32" Name="SearchCount" Nullable="true" />
+          <Property Type="Int32" Name="ResultCount" Nullable="true" />
+          <Property Type="String" Name="CategoryName" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="SP_SearchByKeyword_Result">
+          <Property Type="Int32" Name="SearchCount" Nullable="true" />
+          <Property Type="Int32" Name="ResultCount" Nullable="true" />
+          <Property Type="String" Name="Keyword" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="SP_SearchByMode_Result">
+          <Property Type="Int32" Name="SearchCount" Nullable="true" />
+          <Property Type="Int32" Name="ResultCount" Nullable="true" />
+          <Property Type="String" Name="SearchMode" Nullable="false" MaxLength="14" />
+          <Property Type="Int32" Name="Month" Nullable="true" />
+          <Property Type="Int32" Name="Year" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -878,6 +910,7 @@
           <EntitySetMapping Name="BrandItems">
             <EntityTypeMapping TypeName="fqtdModel.BrandItems">
               <MappingFragment StoreEntitySet="tbl_Brand_Items">
+                <ScalarProperty Name="IsShow" ColumnName="IsShow" />
                 <ScalarProperty Name="District" ColumnName="District" />
                 <ScalarProperty Name="Longitude" ColumnName="Longitude" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
@@ -1142,6 +1175,44 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_SearchByBrand" FunctionName="fqtdModel.Store.SP_SearchByBrand">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="fqtdModel.SP_SearchByBrand_Result">
+                <ScalarProperty Name="SearchCount" ColumnName="SearchCount" />
+                <ScalarProperty Name="ResultCount" ColumnName="ResultCount" />
+                <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_SearchByCategory" FunctionName="fqtdModel.Store.SP_SearchByCategory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="fqtdModel.SP_SearchByCategory_Result">
+                <ScalarProperty Name="SearchCount" ColumnName="SearchCount" />
+                <ScalarProperty Name="ResultCount" ColumnName="ResultCount" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_SearchByKeyword" FunctionName="fqtdModel.Store.SP_SearchByKeyword">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="fqtdModel.SP_SearchByKeyword_Result">
+                <ScalarProperty Name="SearchCount" ColumnName="SearchCount" />
+                <ScalarProperty Name="ResultCount" ColumnName="ResultCount" />
+                <ScalarProperty Name="Keyword" ColumnName="Keyword" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_SearchByMode" FunctionName="fqtdModel.Store.SP_SearchByMode">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="fqtdModel.SP_SearchByMode_Result">
+                <ScalarProperty Name="SearchCount" ColumnName="SearchCount" />
+                <ScalarProperty Name="ResultCount" ColumnName="ResultCount" />
+                <ScalarProperty Name="SearchMode" ColumnName="SearchMode" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

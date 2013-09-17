@@ -223,7 +223,6 @@
     <Compile Include="Areas\Admin\Models\Properties.cs">
       <DependentUpon>fqtd.tt</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Admin\Models\SearchHis.cs" />
     <Compile Include="Areas\Admin\Models\SearchHistory.cs">
       <DependentUpon>fqtd.tt</DependentUpon>
     </Compile>
@@ -248,7 +247,22 @@
     <Compile Include="Areas\Admin\Models\SP_List_Brand_Categories_Result.cs">
       <DependentUpon>fqtd.tt</DependentUpon>
     </Compile>
+    <Compile Include="Areas\Admin\Models\SP_SearchByBrand_Result.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\SP_SearchByCategory_Result.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\SP_SearchByKeyword_Result.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\SP_SearchByMode_Result.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
     <Compile Include="Areas\Admin\Models\SystemContent.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\SystemUsers.cs">
       <DependentUpon>fqtd.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\Admin\Models\tbl_Brand_Properties.cs">

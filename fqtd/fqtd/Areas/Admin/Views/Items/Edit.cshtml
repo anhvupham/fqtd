@@ -132,6 +132,14 @@
         @Html.EditorFor(model => model.Longitude)
         @Html.ValidationMessageFor(model => model.Longitude)
     </div>
+    
+    <div class="editor-label">
+        @Html.LabelFor(model => model.IsShow)
+    </div>
+    <div class="editor-field">
+        @Html.CheckBoxFor(model => model.IsShow)
+        @Html.ValidationMessageFor(model => model.IsShow)
+    </div>
     <div class="editor-label">
         @Html.LabelFor(model => model.Description)
     </div>

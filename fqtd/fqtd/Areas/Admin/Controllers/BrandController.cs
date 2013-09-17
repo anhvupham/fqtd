@@ -107,7 +107,7 @@ namespace fqtd.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         [HttpPost, ValidateInput(false)]
         [Authorize]
-        public ActionResult Create(Brands brands, HttpPostedFileBase icon, HttpPostedFileBase logo)
+        public ActionResult Create(Brands brands, string Command, HttpPostedFileBase icon, HttpPostedFileBase logo)
         {
             if (db.Brands.Where(a => a.IsActive && (a.BrandName == brands.BrandName || a.BrandName_EN == brands.BrandName_EN)).Count() > 0)
             {
@@ -152,7 +152,16 @@ namespace fqtd.Areas.Admin.Controllers
                     db.Entry(brands).State = EntityState.Modified;
                     db.SaveChanges();
                 }
-                return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] });
+                if (Command == "Create2ImageList")
+                    return RedirectToAction("ImageList", new {id=brands.BrandID });
+                else
+                    if (Command == "Create2Property")
+                        return RedirectToAction("BrandProperties", new { id = brands.BrandID });
+                    else
+                        if (Command == "Create2Category")
+                            return RedirectToAction("BrandCategories", new { id = brands.BrandID });
+                        else
+                            return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] });
             }
 
             ViewBag.CategoryID = new SelectList(db.Categories.Where(a => a.IsActive), "CategoryID", "CategoryName", brands.CategoryID);
@@ -183,7 +192,7 @@ namespace fqtd.Areas.Admin.Controllers
         [Authorize]
         [ValidateAntiForgeryToken]
         [HttpPost, ValidateInput(false)]
-        public ActionResult Edit(Brands brands, HttpPostedFileBase icon, HttpPostedFileBase logo)
+        public ActionResult Edit(Brands brands, string Command, HttpPostedFileBase icon, HttpPostedFileBase logo)
         {
             if (ModelState.IsValid)
             {
@@ -230,8 +239,17 @@ namespace fqtd.Areas.Admin.Controllers
                     db.Entry(brands).State = EntityState.Modified;
                     db.SaveChanges();
                 }
-                Console.Write(TempData["CurrentKeyword"] + "-" + TempData["CurrentPage"]);
-                return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] });
+                //Console.Write(TempData["CurrentKeyword"] + "-" + TempData["CurrentPage"]);
+                if (Command == "Save2ImageList")
+                    return RedirectToAction("ImageList", new { id = brands.BrandID });
+                else
+                    if (Command == "Save2Property")
+                        return RedirectToAction("BrandProperties", new { id = brands.BrandID });
+                    else
+                        if (Command == "Save2Category")
+                            return RedirectToAction("BrandCategories", new { id = brands.BrandID });
+                        else
+                            return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] });
             }
             ViewBag.CategoryID = new SelectList(db.Categories.Where(a => a.IsActive), "CategoryID", "CategoryName", brands.CategoryID);
             ViewBag.BrandTypeID = new SelectList(db.BrandTypes.Where(a => a.IsActive), "BrandTypeID", "BrandTypeName", brands.BrandTypeID);
@@ -276,7 +294,7 @@ namespace fqtd.Areas.Admin.Controllers
 
 
         [Authorize]
-        public ActionResult BrandCategories(int id = 0, int page = 1, string keyword = "")
+        public ActionResult BrandCategories(int id = 0)
         {
 
 
@@ -294,7 +312,7 @@ namespace fqtd.Areas.Admin.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult BrandCategories(string[] MyCheckList)
+        public ActionResult BrandCategories(string[] MyCheckList, string Command)
         {
             int BrandID = Convert.ToInt32(TempData["BrandID"]);
 
@@ -332,12 +350,21 @@ namespace fqtd.Areas.Admin.Controllers
             TempData["BrandID"] = null;
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
 
-            return RedirectToAction("index", "Brand", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] });
+            if (Command == "Save2ImageList")
+                return RedirectToAction("ImageList", new { id = brand.BrandID });
+            else
+                if (Command == "Save2Property")
+                    return RedirectToAction("BrandProperties", new { id = brand.BrandID });
+                else
+                    if (Command == "Save2Category")
+                        return RedirectToAction("BrandCategories", new { id = brand.BrandID });
+                    else
+                        return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] });
         }
 
 
         [Authorize]
-        public ActionResult BrandProperties(int id = 0, int page = 1, string keyword = "")
+        public ActionResult BrandProperties(int id = 0)
         {
 
             var brand = db.Brands.Find(id);
@@ -351,7 +378,7 @@ namespace fqtd.Areas.Admin.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult BrandProperties(string[] MyCheckList)
+        public ActionResult BrandProperties(string[] MyCheckList, string Command)
         {
             int BrandID = Convert.ToInt32(TempData["BrandID"]);
 
@@ -380,7 +407,16 @@ namespace fqtd.Areas.Admin.Controllers
                 TempData["BrandID"] = null;
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
-            return RedirectToAction("index", "Brand", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] });
+            if (Command == "Save2ImageList")
+                return RedirectToAction("ImageList", new { id = BrandID });
+            else
+                if (Command == "Save2Property")
+                    return RedirectToAction("BrandProperties", new { id = BrandID });
+                else
+                    if (Command == "Save2Category")
+                        return RedirectToAction("BrandCategories", new { id = BrandID });
+                    else
+                        return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] });
         }
 
         [Authorize]

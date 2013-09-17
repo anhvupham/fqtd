@@ -26,7 +26,7 @@ namespace fqtd.Areas.Admin.Controllers
         // GET: /Admin/Items/
         //[OutputCache(CacheProfile = "Aggressive", VaryByParam = "page;keyword;CategoryID;BrandID", Location = System.Web.UI.OutputCacheLocation.Client)]
         [Authorize]
-        public ActionResult Index(string sortOrder = "", string keyword = "", int? CategoryID = null, int? BrandID = null, int page = 1)
+        public ActionResult Index(string sortOrder = "", string keyword = "", int? CategoryID = null, int? BrandID = null, bool? isShow = null, string CreateUser = "", int page = 1)
         {
 
             var result = from a in db.BrandItems where (a.ItemName.Contains(keyword) || a.ItemName_EN.Contains(keyword)) select a;
@@ -34,6 +34,10 @@ namespace fqtd.Areas.Admin.Controllers
                 result = result.Where(a => a.tbl_Brands.CategoryID == CategoryID);
             if (BrandID != null)
                 result = result.Where(a => a.BrandID == BrandID);
+            if (isShow != null)
+                result = result.Where(a => a.IsShow == isShow.Value);
+            if (CreateUser + "" != "")
+                result = result.Where(a => a.CreateUser == CreateUser);
 
             ViewBag.ItemName = sortOrder == "ItemName" ? "ItemName desc" : "ItemName";
             ViewBag.BrandName = sortOrder == "tbl_Brands.BrandName" ? "tbl_Brands.BrandName desc" : "tbl_Brands.BrandName";
@@ -48,16 +52,21 @@ namespace fqtd.Areas.Admin.Controllers
             ViewBag.CurrentPage = page;
             ViewBag.CurrentCategoryID = CategoryID;
             ViewBag.CurrentBrandID = BrandID;
+            ViewBag.CurrentCreateUser = CreateUser;
+            ViewBag.CurrentIsShow = isShow;
             ViewBag.CategoryID = new SelectList(db.Categories.Where(a => a.IsActive).OrderBy(a => a.CategoryName), "CategoryID", "CategoryName");
             ViewBag.BrandID = new SelectList(db.Brands.Where(a => a.IsActive).OrderBy(a => a.BrandName), "BrandID", "BrandName");
-            //ViewBag.Users = new SelectList(Roles.GetUsersInRole("Admin"));
 
+            ViewBag.CreateUser = new SelectList((from a in db.BrandItems select new { a.CreateUser }).Distinct(), "CreateUser", "CreateUser");
 
+            ViewBag.ItemCount = result.Count();
             TempData["sortOrder"] = sortOrder;
             TempData["CategoryID"] = CategoryID;
             TempData["BrandID"] = BrandID;
             TempData["CurrentKeyword"] = keyword;
             TempData["CurrentPage"] = page;
+            TempData["CurrentCreateUser"] = CreateUser;
+            TempData["CurrentIsShow"] = isShow;
             return View(result.ToPagedList(currentPage, maxRecords));
         }
         public ActionResult GetStreet()
@@ -140,7 +149,7 @@ namespace fqtd.Areas.Admin.Controllers
                     db.Entry(branditems).State = EntityState.Modified;
                     db.SaveChanges();
                 }
-                return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] });
+                return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"], UserCreate = TempData["CurrentCreateUser"], IsShow = TempData["CurrentIsShow"] });
             }
 
             ViewBag.BrandID = new SelectList(db.Brands.Where(a => a.IsActive).OrderBy(a => a.BrandName), "BrandID", "BrandName", branditems.BrandID);
@@ -195,7 +204,7 @@ namespace fqtd.Areas.Admin.Controllers
                     db.Entry(branditems).State = EntityState.Modified;
                     db.SaveChanges();
                 }
-                return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] });
+                return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"], UserCreate = TempData["CurrentCreateUser"], IsShow = TempData["CurrentIsShow"] });
             }
             ViewBag.BrandID = new SelectList(db.Brands.Where(a => a.IsActive).OrderBy(a => a.BrandName), "BrandID", "BrandName", branditems.BrandID);
             return View(branditems);
@@ -210,7 +219,7 @@ namespace fqtd.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.BrandID = new SelectList(db.Brands.Where(a=>a.IsActive).OrderBy(a=>a.BrandName), "BrandID", "BrandName", branditems.BrandID);
+            ViewBag.BrandID = new SelectList(db.Brands.Where(a => a.IsActive).OrderBy(a => a.BrandName), "BrandID", "BrandName", branditems.BrandID);
             return View(branditems);
         }
 
@@ -245,7 +254,7 @@ namespace fqtd.Areas.Admin.Controllers
                     db.Entry(branditems).State = EntityState.Modified;
                     db.SaveChanges();
                 }
-                return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] });
+                return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"], UserCreate = TempData["CurrentCreateUser"], IsShow = TempData["CurrentIsShow"] });
             }
 
             ViewBag.BrandID = new SelectList(db.Brands.Where(a => a.IsActive).OrderBy(a => a.BrandName), "BrandID", "BrandName", branditems.BrandID);
@@ -335,7 +344,7 @@ namespace fqtd.Areas.Admin.Controllers
             BrandItems branditems = db.BrandItems.Find(id);
             db.BrandItems.Remove(branditems);
             db.SaveChanges();
-            return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] });
+            return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"], UserCreate = TempData["CurrentCreateUser"], IsShow = TempData["CurrentIsShow"] });
         }
         [Authorize]
         public ActionResult KeywordBuilder(int itemid = 0)
@@ -464,7 +473,7 @@ namespace fqtd.Areas.Admin.Controllers
 
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
             ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName");
-            return RedirectToAction("index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] });
+            return RedirectToAction("index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"], UserCreate = TempData["CurrentCreateUser"], IsShow = TempData["CurrentIsShow"] });
         }
 
         public static string StripDiacritics(string accented)
@@ -526,7 +535,7 @@ namespace fqtd.Areas.Admin.Controllers
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
             ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName");
-            return RedirectToAction("index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] });
+            return RedirectToAction("index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"], UserCreate = TempData["CurrentCreateUser"], IsShow = TempData["CurrentIsShow"] });
         }
         protected override void Dispose(bool disposing)
         {

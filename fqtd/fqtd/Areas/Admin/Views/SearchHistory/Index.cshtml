@@ -3,7 +3,13 @@
 @{
     ViewBag.Title = "Search history";
 }
+<div class="caption">
+    @Html.ActionLink("   SearchByMode   ", "SearchByMode")|
+        @Html.ActionLink("SearchByKeyword", "SearchByKeyword")|
+        @Html.ActionLink("SearchByCategory", "SearchByCategory")|
+        @Html.ActionLink("SearchByBrand", "SearchByBrand")
 
+</div>
 @using (Ajax.BeginForm("Index", new
 {
     page = 1,

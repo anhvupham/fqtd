@@ -39,6 +39,7 @@ namespace fqtd.Areas.Admin.Models
         public DbSet<tbl_Brand_Properties> tbl_Brand_Properties { get; set; }
         public DbSet<ContactUS> ContactUS { get; set; }
         public DbSet<SearchHistory> SearchHistory { get; set; }
+        public DbSet<SystemUsers> aspnet_Users { get; set; }
     
         public virtual ObjectResult<SP_Category_Properties_Result> SP_Category_Properties(Nullable<int> categoryID)
         {
@@ -200,6 +201,26 @@ namespace fqtd.Areas.Admin.Models
                 new ObjectParameter("BrandID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_RemoveBrandProperties", brandIDParameter);
+        }
+    
+        public virtual ObjectResult<SP_SearchByBrand_Result> SP_SearchByBrand()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_SearchByBrand_Result>("SP_SearchByBrand");
+        }
+    
+        public virtual ObjectResult<SP_SearchByCategory_Result> SP_SearchByCategory()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_SearchByCategory_Result>("SP_SearchByCategory");
+        }
+    
+        public virtual ObjectResult<SP_SearchByKeyword_Result> SP_SearchByKeyword()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_SearchByKeyword_Result>("SP_SearchByKeyword");
+        }
+    
+        public virtual ObjectResult<SP_SearchByMode_Result> SP_SearchByMode()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_SearchByMode_Result>("SP_SearchByMode");
         }
     }
 }

@@ -10,16 +10,13 @@
 namespace fqtd.Areas.Admin.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class ContactUS
+    public partial class SP_SearchByMode_Result
     {
-        public int ContactID { get; set; }
-        public string CustomerName { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
-        public string ContactTitle { get; set; }
-        public string ContactContent { get; set; }
-        public System.DateTime ContactDate { get; set; }
+        public Nullable<int> SearchCount { get; set; }
+        public Nullable<int> ResultCount { get; set; }
+        public string SearchMode { get; set; }
+        public Nullable<int> Month { get; set; }
+        public Nullable<int> Year { get; set; }
     }
 }
