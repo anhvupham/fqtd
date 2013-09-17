@@ -139,6 +139,8 @@ namespace fqtd.Areas.Admin.Controllers
                 if (icon != null)
                 {
                     string filename = brands.BrandID + "_" + icon.FileName.Replace(" ", "_").Replace("-", "_");
+                    if (System.IO.File.Exists(Path.Combine(full_path, filename)))
+                        System.IO.File.Delete(Path.Combine(full_path, filename));
                     brands.MarkerIcon = filename;// FileUpload.UploadFile(icon, filename, full_path);
                     System.IO.File.Move(Path.Combine(full_path, icon.FileName), Path.Combine(full_path, filename));
                     db.Entry(brands).State = EntityState.Modified;
@@ -147,6 +149,8 @@ namespace fqtd.Areas.Admin.Controllers
                 if (logo != null)
                 {
                     string filename = brands.BrandID + "_" + logo.FileName.Replace(" ", "_").Replace("-", "_");
+                    if (System.IO.File.Exists(Path.Combine(full_path_logo, filename)))
+                        System.IO.File.Delete(Path.Combine(full_path_logo, filename));
                     brands.Logo = filename;// FileUpload.UploadFile(logo, filename, full_path);
                     System.IO.File.Move(Path.Combine(full_path_logo, logo.FileName), Path.Combine(full_path_logo, filename));
                     db.Entry(brands).State = EntityState.Modified;
@@ -226,6 +230,8 @@ namespace fqtd.Areas.Admin.Controllers
                 if (icon != null)
                 {
                     string filename = brands.BrandID + "_" + icon.FileName.Replace(" ", "_").Replace("-", "_");
+                    if (System.IO.File.Exists(Path.Combine(full_path, filename)))
+                        System.IO.File.Delete(Path.Combine(full_path, filename));
                     brands.MarkerIcon = filename;// FileUpload.UploadFile(logo, filename, full_path);
                     System.IO.File.Move(Path.Combine(full_path, icon.FileName), Path.Combine(full_path, filename));
                     db.Entry(brands).State = EntityState.Modified;
@@ -234,6 +240,8 @@ namespace fqtd.Areas.Admin.Controllers
                 if (logo != null)
                 {
                     string filename = brands.BrandID + "_" + logo.FileName.Replace(" ", "_").Replace("-", "_");
+                    if (System.IO.File.Exists(Path.Combine(full_path_logo, filename)))
+                        System.IO.File.Delete(Path.Combine(full_path_logo, filename));
                     brands.Logo = filename;// FileUpload.UploadFile(logo, filename, full_path);
                     System.IO.File.Move(Path.Combine(full_path_logo, logo.FileName), Path.Combine(full_path_logo, filename));
                     db.Entry(brands).State = EntityState.Modified;
