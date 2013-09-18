@@ -891,9 +891,10 @@ textarea {
     text-align: center;
 }
 
-.noResultText {
-    text-align: center;
-}
+    #map .noResultText a:hover {
+        text-decoration: none;
+        color: white;
+    }
 
 div.less {
     height: 103px;

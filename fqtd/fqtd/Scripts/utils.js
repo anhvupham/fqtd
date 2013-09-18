@@ -240,8 +240,10 @@ var FQTD = (function () {
 
         },
         noRecord: function () {
-            $("#list").html("<p class='container noResultText'>Thông tin tìm kiếm của bạn hiện không có trong cơ sở dữ liệu của chúng tôi. Hiện tại chúng tôi chỉ cung cấp các danh mục quán ăn, nhà hàng.<br/> Trong thời gian tới, chúng tôi sẽ ra mắt danh mục Trung tâm thương mại và Vui chơi. Vui lòng tìm lại sau !</p>");
-            $("#map").html("<p class='container noResultText'>Thông tin tìm kiếm của bạn hiện không có trong cơ sở dữ liệu của chúng tôi. Hiện tại chúng tôi chỉ cung cấp các danh mục quán ăn, nhà hàng.<br/> Trong thời gian tới, chúng tôi sẽ ra mắt danh mục Trung tâm thương mại và Vui chơi. Vui lòng tìm lại sau !</p>");
+            $("#list").html("<div class='container noResultText'><p>Thông tin tìm kiếm của bạn hiện không có trong cơ sở dữ liệu của chúng tôi. Hiện tại chúng tôi chỉ cung cấp các danh mục quán ăn, nhà hàng.<br/> Trong thời gian tới, chúng tôi sẽ ra mắt danh mục Trung tâm thương mại và Vui chơi. Vui lòng tìm lại sau !</p><a data-ajax='false' href='/' class='buttonGreen'>Về trang chủ</a></div>");
+            $("#map").html("<div class='container noResultText'><p>Thông tin tìm kiếm của bạn hiện không có trong cơ sở dữ liệu của chúng tôi. Hiện tại chúng tôi chỉ cung cấp các danh mục quán ăn, nhà hàng.<br/> Trong thời gian tới, chúng tôi sẽ ra mắt danh mục Trung tâm thương mại và Vui chơi. Vui lòng tìm lại sau !</p><a data-ajax='false' href='/' class='buttonGreen'>Về trang chủ</a></div>");
+            $("#menu").addClass("hidden")
+            $("#buttonProp").addClass("hidden")
             FQTD.displayMap();
         },
         yesRecord: function () {
@@ -808,7 +810,11 @@ var FQTD = (function () {
                 FQTD.SubmitForm()
             });
 
-
+            $('#form2').keydown(function (e) {
+                if (e.keyCode == 13) {
+                    $('#form2').submit();
+                }
+            });
         },
         initDetail: function () {
             var id = $(location).attr('pathname').split('/')[2]
