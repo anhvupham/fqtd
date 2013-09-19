@@ -633,6 +633,7 @@ input {
 .marker {
     margin-top: 10px;
     margin-bottom: 10px;
+    min-width:234px;
 }
 
     .marker p {

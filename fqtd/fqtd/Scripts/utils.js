@@ -61,13 +61,13 @@ var FQTD = (function () {
 
     function encodeItemName(value) {
         //return encodeURIComponent(value.replace(".", "_").replace("/", ",").replace("\"", "*"));
-        value = value.replace(/\ /g, '_').replace(/\//g, "^").replace(/\\/g, "*").replace(/\./g, ":");
+        value = value.replace(/\ /g, '-').replace(/\//g, "^").replace(/\\/g, "*").replace(/\./g, ":");
         return (value);
     }
 
     function decodeItemName(value) {
         value = (value)
-        return value.replace(/\_/g, ' ').replace(/\^/g, "/").replace(/\*/g, '\\').replace(/\:/g, ".");
+        return value.replace(/\-/g, ' ').replace(/\^/g, "/").replace(/\*/g, '\\').replace(/\:/g, ".");
     }
 
     function validateNumber(value) {
@@ -682,12 +682,16 @@ var FQTD = (function () {
             var brand = $('#brand').val() != "" ? $('#brand').val() : "0"
             var search = $('#search').val() != "" ? encodeItemName($('#search').val()) : "0"
 
+            //tracking event
+            if (type == "0") ga('send', 'event', 'home search', 'click', 'form1', search)
+
+            if (type == "1") ga('send', 'event', 'home search', 'click', 'form2', $("input-category").val() + "_" + $("input-brand").val())
+            /////////////
+
             if (type == "0" && search == "0") return false;
 
             if (type == "1" && (address == "0" || brand == "0" || range == "0" || validateNumber(range) == false)) return false;
-            //console.log(search)
-            //console.log(decodeItemName(search))
-            //return false;
+            
             window.location.href = "result/index/" + type + "/" + category + "/" + brand + "/" + range + "/" + address + "/" + search
         },
         ShowMoreDescription: function () {

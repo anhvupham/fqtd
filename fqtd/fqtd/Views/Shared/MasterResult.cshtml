@@ -18,9 +18,9 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div data-role="page">
+    <div data-role="page" itemscope itemtype="http://schema.org/SearchResultsPage">
         <div data-role="header">
-            <div class="navbar navbar-default navbar-static-top">
+            <div class="navbar navbar-default navbar-static-top" itemscope itemtype="http://schema.org/SiteNavigationElement">
                 <div class="container">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -34,7 +34,7 @@
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a data-ajax="false" href="/"">Trang chủ</a></li>
+                            <li><a data-ajax="false" href="/">Trang chủ</a></li>
                             <li><a data-ajax="false" href="~/home/introduction">Giới thiệu</a></li>
                             <li><a data-ajax="false" href="~/home/termandconditionofuse">Điều khoản sử dụng</a></li>
                             <li><a data-ajax="false" href="~/home/policy">Chính sách bảo mật</a></li>
@@ -55,7 +55,7 @@
         </a>
         <div data-role="panel" id="panelProp" data-position="left" data-display="reveal" data-dismissible="true" data-theme="none">
             <div id="panelcontent" class="panel-content hidden">
-                <span data-rel="close" class="glyphicon glyphicon-remove"></span>                
+                <span data-rel="close" class="glyphicon glyphicon-remove"></span>
                 <div id="titleproperty">
                     <p>Các tiện ích:</p>
                 </div>

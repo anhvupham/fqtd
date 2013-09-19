@@ -13,12 +13,13 @@
     <meta property="og:type" content="website" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='canonical' href='http://timdau.vn'/>
     @Styles.Render("~/Content/bootstrapcss")
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/themes/base/autocomplete")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
+<body itemscope itemtype="http://schema.org/WebPage">
     <div id="fb-root"></div>
     <script>(function (d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
@@ -29,7 +30,7 @@
 }(document, 'script', 'facebook-jssdk'));</script>
     <div id="wrapperHomepage">
         <header>
-            <div class="navbar navbar-default navbar-static-top">
+            <div class="navbar navbar-default navbar-static-top" itemscope itemtype="http://schema.org/SiteNavigationElement">
                 <div class="container">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">

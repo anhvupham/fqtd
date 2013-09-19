@@ -10,20 +10,20 @@
     js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-<div class="container">
+<div class="container" itemscope itemtype="http://schema.org/Place">
     <div class="row rowspace">
         <div class="col-md-12">
             <div id="gioithieuchung">
-                <img id="brandlogo" width="150px" />
-                <h1 id="brandname"></h1>
-                <div id="branddescription" class="less"></div>
+                <img id="brandlogo" width="150px" itemprop="image" />
+                <h1 id="brandname" itemprop="name"></h1>
+                <div id="branddescription" class="less" itemprop="description"></div>
                 <a id="showmoreDescription" href="javascript:void(0);">Xem thêm</a>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-9">
-            <div class="row rowspace group ">
+            <div class="row rowspace group" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
                 <div class="col-md-12 rowspacesmall">
                     <div class="row">
                         <div class="col-md-12 title_box">
@@ -35,7 +35,7 @@
                             Địa chỉ
                         </div>
                         <div class="col-sm-10 col-xs-12">
-                            <div id="txtaddress"></div>
+                            <div id="txtaddress" itemprop="streetAddress"></div>
                         </div>
                     </div>
                     <div class="row silverrow detailinfo">
@@ -43,7 +43,7 @@
                             Điện thoại
                         </div>
                         <div class="col-sm-10">
-                            <div id="txtphone"></div>
+                            <div id="txtphone" itemprop="telephone"></div>
                         </div>
                     </div>
                     <div class="row detailinfo">
@@ -51,7 +51,7 @@
                             Giờ mở cửa
                         </div>
                         <div class="col-sm-10">
-                            <div id="txtopentime"></div>
+                            <div id="txtopentime" itemprop="openingHoursSpecification" itemscope itemtype="http://schema.org/Time"></div>
                         </div>
                     </div>
                     <div class="row silverrow detailinfo">
