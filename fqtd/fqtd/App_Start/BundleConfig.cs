@@ -56,6 +56,8 @@ namespace fqtd
                        "~/Content/themes/base/jquery.ui.core.css",                      
                        "~/Content/themes/base/jquery.ui.autocomplete.css",
                        "~/Content/themes/base/jquery.ui.theme.css"));
+
+            BundleTable.EnableOptimizations = true;
         }
     }
 }
