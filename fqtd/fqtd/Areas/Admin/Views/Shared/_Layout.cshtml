@@ -9,6 +9,7 @@
     @Scripts.Render("~/bundles/modernizr")
     <script src="~/ckeditor/ckeditor.js"></script>
     <link rel="stylesheet" href="~/Content/admin.css" />
+    <link rel="stylesheet" href="~/Content/login.css" />
 </head>
 <body>
     <header>
@@ -21,7 +22,7 @@
             <div class="menu">
                 <nav>
                     <ul id="menu">
-                        <li>@Html.ActionLink("Home", "Index", "SearchHistory")</li>
+                        <li>@Html.ActionLink("Search History", "Index", "SearchHistory")</li>
                         <li>@Html.ActionLink("Items", "Index", "Items")</li>
                         <li>@Html.ActionLink("Brands", "Index", "Brand")</li>
                         <li>@Html.ActionLink("Categories", "Index", "Categories")</li>
@@ -39,13 +40,13 @@
             @RenderBody()
         @StackExchange.Profiling.MiniProfiler.RenderIncludes()
     </div>
-    <footer>
+   @* <footer>
         <div class="content-wrapper">
             <div class="footer">
                 <p>&copy; Timdau.vn</p>
             </div>
         </div>
-    </footer>
+    </footer>*@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")

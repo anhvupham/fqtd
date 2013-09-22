@@ -3,32 +3,16 @@
 @{
     ViewBag.Title = "Log in";
 }
-<style>
-    .login_title
-    {
-        height: 50px;
-        text-align: center;
-        vertical-align: middle;
-    }
 
-    .login_content
-    {
-        width: 20%;
-        margin-left: 40%;
-        border: 1px solid #808080;
-        margin-top: 100px;
-        padding: 20px 20px 20px 20px;
-    }
-</style>
 <div style="width: 100%; min-height: 550px">
-    
-    <div class="login_content">
 
-            @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
-            {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true)
+    <div class="login_content1">
 
+        @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            /*
 
                 <table style="width: 100%; border: none">
                     <tr>
@@ -57,8 +41,50 @@
                             <input type="submit" value="Log in" /></td>
                     </tr>
                 </table>
-    
-            }
+    */
+            <div class="mod_brdr" id="content">
+
+                <div id="container">
+                    <h1>Member Sign-In<br>
+                        <span class="subheader">Access your website content.</span></h1>
+                    <div id="login_errors">
+                    </div>
+
+                    <form id="login_form" action="/user/login" method="post" name="userLoginForm">
+                        <div id="left_col">
+                            <h2>MEMBER SIGN-IN</h2>
+                            @*<p>You can now use your email address to login.</p>*@
+                            <label for="username" class="field">USERNAME</label>
+                            <input type="text" class="field" id="username" tabindex="1" name="username">
+                            @Html.ValidationMessageFor(m => m.UserName)
+                            <label for="password" class="field">PASSWORD</label>
+                            <input type="password" class="field" id="password" tabindex="2" name="password"><br>
+                            @Html.ValidationMessageFor(m => m.Password)
+                            <input type="checkbox" checked="" style="width: auto;" value="true" id="rememberme" name="rememberme">
+                            Remember me next time<br>
+                            <br>
+                            <input type="image" value="Submit" src="../../images/submit_button.gif">
+                            <br>
+                            </div>
+                        <div id="right_col">
+                            <h2 class="centered">NOT A MEMBER?</h2>
+                            <div class="inner_div">
+                                <p>Join timdau.vn to manage your content.</p>
+                                <p><b>It's fast and free.</b></p>
+                                <a href="/admin/account/register">
+                                    <img border="0" src="../../images/join_button.gif"></a>
+                            </div>
+                        </div>
+                        <div class="clearer"></div>
+                    </form>
+
+                </div>
+                <div class="clearer">
+                    <br>
+                </div>
+
+            </div>
+        }
     </div>
 </div>
 

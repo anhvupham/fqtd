@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Index";
     string count = ViewBag.ItemCount == null ? 0 : ViewBag.ItemCount + " items";
+    //Layout = "../shared/MasterHome.cshtml";
 }
 <div class="caption">
     @*<label class="title">Item list</label>*@
@@ -20,6 +21,7 @@
     user = ViewBag.CurrentUser
 }, new AjaxOptions { UpdateTargetId = "main" }))
 {
+    @*<div class=""></div>*@
     <table class="table_search">
         <tr>
             <td style="text-align: right">Keyword:

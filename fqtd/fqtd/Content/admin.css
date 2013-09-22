@@ -141,11 +141,11 @@ footer
     text-align: left;
 }
 
-#body
+
 {
     margin-bottom: 35px;
 }
-#body .caption
+ .caption
 {
     height: 30px;
     background-color: gray;
@@ -156,7 +156,7 @@ footer
     padding-left: 10%;
 }
 
-    #body .caption a
+     .caption a
     {
         height: 30px;
         color: #fff;
@@ -164,31 +164,33 @@ footer
         text-decoration: none;
     }
 
-        #body .caption a:hover
+         .caption a:hover
         {
             color: #0094ff;
         }
 
-#body .table_list
+.table_list
 {
     width: 80%;
     margin-left: 10%;
     margin-right: 10%;
 }
 
-#body .table_paging
+.table_paging
 {
+    margin-top: 10px;
     margin-left: 10%;
     margin-right: 10%;
 }
 
-#body .table_search
+ .table_search
 {
     margin-left: 10%;
     margin-right: 10%;
+    /*background-color: lightgray;*/
 }
 
-#body .table_list th
+ .table_list th
 {
     background-color: GrayText;
     text-align: center;
@@ -198,13 +200,13 @@ footer
     padding: 2px 2px 2px 2px;
 }
 
-#body .table_list
+ .table_list
 {
     border-spacing: 0px;
     border-collapse: collapse;
 }
 
-    #body .table_list td
+     .table_list td
     {
         border: 1px solid gray;
         padding: 2px 2px 2px 2px;

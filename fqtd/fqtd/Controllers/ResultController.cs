@@ -469,16 +469,17 @@ namespace fqtd.Controllers
                            br.BrandName_EN,
                            ca.CategoryName,
                            ca.CategoryName_EN
+                           , i.ModifyDate
                        };
             JsonNetResult jsonNetResult = new JsonNetResult();
             jsonNetResult.ContentEncoding = Encoding.UTF8;
             jsonNetResult.Formatting = Formatting.Indented;
 
             var result = from a in item
-                         select new { a.ItemID, a.ItemName, a.BrandName, CategoryName = a.CategoryName, a.Description, a.Longitude, a.Latitude, a.FullAddress, a.Phone, a.Website, a.OpenTime, a.ClickCount, a.SearchCount };
+                         select new { a.ItemID, a.ItemName, a.BrandName, CategoryName = a.CategoryName, a.Description, a.Longitude, a.Latitude, a.FullAddress, a.Phone, a.Website, a.OpenTime, a.ClickCount, a.SearchCount, a.ModifyDate };
             if (vn0_en1 == 1)
                 result = from a in item
-                         select new { a.ItemID, ItemName = a.ItemName_EN, BrandName = a.BrandName_EN, CategoryName = a.CategoryName_EN, Description = a.Description_EN, a.Longitude, a.Latitude, a.FullAddress, a.Phone, a.Website, a.OpenTime, a.ClickCount, a.SearchCount };
+                         select new { a.ItemID, ItemName = a.ItemName_EN, BrandName = a.BrandName_EN, CategoryName = a.CategoryName_EN, Description = a.Description_EN, a.Longitude, a.Latitude, a.FullAddress, a.Phone, a.Website, a.OpenTime, a.ClickCount, a.SearchCount, a.ModifyDate };
             Dictionary<string, object> list = new Dictionary<string, object>();
             list.Add("ItemDetail", result);
             var temp = item.FirstOrDefault();

@@ -1,0 +1,88 @@
+﻿
+#container {
+    border: 1px solid #E0E0E0;
+    color: #333333;
+    font-family: Arial,sans-serif;
+    font-size: 12px;
+    margin: 4px;
+}
+#container h1 {
+    background: url("../images/bg_bottomShadow_gray.gif") repeat-x scroll center bottom #F8F8F8;
+    font-family: "Times New Roman",serif;
+    font-size: 32px;
+    font-weight: normal;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+#container h1 .subheader {
+    font-family: Arial,sans-serif;
+    font-size: 12px;
+}
+#container h2 {
+    border-bottom: 1px solid #F0F0F0;
+    color: #444444;
+    font-family: "Times New Roman",serif;
+    font-size: 18px;
+    font-weight: normal;
+    padding: 5px 0;
+}
+#container h2.centered {
+    text-align: center;
+}
+#container a:link, #container a:visited, #container a:active {
+    color: #5D98BA;
+    text-decoration: none;
+}
+#container a:hover {
+    text-decoration: underline;
+}
+#left_col {
+    float: left;
+    margin-left: 5px;
+    width: 59%;
+}
+#left_col p {
+    margin-top: 10px;
+}
+#right_col {
+    float: right;
+    width: 38%;
+}
+#container form {
+    color: #666666;
+    margin-bottom: 10px;
+}
+#container label {
+    color: #333333;
+    display: block;
+    font-weight: bold;
+    margin-top: 15px;
+    text-transform: uppercase;
+}
+#container input.field, #container textarea.field {
+    border: 1px solid #CCCCCC;
+    display: block;
+    margin-left: -9px;
+    width: 245px;
+}
+#container #left_col > input.field, #container #left_col > textarea.field {
+    margin-left: 0;
+}
+#right_col .inner_div {
+    background: none repeat scroll 0 0 #F8F8F8;
+    border-bottom: 1px solid #F0F0F0;
+    border-left: 1px solid #F0F0F0;
+    padding: 10px;
+}
+#right_col .inner_div p {
+    margin-bottom: 15px;
+}
+#container #login_errors p {
+    padding: 15px;
+}
+#container #login_errors p.red {
+    color: #CC0000;
+}
+#user_logout #navtrail {
+    display: none;
+}

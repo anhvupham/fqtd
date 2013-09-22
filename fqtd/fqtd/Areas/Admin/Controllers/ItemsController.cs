@@ -350,6 +350,7 @@ namespace fqtd.Areas.Admin.Controllers
         public ActionResult KeywordBuilder(int itemid = 0)
         {
             var xxx = from i in db.BrandItems
+
                       where i.Street != null && i.District != null && i.City != null && (i.ItemID == itemid || itemid == 0)
                       select new
                       {
@@ -366,6 +367,7 @@ namespace fqtd.Areas.Admin.Controllers
                           i.Street,
                           i.District,
                           i.City
+                          , i.BrandID
                       };
             var items = xxx.ToList();
             string keyword = "";
@@ -392,6 +394,16 @@ namespace fqtd.Areas.Admin.Controllers
                 keyword_us += ";" + StripDiacritics(item.CategoryKeyword);
                 keyword_us += ";" + StripDiacritics(item.BrandKeyword);
 
+                var relateCategory = from a in db.SP_Brand_Categories(item.BrandID)
+                                     join c in db.Categories on a.CategoryID equals c.CategoryID
+                                     where a.Checked!=null && a.Checked.Value == true
+                                     select new { a.CategoryID, c.Keyword, c.Keyword_Unsign };
+                foreach (var cate in relateCategory)
+                {
+                    keyword += ";" + cate.Keyword;
+
+                    keyword_us += ";" + cate.Keyword_Unsign;
+                }
                 if (temp.Where(a => a.type == 1).ToList().Count == 0)
                 {
                     keyword = keyword + ";" + item.BrandName + " " + item.Street;
