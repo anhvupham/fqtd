@@ -84,9 +84,9 @@ var FQTD = (function () {
 
 
         if (errorFlag) {
-            var content = 'Xin vui lòng bật chức năng định vị, như vậy chúng tôi có thể tìm những địa điểm gần bạn nhất.';
+            var content = '<p class="alert">Xin vui lòng bật chức năng định vị, như vậy chúng tôi có thể tìm những địa điểm gần bạn nhất.</p>';
         } else {
-            var content = 'Trình duyệt của bạn không hỗ trợ chức năng định vị. Vui lòng truy cập vào <<http://caniuse.com/geolocation>> để biết thêm chi tiết.';
+            var content = '<p class="alert">Trình duyệt của bạn không hỗ trợ chức năng định vị. Vui lòng truy cập vào <<http://caniuse.com/geolocation>> để biết thêm chi tiết.</p>';
         }
 
         var options = {
@@ -97,7 +97,7 @@ var FQTD = (function () {
 
         var infowindow = new google.maps.InfoWindow(options);
         map.setCenter(options.position);
-    }
+    }   
 
     return {
         BindPropertyData: function () {
@@ -202,20 +202,38 @@ var FQTD = (function () {
             }
         },
         hidePanel: function () {
-            $("#panelProp").panel({
+            /*panel left*/
+            $("#panelPropLeft").panel({
                 close: function (event, ui) {
                     setTimeout(function () {
-                        $("#buttonProp").removeClass("hidden");
+                        $("#buttonPropLeft").removeClass("hidden");
                     }, 500);
                 }
             });
+            ///////////
+            /*panel left*/
+            $("#panelPropRight").panel({
+                close: function (event, ui) {
+                    setTimeout(function () {
+                        $("#buttonPropRight").removeClass("hidden");
+                    }, 500);
+                }
+            });
+            ///////////
         },
         showPanel: function () {
-            $("#buttonProp").bind("click", function () {
-                $("#buttonProp").addClass("hidden");
+            /*panel left*/
+            $("#buttonPropLeft").bind("click", function () {
+                $("#buttonPropLeft").addClass("hidden");
             })
 
-            $("#panelcontent").removeClass("hidden")
+            $("#panelcontentLeft").removeClass("hidden")
+            //////////
+            /*panel right*/
+            $("#buttonPropRight").bind("click", function () {
+                $("#buttonPropRight").addClass("hidden");
+            })
+            //////////
         },
         displayList: function () {
 
@@ -240,10 +258,10 @@ var FQTD = (function () {
 
         },
         noRecord: function () {
-            $("#list").html("<div class='container noResultText'><p>Thông tin tìm kiếm của bạn hiện không có trong cơ sở dữ liệu của chúng tôi. Hiện tại chúng tôi chỉ cung cấp các danh mục quán ăn, nhà hàng.<br/> Trong thời gian tới, chúng tôi sẽ ra mắt danh mục Trung tâm thương mại và Vui chơi. Vui lòng tìm lại sau !</p><a data-ajax='false' href='/' class='buttonGreen'>Về trang chủ</a></div>");
-            $("#map").html("<div class='container noResultText'><p>Thông tin tìm kiếm của bạn hiện không có trong cơ sở dữ liệu của chúng tôi. Hiện tại chúng tôi chỉ cung cấp các danh mục quán ăn, nhà hàng.<br/> Trong thời gian tới, chúng tôi sẽ ra mắt danh mục Trung tâm thương mại và Vui chơi. Vui lòng tìm lại sau !</p><a data-ajax='false' href='/' class='buttonGreen'>Về trang chủ</a></div>");
+            $("#list").html("<div class='container noResultText'><p>Xin lỗi, chúng tôi không tìm thấy địa điểm bạn cần! Hiện tại bạn có thể tìm kiếm các địa điểm thuộc lĩnh vực Ẩm thực & Giải khát như: Tiệm bánh, nhà hàng, quán ăn, quán cà phê, sinh tố, yagurt...<br/> Trong thời gian tới, chúng tôi sẽ ra mắt danh mục Trung tâm thương mại và Vui chơi. Vui lòng tìm lại sau !</p><a data-ajax='false' href='/' class='buttonGreen'>Về trang chủ</a></div>");
+            $("#map").html("<div class='container noResultText'><p>Xin lỗi, chúng tôi không tìm thấy địa điểm bạn cần! Hiện tại bạn có thể tìm kiếm các địa điểm thuộc lĩnh vực Ẩm thực & Giải khát như: Tiệm bánh, nhà hàng, quán ăn, quán cà phê, sinh tố, yagurt...<br/> Trong thời gian tới, chúng tôi sẽ ra mắt danh mục Trung tâm thương mại và Vui chơi. Vui lòng tìm lại sau !</p><a data-ajax='false' href='/' class='buttonGreen'>Về trang chủ</a></div>");
             $("#menu").addClass("hidden")
-            $("#buttonProp").addClass("hidden")
+            $("#buttonPropLeft").addClass("hidden")
             FQTD.displayMap();
         },
         yesRecord: function () {
@@ -298,16 +316,19 @@ var FQTD = (function () {
             }
             urlResult += "&vn0_en1=0";
             var result = $.getJSON(urlResult, null, function (items) {
-                for (var i = 0; i < items.length; i++) {
-                    if (items[i].Latitude != null && items[i].Longitude != null) {
-                        var contentmarker = '<div class="marker"><h2>' + isEmpty(items[i].ItemName) + '</h2><p>' + isEmpty(items[i].FullAddress) + '<br/>' + isEmpty(items[i].Phone) + '</p></div>'
-                                     + '<ul id="directionIcon">'
-                                     + '<li id="moto" onclick=\"FQTD.calcRoute(' + items[i].Latitude + ',' + items[i].Longitude + ',\'car\',' + $("#form").val() + ')\"></li>'
-                                     + '<li id="car" onclick=\"FQTD.calcRoute(' + items[i].Latitude + ',' + items[i].Longitude + ',\'car\',' + $("#form").val() + ')\"></li>'
-                                     + '<li id="bus" onclick=\"FQTD.calcRoute(' + items[i].Latitude + ',' + items[i].Longitude + ',\'bus\',' + $("#form").val() + ')\"></li>'
-                                     + '<li id="walk" onclick=\"FQTD.calcRoute(' + items[i].Latitude + ',' + items[i].Longitude + ',\'walk\',' + $("#form").val() + ')\"></li></ul>'
-                                     + '<div id="linkview"><a href="/detail/' + isEmpty(items[i].ItemID) + '/' + encodeItemName(isEmpty(items[i].ItemName)) + '" target="_blank">Xem chi tiết</a></div><div id="space"></div>';
-                        locations.push([items[i].Latitude, items[i].Longitude, contentmarker, isEmpty(items[i].ItemName), isEmpty(items[i].FullAddress), isEmpty(items[i].Phone), isEmpty(items[i].Logo), isEmpty(items[i].ItemID), 0, isEmpty(items[i].MarkerIcon)]);
+                for (var y = 0; y < items.length; y++) {
+                    for (var i = 0; i < items[y].length; i++) {
+                        var obj = items[y][i]
+                        if (obj.Latitude != null && obj.Longitude != null) {
+                            var contentmarker = '<div class="marker"><h2>' + isEmpty(obj.ItemName) + '</h2><p>' + isEmpty(obj.FullAddress) + '<br/>' + isEmpty(obj.Phone) + '</p></div>'
+                                         + '<ul id="directionIcon">'
+                                         + '<li id="moto" onclick=\"FQTD.calcRoute(' + obj.Latitude + ',' + obj.Longitude + ',\'car\',' + $("#form").val() + ')\"></li>'
+                                         + '<li id="car" onclick=\"FQTD.calcRoute(' + obj.Latitude + ',' + obj.Longitude + ',\'car\',' + $("#form").val() + ')\"></li>'
+                                         + '<li id="bus" onclick=\"FQTD.calcRoute(' + obj.Latitude + ',' + obj.Longitude + ',\'bus\',' + $("#form").val() + ')\"></li>'
+                                         + '<li id="walk" onclick=\"FQTD.calcRoute(' + obj.Latitude + ',' + obj.Longitude + ',\'walk\',' + $("#form").val() + ')\"></li></ul>'
+                                         + '<div id="linkview"><a href="/detail/' + isEmpty(obj.ItemID) + '/' + encodeItemName(isEmpty(obj.ItemName)) + '" target="_blank">Xem chi tiết</a></div><div id="space"></div>';
+                            locations.push([obj.Latitude, obj.Longitude, contentmarker, isEmpty(obj.ItemName), isEmpty(obj.FullAddress), isEmpty(obj.Phone), isEmpty(obj.Logo), isEmpty(obj.ItemID), 0, isEmpty(obj.MarkerIcon), y]);
+                        }
                     }
                 }
             });
@@ -452,7 +473,7 @@ var FQTD = (function () {
             directionsDisplay.setMap(map);
 
             //add marker to map
-            for (i = 0; i <= NumberOfIntemShow; i++) {
+            for (i = 0; i < NumberOfIntemShow; i++) {
                 if (listMarker[i]) {
                     FQTD.markOutLocation(listMarker[i][0], listMarker[i][1], map, listMarker[i][2], listMarker[i][9]);
                     limit++;
@@ -576,8 +597,11 @@ var FQTD = (function () {
                 //add distance to array
                 locations[i][8] = compareDistance;
             }
-            //sort by distance ascending
-            locations.sort(sortbyDistance)
+            //sort by list priority first then distance ascending
+            var s = firstBy(function (v1, v2) { return v1[10] - v2[10] })
+                 .thenBy(function (v1, v2) { return v1[8] - v2[8] });
+            locations.sort(s)
+            console.log(locations)
         },
         BindKeywordAutocomplete: function () {
             //get all keyword
@@ -628,9 +652,7 @@ var FQTD = (function () {
                 } else {
                     s.removeClass("stick");
                     s.addClass("nostick");
-                }
-                console.log(windowpos)
-                console.log(pos.top)
+                }               
             });
         },
         GetPropertyValue: function () {
@@ -709,7 +731,7 @@ var FQTD = (function () {
                 FQTD.displayMap()
             });
             NumberOfIntemShow = $("#NumberOfIntemShow").val()
-            NumberOfIntemAddmore = $("#NumberOfIntemAddmore").val()
+            NumberOfIntemAddmore = $("#NumberOfIntemAddmore").val()            
             FQTD.showPanel();
             FQTD.hidePanel();
             FQTD.BindPropertyData();

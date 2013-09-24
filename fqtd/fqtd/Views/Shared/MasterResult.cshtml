@@ -51,11 +51,11 @@
             @RenderBody()
         </div>
 
-        <a href="#panelProp" id="buttonProp">
+        <a href="#panelPropLeft" id="buttonPropLeft">
             <span class="glyphicon glyphicon-th"></span>
         </a>
-        <div data-role="panel" id="panelProp" data-position="left" data-display="reveal" data-dismissible="true" data-theme="none">
-            <div id="panelcontent" class="panel-content hidden">
+        <div data-role="panel" id="panelPropLeft" data-position="left" data-display="reveal" data-dismissible="true" data-theme="none">
+            <div id="panelcontentLeft" class="panel-content hidden">
                 <span data-rel="close" class="glyphicon glyphicon-remove"></span>
                 <div id="titleproperty">
                     <p>Các tiện ích:</p>
@@ -68,6 +68,19 @@
             </div>
             <!-- /content wrapper for padding -->
         </div>
+
+        <a href="#panelPropRight" id="buttonPropRight">
+            <span class="glyphicon glyphicon-cog"></span>
+        </a>
+        <div data-role="panel" id="panelPropRight" data-position="right" data-display="reveal" data-dismissible="true" data-theme="none">
+            <div id="panelcontentRight" class="panel-content hidden">
+                <span data-rel="close" class="glyphicon glyphicon-remove"></span>
+                
+            </div>
+            <!-- /content wrapper for padding -->
+        </div>
+
+
     </div>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDTNlc8mcX8hdGZpkkPK1NXVq1PJY1zYs0&sensor=false"></script>
     @Scripts.Render("~/bundles/jquery")
