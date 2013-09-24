@@ -198,7 +198,7 @@ namespace fqtd.Controllers
             string strFormD = accented.Normalize(NormalizationForm.FormD);
             return regex.Replace(strFormD, String.Empty).Replace('\u0111', 'd').Replace('\u0110', 'D');
         }
-        
+        /*
         public JsonNetResult ItemByKeyword(ref SearchHistory sHis, string keyword, string properties = "", int vn0_en1 = 0)
         {
             string path = ConfigurationManager.AppSettings["BrandLogoLocation"].Replace("~", "");
@@ -272,7 +272,8 @@ namespace fqtd.Controllers
             sHis.ResultCount = brands.Count();
             return jsonNetResult;
         }
-        /*
+        */
+        
         public JsonNetResult ItemByKeyword(ref SearchHistory sHis, string keyword, string properties = "", int vn0_en1 = 0)
         {
             string path = ConfigurationManager.AppSettings["BrandLogoLocation"].Replace("~", "");
@@ -371,7 +372,6 @@ namespace fqtd.Controllers
             sHis.ResultCount = brands.Count();
             return jsonNetResult;
         }
-        */
         [OutputCache(CacheProfile = "Aggressive", VaryByParam = "mode;keyword;currentLocation;categoryid;brandid;radious;properties;vn0_en1", Location = System.Web.UI.OutputCacheLocation.Client)]
         public ActionResult Search(int mode = 0, string keyword = "", string currentLocation = "", int categoryid = -1, int brandid = -1, int radious = 1, string properties = "", int vn0_en1 = 0)
         {
