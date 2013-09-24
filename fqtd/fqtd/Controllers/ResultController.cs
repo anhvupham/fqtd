@@ -43,7 +43,7 @@ namespace fqtd.Controllers
             JsonNetResult jsonNetResult = new JsonNetResult();
             jsonNetResult.Formatting = Formatting.Indented;
             if (vn0_en1 == 0)
-                jsonNetResult.Data = from a in db.SP_Category_Properties(id).OrderBy(a=>a.PropertyName)
+                jsonNetResult.Data = from a in db.SP_Category_Properties(id).OrderBy(a => a.PropertyName)
                                      select new { a.PropertyID, a.PropertyName, a.Description };
             if (vn0_en1 == 1)
                 jsonNetResult.Data = from a in db.SP_Category_Properties(id).OrderBy(a => a.PropertyName_EN)
@@ -153,10 +153,11 @@ namespace fqtd.Controllers
                              where items.Contains(i.PropertyID)// >= 0
                              select new { b.ItemID }).Distinct();
 
+            var relatebrand = from b in db.tbl_Brand_Categories where b.CategoryID==id && b.Checked!=null && b.Checked.Value select new{b.BrandID, b.CategoryID};
             var brands = from i in db.BrandItems
                          join br in db.Brands on i.BrandID equals br.BrandID
-                         join c in db.Categories on br.CategoryID equals c.CategoryID
-                         where c.CategoryID == id
+                         join l in relatebrand on br.BrandID equals l.BrandID
+                         join c in db.Categories on l.CategoryID equals c.CategoryID
                          select new
                          {
                              i.ItemID,
@@ -198,7 +199,7 @@ namespace fqtd.Controllers
             string strFormD = accented.Normalize(NormalizationForm.FormD);
             return regex.Replace(strFormD, String.Empty).Replace('\u0111', 'd').Replace('\u0110', 'D');
         }
-        /*
+/*
         public JsonNetResult ItemByKeyword(ref SearchHistory sHis, string keyword, string properties = "", int vn0_en1 = 0)
         {
             string path = ConfigurationManager.AppSettings["BrandLogoLocation"].Replace("~", "");
@@ -273,7 +274,6 @@ namespace fqtd.Controllers
             return jsonNetResult;
         }
         */
-        
         public JsonNetResult ItemByKeyword(ref SearchHistory sHis, string keyword, string properties = "", int vn0_en1 = 0)
         {
             string path = ConfigurationManager.AppSettings["BrandLogoLocation"].Replace("~", "");
@@ -308,7 +308,7 @@ namespace fqtd.Controllers
             var brands = from i in db.BrandItems
                          join br in db.Brands on i.BrandID equals br.BrandID
                          join c in db.Categories on br.CategoryID equals c.CategoryID
-                         where i.IsShow && i.Keyword.ToLower().Contains(keyword)
+                         where i.IsShow && (i.Keyword.ToLower().Contains(keyword) || i.Keyword.ToLower().Contains(" "+keyword)||i.Keyword.ToLower().Contains(keyword+" "))
                          select new
                          {
                              i.ItemID,
@@ -372,6 +372,7 @@ namespace fqtd.Controllers
             sHis.ResultCount = brands.Count();
             return jsonNetResult;
         }
+        
         [OutputCache(CacheProfile = "Aggressive", VaryByParam = "mode;keyword;currentLocation;categoryid;brandid;radious;properties;vn0_en1", Location = System.Web.UI.OutputCacheLocation.Client)]
         public ActionResult Search(int mode = 0, string keyword = "", string currentLocation = "", int categoryid = -1, int brandid = -1, int radious = 1, string properties = "", int vn0_en1 = 0)
         {
@@ -469,7 +470,8 @@ namespace fqtd.Controllers
                            br.BrandName_EN,
                            ca.CategoryName,
                            ca.CategoryName_EN
-                           , i.ModifyDate
+                           ,
+                           i.ModifyDate
                        };
             JsonNetResult jsonNetResult = new JsonNetResult();
             jsonNetResult.ContentEncoding = Encoding.UTF8;
@@ -529,7 +531,7 @@ namespace fqtd.Controllers
                 list.Add("PropertyList", db.SP_Brand_Properties(temp.BrandID));
             else list.Add("PropertyList", properties);
             jsonNetResult.Data = list;
-
+            ViewBag.Item = db.BrandItems.Find(itemID);
             return jsonNetResult;
         }
 
@@ -538,7 +540,7 @@ namespace fqtd.Controllers
             var brand = db.Brands.Find(brandid);
             List<BrandItems> items = new List<BrandItems>();
             var brands = db.Brands.Where(a => a.IsActive & a.CategoryID == brand.CategoryID && a.BrandID != brandid).OrderBy(t => Guid.NewGuid()).Take(5);
-            foreach(var b in brands)
+            foreach (var b in brands)
             {
                 items.Add(db.BrandItems.Where(a => a.IsActive && a.BrandID == b.BrandID).OrderBy(t => Guid.NewGuid()).Take(1).FirstOrDefault());
             }
@@ -560,7 +562,7 @@ namespace fqtd.Controllers
                     foreach (string s in files)
                     {
                         string filename = Path.GetFileName(s);
-                        if (s != s.Replace(" ", "_").Replace("-", "_"))
+                        if (s != s.Replace(" ", "_").Replace("-", "_") && !System.IO.File.Exists(s.Replace(" ", "_").Replace("-", "_")))
                         {
                             System.IO.File.Move(s, s.Replace(" ", "_").Replace("-", "_"));
 
@@ -579,8 +581,8 @@ namespace fqtd.Controllers
                     foreach (string s in files)
                     {
                         string filename = Path.GetFileName(s);
-                        if (s != s.Replace(" ", "_").Replace("-", "_"))
-                        System.IO.File.Move(s, s.Replace(" ", "_").Replace("-", "_"));
+                        if (s != s.Replace(" ", "_").Replace("-", "_") && !System.IO.File.Exists(s.Replace(" ", "_").Replace("-", "_")))
+                            System.IO.File.Move(s, s.Replace(" ", "_").Replace("-", "_"));
                         if (filename.ToLower().IndexOf(".jpg") >= 0 || filename.ToLower().IndexOf(".png") >= 0 || filename.ToLower().IndexOf(".gif") >= 0)
                             images.Add(ConfigurationManager.AppSettings["BrandImageLocation"].Replace("~", "") + "/" + item.BrandID + "/" + filename.Replace(" ", "_").Replace("-", "_"));
 
