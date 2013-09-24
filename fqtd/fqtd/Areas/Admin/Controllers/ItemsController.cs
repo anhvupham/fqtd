@@ -177,7 +177,11 @@ namespace fqtd.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(BrandItems branditems, HttpPostedFileBase icon)
         {
-            if (ModelState.IsValid)
+            if (db.BrandItems.Where(a => a.IsActive && a.BrandID != branditems.BrandID && (a.ItemName == branditems.ItemName || a.ItemName_EN == branditems.ItemName_EN)).Count() > 0)
+            {
+                ModelState.AddModelError("CategoryName", "Already Exists Item name");
+            }
+            else if (ModelState.IsValid)
             {
                 branditems.ModifyDate = DateTime.Now;
                 branditems.ModifyUser = User.Identity.Name;

@@ -198,7 +198,11 @@ namespace fqtd.Areas.Admin.Controllers
         [HttpPost, ValidateInput(false)]
         public ActionResult Edit(Brands brands, string Command, HttpPostedFileBase icon, HttpPostedFileBase logo)
         {
-            if (ModelState.IsValid)
+            if (db.Brands.Where(a => a.IsActive && a.BrandID != brands.BrandID && (a.BrandName == brands.BrandName || a.BrandName_EN == brands.BrandName_EN)).Count() > 0)
+            {
+                ModelState.AddModelError("BrandName", "Already Exists Brand name");
+            }
+            else if (ModelState.IsValid)
             {
                 brands.ModifyDate = DateTime.Now;
                 brands.ModifyUser = User.Identity.Name;
