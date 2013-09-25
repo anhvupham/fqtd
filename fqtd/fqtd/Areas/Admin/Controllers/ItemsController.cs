@@ -553,6 +553,59 @@ namespace fqtd.Areas.Admin.Controllers
             ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName");
             return RedirectToAction("index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"], UserCreate = TempData["CurrentCreateUser"], IsShow = TempData["CurrentIsShow"] });
         }
+        public ActionResult BuildXMLSEO()
+        {
+            string filecontent = @"<?xml version=""1.0"" encoding=""utf-8""?>
+                        <urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.9"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xsi:schemaLocation=""http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"">
+                          <url>
+                            <loc>http://www.timdau.vn</loc>
+                            <changefreq>weekly</changefreq>
+                            <lastmod>2010-08-06</lastmod>
+                          </url>
+                          <url>
+                            <loc>http://timdau.vn/home/introduction</loc>
+                            <changefreq>weekly</changefreq>
+                            <lastmod>2010-08-06</lastmod>
+                          </url>
+                          <url>
+                            <loc>http://timdau.vn/home/termandconditionofuse</loc>
+                            <changefreq>weekly</changefreq>
+                            <lastmod>2010-08-06</lastmod>
+                          </url>
+                          <url>
+                            <loc>http://timdau.vn/home/policy</loc>
+                            <changefreq>weekly</changefreq>
+                            <lastmod>2010-08-06</lastmod>
+                          </url>
+                          <url>
+                            <loc>http://timdau.vn/home/contactus</loc>
+                            <changefreq>weekly</changefreq>
+                            <lastmod>2010-08-06</lastmod>
+                          </url>
+                          {0}
+                        </urlset>";
+            string temp = @"<url>
+                            <loc>{0}</loc>
+                            <changefreq>weekly</changefreq>
+                            <lastmod>{1}</lastmod>
+                          </url>";
+            string url = "";
+            var items = db.BrandItems.Where(a=>a.IsActive);
+            foreach (var item in items)
+            {
+                url += Environment.NewLine;
+                url += string.Format(temp, "http://timdau.vn/detail/" + item.ItemID + "/" + item.ItemName.Trim().Replace(" ", "-").Replace("'", "-"), item.CreateDate.ToString("yyyy-MM-dd"));
+            }
+            filecontent = string.Format(filecontent, url);
+            string filePath = Server.MapPath("../../SitemapSEO.xml");
+            if (System.IO.File.Exists(filePath))
+                System.IO.File.Delete(filePath);
+            System.IO.File.WriteAllText(filePath, filecontent);
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
+            ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName");
+            return RedirectToAction("index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"], UserCreate = TempData["CurrentCreateUser"], IsShow = TempData["CurrentIsShow"] });
+        
+        }
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
