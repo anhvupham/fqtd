@@ -38,21 +38,21 @@ namespace fqtd.Controllers
         }
 
 
-        public ActionResult PropertyByCategoryID(int id = -1, int vn0_en1 = 0)
+        public ActionResult PropertyByCategoryID(int id = -1, int vn0_EN1 = 0)
         {
             JsonNetResult jsonNetResult = new JsonNetResult();
             jsonNetResult.Formatting = Formatting.Indented;
-            if (vn0_en1 == 0)
+            if (vn0_EN1 == 0)
                 jsonNetResult.Data = from a in db.SP_Category_Properties(id).OrderBy(a => a.PropertyName)
                                      select new { a.PropertyID, a.PropertyName, a.Description };
-            if (vn0_en1 == 1)
+            if (vn0_EN1 == 1)
                 jsonNetResult.Data = from a in db.SP_Category_Properties(id).OrderBy(a => a.PropertyName_EN)
                                      select new { a.PropertyID, PropertyName = a.PropertyName_EN, a.Description };
 
             return jsonNetResult;
         }
 
-        public JsonNetResult ItemByBrandID(ref SearchHistory sHis, int id = -1, string properties = "", int vn0_en1 = 0)
+        public JsonNetResult ItemByBrandID(ref SearchHistory sHis, int id = -1, string properties = "", int vn0_EN1 = 0)
         {
             string path = ConfigurationManager.AppSettings["BrandLogoLocation"].Replace("~", "");
             string c_path = ConfigurationManager.AppSettings["CategoryMarkerIconLocaion"].Replace("~", "");
@@ -116,14 +116,14 @@ namespace fqtd.Controllers
             jsonNetResult.Formatting = Formatting.Indented;
             jsonNetResult.Data = from a in brands
                                  select new { a.ItemID, a.ItemName, a.Description, a.Longitude, a.Latitude, a.FullAddress, a.Website, a.Logo, a.MarkerIcon, a.Phone };
-            if (vn0_en1 == 1)
+            if (vn0_EN1 == 1)
                 jsonNetResult.Data = from a in brands
                                      select new { a.ItemID, ItemName = a.ItemName_EN, Description = a.Description_EN, a.Longitude, a.Latitude, a.FullAddress, a.Website, a.Logo, a.MarkerIcon, a.Phone };
             sHis.ResultCount = brands.Count();
             return jsonNetResult;
         }
 
-        public JsonNetResult ItemByCategoryID(ref SearchHistory sHis, int id = -1, string properties = "", int vn0_en1 = 0)
+        public JsonNetResult ItemByCategoryID(ref SearchHistory sHis, int id = -1, string properties = "", int vn0_EN1 = 0)
         {
 
             string path = ConfigurationManager.AppSettings["BrandLogoLocation"].Replace("~", "");
@@ -186,7 +186,7 @@ namespace fqtd.Controllers
             jsonNetResult.Formatting = Formatting.Indented;
             jsonNetResult.Data = from a in brands
                                  select new { a.ItemID, a.ItemName, a.Description, a.Longitude, a.Latitude, a.FullAddress, a.Website, a.Logo, a.MarkerIcon, a.Phone };
-            if (vn0_en1 == 1)
+            if (vn0_EN1 == 1)
                 jsonNetResult.Data = from a in brands
                                      select new { a.ItemID, ItemName = a.ItemName_EN, Description = a.Description_EN, a.Longitude, a.Latitude, a.FullAddress, a.Website, a.Logo, a.MarkerIcon, a.Phone };
             sHis.ResultCount = brands.Count();
@@ -200,7 +200,7 @@ namespace fqtd.Controllers
             return regex.Replace(strFormD, String.Empty).Replace('\u0111', 'd').Replace('\u0110', 'D');
         }
 /*
-        //public JsonNetResult ItemByKeyword(ref SearchHistory sHis, string keyword, string properties = "", int vn0_en1 = 0)
+        //public JsonNetResult ItemByKeyword(ref SearchHistory sHis, string keyword, string properties = "", int vn0_EN1 = 0)
         //{
         //    string path = ConfigurationManager.AppSettings["BrandLogoLocation"].Replace("~", "");
         //    string c_path = ConfigurationManager.AppSettings["CategoryMarkerIconLocaion"].Replace("~", "");
@@ -267,14 +267,14 @@ namespace fqtd.Controllers
             jsonNetResult.Formatting = Formatting.Indented;
             jsonNetResult.Data = from a in brands
                                  select new { a.ItemID, a.ItemName, a.Description, a.Longitude, a.Latitude, a.FullAddress, a.Website, a.Logo, a.MarkerIcon, a.Phone };
-            if (vn0_en1 == 1)
+            if (vn0_EN1 == 1)
                 jsonNetResult.Data = from a in brands
                                      select new { a.ItemID, ItemName = a.ItemName_EN, Description = a.Description_EN, a.Longitude, a.Latitude, a.FullAddress, a.Website, a.Logo, a.MarkerIcon, a.Phone };
             sHis.ResultCount = brands.Count();
             return jsonNetResult;
         }
         */
-        public JsonNetResult ItemByKeyword(ref SearchHistory sHis, string keyword, string properties = "", int vn0_en1 = 0)
+        public JsonNetResult ItemByKeyword(ref SearchHistory sHis, string keyword, string properties = "", int vn0_EN1 = 0)
         {
             string path = ConfigurationManager.AppSettings["BrandLogoLocation"].Replace("~", "");
             string c_path = ConfigurationManager.AppSettings["CategoryMarkerIconLocaion"].Replace("~", "");
@@ -308,7 +308,7 @@ namespace fqtd.Controllers
             var brands = from i in db.BrandItems
                          join br in db.Brands on i.BrandID equals br.BrandID
                          join c in db.Categories on br.CategoryID equals c.CategoryID
-                         where i.IsShow && (i.Keyword.ToLower().Contains(keyword) || i.Keyword.ToLower().Contains(" "+keyword)||i.Keyword.ToLower().Contains(keyword+" "))
+                         where i.IsShow && (i.Keyword.ToLower().Contains(" "+keyword)||i.Keyword.ToLower().Contains(keyword+" "))
                          select new
                          {
                              i.ItemID,
@@ -366,15 +366,15 @@ namespace fqtd.Controllers
             jsonNetResult.Formatting = Formatting.Indented;
             jsonNetResult.Data = result;// from a in brands
             //select new { a.ItemID, a.ItemName, a.Description, a.Longitude, a.Latitude, a.FullAddress, a.Website, a.Logo, a.MarkerIcon, a.Phone };
-            if (vn0_en1 == 1)
+            if (vn0_EN1 == 1)
                 jsonNetResult.Data = from a in brands
                                      select new { a.ItemID, ItemName = a.ItemName_EN, Description = a.Description_EN, a.Longitude, a.Latitude, a.FullAddress, a.Website, a.Logo, a.MarkerIcon, a.Phone };
             sHis.ResultCount = brands.Count();
             return jsonNetResult;
         }
         
-        [OutputCache(CacheProfile = "Aggressive", VaryByParam = "mode;keyword;currentLocation;categoryid;brandid;radious;properties;vn0_en1", Location = System.Web.UI.OutputCacheLocation.Client)]
-        public ActionResult Search(int mode = 0, string keyword = "", string currentLocation = "", int categoryid = -1, int brandid = -1, int radious = 1, string properties = "", int vn0_en1 = 0)
+        [OutputCache(CacheProfile = "Aggressive", VaryByParam = "mode;keyword;currentLocation;categoryid;brandid;radious;properties;vn0_EN1", Location = System.Web.UI.OutputCacheLocation.Client)]
+        public ActionResult Search(int mode = 0, string keyword = "", string currentLocation = "", int categoryid = -1, int brandid = -1, int radious = 1, string properties = "", int vn0_EN1 = 0)
         {
             ViewBag.Mode = mode;
             ViewBag.Keyword = keyword;
@@ -382,7 +382,7 @@ namespace fqtd.Controllers
             ViewBag.CategoryID = categoryid;
             ViewBag.BrandID = brandid;
             ViewBag.Radious = radious;
-            ViewBag.CurrentLanguage = vn0_en1;
+            ViewBag.CurrentLanguage = vn0_EN1;
 
             SearchHistory sHis = new SearchHistory();
             sHis.CategoryID = categoryid;
@@ -390,7 +390,7 @@ namespace fqtd.Controllers
             sHis.Mode = mode;
             sHis.Keyword = keyword;
             sHis.CurrentLocation = currentLocation;
-            sHis.VN0_En1 = vn0_en1;
+            sHis.VN0_EN1 = vn0_EN1;
             sHis.Radious = radious;
             sHis.Properties = properties;
             sHis.SearchDate = DateTime.Now.Date;
@@ -399,17 +399,17 @@ namespace fqtd.Controllers
             JsonNetResult jsonNetResult = new JsonNetResult();
             if (mode == 0)//search basic
             {
-                jsonNetResult = ItemByKeyword(ref sHis, keyword, properties, vn0_en1);
+                jsonNetResult = ItemByKeyword(ref sHis, keyword, properties, vn0_EN1);
             }
             else // advance search 
             {
                 if (brandid >= 0)
                 {
-                    jsonNetResult = ItemByBrandID(ref sHis, brandid, properties, vn0_en1);
+                    jsonNetResult = ItemByBrandID(ref sHis, brandid, properties, vn0_EN1);
                 }
                 else
                 {
-                    jsonNetResult = ItemByCategoryID(ref sHis, categoryid, properties, vn0_en1);
+                    jsonNetResult = ItemByCategoryID(ref sHis, categoryid, properties, vn0_EN1);
                 }
             }
             db.SearchHistory.Add(sHis);
@@ -417,7 +417,7 @@ namespace fqtd.Controllers
             return jsonNetResult;
         }
 
-        public ActionResult ItemDetail(int itemID, int vn0_en1 = 0)
+        public ActionResult ItemDetail(int itemID, int vn0_EN1 = 0)
         {
             var bitem = db.BrandItems.Find(itemID);
             if (bitem != null)
@@ -479,7 +479,7 @@ namespace fqtd.Controllers
 
             var result = from a in item
                          select new { a.ItemID, a.ItemName, a.BrandName, CategoryName = a.CategoryName, a.Description, a.Longitude, a.Latitude, a.FullAddress, a.Phone, a.Website, a.OpenTime, a.ClickCount, a.SearchCount, a.ModifyDate };
-            if (vn0_en1 == 1)
+            if (vn0_EN1 == 1)
                 result = from a in item
                          select new { a.ItemID, ItemName = a.ItemName_EN, BrandName = a.BrandName_EN, CategoryName = a.CategoryName_EN, Description = a.Description_EN, a.Longitude, a.Latitude, a.FullAddress, a.Phone, a.Website, a.OpenTime, a.ClickCount, a.SearchCount, a.ModifyDate };
             Dictionary<string, object> list = new Dictionary<string, object>();
@@ -497,7 +497,7 @@ namespace fqtd.Controllers
                              select new
                              {
                                  a.ItemID,
-                                 ItemName = vn0_en1 == 0 ? a.ItemName : a.ItemName_EN
+                                 ItemName = vn0_EN1 == 0 ? a.ItemName : a.ItemName_EN
                                  ,
                                  a.Phone
                                  ,
@@ -514,7 +514,7 @@ namespace fqtd.Controllers
                         {
                             i.ItemID
                             ,
-                            ItemName = vn0_en1 == 0 ? i.ItemName : i.ItemName_EN
+                            ItemName = vn0_EN1 == 0 ? i.ItemName : i.ItemName_EN
                              ,
                             i.Phone
                             ,
@@ -526,7 +526,7 @@ namespace fqtd.Controllers
                         };
             list.Add("SameCategoryList", items.OrderBy(t => Guid.NewGuid()).Take(5));
             var properties = from a in db.SP_Item_Properties(temp.ItemID)
-                             select new { a.PropertyID, a.PropertyValue, PropertyName = vn0_en1 == 0 ? a.PropertyName : a.PropertyName_EN };
+                             select new { a.PropertyID, a.PropertyValue, PropertyName = vn0_EN1 == 0 ? a.PropertyName : a.PropertyName_EN };
             if (properties.Where(a => a.PropertyValue).Count() == 0)
                 list.Add("PropertyList", db.SP_Brand_Properties(temp.BrandID));
             else list.Add("PropertyList", properties);

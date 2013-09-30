@@ -160,15 +160,15 @@ namespace System.Web.Mvc
         {
 
             List<string> list = new List<string>();
-            int index = 0; int index_end = 0;
+            int index = 0; int index_ENd = 0;
             index = html.ToLower().IndexOf("src=");
             while (index > 0)
             {
                 html = html.Substring(index + 5);
-                index_end = html.ToLower().IndexOf('"');
-                string s = html.Substring(0, index_end);
+                index_ENd = html.ToLower().IndexOf('"');
+                string s = html.Substring(0, index_ENd);
                 list.Add(s);
-                html = html.Substring(index_end);
+                html = html.Substring(index_ENd);
                 index = html.ToLower().IndexOf("src=");
             }
             return list;
@@ -177,15 +177,15 @@ namespace System.Web.Mvc
         {
 
             List<string> list = new List<string>();
-            int index = 0; int index_end = 0;
+            int index = 0; int index_ENd = 0;
             index = html.ToLower().IndexOf("<img");
             while (index > 0)
             {
                 html = html.Substring(index);
-                index_end = html.ToLower().IndexOf('>');
-                string s = html.Substring(0, index_end + 1);
+                index_ENd = html.ToLower().IndexOf('>');
+                string s = html.Substring(0, index_ENd + 1);
                 list.Add(s);
-                html = html.Substring(index_end);
+                html = html.Substring(index_ENd);
                 index = html.ToLower().IndexOf("<img");
             }
             return list;

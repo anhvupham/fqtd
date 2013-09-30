@@ -36,7 +36,7 @@ namespace fqtd.Areas.Admin.Controllers
             TempData["CurrentPage"] = page;
             return View(result.ToPagedList(currentPage, maxRecords));
         }
-        public ActionResult Categories(int vn0_en1 = 0)
+        public ActionResult Categories(int vn0_EN1 = 0)
         {
             var categories = db.Categories.Where(a => a.IsActive);
             JsonNetResult jsonNetResult = new JsonNetResult();
@@ -44,7 +44,7 @@ namespace fqtd.Areas.Admin.Controllers
             jsonNetResult.Data = from a in categories
                                  orderby a.CategoryName
                                  select new { a.CategoryID, a.CategoryName };
-            if (vn0_en1 == 1)
+            if (vn0_EN1 == 1)
                 jsonNetResult.Data = from a in categories
                                      orderby a.CategoryName_EN
                                      select new { a.CategoryID, CategoryName = a.CategoryName_EN };

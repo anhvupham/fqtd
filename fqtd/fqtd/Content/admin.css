@@ -42,11 +42,26 @@ body
     float: left;
     min-height: 30px;
     width: 80%;
+    margin: 5px 5px 5px 5px;
 }
 
-    .editor-field input
+    .editor-field input[type="text"]
     {
         width: 80%;
+    }
+    body input[type="submit"]
+    {
+        width: 100px;
+    }
+    
+    .table_search input[type="submit"]
+    {
+        min-width: 150px;
+    }
+    body select
+    {
+        min-width: 150px;
+        height: 26px;
     }
 
 .editor-field-htmleditor
@@ -185,11 +200,15 @@ footer
 
  .table_search
 {
+     margin-top: 10px;
     margin-left: 10%;
     margin-right: 10%;
     /*background-color: lightgray;*/
 }
-
+.table_search td
+{
+    padding: 5px 5px 5px 5px;
+}
  .table_list th
 {
     background-color: GrayText;

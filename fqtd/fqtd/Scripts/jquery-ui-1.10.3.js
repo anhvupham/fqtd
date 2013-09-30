@@ -7961,7 +7961,7 @@ $.extend(Datepicker.prototype, {
 	/* Enable the date picker to a jQuery selection.
 	 * @param  target	element - the target input field or division or span
 	 */
-	_enableDatepicker: function(target) {
+	_ENableDatepicker: function(target) {
 		var nodeName, inline,
 			$target = $(target),
 			inst = $.data(target, PROP_NAME);
@@ -8090,7 +8090,7 @@ $.extend(Datepicker.prototype, {
 				if ( settings.disabled ) {
 					this._disableDatepicker(target);
 				} else {
-					this._enableDatepicker(target);
+					this._ENableDatepicker(target);
 				}
 			}
 			this._attachments($(target), inst);
@@ -14690,7 +14690,7 @@ $.widget( "ui.tooltip", {
 		var that = this;
 
 		if ( key === "disabled" ) {
-			this[ value ? "_disable" : "_enable" ]();
+			this[ value ? "_disable" : "_ENable" ]();
 			this.options[ key ] = value;
 			// disable element style changes
 			return;
@@ -14726,7 +14726,7 @@ $.widget( "ui.tooltip", {
 		});
 	},
 
-	_enable: function() {
+	_ENable: function() {
 		// restore title attributes
 		this.element.find( this.options.items ).addBack().each(function() {
 			var element = $( this );

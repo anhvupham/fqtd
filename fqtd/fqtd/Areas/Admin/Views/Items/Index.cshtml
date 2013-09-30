@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Index";
     string count = ViewBag.ItemCount == null ? 0 : ViewBag.ItemCount + " items";
-    //Layout = "../shared/MasterHome.cshtml";
 }
 <div class="caption">
     @*<label class="title">Item list</label>*@
@@ -25,31 +24,27 @@
     @*<div class=""></div>*@
     <table class="table_search">
         <tr>
-            <td style="text-align: right">Keyword:
-            </td>
-            <td>@Html.TextBox("keyword", (string)ViewBag.CurrentKeyword, new { id = "keyword" })
-            </td>
-            <td style="text-align: right">Categories:
-            </td>
-            <td>@Html.DropDownList("CategoryID", "-- All --")
-            </td>
-            <td style="text-align: right">Brands:
-            </td>
-            <td>@Html.DropDownList("BrandID", "-- All --")
+            <td style="text-align: left">Keyword:
             @*</td>
-                <td style="text-align: right">Users:
-                </td>
-                <td>@Html.DropDownList("Users", "-- All --")
-                </td>*@
-            <td style="text-align: right">
+            <td>*@@Html.TextBox("keyword", (string)ViewBag.CurrentKeyword, new { id = "keyword" })
+            </td>
+            <td style="text-align: left">Categories:
+            @*</td>
+            <td>*@@Html.DropDownList("CategoryID", "-- All --")
+            </td>
+            <td style="text-align: left">Brands:
+            @*</td>
+            <td>*@@Html.DropDownList("BrandID", "-- All --")
+            <td style="text-align: left">
                 <input type="submit" value="Search" />
             </td>
         </tr>
         <tr>
-            <td>UserCreate</td>
-            <td>@Html.DropDownList("CreateUser", "-- All --")</td>
-            <td>IsShow</td>
-            <td>@Html.CheckBox("IsShow")</td>
+            <td>UserCreate:@*</td>
+            <td>*@@Html.DropDownList("CreateUser", "-- All --")</td>
+            <td style="text-align: center; vertical-align: middle"></td>
+            <td>Is Show:
+                &nbsp;&nbsp;@Html.CheckBox("IsShow", true)@*<label for="IsShow" style="padding-bottom: 10px"> Is Show</label>*@</td>
             <td><p style="color: green; font-size: 20px">(@count)</p></td>
         </tr>
     </table>
@@ -75,7 +70,7 @@
        }, new AjaxOptions { UpdateTargetId = "main" })
 
         </th>
-        <th>Item Name (EN)
+        <th>Item Name _EN
         </th>
         <th>Address
         </th>

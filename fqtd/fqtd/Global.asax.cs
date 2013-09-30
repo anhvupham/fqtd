@@ -35,7 +35,7 @@ namespace fqtd
                 StackExchange.Profiling.MiniProfiler.Start();
             }
         }
-        protected void Application_EndRequest()
+        protected void Application_ENdRequest()
         {
             StackExchange.Profiling.MiniProfiler.Stop();
         }

@@ -5,15 +5,12 @@
     TempData.Keep();
 }
 
-<h2>Create</h2>
 
 @using (Html.BeginForm("Create", "Items", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
-    <fieldset>
-        <legend>BrandItems</legend>
         <div class="editor-label">
             @Html.LabelFor(model => model.ItemName)
         </div>
@@ -149,16 +146,16 @@
             </script>
             @Html.ValidationMessageFor(model => model.Description_EN)
         </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
+        
+    <div class="editor-label">
+    </div>
+    <div class="editor-field">
+        <input type="submit" value="Create" />
+        |
+    @Html.ActionLink("Back to List", "Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] })
+    </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] })
-</div>
 
 <script src="~/Scripts/jquery-1.9.1.js"></script>
 <script src="~/Scripts/jquery-ui-1.10.3.js"></script>

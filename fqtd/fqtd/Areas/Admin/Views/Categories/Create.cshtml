@@ -5,9 +5,6 @@
     TempData.Keep();
 }
 
-<h2>Create category</h2>
-
-
 @using (Html.BeginForm("Create", "Categories", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true)
@@ -21,7 +18,7 @@
             @Html.EditorFor(model => model.CategoryName)
             @Html.ValidationMessageFor(model => model.CategoryName)
         </div>
-         <div class="editor-label">
+        <div class="editor-label">
             @Html.LabelFor(model => model.CategoryName_EN)
         </div>
         <div class="editor-field">
@@ -32,7 +29,7 @@
             @Html.LabelFor(model => model.MarkerIcon)
         </div>
         <div class="editor-field">
-             <input type="file" name="icon" />
+            <input type="file" name="icon" />
             @Html.ValidationMessageFor(model => model.MarkerIcon)
         </div>
         <div class="editor-label">
@@ -46,8 +43,8 @@
         </div>
         <div class="editor-field-htmleditor">
             @Html.TextAreaFor(model => model.Description, new { @id = "Description" })
-           <script type="text/javascript">
-               CKEDITOR.replace("Description");
+            <script type="text/javascript">
+                CKEDITOR.replace("Description");
             </script>
             @Html.ValidationMessageFor(model => model.Description)
         </div>
@@ -57,15 +54,17 @@
         </div>
         <div class="editor-field-htmleditor">
             @Html.TextAreaFor(model => model.Description_EN, new { @id = "Description_EN" })
-           <script type="text/javascript">
-               CKEDITOR.replace("Description_EN");
+            <script type="text/javascript">
+                CKEDITOR.replace("Description_EN");
             </script>
             @Html.ValidationMessageFor(model => model.Description_EN)
         </div>
-        <p>
+        <div class="editor-label">
+        </div>
+        <div class="editor-field-htmleditor">
             <input type="submit" value="Create" />|
     @Html.ActionLink("Back to List", "Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] })
-        </p>
+        </div>
     </div>
 }
 

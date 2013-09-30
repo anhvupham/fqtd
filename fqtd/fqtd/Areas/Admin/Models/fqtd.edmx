@@ -253,7 +253,7 @@
           <Property Name="Mode" Type="int" />
           <Property Name="CategoryID" Type="int" />
           <Property Name="BrandID" Type="int" />
-          <Property Name="VN0_En1" Type="int" />
+          <Property Name="VN0_EN1" Type="int" />
           <Property Name="SearchDate" Type="date" />
           <Property Name="SearchTime" Type="datetime" />
           <Property Name="ResultCount" Type="int" />
@@ -862,7 +862,7 @@
           <Property Type="Int32" Name="Mode" />
           <Property Type="Int32" Name="CategoryID" />
           <Property Type="Int32" Name="BrandID" />
-          <Property Type="Int32" Name="VN0_En1" />
+          <Property Type="Int32" Name="VN0_EN1" />
           <Property Type="DateTime" Name="SearchDate" Precision="0" />
           <Property Type="DateTime" Name="SearchTime" Precision="3" />
           <Property Type="Int32" Name="ResultCount" />
@@ -1150,7 +1150,7 @@
                 <ScalarProperty Name="ResultCount" ColumnName="ResultCount" />
                 <ScalarProperty Name="SearchTime" ColumnName="SearchTime" />
                 <ScalarProperty Name="SearchDate" ColumnName="SearchDate" />
-                <ScalarProperty Name="VN0_En1" ColumnName="VN0_En1" />
+                <ScalarProperty Name="VN0_EN1" ColumnName="VN0_EN1" />
                 <ScalarProperty Name="BrandID" ColumnName="BrandID" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="Mode" ColumnName="Mode" />

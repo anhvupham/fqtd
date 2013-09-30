@@ -39,7 +39,7 @@ namespace fqtd.Areas.Admin.Controllers
         }
 
 
-        public ActionResult BrandList(int vn0_en1 = 0)
+        public ActionResult BrandList(int vn0_EN1 = 0)
         {
             var brands = db.Brands.Where(a => a.IsActive).Include(b => b.tbl_Categories);
             JsonNetResult jsonNetResult = new JsonNetResult();
@@ -47,14 +47,14 @@ namespace fqtd.Areas.Admin.Controllers
             jsonNetResult.Data = from a in brands
                                  orderby a.BrandName
                                  select new { a.BrandID, a.BrandName, a.Description };
-            if (vn0_en1 == 1)
+            if (vn0_EN1 == 1)
                 jsonNetResult.Data = from a in brands
                                      orderby a.BrandName_EN
                                      select new { a.BrandID, BrandName = a.BrandName_EN, Description = a.Description_EN };
             return jsonNetResult;
         }
 
-        public ActionResult BrandsByCategory(int id = -1, int vn0_en1 = 0)
+        public ActionResult BrandsByCategory(int id = -1, int vn0_EN1 = 0)
         {
             var brands = from b in db.Brands
                          //join c in db.tbl_Brand_Categories on new { BrandID = b.BrandID, CategoryID = b.CategoryID } equals new { BrandID=c.BrandID, CategoryID = id }
@@ -68,7 +68,7 @@ namespace fqtd.Areas.Admin.Controllers
             jsonNetResult.Data = from a in brands
                                  orderby a.BrandName
                                  select new { a.BrandID, a.BrandName, a.Description };
-            if (vn0_en1 == 1)
+            if (vn0_EN1 == 1)
                 jsonNetResult.Data = from a in brands
                                      orderby a.BrandName_EN
                                      select new { a.BrandID, BrandName = a.BrandName_EN, Description = a.Description_EN };

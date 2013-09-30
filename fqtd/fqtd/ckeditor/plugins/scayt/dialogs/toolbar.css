@@ -22,7 +22,7 @@ a.cke_scayt_toogle {
 	color : #316ac5;
 	border-color: #fff;
 }
-.scayt_enabled a.cke_scayt_item {
+.scayt_ENabled a.cke_scayt_item {
 	color : #316ac5;
 	border-color: #fff;
 	margin : 0px;
@@ -31,9 +31,9 @@ a.cke_scayt_toogle {
 	color : gray;
 	border-color : #fff;
 }
-.scayt_enabled a.cke_scayt_item:hover,
-.scayt_enabled a.cke_scayt_item:focus,
-.scayt_enabled a.cke_scayt_item:active
+.scayt_ENabled a.cke_scayt_item:hover,
+.scayt_ENabled a.cke_scayt_item:focus,
+.scayt_ENabled a.cke_scayt_item:active
 {
 	border-color: #316ac5;
 	background-color: #dff1ff;
@@ -53,7 +53,7 @@ a.cke_scayt_toogle {
 {
 	display: none;
 }
-.scayt_enabled .cke_scayt_set_on
+.scayt_ENabled .cke_scayt_set_on
 {
 	display: none;
 }
@@ -65,7 +65,7 @@ a.cke_scayt_toogle {
 {
 	display: none;
 }
-.scayt_enabled  .cke_scayt_set_off
+.scayt_ENabled  .cke_scayt_set_off
 {
 	display: inline;
 }

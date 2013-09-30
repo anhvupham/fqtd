@@ -5,7 +5,7 @@
     TempData.Keep();
 }
 
-<h2>Edit</h2>
+@*<h2>Edit</h2>*@
 
 @using (Html.BeginForm("Edit", "Items", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -21,6 +21,7 @@
     @Html.HiddenFor(model => model.SearchCount)
     @Html.HiddenFor(model => model.ClickCount)
     @Html.HiddenFor(model => model.Keyword)
+    @Html.HiddenFor(model => model.Keyword_unsign)
 
 @* <fieldset>
         <legend>Item Infos</legend>*@
@@ -94,28 +95,28 @@
         @Html.LabelFor(model => model.AddressNumber)
     </div>
     <div class="editor-field">
-            @Html.TextBoxFor(model => model.AddressNumber, "", new { onchange = "buildAddress()" })
+        @Html.TextBoxFor(model => model.AddressNumber, "", new { onchange = "buildAddress()" })
         @Html.ValidationMessageFor(model => model.AddressNumber)
     </div>
     <div class="editor-label">
         @Html.LabelFor(model => model.Street)
     </div>
     <div class="editor-field">
-            @Html.TextBoxFor(model => model.Street, "", new { onchange = "buildAddress()" })
+        @Html.TextBoxFor(model => model.Street, "", new { onchange = "buildAddress()" })
         @Html.ValidationMessageFor(model => model.Street)
     </div>
     <div class="editor-label">
         @Html.LabelFor(model => model.District)
     </div>
     <div class="editor-field">
-            @Html.TextBoxFor(model => model.District, "", new { onchange = "buildAddress()" })
+        @Html.TextBoxFor(model => model.District, "", new { onchange = "buildAddress()" })
         @Html.ValidationMessageFor(model => model.District)
     </div>
     <div class="editor-label">
         @Html.LabelFor(model => model.City)
     </div>
     <div class="editor-field">
-            @Html.TextBoxFor(model => model.City, "", new { onchange = "buildAddress()" })
+        @Html.TextBoxFor(model => model.City, "", new { onchange = "buildAddress()" })
         @Html.ValidationMessageFor(model => model.City)
     </div>
     <div class="editor-label">
@@ -162,18 +163,17 @@
         </script>
         @Html.ValidationMessageFor(model => model.Description_EN)
     </div>
-
-    <p>
+    <div class="editor-label">
+    </div>
+    <div class="editor-field">
         <input type="submit" value="Save" />
         |
     @Html.ActionLink("Back to List", "Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] })
-        
-    </p>@*
-    </fieldset>*@
+    </div>
 }
 <script src="~/Scripts/jquery-1.9.1.js"></script>
-<script src="~/Scripts/jquery-ui-1.10.3.js"></script> 
-    @Styles.Render("~/Content/themes/base/autocomplete")
+<script src="~/Scripts/jquery-ui-1.10.3.js"></script>
+@Styles.Render("~/Content/themes/base/autocomplete")
 <script>
     function buildAddress() {
         //alert("cu");

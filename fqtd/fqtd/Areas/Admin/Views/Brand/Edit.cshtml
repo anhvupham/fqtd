@@ -5,15 +5,11 @@
     TempData.Keep();
 }
 
-<h2>Edit</h2>
-
 @using (Html.BeginForm("Edit", "Brand", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
-    <fieldset>
-        <legend>Brands</legend>
 
         @Html.HiddenFor(model => model.BrandID)
         @Html.HiddenFor(model => model.CreateDate)
@@ -22,6 +18,8 @@
         @Html.HiddenFor(model => model.MarkerIcon)
         @Html.HiddenFor(model => model.Logo)
         @Html.HiddenFor(model => model.CategoryID)
+        @Html.HiddenFor(model => model.Keyword_Unsign)
+        
 
         <div class="editor-label">
             @Html.LabelFor(model => model.BrandName)
@@ -50,7 +48,7 @@
             Website
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model=>model.Website)
+            @Html.EditorFor(model => model.Website)
             @Html.ValidationMessageFor(model => model.Website)
         </div>
         <div class="editor-label">
@@ -103,16 +101,15 @@
         </div>
 
 
-
-
-        <p>
+    <div class="editor-label">
+        </div>
+        <div class="editor-field">
             <input type="submit" value="Save" />|
-            <input type="submit" value="Save2ImageList" name="Command"/>
-            <input type="submit" value="Save2Category" name="Command"/>
-            <input type="submit" value="Save2Property" name="Command"/>
-    @Html.ActionLink("Back to List", "Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] })
-        </p>
-    </fieldset>
+            <input type="submit" value="Save2ImageList" name="Command"/>|
+            <input type="submit" value="Save2Category" name="Command"/>|
+            <input type="submit" value="Save2Property" name="Command"/>|
+    @Html.ActionLink("Back to List", "Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] })        </div>
+
 }
 
 

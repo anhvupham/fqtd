@@ -662,7 +662,7 @@
     <Content Include="ckeditor\samples\plugins\htmlwriter\assets\outputforflash\outputforflash.fla" />
     <Content Include="ckeditor\samples\sample_posteddata.php" />
     <Content Include="ckeditor\skins\moono\readme.md" />
-    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout_bk.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout__.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Brand\Index.cshtml" />
@@ -707,9 +707,19 @@
     <Content Include="Areas\Admin\Views\Brand\BrandCategories.cshtml" />
     <Content Include="Areas\Admin\Views\ContactUs\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ContactUs\Details.cshtml" />
+    <Content Include="Images\bg_bottomShadow_gray.gif" />
     <Content Include="Images\close.png" />
+    <Content Include="Images\icon+.png" />
+    <Content Include="Images\icon_email.png" />
+    <Content Include="Images\icon_fb.png" />
+    <Content Include="Images\icon_p.png" />
+    <Content Include="Images\icon_tw.png" />
+    <Content Include="Images\join_button.gif" />
+    <Content Include="Images\map.jpg" />
     <Content Include="Images\next.png" />
+    <Content Include="Images\photo1.jpg" />
     <Content Include="Images\prev.png" />
+    <Content Include="Images\submit_button.gif" />
     <Content Include="Scripts\autocomplete\content\countries.txt" />
     <Content Include="Scripts\autocomplete\content\styles.css" />
     <Content Include="Scripts\autocomplete\demo.js" />
@@ -732,7 +742,6 @@
     <Content Include="Content\font\architep-webfont.woff" />
     <Content Include="Areas\Admin\Views\SearchHistory\Index.cshtml" />
     <Content Include="Areas\Admin\Views\SearchHistory\_Paging.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\ContactUs\_Paging.cshtml" />
     <Content Include="Areas\Admin\Views\Brand\ImageList.cshtml" />
     <Content Include="Areas\Admin\Views\SearchHistory\KeywordHis.cshtml" />
@@ -780,7 +789,6 @@
     <Content Include="Images\logo_big1.png" />
     <Content Include="Images\logo_small.png" />
     <Content Include="Images\logo_small1.png" />
-    <Content Include="Images\MarkerIcon\Brand\schools_maps.png" />
     <Content Include="Images\no-image.jpg" />
     <Content Include="Images\tipbox.gif" />
     <Content Include="Intro.html" />
@@ -836,7 +844,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\MasterHome.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\Details.cshtml" />
@@ -860,6 +868,7 @@
     <Folder Include="Images\Images\" />
     <Folder Include="Images\ItemImages\" />
     <Folder Include="Images\Logo\Brand\" />
+    <Folder Include="Images\MarkerIcon\Brand\" />
     <Folder Include="Images\MarkerIcon\Category\" />
     <Folder Include="Images\MarkerIcon\Item\" />
     <Folder Include="Models\" />

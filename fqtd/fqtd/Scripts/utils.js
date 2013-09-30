@@ -290,8 +290,8 @@ var FQTD = (function () {
             var opt = {
                 callback: FQTD.pageselectCallback,
                 items_per_page: NumberOfIntemShow,
-                num_display_entries: 5,
-                num_edge_entries: 2,
+                num_display_ENtries: 5,
+                num_edge_ENtries: 2,
                 prev_text: "Trước",
                 next_text: "Sau"
             };
@@ -314,7 +314,7 @@ var FQTD = (function () {
                     }
                 }
             }
-            urlResult += "&vn0_en1=0";
+            urlResult += "&vn0_EN1=0";
             var result = $.getJSON(urlResult, null, function (items) {
                 for (var y = 0; y < items.length; y++) {
                     for (var i = 0; i < items[y].length; i++) {
@@ -486,7 +486,7 @@ var FQTD = (function () {
         BindSelectCategory: function () {
             //Bind data to select box Category
             var urlCategory = "/admin/categories/Categories";
-            $.getJSON(urlCategory + "?vn0_en1=0", null, function (categories) {
+            $.getJSON(urlCategory + "?vn0_EN1=0", null, function (categories) {
                 for (i in categories) {
                     $("#category").append('<option value="' + categories[i].CategoryID + '">' + categories[i].CategoryName + '</option>');
                 }

@@ -5,15 +5,12 @@
     TempData.Keep();
 }
 
-<h2>Create</h2>
 
 @using (Html.BeginForm("Create", "Brand", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
-    <fieldset>
-        <legend>Brands</legend>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.BrandName)
@@ -90,15 +87,18 @@
         </div>
 
        
-
-        <p>
-            <input type="submit" value="Create" />
-            <input type="submit" value="Create2ImageList" name="Command"/>
-            <input type="submit" value="Create2Category" name="Command"/>
-            <input type="submit" value="Create2Property" name="Command"/>
+    <div class="editor-label">
+        </div>
+        <div class="editor-field">
+            <input type="submit" value="Create" />|
+            <input type="submit" value="Create2ImageList" name="Command"/>|
+            <input type="submit" value="Create2Category" name="Command"/>|
+            <input type="submit" value="Create2Property" name="Command"/>|
     @Html.ActionLink("Back to List", "Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] })
-        </p>
-    </fieldset>
+ 
+        </div>
+
+ 
 }
 
 
