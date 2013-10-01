@@ -11,7 +11,7 @@
     <meta property="og:image" content="http://timdau.vn/images/logo_small1.png" />
     <meta property="og:site_name" content="Tìm đâu" />
     <meta property="og:type" content="website" />
-    <meta property="fb:app_id" content="560006830733793"/>
+    <meta property="fb:app_id" content="560006830733793" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @Styles.Render("~/Content/bootstrapcss")
@@ -75,7 +75,10 @@
         <div data-role="panel" id="panelPropRight" data-position="right" data-display="reveal" data-dismissible="true" data-theme="none">
             <div id="panelcontentRight" class="panel-content hidden">
                 <span data-rel="close" class="glyphicon glyphicon-remove"></span>
-                
+                <div class="content">
+                    <div id="buttonArrangePosition" class="buttonGreen button">Sắp xếp theo gần nhất</div>
+                    <div id="buttonArrangeName" class="buttonGrey button">Sắp xếp theo tên</div>
+                </div>
             </div>
             <!-- /content wrapper for padding -->
         </div>

@@ -129,6 +129,24 @@ body, html {
     cursor: pointer;
 }
 
+#panelPropRight .glyphicon-remove {
+    font-size: 25px;
+    color: #55D040;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+#panelPropRight .button {
+    width:100%;
+    margin-bottom:5px;
+}
+
+#panelcontentRight .content {
+    width:100%;
+    margin-top:15px;
+}
+
 .homepagerow {
     margin-bottom: 30px;
 }

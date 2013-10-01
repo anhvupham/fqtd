@@ -13,8 +13,9 @@ namespace fqtd.Controllers
         {
             ViewBag.URL = Request.Url.AbsoluteUri;
             ViewBag.keywords = ConfigurationManager.AppSettings["metakeywords"];
-            ViewBag.description = ConfigurationManager.AppSettings["metakeydescription"];
+            ViewBag.description = ConfigurationManager.AppSettings["metakeydescription"];            
             return View("Index");
+            
         }      
        
     }

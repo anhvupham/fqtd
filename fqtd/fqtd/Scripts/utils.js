@@ -233,6 +233,8 @@ var FQTD = (function () {
             $("#buttonPropRight").bind("click", function () {
                 $("#buttonPropRight").addClass("hidden");
             })
+
+            $("#panelcontentRight").removeClass("hidden")
             //////////
         },
         displayList: function () {
@@ -316,25 +318,28 @@ var FQTD = (function () {
             }
             urlResult += "&vn0_EN1=0";
             var result = $.getJSON(urlResult, null, function (items) {
-                for (var y = 0; y < items.length; y++) {
-                    for (var i = 0; i < items[y].length; i++) {
-                        var obj = items[y][i]
+                if ($("#form").val() == "0") {
+                    for (var y = 0; y < items.length; y++) {
+                        for (var i = 0; i < items[y].length; i++) {
+                            var obj = items[y][i]
+                            if (obj.Latitude != null && obj.Longitude != null) {
+                                FQTD.AddToArray(obj, y)
+                            }
+                        }
+                    }
+                }
+                else {
+                    for (var i = 0; i < items.length; i++) {
+                        var obj = items[i]
                         if (obj.Latitude != null && obj.Longitude != null) {
-                            var contentmarker = '<div class="marker"><h2>' + isEmpty(obj.ItemName) + '</h2><p>' + isEmpty(obj.FullAddress) + '<br/>' + isEmpty(obj.Phone) + '</p></div>'
-                                         + '<ul id="directionIcon">'
-                                         + '<li id="moto" onclick=\"FQTD.calcRoute(' + obj.Latitude + ',' + obj.Longitude + ',\'car\',' + $("#form").val() + ')\"></li>'
-                                         + '<li id="car" onclick=\"FQTD.calcRoute(' + obj.Latitude + ',' + obj.Longitude + ',\'car\',' + $("#form").val() + ')\"></li>'
-                                         + '<li id="bus" onclick=\"FQTD.calcRoute(' + obj.Latitude + ',' + obj.Longitude + ',\'bus\',' + $("#form").val() + ')\"></li>'
-                                         + '<li id="walk" onclick=\"FQTD.calcRoute(' + obj.Latitude + ',' + obj.Longitude + ',\'walk\',' + $("#form").val() + ')\"></li></ul>'
-                                         + '<div id="linkview"><a href="/detail/' + isEmpty(obj.ItemID) + '/' + encodeItemName(isEmpty(obj.ItemName)) + '" target="_blank">Xem chi tiết</a></div><div id="space"></div>';
-                            locations.push([obj.Latitude, obj.Longitude, contentmarker, isEmpty(obj.ItemName), isEmpty(obj.FullAddress), isEmpty(obj.Phone), isEmpty(obj.Logo), isEmpty(obj.ItemID), 0, isEmpty(obj.MarkerIcon), y]);
+                            FQTD.AddToArray(obj, 0)
                         }
                     }
                 }
             });
 
             result.complete(function () {
-                FQTD.BindData()
+                FQTD.BindData("name")
                 //set back link               
                 $("#backlink").attr("href", "/#" + $("#form").val())
                 $("#btn_xemthemMap").bind("click", function () {
@@ -347,7 +352,17 @@ var FQTD = (function () {
                 });
             });
         },
-        BindData: function () {
+        AddToArray: function (obj, queue) {
+            var contentmarker = '<div class="marker"><h2>' + isEmpty(obj.ItemName) + '</h2><p>' + isEmpty(obj.FullAddress) + '<br/>' + isEmpty(obj.Phone) + '</p></div>'
+                                         + '<ul id="directionIcon">'
+                                         + '<li id="moto" onclick=\"FQTD.calcRoute(' + obj.Latitude + ',' + obj.Longitude + ',\'car\',' + $("#form").val() + ')\"></li>'
+                                         + '<li id="car" onclick=\"FQTD.calcRoute(' + obj.Latitude + ',' + obj.Longitude + ',\'car\',' + $("#form").val() + ')\"></li>'
+                                         + '<li id="bus" onclick=\"FQTD.calcRoute(' + obj.Latitude + ',' + obj.Longitude + ',\'bus\',' + $("#form").val() + ')\"></li>'
+                                         + '<li id="walk" onclick=\"FQTD.calcRoute(' + obj.Latitude + ',' + obj.Longitude + ',\'walk\',' + $("#form").val() + ')\"></li></ul>'
+                                         + '<div id="linkview"><a href="/detail/' + isEmpty(obj.ItemID) + '/' + encodeItemName(isEmpty(obj.ItemName)) + '" target="_blank">Xem chi tiết</a></div><div id="space"></div>';
+            locations.push([obj.Latitude, obj.Longitude, contentmarker, isEmpty(obj.ItemName), isEmpty(obj.FullAddress), isEmpty(obj.Phone), isEmpty(obj.Logo), isEmpty(obj.ItemID), 0, isEmpty(obj.MarkerIcon), queue]);
+        },
+        BindData: function (type) {
             if (locations.length > 0) {
                 FQTD.yesRecord()
                 if ($("#form").val() == "1") {
@@ -360,7 +375,7 @@ var FQTD = (function () {
                                 myplace = results[0].geometry.location;
 
                                 //add distance to array and sort array by distance
-                                FQTD.SortArray()
+                                FQTD.SortArray(type)
 
                                 //bind list
                                 FQTD.Pagination()
@@ -386,7 +401,7 @@ var FQTD = (function () {
                                 myplace = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
                                 //add distance to array and sort array by distance
-                                FQTD.SortArray()
+                                FQTD.SortArray(type)
 
                                 //bind list
                                 FQTD.Pagination()
@@ -409,7 +424,7 @@ var FQTD = (function () {
                         myplace = new google.maps.LatLng(16.46346, 107.58470);
 
                         //add distance to array and sort array by distance
-                        FQTD.SortArray()
+                        FQTD.SortArray(type)
 
                         //bind list
                         FQTD.Pagination()
@@ -591,17 +606,24 @@ var FQTD = (function () {
             FQTD.displayMap()
             FQTD.calcRoute(lat, long, 'car', $("#form").val())
         },
-        SortArray: function () {
+        SortArray: function (type) {
             for (i = 0; i < locations.length; i++) {
                 var compareDistance = return_Distance(myplace, new google.maps.LatLng(locations[i][0], locations[i][1]));
                 //add distance to array
                 locations[i][8] = compareDistance;
             }
-            //sort by list priority first then distance ascending
-            var s = firstBy(function (v1, v2) { return v1[10] - v2[10] })
-                 .thenBy(function (v1, v2) { return v1[8] - v2[8] });
-            locations.sort(s)
-            console.log(locations)
+            if (type == "position") {
+                //sort by list priority first then distance ascending
+                var s = firstBy(function (v1, v2) { return v1[10] - v2[10] })
+                     .thenBy(function (v1, v2) { return v1[8] - v2[8] });
+                locations.sort(s)
+            }
+            else if (type == "name") {
+                //sort by name
+                var s = firstBy(function (v1, v2) { return v1[10] - v2[10] })
+                    .thenBy(function (v1, v2) { return v1[3] < v2[3] ? -1 : (v1[3] > v2[3] ? 1 : 0); });
+                locations.sort(s)
+            }
         },
         BindKeywordAutocomplete: function () {
             //get all keyword
@@ -742,6 +764,18 @@ var FQTD = (function () {
             })
             //FQTD.Sticker();
             FQTD.HideLoading()
+            $("#buttonArrangeName").bind("click", function () {
+                //sort array by name
+                FQTD.BindData("name");
+                $("#buttonArrangeName").removeClass("buttonGrey").addClass("buttonGreen")
+                $("#buttonArrangePosition").removeClass("buttonGreen").addClass("buttonGrey")
+            })
+            $("#buttonArrangePosition").bind("click", function () {
+                //sort array by position
+                FQTD.BindData("position");
+                $("#buttonArrangePosition").removeClass("buttonGrey").addClass("buttonGreen")
+                $("#buttonArrangeName").removeClass("buttonGreen").addClass("buttonGrey")
+            })
         },
         initHomepage: function () {
             //event slide
