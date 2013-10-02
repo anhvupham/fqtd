@@ -38,7 +38,7 @@ namespace fqtd.Areas.Admin.Controllers
         }
         public ActionResult Categories(int vn0_EN1 = 0)
         {
-            var categories = db.Categories.Where(a => a.IsActive);
+            var categories = db.Categories.Where(a => a.IsActive && a.IsShow);
             JsonNetResult jsonNetResult = new JsonNetResult();
             jsonNetResult.Formatting = Formatting.Indented;
             jsonNetResult.Data = from a in categories

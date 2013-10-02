@@ -38,8 +38,8 @@ namespace fqtd.Areas.Admin.Models
         public DbSet<BrandCategories> tbl_Brand_Categories { get; set; }
         public DbSet<tbl_Brand_Properties> tbl_Brand_Properties { get; set; }
         public DbSet<ContactUS> ContactUS { get; set; }
-        public DbSet<SearchHistory> SearchHistory { get; set; }
         public DbSet<SystemUsers> aspnet_Users { get; set; }
+        public DbSet<SearchHistory> SearchHistory { get; set; }
     
         public virtual ObjectResult<SP_Category_Properties_Result> SP_Category_Properties(Nullable<int> categoryID)
         {

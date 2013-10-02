@@ -39,13 +39,14 @@
 <table class="table_paging">
     <tr><td>
     @Html.Partial("_Paging")</td></tr></table>
+
 <table class="table_list">
     <tr>
         <th>
             Brand Name
         </th>
         <th>
-           Brand Name _EN
+           Brand Name (EN)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.tbl_BrandType.BrandTypeName)
@@ -53,6 +54,7 @@
         <th>
             @Html.DisplayNameFor(model => model.tbl_Categories.CategoryName)
         </th>
+        <th>Logo</th>
         <th class="detail">
             @Html.DisplayNameFor(model => model.CreateDate)
         </th>
@@ -82,6 +84,8 @@
         <td>
             @Html.DisplayFor(modelItem => item.tbl_Categories.CategoryName)
         </td>
+        <td>
+            <img src="@Href(System.Configuration.ConfigurationManager.AppSettings["BrandLogoLocation"] + "/" + item.Logo)" width="50" /></td>
         <td class="detail">
             @Html.DisplayFor(modelItem => item.CreateDate)
         </td>
@@ -106,3 +110,6 @@
 }
 
 </table>
+<table class="table_paging">
+    <tr><td>
+    @Html.Partial("_Paging")</td></tr></table>

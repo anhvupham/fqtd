@@ -12,8 +12,19 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
+   @Html.HiddenFor(model => model.ItemID)
+    @Html.HiddenFor(model => model.CreateDate)
+    @Html.HiddenFor(model => model.CreateUser)
+    @Html.HiddenFor(model => model.IsActive)
+    @Html.HiddenFor(model => model.MarkerIcon)
+    @Html.HiddenFor(model => model.SearchCount)
+    @Html.HiddenFor(model => model.ClickCount)
+    @Html.HiddenFor(model => model.Keyword)
+    @Html.HiddenFor(model => model.Keyword_unsign)
+
+
     <div class="editor-label">
-        @Html.LabelFor(model => model.ItemName)
+        Item Name
     </div>
     <div class="editor-field">
         @Html.EditorFor(model => model.ItemName)
@@ -21,7 +32,7 @@
     </div>
 
     <div class="editor-label">
-        @Html.LabelFor(model => model.ItemName_EN)
+        Item Name(EN)
     </div>
     <div class="editor-field">
         @Html.EditorFor(model => model.ItemName_EN)
@@ -29,7 +40,7 @@
     </div>
 
     <div class="editor-label">
-        @Html.LabelFor(model => model.MarkerIcon)
+        Marker Icon
     </div>
     <div class="editor-field">
         <input type="file" name="icon" />
@@ -38,7 +49,7 @@
 
 
     <div class="editor-label">
-        @Html.LabelFor(model => model.OpenTime)
+        Open Time
     </div>
     <div class="editor-field">
         @Html.EditorFor(model => model.OpenTime)
@@ -46,7 +57,7 @@
     </div>
 
     <div class="editor-label">
-        @Html.LabelFor(model => model.Phone)
+       Phone
     </div>
     <div class="editor-field">
         @Html.EditorFor(model => model.Phone)
@@ -54,7 +65,7 @@
     </div>
 
     <div class="editor-label">
-        @Html.LabelFor(model => model.Website)
+        Website
     </div>
     <div class="editor-field">
         @Html.EditorFor(model => model.Website)
@@ -62,7 +73,7 @@
     </div>
 
     <div class="editor-label">
-        @Html.LabelFor(model => model.BrandID, "tbl_Brands")
+        Brand
     </div>
     <div class="editor-field">
         @Html.DropDownList("BrandID", String.Empty)
@@ -70,7 +81,7 @@
     </div>
         
     <div class="editor-label">
-        @Html.LabelFor(model => model.FullAddress)
+        FullAddress
     </div>
     <div class="editor-field">
         @Html.EditorFor(model => model.FullAddress)
@@ -78,31 +89,31 @@
     </div>
         
     <div class="editor-label">
-        @Html.LabelFor(model => model.AddressNumber)
+        Address number
     </div>
     <div class="editor-field">
-            @Html.TextBoxFor(model => model.AddressNumber, "", new { onchange="buildAddress()"})
+        @Html.TextBoxFor(model => model.AddressNumber, "", new { onchange = "buildAddress()" })
         @Html.ValidationMessageFor(model => model.AddressNumber)
     </div>
     <div class="editor-label">
-        @Html.LabelFor(model => model.Street)
+        Street
     </div>
     <div class="editor-field">
-            @Html.TextBoxFor(model => model.Street, "", new { onchange="buildAddress()"})
+        @Html.TextBoxFor(model => model.Street, "", new { onchange = "buildAddress()" })
         @Html.ValidationMessageFor(model => model.Street)
     </div>
     <div class="editor-label">
-        @Html.LabelFor(model => model.District)
+        District
     </div>
     <div class="editor-field">
-            @Html.TextBoxFor(model => model.District, "", new { onchange="buildAddress()"})
+        @Html.TextBoxFor(model => model.District, "", new { onchange = "buildAddress()" })
         @Html.ValidationMessageFor(model => model.District)
     </div>
     <div class="editor-label">
-        @Html.LabelFor(model => model.City)
+        City
     </div>
     <div class="editor-field">
-            @Html.TextBoxFor(model => model.City, "", new { onchange="buildAddress()"})
+        @Html.TextBoxFor(model => model.City, "", new { onchange = "buildAddress()" })
         @Html.ValidationMessageFor(model => model.City)
     </div>
     <div class="editor-label">
@@ -119,6 +130,15 @@
         @Html.EditorFor(model => model.Longitude)
         @Html.ValidationMessageFor(model => model.Longitude)
     </div>
+    
+    <div class="editor-label">
+       
+    </div>
+    <div class="editor-field">
+        @Html.CheckBoxFor(model => model.IsShow)
+        @Html.ValidationMessageFor(model => model.IsShow)
+        <label for="IsShow">      </label>
+    </div>
     <div class="editor-label">
         @Html.LabelFor(model => model.Description)
     </div>
@@ -132,7 +152,7 @@
 
 
     <div class="editor-label">
-        @Html.LabelFor(model => model.Description_EN)
+        Description(EN)
     </div>
     <div class="editor-field">
         @Html.TextAreaFor(model => model.Description_EN, new { @id = "Description_EN" })
@@ -141,27 +161,55 @@
         </script>
         @Html.ValidationMessageFor(model => model.Description_EN)
     </div>
-
-    <p>
+    <div class="editor-label">
+    </div>
+    <div class="editor-field">
         <input type="submit" value="Save" />
         |
     @Html.ActionLink("Back to List", "Index", new { keyword = TempData["CurrentKeyword"], CategoryID = TempData["CategoryID"], BrandID = TempData["BrandID"], page = TempData["CurrentPage"] })
-        
-    </p>@*
-    </fieldset>*@
+    </div>
 }
+<script src="~/Scripts/jquery-1.9.1.js"></script>
+<script src="~/Scripts/jquery-ui-1.10.3.js"></script>
+@Styles.Render("~/Content/themes/base/autocomplete")
 <script>
     function buildAddress() {
         //alert("cu");
-        var number = $("#AddressNumber").val();
-        var street = $("#Street").val();
-        var district = $("#District").val();
-        var city = $("#City").val();
-        var fullAddress = number + ", " + street + ", " + district + ", " + city;
-        //alert(fullAddress);
-        $("#FullAddress").val(fullAddress);
-    }
 
+        var number = $("#AddressNumber").val().trim();
+        var street = $("#Street").val().trim();
+        var district = $("#District").val().trim();
+        var city = $("#City").val().trim();
+        if (city == 'Hồ Chí Minh') city = 'TP. Hồ Chí Minh';
+        var fullAddress = number + " " + street + ", " + district + ", " + city;
+        //alert(fullAddress);
+        $("#FullAddress").val(fullAddress.replace(', ,', ','));
+    }
+    jQuery(document).ready(function ($) {
+
+        var urlResult = "../GetStreet";
+        //alert(urlResult);
+        var result = $.getJSON(urlResult, null, function (items) {
+            $("#Street").autocomplete({
+                source: items
+            });
+        });
+
+        urlResult = "../GetDistrict";
+        //alert(urlResult);
+        var result = $.getJSON(urlResult, null, function (items) {
+            $("#District").autocomplete({
+                source: items
+            });
+        });
+        urlResult = "../GetCity";
+        //alert(urlResult);
+        var result = $.getJSON(urlResult, null, function (items) {
+            $("#City").autocomplete({
+                source: items
+            });
+        });
+    });
 </script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

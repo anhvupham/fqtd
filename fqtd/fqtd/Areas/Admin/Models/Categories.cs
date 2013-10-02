@@ -36,6 +36,7 @@ namespace fqtd.Areas.Admin.Models
         public string MarkerIcon { get; set; }
         public string Keyword { get; set; }
         public string Keyword_Unsign { get; set; }
+        public bool IsShow { get; set; }
     
         public virtual ICollection<Brands> tbl_Brands { get; set; }
         public virtual ICollection<Properties> tbl_Properties { get; set; }

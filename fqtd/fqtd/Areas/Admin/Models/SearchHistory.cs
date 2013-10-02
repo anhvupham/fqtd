@@ -22,7 +22,7 @@ namespace fqtd.Areas.Admin.Models
         public Nullable<int> Mode { get; set; }
         public Nullable<int> CategoryID { get; set; }
         public Nullable<int> BrandID { get; set; }
-        public Nullable<int> VN0_EN1 { get; set; }
+        public Nullable<int> VN0_En1 { get; set; }
         public Nullable<System.DateTime> SearchDate { get; set; }
         public Nullable<System.DateTime> SearchTime { get; set; }
         public Nullable<int> ResultCount { get; set; }

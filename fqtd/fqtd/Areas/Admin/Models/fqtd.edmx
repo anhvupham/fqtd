@@ -140,6 +140,7 @@
           <Property Name="Keyword" Type="nvarchar(max)" />
           <Property Name="Keyword_Unsign" Type="nvarchar(max)" StoreGeneratedPattern="Computed" />
           <Property Name="Logo" Type="nvarchar" MaxLength="250" />
+          <Property Name="IsShow" Type="bit" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="CreateUser" Type="nvarchar" Nullable="false" MaxLength="256" />
@@ -176,6 +177,7 @@
           <Property Name="MarkerIcon" Type="nvarchar" MaxLength="250" />
           <Property Name="Keyword" Type="nvarchar(max)" />
           <Property Name="Keyword_Unsign" Type="nvarchar(max)" StoreGeneratedPattern="Computed" />
+          <Property Name="IsShow" Type="bit" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="CreateUser" Type="nvarchar" Nullable="false" MaxLength="256" />
@@ -253,7 +255,7 @@
           <Property Name="Mode" Type="int" />
           <Property Name="CategoryID" Type="int" />
           <Property Name="BrandID" Type="int" />
-          <Property Name="VN0_EN1" Type="int" />
+          <Property Name="VN0_En1" Type="int" />
           <Property Name="SearchDate" Type="date" />
           <Property Name="SearchTime" Type="datetime" />
           <Property Name="ResultCount" Type="int" />
@@ -510,12 +512,12 @@
           <Parameter Name="BrandID" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="ContactUS" EntityType="fqtdModel.ContactUS" />
-          <EntitySet Name="SearchHistory" EntityType="fqtdModel.SearchHistory" />
           <EntitySet Name="aspnet_Users" EntityType="fqtdModel.SystemUsers" />
           <FunctionImport Name="SP_SearchByBrand" ReturnType="Collection(fqtdModel.SP_SearchByBrand_Result)" />
           <FunctionImport Name="SP_SearchByCategory" ReturnType="Collection(fqtdModel.SP_SearchByCategory_Result)" />
           <FunctionImport Name="SP_SearchByKeyword" ReturnType="Collection(fqtdModel.SP_SearchByKeyword_Result)" />
           <FunctionImport Name="SP_SearchByMode" ReturnType="Collection(fqtdModel.SP_SearchByMode_Result)" />
+          <EntitySet Name="SearchHistory" EntityType="fqtdModel.SearchHistory" />
         </EntityContainer>
         <EntityType Name="BrandItems">
           <Key>
@@ -583,6 +585,7 @@
           <Property Type="String" Name="Keyword_Unsign" MaxLength="Max" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="tbl_Brand_Categories" Relationship="fqtdModel.FK_tbl_Brand_Categories_tbl_Brands" FromRole="Brands" ToRole="tbl_Brand_Categories" />
           <Property Type="String" Name="Website" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsShow" Nullable="false" />
         </EntityType>
         <EntityType Name="BrandType">
           <Key>
@@ -623,6 +626,7 @@
           <Property Type="String" Name="Keyword" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Keyword_Unsign" MaxLength="Max" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="tbl_Brand_Categories" Relationship="fqtdModel.FK_tbl_Brand_Categories_tbl_Categories" FromRole="Categories" ToRole="tbl_Brand_Categories" />
+          <Property Type="Boolean" Name="IsShow" Nullable="false" />
         </EntityType>
         <EntityType Name="ItemProperties">
           <Key>
@@ -850,23 +854,6 @@
           <Property Type="String" Name="ContactContent" MaxLength="1500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Type="DateTime" Name="ContactDate" Precision="3" Nullable="false" />
         </EntityType>
-        <EntityType Name="SearchHistory">
-          <Key>
-            <PropertyRef Name="SearchID" />
-          </Key>
-          <Property Type="Int32" Name="SearchID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Keyword" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="CurrentLocation" MaxLength="1500" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="Radious" />
-          <Property Type="String" Name="Properties" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="Mode" />
-          <Property Type="Int32" Name="CategoryID" />
-          <Property Type="Int32" Name="BrandID" />
-          <Property Type="Int32" Name="VN0_EN1" />
-          <Property Type="DateTime" Name="SearchDate" Precision="0" />
-          <Property Type="DateTime" Name="SearchTime" Precision="3" />
-          <Property Type="Int32" Name="ResultCount" />
-        </EntityType>
         <EntityType Name="SystemUsers">
           <Key>
             <PropertyRef Name="UserId" />
@@ -901,6 +888,23 @@
           <Property Type="Int32" Name="Month" Nullable="true" />
           <Property Type="Int32" Name="Year" Nullable="true" />
         </ComplexType>
+        <EntityType Name="SearchHistory">
+          <Key>
+            <PropertyRef Name="SearchID" />
+          </Key>
+          <Property Type="Int32" Name="SearchID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Keyword" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CurrentLocation" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Radious" />
+          <Property Type="String" Name="Properties" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Mode" />
+          <Property Type="Int32" Name="CategoryID" />
+          <Property Type="Int32" Name="BrandID" />
+          <Property Type="Int32" Name="VN0_En1" />
+          <Property Type="DateTime" Name="SearchDate" Precision="0" />
+          <Property Type="DateTime" Name="SearchTime" Precision="3" />
+          <Property Type="Int32" Name="ResultCount" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -948,6 +952,7 @@
           <EntitySetMapping Name="Brands">
             <EntityTypeMapping TypeName="fqtdModel.Brands">
               <MappingFragment StoreEntitySet="tbl_Brands">
+                <ScalarProperty Name="IsShow" ColumnName="IsShow" />
                 <ScalarProperty Name="Website" ColumnName="Website" />
                 <ScalarProperty Name="Keyword_Unsign" ColumnName="Keyword_Unsign" />
                 <ScalarProperty Name="Keyword" ColumnName="Keyword" />
@@ -990,6 +995,7 @@
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="fqtdModel.Categories">
               <MappingFragment StoreEntitySet="tbl_Categories">
+                <ScalarProperty Name="IsShow" ColumnName="IsShow" />
                 <ScalarProperty Name="Keyword_Unsign" ColumnName="Keyword_Unsign" />
                 <ScalarProperty Name="Keyword" ColumnName="Keyword" />
                 <ScalarProperty Name="MarkerIcon" ColumnName="MarkerIcon" />
@@ -1144,24 +1150,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SearchHistory">
-            <EntityTypeMapping TypeName="fqtdModel.SearchHistory">
-              <MappingFragment StoreEntitySet="tbl_SearchHistory">
-                <ScalarProperty Name="ResultCount" ColumnName="ResultCount" />
-                <ScalarProperty Name="SearchTime" ColumnName="SearchTime" />
-                <ScalarProperty Name="SearchDate" ColumnName="SearchDate" />
-                <ScalarProperty Name="VN0_EN1" ColumnName="VN0_EN1" />
-                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-                <ScalarProperty Name="Mode" ColumnName="Mode" />
-                <ScalarProperty Name="Properties" ColumnName="Properties" />
-                <ScalarProperty Name="Radious" ColumnName="Radious" />
-                <ScalarProperty Name="CurrentLocation" ColumnName="CurrentLocation" />
-                <ScalarProperty Name="Keyword" ColumnName="Keyword" />
-                <ScalarProperty Name="SearchID" ColumnName="SearchID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="aspnet_Users">
             <EntityTypeMapping TypeName="fqtdModel.SystemUsers">
               <MappingFragment StoreEntitySet="aspnet_Users">
@@ -1213,6 +1201,24 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="SearchHistory">
+            <EntityTypeMapping TypeName="fqtdModel.SearchHistory">
+              <MappingFragment StoreEntitySet="tbl_SearchHistory">
+                <ScalarProperty Name="ResultCount" ColumnName="ResultCount" />
+                <ScalarProperty Name="SearchTime" ColumnName="SearchTime" />
+                <ScalarProperty Name="SearchDate" ColumnName="SearchDate" />
+                <ScalarProperty Name="VN0_En1" ColumnName="VN0_En1" />
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Mode" ColumnName="Mode" />
+                <ScalarProperty Name="Properties" ColumnName="Properties" />
+                <ScalarProperty Name="Radious" ColumnName="Radious" />
+                <ScalarProperty Name="CurrentLocation" ColumnName="CurrentLocation" />
+                <ScalarProperty Name="Keyword" ColumnName="Keyword" />
+                <ScalarProperty Name="SearchID" ColumnName="SearchID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

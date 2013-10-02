@@ -84,7 +84,7 @@ namespace fqtd.Controllers
             var brands = from i in db.BrandItems
                          join br in db.Brands on i.BrandID equals br.BrandID
                          join c in db.Categories on br.CategoryID equals c.CategoryID
-                         where i.BrandID == id
+                         where i.BrandID == id & i.IsShow
                          select new
                          {
                              i.ItemID,
@@ -158,6 +158,7 @@ namespace fqtd.Controllers
                          join br in db.Brands on i.BrandID equals br.BrandID
                          join l in relatebrand on br.BrandID equals l.BrandID
                          join c in db.Categories on l.CategoryID equals c.CategoryID
+                         where br.IsShow && c.IsShow
                          select new
                          {
                              i.ItemID,
@@ -308,7 +309,7 @@ namespace fqtd.Controllers
             var brands = from i in db.BrandItems
                          join br in db.Brands on i.BrandID equals br.BrandID
                          join c in db.Categories on br.CategoryID equals c.CategoryID
-                         where i.IsShow && (i.Keyword.ToLower().Contains(" "+keyword)||i.Keyword.ToLower().Contains(keyword+" "))
+                         where i.IsShow && br.IsShow && c.IsShow && (i.Keyword.ToLower().Contains(" "+keyword)||i.Keyword.ToLower().Contains(keyword+" "))
                          select new
                          {
                              i.ItemID,
@@ -328,7 +329,8 @@ namespace fqtd.Controllers
             var brands_unsign = from i in db.BrandItems
                                 join br in db.Brands on i.BrandID equals br.BrandID
                                 join c in db.Categories on br.CategoryID equals c.CategoryID
-                                where i.IsShow && i.Keyword_unsign.ToLower().Contains(keyword_unsign)
+                                where i.IsShow
+                                && br.IsShow && c.IsShow && i.Keyword_unsign.ToLower().Contains(keyword_unsign)
                                 select new
                                 {
                                     i.ItemID,
@@ -390,7 +392,7 @@ namespace fqtd.Controllers
             sHis.Mode = mode;
             sHis.Keyword = keyword;
             sHis.CurrentLocation = currentLocation;
-            sHis.VN0_EN1 = vn0_EN1;
+            sHis.VN0_En1 = vn0_EN1;
             sHis.Radious = radious;
             sHis.Properties = properties;
             sHis.SearchDate = DateTime.Now.Date;

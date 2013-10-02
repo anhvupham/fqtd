@@ -41,7 +41,7 @@ namespace fqtd.Areas.Admin.Controllers
 
         public ActionResult BrandList(int vn0_EN1 = 0)
         {
-            var brands = db.Brands.Where(a => a.IsActive).Include(b => b.tbl_Categories);
+            var brands = db.Brands.Where(a => a.IsActive && a.IsShow).Include(b => b.tbl_Categories);
             JsonNetResult jsonNetResult = new JsonNetResult();
             jsonNetResult.Formatting = Formatting.Indented;
             jsonNetResult.Data = from a in brands
@@ -60,7 +60,7 @@ namespace fqtd.Areas.Admin.Controllers
                          //join c in db.tbl_Brand_Categories on new { BrandID = b.BrandID, CategoryID = b.CategoryID } equals new { BrandID=c.BrandID, CategoryID = id }
                          //where (id == -1  || b.CategoryID == id) && b.IsActive
                          from c in db.tbl_Brand_Categories.Where(a => a.CategoryID == id && a.BrandID == b.BrandID).DefaultIfEmpty()
-                         where (id == -1 || b.CategoryID == id || c.CategoryID == id) && b.IsActive
+                         where (id == -1 || b.CategoryID == id || c.CategoryID == id) && b.IsActive && b.IsShow
                          select b;
             //db.Brands.Where(a => a.IsActive && (id == -1 || a.CategoryID == id)).Include(b => b.tbl_Categories);
             JsonNetResult jsonNetResult = new JsonNetResult();

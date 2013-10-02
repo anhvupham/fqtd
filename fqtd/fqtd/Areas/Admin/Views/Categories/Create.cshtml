@@ -19,7 +19,7 @@
             @Html.ValidationMessageFor(model => model.CategoryName)
         </div>
         <div class="editor-label">
-            @Html.LabelFor(model => model.CategoryName_EN)
+            CategoryName(EN)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.CategoryName_EN)
@@ -38,6 +38,14 @@
         <div class="editor-field">
             @Html.TextAreaFor(model => model.Keyword, new { @id = "Keyword" })
         </div>
+<div class="editor-label">
+       
+    </div>
+    <div class="editor-field">
+        @Html.CheckBoxFor(model => model.IsShow)
+        @Html.ValidationMessageFor(model => model.IsShow)
+        <label for="IsShow">      </label>
+    </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.Description)
         </div>
@@ -50,7 +58,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Description_EN)
+           Description(EN)
         </div>
         <div class="editor-field-htmleditor">
             @Html.TextAreaFor(model => model.Description_EN, new { @id = "Description_EN" })

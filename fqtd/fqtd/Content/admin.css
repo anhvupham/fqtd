@@ -186,9 +186,12 @@ footer
 
 .table_list
 {
+    margin-top: 10px;
     width: 80%;
     margin-left: 10%;
     margin-right: 10%;
+    border-spacing: 0px;
+    border-collapse: collapse;
 }
 
 .table_paging
@@ -217,12 +220,6 @@ footer
     color: #fff;
     border: 1px solid gray;
     padding: 2px 2px 2px 2px;
-}
-
- .table_list
-{
-    border-spacing: 0px;
-    border-collapse: collapse;
 }
 
      .table_list td
