@@ -885,23 +885,22 @@ var FQTD = (function () {
                 if (object != null) {
                     //bind data to item detail
                     if (object.ItemDetail[0] != null) {
-                        $("#brandlogo").attr('src', object.BrandLogo)
-                        $("#brandname").html(object.ItemDetail[0].ItemName)
-                        $("#branddescription").html(object.ItemDetail[0].Description)
+                        //$("#brandlogo").attr('src', object.BrandLogo)
+                        //$("#brandname").html(object.ItemDetail[0].ItemName)
+                        //$("#branddescription").html(object.ItemDetail[0].Description)
                         //$("#tendiadiem").html("<h1>" + object.ItemDetail[0].ItemName + "</h1>")
-                        $("#txtaddress").html(object.ItemDetail[0].FullAddress)
-                        $("#txtphone").html(object.ItemDetail[0].Phone)
-                        $("#txtopentime").html(object.ItemDetail[0].OpenTime)
-                        $("#txtcategory").html(object.ItemDetail[0].CategoryName)
-                        $("#txtopentime").html(object.ItemDetail[0].OpenTime)
-                        if (isEmpty(object.ItemDetail[0].Latitude) != "" && isEmpty(object.ItemDetail[0].Longitude) != "") {
-                            $("#staticmap").attr('src', 'http://maps.googleapis.com/maps/api/staticmap?center=' + isEmpty(object.ItemDetail[0].Latitude) + ',' + isEmpty(object.ItemDetail[0].Longitude) + '&zoom=15&size=682x300&maptype=roadmap&markers=color:blue%7Clabel:A%7C' + isEmpty(object.ItemDetail[0].Latitude) + ',' + isEmpty(object.ItemDetail[0].Longitude) + '&sensor=false')
-                        }
+                        //$("#txtaddress").html(object.ItemDetail[0].FullAddress)
+                        //$("#txtphone").html(object.ItemDetail[0].Phone)
+                        //$("#txtopentime").html(object.ItemDetail[0].OpenTime)
+                        //$("#txtcategory").html(object.ItemDetail[0].CategoryName)
+                        //if (isEmpty(object.ItemDetail[0].Latitude) != "" && isEmpty(object.ItemDetail[0].Longitude) != "") {
+                        //    $("#staticmap").attr('src', 'http://maps.googleapis.com/maps/api/staticmap?center=' + isEmpty(object.ItemDetail[0].Latitude) + ',' + isEmpty(object.ItemDetail[0].Longitude) + '&zoom=15&size=682x300&maptype=roadmap&markers=color:blue%7Clabel:A%7C' + isEmpty(object.ItemDetail[0].Latitude) + ',' + isEmpty(object.ItemDetail[0].Longitude) + '&sensor=false')
+                        //}
                         //facebook tags
-                        $('meta[property="og\\:title"]').attr('content', object.ItemDetail[0].ItemName);
-                        $('meta[name="description"]').attr('content', object.ItemDetail[0].Description);
+                        //$('meta[property="og\\:title"]').attr('content', object.ItemDetail[0].ItemName);
+                        //$('meta[name="description"]').attr('content', object.ItemDetail[0].Description);
                         //page title
-                        document.title = object.ItemDetail[0].ItemName;
+                        //document.title = object.ItemDetail[0].ItemName;
                     }
 
                     //bind data to same brand list

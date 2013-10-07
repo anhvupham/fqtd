@@ -1,8 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Chi tiết";
-    Layout = "~/Views/Shared/MasterSub.cshtml";
-    fqtd.Areas.Admin.Models.BrandItems item = ViewBag.Item;
-     
+    Layout = "~/Views/Shared/MasterSub.cshtml";    
 }
 <div id="fb-root"></div>
 <script>(function (d, s, id) {
@@ -16,9 +13,9 @@
     <div class="row rowspace">
         <div class="col-md-12">
             <div id="gioithieuchung">
-                <img id="brandlogo" width="150px" itemprop="image" />
-                <h1 id="brandname" itemprop="name"></h1>
-                <div id="branddescription" class="less" itemprop="description"></div>
+                <img id="brandlogo" width="150px" itemprop="image" src="/Images/Logo/Brand/@ViewBag.Logo" />
+                <h1 id="brandname" itemprop="name">@ViewBag.Title</h1>
+                <div id="branddescription" class="less" itemprop="description">@Html.Raw(ViewBag.description)</div>
                 <a id="showmoreDescription" href="javascript:void(0);">Xem thêm</a>
             </div>
         </div>
@@ -33,40 +30,48 @@
                         </div>
                     </div>
                     <div class="row detailinfo">
-                        <div class="col-sm-2 hidden-xs">
+                        <div class="col-sm-3 hidden-xs">
                             Địa chỉ
                         </div>
-                        <div class="col-sm-10 col-xs-12">
-                            <div id="txtaddress" itemprop="streetAddress"></div>
+                        <div class="col-sm-9 col-xs-12">
+                            <div id="txtaddress" itemprop="streetAddress">@Html.Raw(ViewBag.Address)</div>
                         </div>
                     </div>
                     <div class="row silverrow detailinfo">
-                        <div class="col-sm-2 hidden-xs">
+                        <div class="col-sm-3 hidden-xs">
                             Điện thoại
                         </div>
-                        <div class="col-sm-10">
-                            <div id="txtphone" itemprop="telephone"></div>
+                        <div class="col-sm-9">
+                            <div id="txtphone" itemprop="telephone">@Html.Raw(ViewBag.Phone)</div>
                         </div>
                     </div>
                     <div class="row detailinfo">
-                        <div class="col-sm-2 hidden-xs">
+                        <div class="col-sm-3 hidden-xs">
                             Giờ mở cửa
                         </div>
-                        <div class="col-sm-10">
-                            <div id="txtopentime" itemprop="openingHoursSpecification" itemscope itemtype="http://schema.org/Time"></div>
+                        <div class="col-sm-9">
+                            <div id="txtopentime" itemprop="openingHoursSpecification" itemscope itemtype="http://schema.org/Time">@Html.Raw(ViewBag.OpenTime)</div>
                         </div>
                     </div>
                     <div class="row silverrow detailinfo">
-                        <div class="col-sm-2 hidden-xs">
+                        <div class="col-sm-3 hidden-xs">
                             Danh mục
                         </div>
-                        <div class="col-sm-10">
-                            <div id="txtcategory"></div>
+                        <div class="col-sm-9">
+                            <div id="txtcategory">@Html.Raw(ViewBag.Category)</div>
+                        </div>
+                    </div>
+                    <div class="row detailinfo">
+                        <div class="col-sm-3 hidden-xs">
+                            Lần cập nhật gần nhất
+                        </div>
+                        <div class="col-sm-9">
+                            <div id="txtlastupdate">@Html.Raw(ViewBag.LastUpdated)</div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
-                            <img id="staticmap" class="img-responsive" />
+                            <img id="staticmap" class="img-responsive" src="@ViewBag.Map" />
                         </div>
                     </div>
                 </div>
@@ -111,7 +116,7 @@
                             HÌNH ẢNH
                         </div>
                     </div>
-                    <div class="row" id="tblimagegallery">                        
+                    <div class="row" id="tblimagegallery">
                     </div>
                 </div>
             </div>
@@ -122,7 +127,7 @@
                             CÙNG THỂ LOẠI
                         </div>
                     </div>
-                    <div class="row" id="tblSameCategory">                        
+                    <div class="row" id="tblSameCategory">
                     </div>
                 </div>
             </div>
