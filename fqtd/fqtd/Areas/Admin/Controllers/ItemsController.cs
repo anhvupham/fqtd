@@ -353,9 +353,10 @@ namespace fqtd.Areas.Admin.Controllers
         [Authorize]
         public ActionResult KeywordBuilder(int itemid = 0)
         {
+            
             var xxx = from i in db.BrandItems
 
-                      where i.Street != null || i.District != null || i.City != null && (i.ItemID == itemid || itemid == 0)
+                      where (i.Street != null || i.District != null || i.City != null) && (i.ItemID == itemid || itemid == 0)
                       select new
                       {
                           i.ItemID,
@@ -398,16 +399,28 @@ namespace fqtd.Areas.Admin.Controllers
                 keyword_us += ";" + StripDiacritics(item.CategoryKeyword);
                 keyword_us += ";" + StripDiacritics(item.BrandKeyword);
 
-                //var relateCategory = from a in db.SP_Brand_Categories(item.BrandID)
-                //                     join c in db.Categories on a.CategoryID equals c.CategoryID
-                //                     where a.Checked!=null && a.Checked.Value == true
-                //                     select new { a.CategoryID, c.Keyword, c.Keyword_Unsign };
-                //foreach (var cate in relateCategory)
-                //{
-                //    keyword += ";" + cate.Keyword;
+                var relateCategory = from a in db.SP_Brand_Categories(item.BrandID)
+                                     join c in db.Categories on a.CategoryID equals c.CategoryID
+                                     where a.Checked != null && a.Checked.Value == true
+                                     select new { a.CategoryID, c.Keyword, c.Keyword_Unsign };
+                foreach (var cate in relateCategory)
+                {
+                    keyword += ";" + cate.Keyword;
 
-                //    keyword_us += ";" + cate.Keyword_Unsign;
-                //}
+                    keyword_us += ";" + cate.Keyword_Unsign;
+                }
+                var properties = from a in db.SP_Brand_Properties(item.BrandID)
+                                     join c in db.Properties on a.PropertyID equals c.PropertyID
+                                     where a.PropertyValue  == true
+                                     select new { a.PropertyID, c.PropertyName, c.PropertyName_EN };
+                foreach (var cate in properties)
+                {
+                    keyword += ";" + cate.PropertyName;
+
+                    keyword_us += ";" + cate.PropertyName_EN;
+                    keyword_us += ";" + StripDiacritics(cate.PropertyName);
+                }
+
                 if (temp.Where(a => a.type == 1).ToList().Count == 0)
                 {
                     keyword = keyword + ";" + item.BrandName + " " + item.Street;
@@ -424,7 +437,7 @@ namespace fqtd.Areas.Admin.Controllers
                     keyword_us = keyword_us + ";" + StripDiacritics(item.BrandName) + " " + StripDiacritics(item.City);
                 }
 
-
+                
                 list = db.SP_GetKeyword1(item.Street, item.District, item.City);
                 foreach (var key in list)
                 {
