@@ -95,28 +95,28 @@
         Address number
     </div>
     <div class="editor-field">
-        @Html.TextBoxFor(model => model.AddressNumber, "", new { onchange = "buildAddress()" })
+        @Html.TextBoxFor(model => model.AddressNumber, "", new { onblur = "buildAddress()" })
         @Html.ValidationMessageFor(model => model.AddressNumber)
     </div>
     <div class="editor-label">
         Street
     </div>
     <div class="editor-field">
-        @Html.TextBoxFor(model => model.Street, "", new { onchange = "buildAddress()" })
+        @Html.TextBoxFor(model => model.Street, "", new { onblur = "buildAddress()" })
         @Html.ValidationMessageFor(model => model.Street)
     </div>
     <div class="editor-label">
         District
     </div>
     <div class="editor-field">
-        @Html.TextBoxFor(model => model.District, "", new { onchange = "buildAddress()" })
+        @Html.TextBoxFor(model => model.District, "", new { onblur = "buildAddress()" })
         @Html.ValidationMessageFor(model => model.District)
     </div>
     <div class="editor-label">
         City
     </div>
     <div class="editor-field">
-        @Html.TextBoxFor(model => model.City, "", new { onchange = "buildAddress()" })
+        @Html.TextBoxFor(model => model.City, "", new { onblur = "buildAddress()" })
         @Html.ValidationMessageFor(model => model.City)
     </div>
     <div class="editor-label">
