@@ -622,24 +622,6 @@
     <Content Include="Content\font\utm_bebas-webfont.svg" />
     <Content Include="Content\login.css" />
     <Content Include="Content\PagedList.css" />
-    <Content Include="Content\SecurityGuard\images\blue_ico.png" />
-    <Content Include="Content\SecurityGuard\images\blue_message.gif" />
-    <Content Include="Content\SecurityGuard\images\go.gif" />
-    <Content Include="Content\SecurityGuard\images\green_ico.png" />
-    <Content Include="Content\SecurityGuard\images\green_message.gif" />
-    <Content Include="Content\SecurityGuard\images\negative.gif" />
-    <Content Include="Content\SecurityGuard\images\next.gif" />
-    <Content Include="Content\SecurityGuard\images\pag_bg.gif" />
-    <Content Include="Content\SecurityGuard\images\positive.gif" />
-    <Content Include="Content\SecurityGuard\images\prev.gif" />
-    <Content Include="Content\SecurityGuard\images\red_ico.png" />
-    <Content Include="Content\SecurityGuard\images\red_message.gif" />
-    <Content Include="Content\SecurityGuard\images\td_bg1.gif" />
-    <Content Include="Content\SecurityGuard\images\td_bg2.gif" />
-    <Content Include="Content\SecurityGuard\images\white_ico.png" />
-    <Content Include="Content\SecurityGuard\images\white_message.gif" />
-    <Content Include="Content\SecurityGuard\images\yellow_ico.png" />
-    <Content Include="Content\SecurityGuard\images\yellow_message.gif" />
     <Content Include="Content\SecurityGuard\pagination.css" />
     <Content Include="Content\SecurityGuard\scripts\jquery-1.6.1.min.js" />
     <Content Include="Content\SecurityGuard\scripts\jquery.jqia.selects.js" />
@@ -939,6 +921,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ckeditor\plugins\fakeobjects\images\" />
+    <Folder Include="Content\SecurityGuard\images\" />
     <Folder Include="Images\Images\" />
     <Folder Include="Images\ItemImages\" />
     <Folder Include="Images\Logo\Brand\" />

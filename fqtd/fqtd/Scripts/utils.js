@@ -260,8 +260,8 @@ var FQTD = (function () {
 
         },
         noRecord: function () {
-            $("#list").html("<div class='container noResultText'><p>Xin lỗi, chúng tôi không tìm thấy địa điểm bạn cần! Hiện tại bạn có thể tìm kiếm các địa điểm thuộc lĩnh vực Ẩm thực & Giải khát như: Tiệm bánh, nhà hàng, quán ăn, quán cà phê, sinh tố, yagurt...<br/> Trong thời gian tới, chúng tôi sẽ ra mắt danh mục Trung tâm thương mại và Vui chơi. Vui lòng tìm lại sau !</p><a data-ajax='false' href='/' class='buttonGreen'>Về trang chủ</a></div>");
-            $("#map").html("<div class='container noResultText'><p>Xin lỗi, chúng tôi không tìm thấy địa điểm bạn cần! Hiện tại bạn có thể tìm kiếm các địa điểm thuộc lĩnh vực Ẩm thực & Giải khát như: Tiệm bánh, nhà hàng, quán ăn, quán cà phê, sinh tố, yagurt...<br/> Trong thời gian tới, chúng tôi sẽ ra mắt danh mục Trung tâm thương mại và Vui chơi. Vui lòng tìm lại sau !</p><a data-ajax='false' href='/' class='buttonGreen'>Về trang chủ</a></div>");
+            $("#list").html("<div class='container noResultText'><p>Xin lỗi, chúng tôi không tìm thấy địa điểm bạn cần! Hiện tại bạn có thể tìm kiếm các địa điểm thuộc lĩnh vực Ẩm thực & Giải khát như: Tiệm bánh, nhà hàng, quán ăn, quán cà phê, sinh tố, yogurt...<br/> Trong thời gian tới, chúng tôi sẽ ra mắt danh mục Trung tâm thương mại và Vui chơi. Vui lòng tìm lại sau !</p><a data-ajax='false' href='/' class='buttonGreen'>Về trang chủ</a></div>");
+            $("#map").html("<div class='container noResultText'><p>Xin lỗi, chúng tôi không tìm thấy địa điểm bạn cần! Hiện tại bạn có thể tìm kiếm các địa điểm thuộc lĩnh vực Ẩm thực & Giải khát như: Tiệm bánh, nhà hàng, quán ăn, quán cà phê, sinh tố, yogurt...<br/> Trong thời gian tới, chúng tôi sẽ ra mắt danh mục Trung tâm thương mại và Vui chơi. Vui lòng tìm lại sau !</p><a data-ajax='false' href='/' class='buttonGreen'>Về trang chủ</a></div>");
             $("#menu").addClass("hidden")
             $("#buttonPropLeft").addClass("hidden")
             FQTD.displayMap();
@@ -339,7 +339,7 @@ var FQTD = (function () {
             });
 
             result.complete(function () {
-                FQTD.BindData("name")
+                FQTD.BindData("position")
                 //set back link               
                 $("#backlink").attr("href", "/#" + $("#form").val())
                 $("#btn_xemthemMap").bind("click", function () {
