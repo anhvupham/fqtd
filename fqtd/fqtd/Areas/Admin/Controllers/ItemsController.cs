@@ -607,7 +607,7 @@ namespace fqtd.Areas.Admin.Controllers
             foreach (var item in items)
             {
                 url += Environment.NewLine;
-                url += string.Format(temp, "http://timdau.vn/detail/" + item.ItemID + "/" + item.ItemName.Trim().Replace(" ", "-").Replace("'", "-"), item.CreateDate.ToString("yyyy-MM-dd"));
+                url += string.Format(temp, "http://timdau.vn/detail/" + item.ItemID + "/" + item.ItemName.Trim().Replace(" ", "-").Replace("'", "-").Replace(".", "-").Replace("&", "-"), item.CreateDate.ToString("yyyy-MM-dd"));
             }
             filecontent = string.Format(filecontent, url);
             string filePath = Server.MapPath("../../SitemapSEO.xml");

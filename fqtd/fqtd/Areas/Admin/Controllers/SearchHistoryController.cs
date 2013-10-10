@@ -30,6 +30,7 @@ namespace fqtd.Areas.Admin.Controllers
             ViewBag.CurrentPage = page;
             ViewBag.CurrentCategoryID = CategoryID;
             ViewBag.CurrentBrandID = BrandID;
+            ViewBag.ItemCount = result.Count();
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
             ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName");
 
