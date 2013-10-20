@@ -40,6 +40,8 @@ namespace fqtd.Areas.Admin.Controllers
                 result = result.Where(a => a.CreateUser == CreateUser);
 
             ViewBag.ItemName = sortOrder == "ItemName" ? "ItemName desc" : "ItemName";
+            ViewBag.CreateTime = sortOrder == "CreateDate" ? "CreateDate desc" : "CreateDate";
+            ViewBag.UpdateTime = sortOrder == "ModifyDate" ? "ModifyDate desc" : "ModifyDate";
             ViewBag.BrandName = sortOrder == "tbl_Brands.BrandName" ? "tbl_Brands.BrandName desc" : "tbl_Brands.BrandName";
 
             if (sortOrder == "")
@@ -375,29 +377,29 @@ namespace fqtd.Areas.Admin.Controllers
                           , i.BrandID
                       };
             var items = xxx.ToList();
-            string keyword = "";
-            string keyword_us = "";
+            string keyword = " ";
+            string keyword_us = " ";
             foreach (var item in items)
             {
-                keyword = "";
-                keyword_us = "";
+                keyword = " ";
+                keyword_us = " ";
                 var list = db.SP_GetKeyword1(item.Street, item.District, item.City);
                 var temp = list.ToList();
-                keyword += ";" + item.FullAddress;
-                keyword += ";" + item.ItemName_EN;
-                keyword += ";" + item.BrandName;
-                keyword += ";" + (item.BrandName_EN == null ? "" : item.BrandName_EN);
-                keyword += ";" + item.CategoryName;
-                keyword += ";" + item.CategoryName_EN;
+                keyword += " ; " + item.FullAddress;
+                keyword += " ; " + item.ItemName_EN;
+                keyword += " ; " + item.BrandName;
+                keyword += " ; " + (item.BrandName_EN == null ? "" : item.BrandName_EN);
+                keyword += " ; " + item.CategoryName;
+                keyword += " ; " + item.CategoryName_EN;
 
-                keyword_us += ";" + StripDiacritics(item.FullAddress);
-                keyword_us += ";" + StripDiacritics(item.ItemName_EN);
-                keyword_us += ";" + StripDiacritics(item.BrandName);
-                keyword_us += ";" + StripDiacritics(item.BrandName_EN);
-                keyword_us += ";" + StripDiacritics(item.CategoryName);
-                keyword_us += ";" + StripDiacritics(item.CategoryName_EN);
-                keyword_us += ";" + StripDiacritics(item.CategoryKeyword);
-                keyword_us += ";" + StripDiacritics(item.BrandKeyword);
+                keyword_us += " ; " + StripDiacritics(item.FullAddress);
+                keyword_us += " ; " + StripDiacritics(item.ItemName_EN);
+                keyword_us += " ; " + StripDiacritics(item.BrandName);
+                keyword_us += " ; " + StripDiacritics(item.BrandName_EN);
+                keyword_us += " ; " + StripDiacritics(item.CategoryName);
+                keyword_us += " ; " + StripDiacritics(item.CategoryName_EN);
+                keyword_us += " ; " + StripDiacritics(item.CategoryKeyword);
+                keyword_us += " ; " + StripDiacritics(item.BrandKeyword);
 
                 var relateCategory = from a in db.SP_Brand_Categories(item.BrandID)
                                      join c in db.Categories on a.CategoryID equals c.CategoryID
@@ -405,9 +407,9 @@ namespace fqtd.Areas.Admin.Controllers
                                      select new { a.CategoryID, c.Keyword, c.Keyword_Unsign };
                 foreach (var cate in relateCategory)
                 {
-                    keyword += ";" + cate.Keyword;
+                    keyword += " ; " + cate.Keyword;
 
-                    keyword_us += ";" + cate.Keyword_Unsign;
+                    keyword_us += " ; " + cate.Keyword_Unsign;
                 }
                 var properties = from a in db.SP_Brand_Properties(item.BrandID)
                                      join c in db.Properties on a.PropertyID equals c.PropertyID
@@ -415,26 +417,26 @@ namespace fqtd.Areas.Admin.Controllers
                                      select new { a.PropertyID, c.PropertyName, c.PropertyName_EN };
                 foreach (var cate in properties)
                 {
-                    keyword += ";" + cate.PropertyName;
+                    keyword += " ; " + cate.PropertyName;
 
-                    keyword_us += ";" + cate.PropertyName_EN;
-                    keyword_us += ";" + StripDiacritics(cate.PropertyName);
+                    keyword_us += " ; " + cate.PropertyName_EN;
+                    keyword_us += " ; " + StripDiacritics(cate.PropertyName);
                 }
 
                 if (temp.Where(a => a.type == 1).ToList().Count == 0)
                 {
-                    keyword = keyword + ";" + item.BrandName + " " + item.Street;
-                    keyword_us = keyword_us + ";" + StripDiacritics(item.BrandName) + " " + StripDiacritics(item.Street);
+                    keyword = keyword + " ; " + item.BrandName + " " + item.Street;
+                    keyword_us = keyword_us + " ; " + StripDiacritics(item.BrandName) + " " + StripDiacritics(item.Street);
                 }
                 if (temp.Where(a => a.type == 2).ToList().Count == 0)
                 {
-                    keyword = keyword + ";" + item.BrandName + " " + item.District;
-                    keyword_us = keyword_us + ";" + StripDiacritics(item.BrandName) + " " + StripDiacritics(item.District);
+                    keyword = keyword + " ; " + item.BrandName + " " + item.District;
+                    keyword_us = keyword_us + " ; " + StripDiacritics(item.BrandName) + " " + StripDiacritics(item.District);
                 }
                 if (temp.Where(a => a.type == 3).ToList().Count == 0)
                 {
-                    keyword = keyword + ";" + item.BrandName + " " + item.City;
-                    keyword_us = keyword_us + ";" + StripDiacritics(item.BrandName) + " " + StripDiacritics(item.City);
+                    keyword = keyword + " ; " + item.BrandName + " " + item.City;
+                    keyword_us = keyword_us + " ; " + StripDiacritics(item.BrandName) + " " + StripDiacritics(item.City);
                 }
 
                 
@@ -447,7 +449,7 @@ namespace fqtd.Areas.Admin.Controllers
 
                         foreach (var word in words)
                             if (words.Length > 0)
-                                keyword = keyword + ";" + item.BrandName + " " + word;
+                                keyword = keyword + " ; " + item.BrandName + " " + word;
                     }
                     else if (key.type == 2)//district
                     {
@@ -455,7 +457,7 @@ namespace fqtd.Areas.Admin.Controllers
 
                         foreach (var word in words)
                             if (words.Length > 0)
-                                keyword = keyword + ";" + item.BrandName + " " + word;
+                                keyword = keyword + " ; " + item.BrandName + " " + word;
                     }
                     if (key.type == 3)//city
                     {
@@ -463,7 +465,7 @@ namespace fqtd.Areas.Admin.Controllers
 
                         foreach (var word in words)
                             if (words.Length > 0)
-                                keyword = keyword + ";" + item.BrandName + " " + word;
+                                keyword = keyword + " ; " + item.BrandName + " " + word;
                     }
                     if (key.type == 1)//street
                     {
@@ -471,7 +473,7 @@ namespace fqtd.Areas.Admin.Controllers
 
                         foreach (var word in words)
                             if (words.Length > 0)
-                                keyword_us = keyword_us + ";" + item.BrandName + " " + word;
+                                keyword_us = keyword_us + " ; " + item.BrandName + " " + word;
                     }
                     else if (key.type == 2)//district
                     {
@@ -479,7 +481,7 @@ namespace fqtd.Areas.Admin.Controllers
 
                         foreach (var word in words)
                             if (words.Length > 0)
-                                keyword_us = keyword_us + ";" + item.BrandName + " " + word;
+                                keyword_us = keyword_us + " ; " + item.BrandName + " " + word;
                     }
                     if (key.type == 3)//city
                     {
@@ -487,7 +489,7 @@ namespace fqtd.Areas.Admin.Controllers
 
                         foreach (var word in words)
                             if (words.Length > 0)
-                                keyword_us = keyword_us + ";" + item.BrandName + " " + word;
+                                keyword_us = keyword_us + " ; " + item.BrandName + " " + word;
                     }
                 }
                 var branditem = db.BrandItems.Find(item.ItemID);

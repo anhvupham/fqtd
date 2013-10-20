@@ -62,7 +62,7 @@
             @Html.LabelFor(model => model.MarkerIcon)
         </div>
         <div class="editor-field">
-            <img src="@Href(System.Configuration.ConfigurationManager.AppSettings["BrandMarkerIconLocation"] + "/" + Model.MarkerIcon)" width="50" />
+            <img src="@Href(System.Configuration.ConfigurationManager.AppSettings["BrandMarkerIconLocation"] + "/" + Model.MarkerIcon)" width="25" />
             <input type="file" name="icon" />
             @Html.ValidationMessageFor(model => model.MarkerIcon)
         </div>

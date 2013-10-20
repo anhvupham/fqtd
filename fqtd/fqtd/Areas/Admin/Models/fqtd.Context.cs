@@ -40,6 +40,9 @@ namespace fqtd.Areas.Admin.Models
         public DbSet<ContactUS> ContactUS { get; set; }
         public DbSet<SystemUsers> aspnet_Users { get; set; }
         public DbSet<SearchHistory> SearchHistory { get; set; }
+        public DbSet<Groups> Groups { get; set; }
+        public DbSet<Survey> Survey { get; set; }
+        public DbSet<SurveyResult> SurveyResult { get; set; }
     
         public virtual ObjectResult<SP_Category_Properties_Result> SP_Category_Properties(Nullable<int> categoryID)
         {

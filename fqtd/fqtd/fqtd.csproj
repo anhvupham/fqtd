@@ -201,6 +201,7 @@
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Areas\Admin\Controllers\ContactUsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\GroupController.cs" />
     <Compile Include="Areas\Admin\Controllers\ItemsController.cs" />
     <Compile Include="Areas\Admin\Controllers\PropertiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\SearchHistoryController.cs" />
@@ -221,6 +222,9 @@
       <DependentUpon>fqtd.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\Admin\Models\ContactUS.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\Groups.cs">
       <DependentUpon>fqtd.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\Admin\Models\ItemProperties.cs">
@@ -263,6 +267,12 @@
       <DependentUpon>fqtd.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\Admin\Models\SP_SearchByMode_Result.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\Survey.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\Models\SurveyResult.cs">
       <DependentUpon>fqtd.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\Admin\Models\SystemContent.cs">
@@ -789,6 +799,12 @@
     <Content Include="Areas\SecurityGuard\Views\Membership\GrantRolesToUser.cshtml" />
     <Content Include="Areas\SecurityGuard\Views\Membership\CreateUser.cshtml" />
     <Content Include="Areas\SecurityGuard\Views\Dashboard\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Group\_Paging.cshtml" />
+    <Content Include="Areas\Admin\Views\Group\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Group\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Group\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Group\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Group\Index.cshtml" />
     <None Include="Properties\PublishProfiles\fqtd_test.pubxml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Images\bg_bottom.jpg" />

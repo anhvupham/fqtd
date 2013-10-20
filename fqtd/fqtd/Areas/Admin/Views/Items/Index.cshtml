@@ -21,7 +21,7 @@
     user = ViewBag.CurrentUser
 }, new AjaxOptions { UpdateTargetId = "main" }))
 {
-    @*<div class=""></div>*@
+@*<div class=""></div>*@
     <table class="table_search">
         <tr>
             <td style="text-align: left">Keyword:
@@ -32,7 +32,8 @@
             @*</td>
             <td>*@@Html.DropDownList("CategoryID", "-- All --")
             </td>
-            <td style="text-align: left">Brands:
+            <td style="text-align: left">
+            Brands:
             @*</td>
             <td>*@@Html.DropDownList("BrandID", "-- All --")
             <td style="text-align: left">
@@ -45,7 +46,9 @@
             <td style="text-align: center; vertical-align: middle"></td>
             <td>Is Show:
                 &nbsp;&nbsp;@Html.CheckBox("IsShow", true)@*<label for="IsShow" style="padding-bottom: 10px"> Is Show</label>*@</td>
-            <td><p style="color: green; font-size: 20px">(@count)</p></td>
+            <td>
+                <p style="color: green; font-size: 20px">(@count)</p>
+            </td>
         </tr>
     </table>
 }
@@ -95,7 +98,26 @@
         </th>
         <th>Click Count
         </th>
-
+        <th>@Ajax.ActionLink("Update Time", "Index", new
+       {
+           sortOrder = ViewBag.UpdateTime,
+           page = 1,
+           keyword = ViewBag.CurrentKeyword,
+           CategoryID = ViewBag.CurrentCategoryID,
+           BrandID = ViewBag.CurrentBrandID,
+           user = ViewBag.CurrentUse
+       }, new AjaxOptions { UpdateTargetId = "main" })
+        </th>
+        <th>@Ajax.ActionLink("Create Time", "Index", new
+       {
+           sortOrder = ViewBag.CreateTime,
+           page = 1,
+           keyword = ViewBag.CurrentKeyword,
+           CategoryID = ViewBag.CurrentCategoryID,
+           BrandID = ViewBag.CurrentBrandID,
+           user = ViewBag.CurrentUse
+       }, new AjaxOptions { UpdateTargetId = "main" })
+        </th>
         <th></th>
     </tr>
 
@@ -129,7 +151,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ClickCount)
             </td>
-
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifyDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ItemID }) |@Html.ActionLink("Copy", "Copy", new { id = item.ItemID }) |
             @Html.ActionLink("Details", "Details", new { id = item.ItemID }) |
@@ -145,5 +172,8 @@
 </table>
 
 <table class="table_paging">
-    <tr><td>
-    @Html.Partial("_Paging")</td></tr></table>
+    <tr>
+        <td>
+            @Html.Partial("_Paging")</td>
+    </tr>
+</table>

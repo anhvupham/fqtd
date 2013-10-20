@@ -1,43 +1,29 @@
-﻿@model fqtd.Areas.Admin.Models.Categories
+﻿@model fqtd.Areas.Admin.Models.Groups
 
 @{
     ViewBag.Title = "Create catetory";
     TempData.Keep();
 }
 
-@using (Html.BeginForm("Create", "Categories", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Create", "Group", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true)
 
     <div class="content-editor">
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.CategoryName)
+            Group Name
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.CategoryName)
-            @Html.ValidationMessageFor(model => model.CategoryName)
+            @Html.EditorFor(model => model.GroupName)
+            @Html.ValidationMessageFor(model => model.GroupName)
         </div>
         <div class="editor-label">
-            CategoryName(EN)
+            GroupName(EN)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.CategoryName_EN)
-            @Html.ValidationMessageFor(model => model.CategoryName_EN)
-        </div>
-        <div class="editor-label">
-            Group
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("GroupID", String.Empty)
-            @Html.ValidationMessageFor(model => model.GroupID)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.MarkerIcon)
-        </div>
-        <div class="editor-field">
-            <input type="file" name="icon" />
-            @Html.ValidationMessageFor(model => model.MarkerIcon)
+            @Html.EditorFor(model => model.GroupName_EN)
+            @Html.ValidationMessageFor(model => model.GroupName_EN)
         </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.Keyword)
@@ -64,16 +50,6 @@
             @Html.ValidationMessageFor(model => model.Description)
         </div>
 
-        <div class="editor-label">
-           Description(EN)
-        </div>
-        <div class="editor-field-htmleditor">
-            @Html.TextAreaFor(model => model.Description_EN, new { @id = "Description_EN" })
-            <script type="text/javascript">
-                CKEDITOR.replace("Description_EN");
-            </script>
-            @Html.ValidationMessageFor(model => model.Description_EN)
-        </div>
         <div class="editor-label">
         </div>
         <div class="editor-field-htmleditor">

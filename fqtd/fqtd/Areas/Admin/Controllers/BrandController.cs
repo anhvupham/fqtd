@@ -25,10 +25,15 @@ namespace fqtd.Areas.Admin.Controllers
         // GET: /Admin/Brands/
         //[OutputCache(CacheProfile = "Aggressive", VaryByParam = "page;keyword", Location = System.Web.UI.OutputCacheLocation.Client)]
         [Authorize]
-        public ActionResult Index(string keyword = "", int page = 1)
+        public ActionResult Index(string keyword = "", string sortOrder="", int page = 1)
         {
             var result = from a in db.Brands where a.IsActive && (a.BrandName.Contains(keyword) || a.BrandName_EN.Contains(keyword)) select a;
-            result = result.OrderBy("BrandName");
+
+            ViewBag.BrandName = sortOrder == "BrandName" ? "BrandName desc" : "BrandName";
+            ViewBag.CreateTime = sortOrder == "CreateDate" ? "CreateDate desc" : "CreateDate";
+            ViewBag.UpdateTime = sortOrder == "ModifyDate" ? "ModifyDate desc" : "ModifyDate";
+            if (sortOrder == "") sortOrder = "BrandName";
+            result = result.OrderBy(sortOrder);
             ViewBag.CurrentKeyword = keyword;
             int maxRecords = 20;
             int currentPage = page;

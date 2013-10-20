@@ -72,6 +72,7 @@ namespace fqtd.Areas.Admin.Controllers
         [Authorize]
         public ActionResult Create()
         {
+            ViewBag.GroupID = new SelectList(db.Groups.Where(a => a.IsActive), "GroupID", "GroupName");
             return View();
         }
 
@@ -95,7 +96,7 @@ namespace fqtd.Areas.Admin.Controllers
                 if (icon != null)
                 {
                     char DirSeparator = System.IO.Path.DirectorySeparatorChar;
-                    filesPath = ConfigurationManager.AppSettings["CategoryMarkerIconLocaion"];
+                    filesPath = ConfigurationManager.AppSettings["CategoryMarkerIconLocation"];
                     full_path = Server.MapPath(filesPath).Replace("Brands", "").Replace("Admin", "");
                     Categories.MarkerIcon = FileUpload.UploadFile(icon, full_path);
                 }
@@ -112,6 +113,7 @@ namespace fqtd.Areas.Admin.Controllers
                 return RedirectToAction("Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] });
             }
 
+            ViewBag.GroupID = new SelectList(db.Groups.Where(a => a.IsActive), "GroupID", "GroupName");
             return View(Categories);
         }
 
@@ -126,6 +128,7 @@ namespace fqtd.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.GroupID = new SelectList(db.Groups.Where(a => a.IsActive), "GroupID", "GroupName", Categories.GroupID);
             return View(Categories);
         }
 
@@ -148,7 +151,7 @@ namespace fqtd.Areas.Admin.Controllers
                     if (icon != null)
                     {
                         char DirSeparator = System.IO.Path.DirectorySeparatorChar;
-                        filesPath = ConfigurationManager.AppSettings["CategoryMarkerIconLocaion"];
+                        filesPath = ConfigurationManager.AppSettings["CategoryMarkerIconLocation"];
                         full_path = Server.MapPath(filesPath).Replace("Brands", "").Replace("Admin", "");
                         Categories.MarkerIcon = FileUpload.UploadFile(icon, full_path);
                     }
@@ -189,6 +192,7 @@ namespace fqtd.Areas.Admin.Controllers
                     HtmlHelpers.WriteErrorLogs(error);
                 throw;
             }
+            ViewBag.GroupID = new SelectList(db.Groups.Where(a => a.IsActive), "GroupID", "GroupName");
             return View(Categories);
         }
 

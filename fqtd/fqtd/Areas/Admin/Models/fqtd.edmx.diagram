@@ -18,7 +18,7 @@
         <AssociationConnector Association="fqtdModel.FK_tbl_Item_Properties_tbl_Properties" ManuallyRouted="false" />
         <AssociationConnector Association="fqtdModel.tbl_Category_Properties" />
         <EntityTypeShape EntityType="fqtdModel.tbl_SystemContent" Width="1.5" PointX="0.875" PointY="16.625" />
-        <EntityTypeShape EntityType="fqtdModel.BrandCategories" Width="1.75" PointX="0.75" PointY="13.875" />
+        <EntityTypeShape EntityType="fqtdModel.BrandCategories" Width="1.75" PointX="1" PointY="14.125" />
         <AssociationConnector Association="fqtdModel.FK_tbl_Brand_Categories_tbl_Brands" />
         <AssociationConnector Association="fqtdModel.FK_tbl_Brand_Categories_tbl_Categories" />
         <EntityTypeShape EntityType="fqtdModel.tbl_Brand_Properties" Width="1.5" PointX="3.625" PointY="17.125" />
@@ -26,6 +26,10 @@
         <EntityTypeShape EntityType="fqtdModel.ContactUS" Width="1.5" PointX="6.75" PointY="14.125" />
         <EntityTypeShape EntityType="fqtdModel.SystemUsers" Width="1.5" PointX="6.875" PointY="21.125" />
         <EntityTypeShape EntityType="fqtdModel.SearchHistory" Width="1.5" PointX="6.625" PointY="17" />
+        <EntityTypeShape EntityType="fqtdModel.Groups" Width="1.5" PointX="3.875" PointY="19.75" />
+        <EntityTypeShape EntityType="fqtdModel.Survey" Width="1.5" PointX="7.0578088457965329" PointY="25.912777644541478" />
+        <EntityTypeShape EntityType="fqtdModel.SurveyResult" Width="1.5" PointX="7.5868726519806646" PointY="22.634801606943274" />
+        <AssociationConnector Association="fqtdModel.FK_tbl_Categories_tbl_Groups" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

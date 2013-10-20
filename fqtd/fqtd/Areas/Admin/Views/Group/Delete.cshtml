@@ -1,0 +1,89 @@
+﻿@model fqtd.Areas.Admin.Models.Groups
+
+@{
+    ViewBag.Title = "Delete";
+    TempData.Keep();
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Groups</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.GroupName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.GroupName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.GroupName_EN)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.GroupName_EN)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IsActive)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsActive)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CreateDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreateDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CreateUser)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreateUser)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ModifyDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ModifyDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ModifyUser)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ModifyUser)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DeleteDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DeleteDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DeleteUser)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DeleteUser)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+    @Html.ActionLink("Back to List", "Index", new { keyword = TempData["CurrentKeyword"], page = TempData["CurrentPage"] })
+    </p>
+}

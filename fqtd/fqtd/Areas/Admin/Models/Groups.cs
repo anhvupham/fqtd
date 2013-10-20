@@ -12,20 +12,18 @@ namespace fqtd.Areas.Admin.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Categories
+    public partial class Groups
     {
-        public Categories()
+        public Groups()
         {
-            this.tbl_Brands = new HashSet<Brands>();
-            this.tbl_Properties = new HashSet<Properties>();
-            this.tbl_Brand_Categories = new HashSet<BrandCategories>();
+            this.tbl_Categories = new HashSet<Categories>();
         }
     
-        public int CategoryID { get; set; }
-        public string CategoryName { get; set; }
+        public int GroupID { get; set; }
+        public string GroupName { get; set; }
+        public string GroupName_EN { get; set; }
         public string Description { get; set; }
-        public string CategoryName_EN { get; set; }
-        public string Description_EN { get; set; }
+        public bool IsShow { get; set; }
         public bool IsActive { get; set; }
         public System.DateTime CreateDate { get; set; }
         public string CreateUser { get; set; }
@@ -33,15 +31,9 @@ namespace fqtd.Areas.Admin.Models
         public string ModifyUser { get; set; }
         public Nullable<System.DateTime> DeleteDate { get; set; }
         public string DeleteUser { get; set; }
-        public string MarkerIcon { get; set; }
         public string Keyword { get; set; }
         public string Keyword_Unsign { get; set; }
-        public bool IsShow { get; set; }
-        public int GroupID { get; set; }
     
-        public virtual ICollection<Brands> tbl_Brands { get; set; }
-        public virtual ICollection<Properties> tbl_Properties { get; set; }
-        public virtual ICollection<BrandCategories> tbl_Brand_Categories { get; set; }
-        public virtual Groups tbl_Groups { get; set; }
+        public virtual ICollection<Categories> tbl_Categories { get; set; }
     }
 }

@@ -55,7 +55,7 @@ namespace fqtd.Controllers
         public JsonNetResult ItemByBrandID(ref SearchHistory sHis, int id = -1, string properties = "", int vn0_EN1 = 0)
         {
             string path = ConfigurationManager.AppSettings["BrandLogoLocation"].Replace("~", "");
-            string c_path = ConfigurationManager.AppSettings["CategoryMarkerIconLocaion"].Replace("~", "");
+            string c_path = ConfigurationManager.AppSettings["CategoryMarkerIconLocation"].Replace("~", "");
             string b_path = ConfigurationManager.AppSettings["BrandMarkerIconLocation"].Replace("~", "");
             string i_path = ConfigurationManager.AppSettings["ItemMarkerIconLocation"].Replace("~", "");
 
@@ -127,7 +127,7 @@ namespace fqtd.Controllers
         {
 
             string path = ConfigurationManager.AppSettings["BrandLogoLocation"].Replace("~", "");
-            string c_path = ConfigurationManager.AppSettings["CategoryMarkerIconLocaion"].Replace("~", "");
+            string c_path = ConfigurationManager.AppSettings["CategoryMarkerIconLocation"].Replace("~", "");
             string b_path = ConfigurationManager.AppSettings["BrandMarkerIconLocation"].Replace("~", "");
             string i_path = ConfigurationManager.AppSettings["ItemMarkerIconLocation"].Replace("~", "");
 
@@ -153,11 +153,13 @@ namespace fqtd.Controllers
                              where items.Contains(i.PropertyID)// >= 0
                              select new { b.ItemID }).Distinct();
 
-            var relatebrand = from b in db.tbl_Brand_Categories where b.CategoryID==id && b.Checked!=null && b.Checked.Value select new{b.BrandID, b.CategoryID};
+            var relatebrand = from b in db.tbl_Brand_Categories where b.CategoryID == id && b.Checked != null && b.Checked.Value select new { b.BrandID, b.CategoryID };
             var brands = from i in db.BrandItems
                          join br in db.Brands on i.BrandID equals br.BrandID
-                         join l in relatebrand on br.BrandID equals l.BrandID
-                         join c in db.Categories on l.CategoryID equals c.CategoryID
+                         join l in relatebrand on i.BrandID equals l.BrandID into relate
+                         from x in relate.DefaultIfEmpty()
+                         join c in db.Categories on x.CategoryID equals c.CategoryID
+
                          where br.IsShow && c.IsShow
                          select new
                          {
@@ -200,89 +202,89 @@ namespace fqtd.Controllers
             string strFormD = accented.Normalize(NormalizationForm.FormD);
             return regex.Replace(strFormD, String.Empty).Replace('\u0111', 'd').Replace('\u0110', 'D');
         }
-/*
-        //public JsonNetResult ItemByKeyword(ref SearchHistory sHis, string keyword, string properties = "", int vn0_EN1 = 0)
-        //{
-        //    string path = ConfigurationManager.AppSettings["BrandLogoLocation"].Replace("~", "");
-        //    string c_path = ConfigurationManager.AppSettings["CategoryMarkerIconLocaion"].Replace("~", "");
-        //    string b_path = ConfigurationManager.AppSettings["BrandMarkerIconLocation"].Replace("~", "");
-        //    string i_path = ConfigurationManager.AppSettings["ItemMarkerIconLocation"].Replace("~", "");
-        //    //object NumberOfIntemShow
-        //    keyword = StripDiacritics(keyword).ToLower();
+        /*
+                //public JsonNetResult ItemByKeyword(ref SearchHistory sHis, string keyword, string properties = "", int vn0_EN1 = 0)
+                //{
+                //    string path = ConfigurationManager.AppSettings["BrandLogoLocation"].Replace("~", "");
+                //    string c_path = ConfigurationManager.AppSettings["CategoryMarkerIconLocaion"].Replace("~", "");
+                //    string b_path = ConfigurationManager.AppSettings["BrandMarkerIconLocation"].Replace("~", "");
+                //    string i_path = ConfigurationManager.AppSettings["ItemMarkerIconLocation"].Replace("~", "");
+                //    //object NumberOfIntemShow
+                //    keyword = StripDiacritics(keyword).ToLower();
 
-        //    string[] list = properties.Split(',');
-        //    List<int> items = new List<int>();
-        //    foreach (var x in list)
-        //        if (x != "")
-        //        {
-        //            try
-        //            {
-        //                items.Add(Convert.ToInt32(x));
-        //            }
-        //            catch { }
+                //    string[] list = properties.Split(',');
+                //    List<int> items = new List<int>();
+                //    foreach (var x in list)
+                //        if (x != "")
+                //        {
+                //            try
+                //            {
+                //                items.Add(Convert.ToInt32(x));
+                //            }
+                //            catch { }
 
-        //        }
+                //        }
 
-        //    var itemlist = (from i in db.ItemProperties
-        //                    where items.Contains(i.PropertyID)// >= 0
-        //                    select new { i.ItemID }).Distinct();
+                //    var itemlist = (from i in db.ItemProperties
+                //                    where items.Contains(i.PropertyID)// >= 0
+                //                    select new { i.ItemID }).Distinct();
 
-        //    var brandlist = (from i in db.tbl_Brand_Properties
-        //                     join b in db.BrandItems on i.BrandID equals b.BrandID
-        //                     where items.Contains(i.PropertyID)// >= 0
-        //                     select new { b.ItemID }).Distinct();
+                //    var brandlist = (from i in db.tbl_Brand_Properties
+                //                     join b in db.BrandItems on i.BrandID equals b.BrandID
+                //                     where items.Contains(i.PropertyID)// >= 0
+                //                     select new { b.ItemID }).Distinct();
 
-        //    var brands = from i in db.BrandItems
-        //                 join br in db.Brands on i.BrandID equals br.BrandID
-        //                 join c in db.Categories on br.CategoryID equals c.CategoryID
-        //                 where i.Keyword_unsign.ToLower().Contains(keyword)
-        //                 //|| c.Keyword_Unsign.ToLower().Contains(keyword)
-        //                 //|| br.Keyword_Unsign.ToLower().Contains(keyword)
-        //                 select new
-        //                 {
-        //                     i.ItemID,
-        //                     ItemName = i.ItemName.ToUpper(),
-        //                     i.FullAddress,
-        //                     i.Phone,
-        //                     i.Website,
-        //                     i.OpenTime,
-        //                     ItemName_EN = i.ItemName_EN.ToUpper(),
-        //                     i.Description,
-        //                     i.Description_EN,
-        //                     i.Longitude,
-        //                     i.Latitude,
-        //                     Logo = path + "/" + br.Logo,
-        //                     MarkerIcon = i.MarkerIcon == null ? br.MarkerIcon == null ? c_path + "/" + c.MarkerIcon : b_path + "/" + br.MarkerIcon : i_path + "/" + i.MarkerIcon
-        //                 };
-        //    if (itemlist.Count() > 0)
-        //        brands = from i in brands
-        //                 join ip in itemlist on i.ItemID equals ip.ItemID
-        //                 select i;
+                //    var brands = from i in db.BrandItems
+                //                 join br in db.Brands on i.BrandID equals br.BrandID
+                //                 join c in db.Categories on br.CategoryID equals c.CategoryID
+                //                 where i.Keyword_unsign.ToLower().Contains(keyword)
+                //                 //|| c.Keyword_Unsign.ToLower().Contains(keyword)
+                //                 //|| br.Keyword_Unsign.ToLower().Contains(keyword)
+                //                 select new
+                //                 {
+                //                     i.ItemID,
+                //                     ItemName = i.ItemName.ToUpper(),
+                //                     i.FullAddress,
+                //                     i.Phone,
+                //                     i.Website,
+                //                     i.OpenTime,
+                //                     ItemName_EN = i.ItemName_EN.ToUpper(),
+                //                     i.Description,
+                //                     i.Description_EN,
+                //                     i.Longitude,
+                //                     i.Latitude,
+                //                     Logo = path + "/" + br.Logo,
+                //                     MarkerIcon = i.MarkerIcon == null ? br.MarkerIcon == null ? c_path + "/" + c.MarkerIcon : b_path + "/" + br.MarkerIcon : i_path + "/" + i.MarkerIcon
+                //                 };
+                //    if (itemlist.Count() > 0)
+                //        brands = from i in brands
+                //                 join ip in itemlist on i.ItemID equals ip.ItemID
+                //                 select i;
 
-        //    else if (brandlist.Count() > 0)
-        //        brands = from i in brands
-        //                 join ip in brandlist on i.ItemID equals ip.ItemID
-        //                 select i;
+                //    else if (brandlist.Count() > 0)
+                //        brands = from i in brands
+                //                 join ip in brandlist on i.ItemID equals ip.ItemID
+                //                 select i;
 
-            JsonNetResult jsonNetResult = new JsonNetResult();
-            jsonNetResult.Formatting = Formatting.Indented;
-            jsonNetResult.Data = from a in brands
-                                 select new { a.ItemID, a.ItemName, a.Description, a.Longitude, a.Latitude, a.FullAddress, a.Website, a.Logo, a.MarkerIcon, a.Phone };
-            if (vn0_EN1 == 1)
-                jsonNetResult.Data = from a in brands
-                                     select new { a.ItemID, ItemName = a.ItemName_EN, Description = a.Description_EN, a.Longitude, a.Latitude, a.FullAddress, a.Website, a.Logo, a.MarkerIcon, a.Phone };
-            sHis.ResultCount = brands.Count();
-            return jsonNetResult;
-        }
-        */
+                    JsonNetResult jsonNetResult = new JsonNetResult();
+                    jsonNetResult.Formatting = Formatting.Indented;
+                    jsonNetResult.Data = from a in brands
+                                         select new { a.ItemID, a.ItemName, a.Description, a.Longitude, a.Latitude, a.FullAddress, a.Website, a.Logo, a.MarkerIcon, a.Phone };
+                    if (vn0_EN1 == 1)
+                        jsonNetResult.Data = from a in brands
+                                             select new { a.ItemID, ItemName = a.ItemName_EN, Description = a.Description_EN, a.Longitude, a.Latitude, a.FullAddress, a.Website, a.Logo, a.MarkerIcon, a.Phone };
+                    sHis.ResultCount = brands.Count();
+                    return jsonNetResult;
+                }
+                */
         public JsonNetResult ItemByKeyword(ref SearchHistory sHis, string keyword, string properties = "", int vn0_EN1 = 0)
         {
             string path = ConfigurationManager.AppSettings["BrandLogoLocation"].Replace("~", "");
-            string c_path = ConfigurationManager.AppSettings["CategoryMarkerIconLocaion"].Replace("~", "");
+            string c_path = ConfigurationManager.AppSettings["CategoryMarkerIconLocation"].Replace("~", "");
             string b_path = ConfigurationManager.AppSettings["BrandMarkerIconLocation"].Replace("~", "");
             string i_path = ConfigurationManager.AppSettings["ItemMarkerIconLocation"].Replace("~", "");
             //object NumberOfIntemShow
-            string keyword_unsign = StripDiacritics(keyword).ToLower();
+            string keyword_unsign = StripDiacritics(keyword).ToLower().Replace("_","&");
 
             string[] list = properties.Split(',');
             List<int> items = new List<int>();
@@ -309,7 +311,7 @@ namespace fqtd.Controllers
             var brands = from i in db.BrandItems
                          join br in db.Brands on i.BrandID equals br.BrandID
                          join c in db.Categories on br.CategoryID equals c.CategoryID
-                         where i.IsShow && br.IsShow && c.IsShow && (i.Keyword.ToLower().Contains(" "+keyword)||i.Keyword.ToLower().Contains(keyword+" "))
+                         where i.IsShow && br.IsShow && c.IsShow && (i.Keyword.ToLower().Contains(" " + keyword.Replace("_", "&") + " "))
                          select new
                          {
                              i.ItemID,
@@ -326,7 +328,7 @@ namespace fqtd.Controllers
                              Logo = path + "/" + br.Logo,
                              MarkerIcon = i.MarkerIcon == null ? br.MarkerIcon == null ? c_path + "/" + c.MarkerIcon : b_path + "/" + br.MarkerIcon : i_path + "/" + i.MarkerIcon
                          };
-            var brands_unsign = from i in db.BrandItems
+            /*var brands_unsign = from i in db.BrandItems
                                 join br in db.Brands on i.BrandID equals br.BrandID
                                 join c in db.Categories on br.CategoryID equals c.CategoryID
                                 where i.IsShow
@@ -346,7 +348,7 @@ namespace fqtd.Controllers
                                     i.Latitude,
                                     Logo = path + "/" + br.Logo,
                                     MarkerIcon = i.MarkerIcon == null ? br.MarkerIcon == null ? c_path + "/" + c.MarkerIcon : b_path + "/" + br.MarkerIcon : i_path + "/" + i.MarkerIcon
-                                };
+                                };*/
             if (itemlist.Count() > 0)
                 brands = from i in brands
                          join ip in itemlist on i.ItemID equals ip.ItemID
@@ -360,10 +362,10 @@ namespace fqtd.Controllers
             result.Add(from a in brands
                        select new { a.ItemID, a.ItemName, a.Description, a.Longitude, a.Latitude, a.FullAddress, a.Website, a.Logo, a.MarkerIcon, a.Phone }
                 );
-            result.Add(from a in brands_unsign
-                       where !brands.Contains(a)
-                       select new { a.ItemID, a.ItemName, a.Description, a.Longitude, a.Latitude, a.FullAddress, a.Website, a.Logo, a.MarkerIcon, a.Phone }
-                );
+            //result.Add(from a in brands_unsign
+            //           where !brands.Contains(a)
+            //           select new { a.ItemID, a.ItemName, a.Description, a.Longitude, a.Latitude, a.FullAddress, a.Website, a.Logo, a.MarkerIcon, a.Phone }
+            //    );
             JsonNetResult jsonNetResult = new JsonNetResult();
             jsonNetResult.Formatting = Formatting.Indented;
             jsonNetResult.Data = result;// from a in brands
@@ -374,7 +376,7 @@ namespace fqtd.Controllers
             sHis.ResultCount = brands.Count();
             return jsonNetResult;
         }
-        
+
         [OutputCache(CacheProfile = "Aggressive", VaryByParam = "mode;keyword;currentLocation;categoryid;brandid;radious;properties;vn0_EN1", Location = System.Web.UI.OutputCacheLocation.Client)]
         public ActionResult Search(int mode = 0, string keyword = "", string currentLocation = "", int categoryid = -1, int brandid = -1, int radious = 1, string properties = "", int vn0_EN1 = 0)
         {

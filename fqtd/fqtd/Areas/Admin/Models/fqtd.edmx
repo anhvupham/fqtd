@@ -23,7 +23,10 @@
           <EntitySet Name="tbl_Properties" EntityType="fqtdModel.Store.tbl_Properties" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tbl_SystemContent" EntityType="fqtdModel.Store.tbl_SystemContent" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tbl_ContactUS" EntityType="fqtdModel.Store.tbl_ContactUS" store:Type="Tables" Schema="timdau_fqtd" />
+          <EntitySet Name="tbl_Groups" EntityType="fqtdModel.Store.tbl_Groups" store:Type="Tables" Schema="timdau_fqtd" />
           <EntitySet Name="tbl_SearchHistory" EntityType="fqtdModel.Store.tbl_SearchHistory" store:Type="Tables" Schema="timdau_fqtd" />
+          <EntitySet Name="tbl_Survey" EntityType="fqtdModel.Store.tbl_Survey" store:Type="Tables" Schema="timdau_fqtd" />
+          <EntitySet Name="tbl_SurveyResult" EntityType="fqtdModel.Store.tbl_SurveyResult" store:Type="Tables" Schema="timdau_fqtd" />
           <AssociationSet Name="FK_tbl_Brand_Categories_tbl_Categories" Association="fqtdModel.Store.FK_tbl_Brand_Categories_tbl_Categories">
             <End Role="tbl_Categories" EntitySet="tbl_Categories" />
             <End Role="tbl_Brand_Categories" EntitySet="tbl_Brand_Categories" />
@@ -39,6 +42,10 @@
           <AssociationSet Name="FK_tbl_Brands_tbl_Categories" Association="fqtdModel.Store.FK_tbl_Brands_tbl_Categories">
             <End Role="tbl_Categories" EntitySet="tbl_Categories" />
             <End Role="tbl_Brands" EntitySet="tbl_Brands" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Categories_tbl_Groups" Association="fqtdModel.Store.FK_tbl_Categories_tbl_Groups">
+            <End Role="tbl_Groups" EntitySet="tbl_Groups" />
+            <End Role="tbl_Categories" EntitySet="tbl_Categories" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_Category_Properties_tbl_Categories" Association="fqtdModel.Store.FK_tbl_Category_Properties_tbl_Categories">
             <End Role="tbl_Categories" EntitySet="tbl_Categories" />
@@ -177,6 +184,7 @@
           <Property Name="MarkerIcon" Type="nvarchar" MaxLength="250" />
           <Property Name="Keyword" Type="nvarchar(max)" />
           <Property Name="Keyword_Unsign" Type="nvarchar(max)" StoreGeneratedPattern="Computed" />
+          <Property Name="GroupID" Type="int" Nullable="false" />
           <Property Name="IsShow" Type="bit" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
@@ -243,6 +251,25 @@
           <Property Name="ContactContent" Type="nvarchar" Nullable="false" MaxLength="1500" />
           <Property Name="ContactDate" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="tbl_Groups">
+          <Key>
+            <PropertyRef Name="GroupID" />
+          </Key>
+          <Property Name="GroupID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="250" />
+          <Property Name="GroupName_EN" Type="nvarchar" MaxLength="250" />
+          <Property Name="Description" Type="nvarchar" MaxLength="550" />
+          <Property Name="Keyword" Type="nvarchar(max)" />
+          <Property Name="Keyword_Unsign" Type="nvarchar(max)" StoreGeneratedPattern="Computed" />
+          <Property Name="IsShow" Type="bit" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="ModifyUser" Type="nvarchar" MaxLength="256" />
+          <Property Name="DeleteDate" Type="datetime" />
+          <Property Name="DeleteUser" Type="nvarchar" MaxLength="256" />
+        </EntityType>
         <EntityType Name="tbl_SearchHistory">
           <Key>
             <PropertyRef Name="SearchID" />
@@ -259,6 +286,24 @@
           <Property Name="SearchDate" Type="date" />
           <Property Name="SearchTime" Type="datetime" />
           <Property Name="ResultCount" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_Survey">
+          <Key>
+            <PropertyRef Name="SurveyID" />
+          </Key>
+          <Property Name="SurveyID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SurveyName" Type="nvarchar" MaxLength="250" />
+          <Property Name="Description" Type="nvarchar" MaxLength="550" />
+        </EntityType>
+        <EntityType Name="tbl_SurveyResult">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ServeyID" Type="int" />
+          <Property Name="Question" Type="nvarchar" MaxLength="250" />
+          <Property Name="VoteCount" Type="int" />
+          <Property Name="VoteLastTime" Type="datetime" />
         </EntityType>
         <Association Name="FK_tbl_Brand_Categories_tbl_Categories">
           <End Role="tbl_Categories" Type="fqtdModel.Store.tbl_Categories" Multiplicity="1" />
@@ -305,6 +350,18 @@
             </Principal>
             <Dependent Role="tbl_Brands">
               <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Categories_tbl_Groups">
+          <End Role="tbl_Groups" Type="fqtdModel.Store.tbl_Groups" Multiplicity="1" />
+          <End Role="tbl_Categories" Type="fqtdModel.Store.tbl_Categories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Groups">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="tbl_Categories">
+              <PropertyRef Name="GroupID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -518,6 +575,13 @@
           <FunctionImport Name="SP_SearchByKeyword" ReturnType="Collection(fqtdModel.SP_SearchByKeyword_Result)" />
           <FunctionImport Name="SP_SearchByMode" ReturnType="Collection(fqtdModel.SP_SearchByMode_Result)" />
           <EntitySet Name="SearchHistory" EntityType="fqtdModel.SearchHistory" />
+          <EntitySet Name="Groups" EntityType="fqtdModel.Groups" />
+          <EntitySet Name="Survey" EntityType="fqtdModel.Survey" />
+          <EntitySet Name="SurveyResult" EntityType="fqtdModel.SurveyResult" />
+          <AssociationSet Name="FK_tbl_Categories_tbl_Groups" Association="fqtdModel.FK_tbl_Categories_tbl_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Categories" EntitySet="Categories" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="BrandItems">
           <Key>
@@ -627,6 +691,8 @@
           <Property Type="String" Name="Keyword_Unsign" MaxLength="Max" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="tbl_Brand_Categories" Relationship="fqtdModel.FK_tbl_Brand_Categories_tbl_Categories" FromRole="Categories" ToRole="tbl_Brand_Categories" />
           <Property Type="Boolean" Name="IsShow" Nullable="false" />
+          <Property Type="Int32" Name="GroupID" Nullable="false" />
+          <NavigationProperty Name="tbl_Groups" Relationship="fqtdModel.FK_tbl_Categories_tbl_Groups" FromRole="Categories" ToRole="Groups" />
         </EntityType>
         <EntityType Name="ItemProperties">
           <Key>
@@ -905,6 +971,56 @@
           <Property Type="DateTime" Name="SearchTime" Precision="3" />
           <Property Type="Int32" Name="ResultCount" />
         </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="GroupID" />
+          </Key>
+          <Property Type="Int32" Name="GroupID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="GroupName" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="GroupName_EN" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsShow" Nullable="false" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="3" />
+          <Property Type="String" Name="CreateUser" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="ModifyDate" Precision="3" />
+          <Property Type="String" Name="ModifyUser" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="DeleteDate" Precision="3" />
+          <Property Type="String" Name="DeleteUser" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Keyword" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Keyword_Unsign" MaxLength="Max" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="tbl_Categories" Relationship="fqtdModel.FK_tbl_Categories_tbl_Groups" FromRole="Groups" ToRole="Categories" />
+        </EntityType>
+        <EntityType Name="Survey">
+          <Key>
+            <PropertyRef Name="SurveyID" />
+          </Key>
+          <Property Type="Int32" Name="SurveyID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="SurveyName" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="550" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SurveyResult">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Type="Int32" Name="QuestionID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="ServeyID" />
+          <Property Type="String" Name="Question" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="VoteCount" />
+          <Property Type="DateTime" Name="VoteLastTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_tbl_Categories_tbl_Groups">
+          <End Type="fqtdModel.Groups" Role="Groups" Multiplicity="1" />
+          <End Type="fqtdModel.Categories" Role="Categories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="Categories">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -995,6 +1111,7 @@
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="fqtdModel.Categories">
               <MappingFragment StoreEntitySet="tbl_Categories">
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
                 <ScalarProperty Name="IsShow" ColumnName="IsShow" />
                 <ScalarProperty Name="Keyword_Unsign" ColumnName="Keyword_Unsign" />
                 <ScalarProperty Name="Keyword" ColumnName="Keyword" />
@@ -1216,6 +1333,46 @@
                 <ScalarProperty Name="CurrentLocation" ColumnName="CurrentLocation" />
                 <ScalarProperty Name="Keyword" ColumnName="Keyword" />
                 <ScalarProperty Name="SearchID" ColumnName="SearchID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="fqtdModel.Groups">
+              <MappingFragment StoreEntitySet="tbl_Groups">
+                <ScalarProperty Name="Keyword_Unsign" ColumnName="Keyword_Unsign" />
+                <ScalarProperty Name="Keyword" ColumnName="Keyword" />
+                <ScalarProperty Name="DeleteUser" ColumnName="DeleteUser" />
+                <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
+                <ScalarProperty Name="ModifyUser" ColumnName="ModifyUser" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsShow" ColumnName="IsShow" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="GroupName_EN" ColumnName="GroupName_EN" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Survey">
+            <EntityTypeMapping TypeName="fqtdModel.Survey">
+              <MappingFragment StoreEntitySet="tbl_Survey">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SurveyName" ColumnName="SurveyName" />
+                <ScalarProperty Name="SurveyID" ColumnName="SurveyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SurveyResult">
+            <EntityTypeMapping TypeName="fqtdModel.SurveyResult">
+              <MappingFragment StoreEntitySet="tbl_SurveyResult">
+                <ScalarProperty Name="VoteLastTime" ColumnName="VoteLastTime" />
+                <ScalarProperty Name="VoteCount" ColumnName="VoteCount" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="ServeyID" ColumnName="ServeyID" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

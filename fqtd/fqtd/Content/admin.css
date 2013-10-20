@@ -45,9 +45,10 @@ body
     margin: 5px 5px 5px 5px;
 }
 
-    .editor-field input[type="text"]
+    .editor-field input[type="text"], textarea
     {
         width: 80%;
+        border-color: gray;
     }
     body input[type="submit"]
     {

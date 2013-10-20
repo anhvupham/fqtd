@@ -61,13 +61,13 @@ var FQTD = (function () {
 
     function encodeItemName(value) {
         //return encodeURIComponent(value.replace(".", "_").replace("/", ",").replace("\"", "*"));
-        value = value.replace(/\ /g, '-').replace(/\//g, "^").replace(/\\/g, "*").replace(/\./g, ":");
+        value = value.replace(/\ /g, '-').replace(/\//g, "^").replace(/\\/g, "*").replace(/\./g, ":");//.replace(/\&/g, '_');
         return (value);
     }
 
     function decodeItemName(value) {
         value = (value)
-        return value.replace(/\-/g, ' ').replace(/\^/g, "/").replace(/\*/g, '\\').replace(/\:/g, ".");
+        return value.replace(/\-/g, ' ').replace(/\^/g, "/").replace(/\*/g, '\\').replace(/\:/g, ".");//.replace(/\_/g, "&");
     }
 
     function validateNumber(value) {
@@ -303,11 +303,12 @@ var FQTD = (function () {
             //Get data result            
             var urlResult = "/result/search?";
             urlResult += "mode=" + $("#form").val();
-            urlResult += "&keyword=" + decodeItemName($("#search").val());
+            urlResult += "&keyword=" + decodeItemName($("#search").val()).replace('&', '_');
             urlResult += "&currentLocation=" + decodeItemName($("#address").val());
             urlResult += "&categoryid=" + $("#category").val();
             urlResult += "&brandid=" + $("#brand").val();
             urlResult += "&radious=" + $("#range").val();
+            //alert(urlResult);
             if (arr) {
                 if (arr.length > 0) {
                     urlResult += "&properties=";
