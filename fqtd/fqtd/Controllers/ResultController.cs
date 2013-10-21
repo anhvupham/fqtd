@@ -606,7 +606,7 @@ namespace fqtd.Controllers
             {
                 foreach (var key in item.Keyword.Split(';'))
                 {
-                    if (key != null && key.ToLower().StartsWith(StringInput.ToLower()))
+                    if (key != null && key.Trim().ToLower().StartsWith(StringInput.Trim().ToLower()))
                         if (!list.Contains(key.ToLower().Trim()))
                             list.Add(key.ToLower().Trim());
                 }
