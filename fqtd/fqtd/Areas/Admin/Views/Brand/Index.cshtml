@@ -46,9 +46,9 @@
         <th>
        @Ajax.ActionLink("Brand Name", "Index", new
        {
+           keyword = ViewBag.CurrentKeyword,
            sortOrder = ViewBag.BrandName,
            page = 1,
-           keyword = ViewBag.CurrentKeyword,
        }, new AjaxOptions { UpdateTargetId = "main" })
         </th>
         <th>
@@ -64,9 +64,9 @@
         <th class="detail">
             @Ajax.ActionLink("UpdateTime", "Index", new
        {
+           keyword = ViewBag.CurrentKeyword,
            sortOrder = ViewBag.UpdateTime,
            page = 1,
-           keyword = ViewBag.CurrentKeyword,
        }, new AjaxOptions { UpdateTargetId = "main" })
         </th>
         <th class="detail">
@@ -75,15 +75,15 @@
         <th class="detail">
              @Ajax.ActionLink("CreateTime", "Index", new
        {
+           keyword = ViewBag.CurrentKeyword,
            sortOrder = ViewBag.CreateTime,
            page = 1,
-           keyword = ViewBag.CurrentKeyword,
        }, new AjaxOptions { UpdateTargetId = "main" })
         </th>
         <th class="detail">
             @Html.DisplayNameFor(model => model.ModifyUser)
         </th>
-        <th><button onclick="showDetail()">show detail</button></th>
+        <th>@*<button onclick="showDetail()">show detail</button>*@</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -103,13 +103,13 @@
         <td>
             <img src="@Href(System.Configuration.ConfigurationManager.AppSettings["BrandLogoLocation"] + "/" + item.Logo)" width="50" /></td>
         <td class="detail">
-            @Html.DisplayFor(modelItem => item.CreateDate)
+            @Html.DisplayFor(modelItem => item.ModifyDate)
         </td>
         <td class="detail">
             @Html.DisplayFor(modelItem => item.CreateUser)
         </td>
         <td class="detail">
-            @Html.DisplayFor(modelItem => item.ModifyDate)
+            @Html.DisplayFor(modelItem => item.CreateDate)
         </td>
         <td class="detail">
             @Html.DisplayFor(modelItem => item.ModifyUser)

@@ -39,7 +39,7 @@ namespace fqtd.Areas.Admin.Controllers
             int currentPage = page;
             ViewBag.CurrentPage = page;
             TempData["CurrentKeyword"] = keyword;
-            TempData["CurrentPage"] = page;
+            TempData["CreateTime"] = page;
             ViewBag.ItemCount = result.Count();
             return View(result.ToPagedList(currentPage, maxRecords));
         }

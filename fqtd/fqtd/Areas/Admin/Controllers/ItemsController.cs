@@ -29,7 +29,7 @@ namespace fqtd.Areas.Admin.Controllers
         public ActionResult Index(string sortOrder = "", string keyword = "", int? CategoryID = null, int? BrandID = null, bool? isShow = null, string CreateUser = "", int page = 1)
         {
 
-            var result = from a in db.BrandItems where (a.ItemName.Contains(keyword) || a.ItemName_EN.Contains(keyword)) select a;
+            var result = from a in db.BrandItems where (a.ItemName.Contains(keyword) || a.ItemName_EN.Contains(keyword) || a.FullAddress.Contains(keyword)) select a;
             if (CategoryID != null)
                 result = result.Where(a => a.tbl_Brands.CategoryID == CategoryID);
             if (BrandID != null)
