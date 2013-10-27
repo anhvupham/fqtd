@@ -205,6 +205,7 @@
     <Compile Include="Areas\Admin\Controllers\ItemsController.cs" />
     <Compile Include="Areas\Admin\Controllers\PropertiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\SearchHistoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SurveyController.cs" />
     <Compile Include="Areas\Admin\Controllers\SystemContentController.cs" />
     <Compile Include="Areas\Admin\Models\BrandCategories.cs">
       <DependentUpon>fqtd.tt</DependentUpon>
@@ -805,6 +806,11 @@
     <Content Include="Areas\Admin\Views\Group\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Group\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Group\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Survey\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Survey\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Survey\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Survey\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Survey\Delete.cshtml" />
     <None Include="Properties\PublishProfiles\fqtd_test.pubxml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Images\bg_bottom.jpg" />

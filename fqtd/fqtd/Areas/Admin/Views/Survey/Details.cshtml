@@ -1,0 +1,59 @@
+﻿@model fqtd.Areas.Admin.Models.Survey
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Survey</legend>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.SurveyName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SurveyName)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+    <br />
+    Question list
+    <br />
+    @using (Ajax.BeginForm("AddQuestion", new AjaxOptions { UpdateTargetId = "details" }))
+    {
+    <table>
+        <tr>
+            <td>Question</td>
+            <td><input type="text" name="Question"/></td>
+            <td><input type="submit" name="   Add  " value="   Add   "/></td>
+        </tr>
+    </table>
+    }
+    <br />
+    <table id="details">
+        <tr>
+            <th>Question</th>
+            <th>VoteCount</th>
+            <th>VoteLastTime</th>
+        </tr>
+        @foreach (var item in new fqtd.Areas.Admin.Models.fqtdEntities().SurveyResult)
+        {
+            <tr>
+                <td>@item.Question</td>
+                <td>@item.VoteCount</td>
+                <td>@item.VoteLastTime</td>
+            </tr> 
+        }
+    </table>
+    <
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SurveyID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
