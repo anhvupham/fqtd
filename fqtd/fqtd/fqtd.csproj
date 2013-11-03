@@ -273,6 +273,9 @@
     <Compile Include="Areas\Admin\Models\Survey.cs">
       <DependentUpon>fqtd.tt</DependentUpon>
     </Compile>
+    <Compile Include="Areas\Admin\Models\SurveyOtherOpininon.cs">
+      <DependentUpon>fqtd.tt</DependentUpon>
+    </Compile>
     <Compile Include="Areas\Admin\Models\SurveyResult.cs">
       <DependentUpon>fqtd.tt</DependentUpon>
     </Compile>
@@ -811,6 +814,7 @@
     <Content Include="Areas\Admin\Views\Survey\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Survey\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Survey\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Survey\ViewResult.cshtml" />
     <None Include="Properties\PublishProfiles\fqtd_test.pubxml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Images\bg_bottom.jpg" />
@@ -939,6 +943,7 @@
     <Content Include="Views\SGAccount\ChangePassword.cshtml" />
     <Content Include="Views\PasswordResetMailer\PasswordReset.cshtml" />
     <Content Include="Views\PasswordResetMailer\_Layout.cshtml" />
+    <Content Include="Views\Home\Survey.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

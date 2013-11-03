@@ -26,6 +26,7 @@
           <EntitySet Name="tbl_Groups" EntityType="fqtdModel.Store.tbl_Groups" store:Type="Tables" Schema="timdau_fqtd" />
           <EntitySet Name="tbl_SearchHistory" EntityType="fqtdModel.Store.tbl_SearchHistory" store:Type="Tables" Schema="timdau_fqtd" />
           <EntitySet Name="tbl_Survey" EntityType="fqtdModel.Store.tbl_Survey" store:Type="Tables" Schema="timdau_fqtd" />
+          <EntitySet Name="tbl_SurveyOtherOpininon" EntityType="fqtdModel.Store.tbl_SurveyOtherOpininon" store:Type="Tables" Schema="timdau_fqtd" />
           <EntitySet Name="tbl_SurveyResult" EntityType="fqtdModel.Store.tbl_SurveyResult" store:Type="Tables" Schema="timdau_fqtd" />
           <AssociationSet Name="FK_tbl_Brand_Categories_tbl_Categories" Association="fqtdModel.Store.FK_tbl_Brand_Categories_tbl_Categories">
             <End Role="tbl_Categories" EntitySet="tbl_Categories" />
@@ -294,6 +295,15 @@
           <Property Name="SurveyID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="SurveyName" Type="nvarchar" MaxLength="250" />
           <Property Name="Description" Type="nvarchar" MaxLength="550" />
+        </EntityType>
+        <EntityType Name="tbl_SurveyOtherOpininon">
+          <Key>
+            <PropertyRef Name="OtherOID" />
+          </Key>
+          <Property Name="OtherOID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="OtherOpinion" Type="nvarchar(max)" />
+          <Property Name="SurveyID" Type="int" />
+          <Property Name="SumitTime" Type="datetime" />
         </EntityType>
         <EntityType Name="tbl_SurveyResult">
           <Key>
@@ -582,6 +592,7 @@
             <End Role="Groups" EntitySet="Groups" />
             <End Role="Categories" EntitySet="Categories" />
           </AssociationSet>
+          <EntitySet Name="SurveyOtherOpininon" EntityType="fqtdModel.SurveyOtherOpininon" />
         </EntityContainer>
         <EntityType Name="BrandItems">
           <Key>
@@ -1021,6 +1032,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SurveyOtherOpininon">
+          <Key>
+            <PropertyRef Name="OtherOID" />
+          </Key>
+          <Property Type="Int32" Name="OtherOID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="OtherOpinion" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="SurveyID" />
+          <Property Type="DateTime" Name="SumitTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1373,6 +1393,16 @@
                 <ScalarProperty Name="Question" ColumnName="Question" />
                 <ScalarProperty Name="ServeyID" ColumnName="ServeyID" />
                 <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SurveyOtherOpininon">
+            <EntityTypeMapping TypeName="fqtdModel.SurveyOtherOpininon">
+              <MappingFragment StoreEntitySet="tbl_SurveyOtherOpininon">
+                <ScalarProperty Name="SumitTime" ColumnName="SumitTime" />
+                <ScalarProperty Name="SurveyID" ColumnName="SurveyID" />
+                <ScalarProperty Name="OtherOpinion" ColumnName="OtherOpinion" />
+                <ScalarProperty Name="OtherOID" ColumnName="OtherOID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -4,55 +4,67 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<div class="display-label">
+    @Html.DisplayNameFor(model => model.SurveyName)
+</div>
+<div class="display-field">
+    @Html.DisplayFor(model => model.SurveyName)
+</div>
 
-<fieldset>
-    <legend>Survey</legend>
-
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.SurveyName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.SurveyName)
-    </div>
-
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.Description)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Description)
-    </div>
-    <br />
+<div class="display-label">
+    @Html.DisplayNameFor(model => model.Description)
+</div>
+<div class="display-field">
+    @Html.DisplayFor(model => model.Description)
+</div>
+<br />
     Question list
-    <br />
-    @using (Ajax.BeginForm("AddQuestion", new AjaxOptions { UpdateTargetId = "details" }))
-    {
-    <table>
+<br />
+@using (Ajax.BeginForm("AddQuestion", new AjaxOptions { UpdateTargetId = "main" }))
+{
+    <input type="hidden" name="SurveyID" value="@Model.SurveyID" />
+    
+    <table class="table_list">
         <tr>
             <td>Question</td>
-            <td><input type="text" name="Question"/></td>
-            <td><input type="submit" name="   Add  " value="   Add   "/></td>
+
+            <td>
+                <input type="text" name="Question" /></td>
+            <td>
+                <input type="submit" name="   Add  " value="   Add   " onclick="if ($('Question').val().length == 0) { alert('Input question please!'); return false; }" /></td>
         </tr>
     </table>
-    }
-    <br />
-    <table id="details">
+}
+<br />
+<table class="table_list">
+    <tr>
+        <th>Question</th>
+        <th>VoteCount</th>
+        <th>VoteLastTime</th>
+    </tr>
+    @foreach (var item in new fqtd.Areas.Admin.Models.fqtdEntities().SurveyResult.Where(a => a.ServeyID == Model.SurveyID))
+    {
         <tr>
-            <th>Question</th>
-            <th>VoteCount</th>
-            <th>VoteLastTime</th>
-        </tr>
-        @foreach (var item in new fqtd.Areas.Admin.Models.fqtdEntities().SurveyResult)
-        {
-            <tr>
-                <td>@item.Question</td>
-                <td>@item.VoteCount</td>
-                <td>@item.VoteLastTime</td>
-            </tr> 
-        }
-    </table>
-    <
-</fieldset>
+            <td>@item.Question</td>
+            <td>@item.VoteCount</td>
+            <td>@item.VoteLastTime</td>
+            <td>@Html.ActionLink("Delete", "RemoveQuestion", new { QuestionID = @item.QuestionID }, new { onclick = "return confirm('are you sure?');" })</td>
+        </tr> 
+    }
+</table>
+<table class="table_list">
+    <tr>
+        <th>Ý kiến khác</th>
+        <th>Thời gian gửi</th>
+    </tr>
+    @foreach (var item in new fqtd.Areas.Admin.Models.fqtdEntities().SurveyOtherOpininon.Where(a => a.SurveyID == Model.SurveyID))
+    {
+        <tr>
+            <td>@item.OtherOpinion</td>
+            <td>@item.SumitTime</td>
+        </tr> 
+    }
+</table>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.SurveyID }) |
     @Html.ActionLink("Back to List", "Index")

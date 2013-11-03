@@ -80,5 +80,14 @@ namespace fqtd.Controllers
             return View();
         }
 
+        public ActionResult Survey(int id)
+        {
+           var survey= db.Survey.Find(id);
+           if (survey != null && survey.SurveyID > 0)
+           {
+               return View(survey);
+           }
+           else return View();
+        }
     }
 }

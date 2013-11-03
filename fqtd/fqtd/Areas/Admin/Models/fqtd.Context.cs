@@ -43,6 +43,7 @@ namespace fqtd.Areas.Admin.Models
         public DbSet<Groups> Groups { get; set; }
         public DbSet<Survey> Survey { get; set; }
         public DbSet<SurveyResult> SurveyResult { get; set; }
+        public DbSet<SurveyOtherOpininon> SurveyOtherOpininon { get; set; }
     
         public virtual ObjectResult<SP_Category_Properties_Result> SP_Category_Properties(Nullable<int> categoryID)
         {

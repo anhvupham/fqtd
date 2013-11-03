@@ -1,0 +1,122 @@
+﻿@model fqtd.Areas.Admin.Models.Survey
+
+@{
+    Layout = null;
+    var db = new fqtd.Areas.Admin.Models.fqtdEntities();
+}
+
+<!DOCTYPE html>
+
+@*<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ViewResult</title>
+</head>
+<body>
+    <div>
+        @foreach (var item in new fqtd.Areas.Admin.Models.fqtdEntities().SurveyResult.Where(a => a.ServeyID == Model.SurveyID))
+        {
+            var height = item.VoteCount * 100;
+            <label style="width: @height px; background-color: red; height: 30px" >@item.VoteCount</label><br />
+        }
+    </div>
+</body>
+</html>*@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+<head>
+    <title id='Description'>jqxChart Bar Series Example</title>
+    <link rel="stylesheet" href="http://www.jqwidgets.com/jquery-widgets-demo/jqwidgets/styles/jqx.base.css" type="text/css" />
+    <script type="text/javascript" src="http://www.jqwidgets.com/jquery-widgets-demo/scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="http://www.jqwidgets.com/jquery-widgets-demo/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="http://www.jqwidgets.com/jquery-widgets-demo/jqwidgets/jqxchart.js"></script>
+    <script type="text/javascript" src="http://www.jqwidgets.com/jquery-widgets-demo/jqwidgets/jqxdata.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // prepare chart data
+            //var surveyResult = [
+            //    { Question: 'China', VoteCount: 1347350000, Percent: 19.18},
+            //    { Question: 'India', VoteCount: 1210193422, Percent: 17.22 },
+            //    { Question: 'USA', VoteCount: 313912000, Percent: 4.47 },
+            //    { Question: 'Indonesia', VoteCount: 237641326, Percent: 3.38 },
+            //    { Question: 'Brazil', VoteCount: 192376496, Percent: 2.74 }
+
+            //];
+
+            var urlProperty = "../JsonData/@Model.SurveyID";
+            //window.location = urlProperty;
+            //alert(urlProperty);
+            var surveyResult = $.getJSON(urlProperty, function () {
+                //alert("success");
+            })
+          .done(function () {
+              //alert("second success");
+          })
+          .fail(function (surveyResult, textStatus, error) {
+              alert("error: " + error + surveyResult);
+          })
+          .always(function () {
+              //alert("complete");
+          });
+
+            // Perform other work here ...
+
+            // Set another completion function for the request above
+            surveyResult.complete(function () {
+            });
+            $.getJSON(urlProperty, null, function (surveyResult) {
+                //alert(surveyResult);
+            // prepare jqxChart settings
+             var settings = {
+                    title: "Kết quả thăm dò",
+                    description: "@Model.SurveyName",
+                showLegend: true,
+                enableAnimations: true,
+                padding: { left: 20, top: 5, right: 20, bottom: 5 },
+                titlePadding: { left: 90, top: 0, right: 0, bottom: 10 },
+                source: surveyResult,
+                categoryAxis:
+                    {
+                        dataField: 'Question',
+                        showGridLines: true,
+                        flip: false
+                    },
+                colorScheme: 'scheme01',
+                seriesGroups:
+                    [
+                        {
+                            type: 'column',
+                            orientation: 'vertical',
+                            columnsGapPercent: 100,
+                            toolTipFormatSettings: { thousandsSeparator: ',' },
+                            valueAxis:
+                            {
+                                flip: true,
+                                unitInterval: 0,
+                                maxValue: 100,
+                                displayValueAxis: true,
+                                description: '',
+                                formatFunction: function (value) {
+                                    return parseInt(value);
+                                }
+                            },
+                            series: [
+                                    { dataField: 'VoteCount', displayText: 'Population (millions)' }
+                            ]
+                        }
+                    ]
+            };
+                // setup the chart
+                $('#jqxChart').jqxChart(settings);
+
+            });
+        });
+    </script>
+</head>
+<body class='default'>
+    <div id='jqxChart' style="width: 680px; height: 400px; position: relative; left: 0px; top: 0px;">
+    </div>
+</body>
+</html>

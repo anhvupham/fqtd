@@ -1,0 +1,32 @@
+﻿@model fqtd.Areas.Admin.Models.Survey
+@{
+    ViewBag.Title = "Survey";
+}
+@using (Html.BeginForm("SurveySubmit", "Admin/Survey"))
+{
+    
+    <input type="hidden" name="SurveyID" value="@Model.SurveyID" />
+<h2>@Model.SurveyName</h2>
+<h3>1. Những lĩnh vực sau đây</h3>
+<table>
+    @foreach (var item in new fqtd.Areas.Admin.Models.fqtdEntities().SurveyResult.Where(a => a.ServeyID == Model.SurveyID))
+    {
+        <tr>
+            <td><input id="@item.QuestionID" name="MyCheckList" value="@item.QuestionID" type="checkbox" />
+                <label for="@item.QuestionID">@item.Question</label>
+            </td>
+        </tr>
+    }
+    <tr>
+        <td>
+            <input type="submit" value="Gửi" name="Command" />
+            @Html.ActionLink("Xem kết quả","Survey")
+        </td>
+    </tr>
+</table>
+
+<h3>2. Nếu bạn không quan tâm đến những lĩnh vực trên, hãy cho chúng tôi biết bạn quan tâm gì?</h3>
+
+<input type="text" name="Other" />
+<input type="submit" value="Ý kiến khác" name="Command"  />
+}
