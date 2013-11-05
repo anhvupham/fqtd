@@ -25,7 +25,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
 <head>
-    <title id='Description'>jqxChart Bar Series Example</title>
+    <title id='Description'>@Model.SurveyName</title>
     <link rel="stylesheet" href="http://www.jqwidgets.com/jquery-widgets-demo/jqwidgets/styles/jqx.base.css" type="text/css" />
     <script type="text/javascript" src="http://www.jqwidgets.com/jquery-widgets-demo/scripts/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="http://www.jqwidgets.com/jquery-widgets-demo/jqwidgets/jqxcore.js"></script>
@@ -71,24 +71,40 @@
             // prepare jqxChart settings
              var settings = {
                     title: "Kết quả thăm dò",
-                    description: "@Model.SurveyName",
-                showLegend: true,
-                enableAnimations: true,
-                padding: { left: 20, top: 5, right: 20, bottom: 5 },
-                titlePadding: { left: 90, top: 0, right: 0, bottom: 10 },
+                    description: "@Model.SurveyName.ToMvcHtml()",
+                 enableAnimations: true,
+                 showLegend: true,
+                 legendLayout: { left: 500, top: 140, width: 300, height: 200, flow: 'vertical' },
+                 padding: { left: 5, top: 5, right: 5, bottom: 5 },
+                 titlePadding: { left: 0, top: 0, right: 0, bottom: 10 },
+                 //source: dataAdapter,
+                 colorScheme: 'scheme03',
                 source: surveyResult,
                 categoryAxis:
                     {
-                        dataField: 'Question',
+                        dataField: 'Percent',
                         showGridLines: true,
                         flip: false
                     },
-                colorScheme: 'scheme01',
+                //colorScheme: 'scheme01',
                 seriesGroups:
                     [
                         {
-                            type: 'column',
-                            orientation: 'vertical',
+                            type: 'pie',
+                            showLabels: true,
+                            series:
+                                [
+                                    {
+                                        dataField: 'Percent',
+                                        displayText: 'Question',
+                                        labelRadius: 120,
+                                        initialAngle: 15,
+                                        radius: 95,
+                                        centerOffset: 0,
+                                        formatSettings: { sufix: '%', decimalPlaces: 1 }
+                                    }
+                                ]
+                            /*orientation: 'vertical',
                             columnsGapPercent: 100,
                             toolTipFormatSettings: { thousandsSeparator: ',' },
                             valueAxis:
@@ -104,7 +120,7 @@
                             },
                             series: [
                                     { dataField: 'VoteCount', displayText: 'Population (millions)' }
-                            ]
+                            ]*/
                         }
                     ]
             };

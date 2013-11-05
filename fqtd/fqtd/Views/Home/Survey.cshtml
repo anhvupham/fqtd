@@ -1,4 +1,5 @@
-﻿@model fqtd.Areas.Admin.Models.Survey
+﻿
+@model fqtd.Areas.Admin.Models.Survey
 @{
     ViewBag.Title = "Survey";
 }
@@ -20,7 +21,7 @@
     <tr>
         <td>
             <input type="submit" value="Gửi" name="Command" />
-            @Html.ActionLink("Xem kết quả","Survey")
+            @Html.ActionLink("Xem kết quả", "ViewResult", "Admin/Survey", new { id = Model.SurveyID }, new { })
         </td>
     </tr>
 </table>
